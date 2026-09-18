@@ -1,0 +1,120 @@
+<div id="menu_save_wrapper">
+
+	<!-- 閉じるボタン -->
+	<div class='menu_item menu_close' style='position: absolute; top:56px; left:1756px;'>
+	<a href="javascript:void(0)"><img src="data/others/plugin/theme_kopanda_bth_13_dk/image/system/btn_back.png" /></a>
+	</div>
+
+	<!-- スクロールボタン タッチデバイス用 -->
+	<img class="button_smart button_arrow_up"   src='data/others/plugin/theme_kopanda_bth_13_dk/image/system/arrow_up.png'   style='cursor:pointer; left:136px; top:412px; position:absolute;'>
+	<img class="button_smart button_arrow_down" src='data/others/plugin/theme_kopanda_bth_13_dk/image/system/arrow_down.png' style='cursor:pointer; left:136px; top:644px; position:absolute;'>
+	<div style="clear:both"></div>
+
+  <!-- セーブデータリスト -->
+	<div class="area_save_list">
+		<ul class='save_list'>
+			{{for array_save}}
+				<li class='save_display_area save_list_item' data-num='{{:num}}'>
+					<span class='save_list_item_thumb'>
+					{{if img_data != ""}}
+						<img src="{{:img_data}}">
+					{{/if}}
+					</span>
+					<span class='save_list_item_area'>
+						<span class='save_list_item_head'>
+							<span class='save_list_item_date'>{{:save_date}}</span>
+							<span class='save_list_item_gametime'></span>
+						</span>
+						<span class='save_list_item_text'>{{:title}}</span>
+					</span>
+				</li>
+			{{/for}}
+		</ul>
+	</div>
+
+	<!-- 背景 -->
+	<img class="img_bg_base" src='data/others/plugin/theme_kopanda_bth_13_dk/image/system/bg.png' style='z-index:-1; left:0; top:0; width:100%; height:100%; position:absolute;'>
+
+	<!-- 見出し -->
+	<img class="img_label img_label_save anim_label_slide_nlp" src="data/others/plugin/theme_kopanda_bth_13_dk/image/system/label_save.png" style='z-index:-1; position:absolute; left:0px; top:0px; width:610px; height:146px;'/>
+
+	<!-- ボタンホバー時に画像を変更する -->
+	<script>
+			$("#menu_save_wrapper .menu_item img").each((i, elm) => {
+					const j_elm = $(elm);
+					const original_src = j_elm.attr("src");
+					const hover_src = original_src.replace(".png", "2.png");
+					j_elm.hover(
+							() => {
+									j_elm.attr("src", hover_src);
+							},
+							() => {
+									j_elm.attr("src", original_src);
+							},
+					);
+			});
+			// セーブ欄の文字をタイプライター風に打ち直す。
+			// セーブの書き込み（サムネイル作成）は非同期で、終わるまでの時間が一定ではない。
+			// 待ち時間を決め打ちすると、書き込み前の文字（「まだ、保存されているデータがありません。」など）を
+			// 打ち始めてしまい、途中で本体が新しい文字に差し替えたところへ続きを足して文字が混ざる。
+			// そこで、本体が欄を書き換えたのを見届けてから打ち始める。
+			// セーブ時のゲーム内時刻を日時の横に出す（data/scenario/system/message_ui.ks の SAVE_TIME）
+			if (window.SAVE_TIME) window.SAVE_TIME.fill("#menu_save_wrapper");
+			$(".save_list_item").each(function () {
+				$(this).data("prevDate", $(this).find(".save_list_item_date").text());
+			});
+			$(".save_list_item").on("click", function () {
+				const $clickedItem = $(this);
+				const $textSpan = $clickedItem.find(".save_list_item_text");
+				const $dateSpan = $clickedItem.find(".save_list_item_date");
+				const token = ($clickedItem.data("typeToken") || 0) + 1;
+				$clickedItem.data("typeToken", token);   // 連続で押したときは前の打ち込みを止める
+
+				let started = false;
+				let observer = null;
+				let fallbackTimer = null;
+
+				const startTyping = function () {
+					if (started) return;
+					started = true;
+					if (observer) observer.disconnect();
+					clearTimeout(fallbackTimer);
+
+					const fullText = $textSpan.text(); // 保存された最新のテキストを取得
+					$clickedItem.data("prevDate", $dateSpan.text());
+					if (window.SAVE_TIME) window.SAVE_TIME.fill("#menu_save_wrapper");
+					$textSpan.empty();
+
+					let i = 0;
+					const typingSpeed = 100; // 1文字表示する間隔（ミリ秒）
+
+					const saveSound = new Audio('./data/sound/Typewriter.mp3');
+					saveSound.volume = 0.5; // 音量調整（0.0 〜 1.0）
+					saveSound.play().catch(() => {});
+
+					const typeWriter = function () {
+						if ($clickedItem.data("typeToken") !== token) return;
+						if (i < fullText.length) {
+							$textSpan.append(fullText.charAt(i));
+							i++;
+							setTimeout(typeWriter, typingSpeed);
+						}
+					};
+					typeWriter();
+				};
+
+				// 書き込みが同期で終わっていた場合は、日時がもう変わっている
+				if ($dateSpan.text() !== $clickedItem.data("prevDate")) {
+					startTyping();
+					return;
+				}
+				observer = new MutationObserver(function () {
+					// 本体は日時→本文の順に書き換えるので、本文の差し替えを待つ
+					setTimeout(startTyping, 0);
+				});
+				observer.observe($textSpan.get(0), { childList: true, characterData: true, subtree: true });
+				// 何らかの理由で書き換えが来なかったときの保険
+				fallbackTimer = setTimeout(startTyping, 15000);
+			});
+	</script>
+</div>

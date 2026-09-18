@@ -1,0 +1,185 @@
+{
+ "src": "data/scenario/system/item_list.ks",
+ "lines": [
+  [
+   64,
+   "    font-family:'Hiragino Kaku Gothic ProN','Yu Gothic','メイリオ',sans-serif;",
+   "    font-family:'Hiragino Kaku Gothic ProN','Yu Gothic','メイリオ',sans-serif;"
+  ],
+  [
+   69,
+   "/* 手帳の表紙 */",
+   "/* 手帳の表紙 */"
+  ],
+  [
+   77,
+   "/* 見出し */",
+   "/* 見出し */"
+  ],
+  [
+   90,
+   "/* タブ */",
+   "/* タブ */"
+  ],
+  [
+   100,
+   "/* 閉じるボタン（資料モードのみ） */",
+   "/* 閉じるボタン（資料モードのみ） */"
+  ],
+  [
+   105,
+   "/* 紙面 */",
+   "/* 紙面 */"
+  ],
+  [
+   112,
+   "/* 左ページ：一覧 */",
+   "/* 左ページ：一覧 */"
+  ],
+  [
+   163,
+   "/* 綴じ目 */",
+   "/* 綴じ目 */"
+  ],
+  [
+   172,
+   "/* 右ページ：詳細 */",
+   "/* 右ページ：詳細 */"
+  ],
+  [
+   192,
+   "/* 紹介文の入れ物。長い文章はここをスクロールさせる（スマホはスワイプ） */",
+   "/* 紹介文の入れ物。長い文章はここをスクロールさせる（スマホはスワイプ） */"
+  ],
+  [
+   218,
+   "/* 「まだ下に続きがある」ことを知らせる目印 */",
+   "/* 「まだ下に続きがある」ことを知らせる目印 */"
+  ],
+  [
+   225,
+   "/* 提示モードの決定ボタン */",
+   "/* 提示モードの決定ボタン */"
+  ],
+  [
+   235,
+   "/* ログボタン（提示モードのみ。突きつける前に会話を読み返せるように） */",
+   "/* ログボタン（提示モードのみ。突きつける前に会話を読み返せるように） */"
+  ],
+  [
+   236,
+   "/* 手帳の表紙は right:120px までなので、閉じるボタンと同じ位置に収める */",
+   "/* 手帳の表紙は right:120px までなので、閉じるボタンと同じ位置に収める */"
+  ],
+  [
+   245,
+   "/* ログの紙面 */",
+   "/* ログの紙面 */"
+  ],
+  [
+   273,
+   "    <div id=\"nb_title\"><i></i><span id=\"nb_title_text\">捜査手帳</span></div>",
+   "    <div id=\"nb_title\"><i></i><span id=\"nb_title_text\">CASE NOTEBOOK</span></div>"
+  ],
+  [
+   277,
+   "        <div class=\"nb_tab\" id=\"nb_tab_item\" data-type=\"item\">アイテム</div>",
+   "        <div class=\"nb_tab\" id=\"nb_tab_item\" data-type=\"item\">Items</div>"
+  ],
+  [
+   278,
+   "        <div class=\"nb_tab\" id=\"nb_tab_chara\" data-type=\"chara\">人物</div>",
+   "        <div class=\"nb_tab\" id=\"nb_tab_chara\" data-type=\"chara\">People</div>"
+  ],
+  [
+   282,
+   "    <div id=\"nb_log_btn\">ログ</div>",
+   "    <div id=\"nb_log_btn\">LOG</div>"
+  ],
+  [
+   285,
+   "        <div id=\"nb_log_head\"><span>これまでの会話</span><span id=\"nb_log_close\">閉じる</span></div>",
+   "        <div id=\"nb_log_head\"><span>The conversation so far</span><span id=\"nb_log_close\">Close</span></div>"
+  ],
+  [
+   292,
+   "                <span id=\"nb_left_title\">証拠品</span>",
+   "                <span id=\"nb_left_title\">Evidence</span>"
+  ],
+  [
+   312,
+   "                        <div id=\"nb_secret\"><b>【追加情報】</b><span id=\"nb_secret_text\"></span></div>",
+   "                        <div id=\"nb_secret\"><b>Further details</b><span id=\"nb_secret_text\"></span></div>"
+  ],
+  [
+   315,
+   "                    <div id=\"nb_submit_wrap\"><button id=\"nb_submit\" type=\"button\">これを突きつける</button></div>",
+   "                    <div id=\"nb_submit_wrap\"><button id=\"nb_submit\" type=\"button\">Present this</button></div>"
+  ],
+  [
+   318,
+   "            <div id=\"nb_empty\">左の一覧から選んでください</div>",
+   "            <div id=\"nb_empty\">Pick something from the list on the left</div>"
+  ],
+  [
+   372,
+   "    $(\"#nb_title_text\").text(NB.select ? \"証拠品の提示\" : (NB.gallery ? \"図鑑\" : \"捜査手帳\"));",
+   "    $(\"#nb_title_text\").text(NB.select ? \"PRESENT EVIDENCE\" : (NB.gallery ? \"FILES\" : \"CASE NOTEBOOK\"));"
+  ],
+  [
+   384,
+   "        return \"　／　警部の心証 \" + mark;",
+   "        return \"  /  Inspector's trust \" + mark;"
+  ],
+  [
+   387,
+   "    $(\"#nb_lead\").text(NB.select ? (\"突きつけるものを選んでください\" + NB.shinsho())",
+   "    $(\"#nb_lead\").text(NB.select ? (\"Choose what to present\" + NB.shinsho())"
+  ],
+  [
+   388,
+   "                      : (NB.gallery ? \"これまでに手にしたものと、出会った人たち\" : \"\"));",
+   "                      : (NB.gallery ? \"Everything you have found, and everyone you have met\" : \"\"));"
+  ],
+  [
+   419,
+   "                 +      '<div class=\"nb_name\">' + (owned ? NB.esc(it.name) : \"未発見\") + '</div>'",
+   "                 +      '<div class=\"nb_name\">' + (owned ? NB.esc(it.name) : \"Not yet found\") + '</div>'"
+  ],
+  [
+   423,
+   "        if(list.length === 0) html = '<div style=\"padding:40px;text-align:center;color:#8a7350;font-size:26px\">情報がありません</div>';",
+   "        if(list.length === 0) html = '<div style=\"padding:40px;text-align:center;color:#8a7350;font-size:26px\">Nothing here</div>';"
+  ],
+  [
+   426,
+   "        $(\"#nb_left_title\").text(NB.tab == \"item\" ? \"証拠品\" : \"関係者\");",
+   "        $(\"#nb_left_title\").text(NB.tab == \"item\" ? \"Evidence\" : \"People\");"
+  ],
+  [
+   450,
+   "            $(\"#nb_empty\").text(NB.select ? \"提示できるものがありません\" : \"左の一覧から選んでください\").show();",
+   "            $(\"#nb_empty\").text(NB.select ? \"There is nothing here to present\" : \"Pick something from the list on the left\").show();"
+  ],
+  [
+   471,
+   "        $(\"#nb_kind\").text(item.type == \"chara\" ? \"関係者\" : \"証拠品\");",
+   "        $(\"#nb_kind\").text(item.type == \"chara\" ? \"Person\" : \"Evidence\");"
+  ],
+  [
+   485,
+   "            ? (item.type == \"chara\" ? \"関係者\" : \"証拠品\")",
+   "            ? (item.type == \"chara\" ? \"Person\" : \"Evidence\")"
+  ],
+  [
+   486,
+   "            : (item.type == \"chara\" ? \"関係者\" : \"証拠品\"));",
+   "            : (item.type == \"chara\" ? \"Person\" : \"Evidence\"));"
+  ],
+  [
+   567,
+   "        if(h === \"\"){ h = \"<p>まだ記録はありません。</p>\"; }",
+   "        if(h === \"\"){ h = \"<p>No record yet.</p>\"; }"
+  ]
+ ]
+}

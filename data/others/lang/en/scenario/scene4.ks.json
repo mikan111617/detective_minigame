@@ -1,0 +1,3910 @@
+{
+ "src": "data/scenario/scene4.ks",
+ "lines": [
+  [
+   20,
+   "[gage_draw place=\"舞黒館:廊下(1F)\"]",
+   "[gage_draw place=\"Maicro House:Corridor (1F)\"]"
+  ],
+  [
+   141,
+   "さて、愛理。朱志香さんが夕食まで自由にしていいって言ってたね。[p]",
+   "Right, Airi. Jushika said we were free until dinner.[p]"
+  ],
+  [
+   145,
+   "今のうちに、館内を調べてみよう。[p]",
+   "Let's look around the house while we can.[p]"
+  ],
+  [
+   151,
+   "うん！ お父さんの手がかりが見つかるといいね。[p]",
+   "Mm! I hope we find a trace of Dad.[p]"
+  ],
+  [
+   158,
+   "（この館にきっと、お父さんに繋がる何かがあるはず……）[p]",
+   "(There must be something in this house that leads to him...)[p]"
+  ],
+  [
+   164,
+   "館を調べるなら、最初は朱志香さんに話を聞いてみようよ。[p]",
+   "If we're searching the house, let's start by talking to Jushika.[p]"
+  ],
+  [
+   167,
+   "勿論怪しまれないようにね！[p]",
+   "Without making her suspicious, of course![p]"
+  ],
+  [
+   170,
+   "このパートでは時間を使って、館内を自由に移動し、調査を行うことができます。[p]",
+   "In this part you spend time moving freely about the house and searching it.[p]"
+  ],
+  [
+   172,
+   "新しいことがわかる調査・会話をするたびに3分時間が経過します。[p]",
+   "Three minutes pass each time a search or a conversation turns up something new.[p]"
+  ],
+  [
+   174,
+   "部屋の移動や、すでに調べ終えた場所をもう一度見るだけなら時間は進みません。[p]",
+   "Moving between rooms, or looking again at a place you have already searched, costs no time.[p]"
+  ],
+  [
+   176,
+   "各場所での調査や会話を通じて、お父さんの手がかりを集めましょう。[p]",
+   "Look for clues about your father through investigations and conversations in each area.[p]"
+  ],
+  [
+   178,
+   "18時00分になると、自動的に次のパートへ進みます。[p]",
+   "At 18:00 the story moves on to the next part automatically.[p]"
+  ],
+  [
+   252,
+   "[gage_draw place=\"舞黒館:リビング\"]",
+   "[gage_draw place=\"Maicro House:Living Room\"]"
+  ],
+  [
+   256,
+   "リビングには暖かな陽の光が差し込んでいた。[p]",
+   "Warm sunlight streamed into the living room.[p]"
+  ],
+  [
+   284,
+   "[gage_draw place=\"舞黒館:リビング\"]",
+   "[gage_draw place=\"Maicro House:Living Room\"]"
+  ],
+  [
+   293,
+   "ゆっくり楽しんでいるよ。[p]",
+   "I'm taking it easy and enjoying myself.[p]"
+  ],
+  [
+   297,
+   "そういえば、知っているかい？[p]",
+   "By the way, did you know?[p]"
+  ],
+  [
+   301,
+   "この館を建てた舞黒氏は子供がいなくてね。[p]",
+   "Mr Maicro, who built this house, had no children.[p]"
+  ],
+  [
+   305,
+   "亡くなった後、後見人がこの館で暮らしていたんだ。[p]",
+   "After his death, his executor lived here.[p]"
+  ],
+  [
+   309,
+   "その後見人も亡くなり、売りに出された瞬間、富礼知氏が購入を決めたらしい。[p]",
+   "When that executor died too and the place went up for sale, Mr Furechi decided to buy it on the spot.[p]"
+  ],
+  [
+   313,
+   "これだけいい家なら僕も欲しくなってきたな。[p]",
+   "A house this fine — I'm starting to want one myself.[p]"
+  ],
+  [
+   331,
+   "ソファに腰かけた叡留久は、今度は本を読んでいた。[p]",
+   "Eruku had sat down on the sofa and was reading a book now.[p]"
+  ],
+  [
+   337,
+   "もういいんですか？ お仕事。[p]",
+   "Are you done with work already?[p]"
+  ],
+  [
+   344,
+   "ひとまずは。ゆっくり寛がせてもらっているよ。[p]",
+   "For now. I'm finally relaxing a little.[p]"
+  ],
+  [
+   349,
+   "こういう場所に来ても仕事が気になってしまうのは生来の気質でね。[p]",
+   "It's in my nature to fret about work even in a place like this.[p]"
+  ],
+  [
+   353,
+   "でも、今はこの館の雰囲気を楽しんでいるよ。[p]",
+   "But right now I'm enjoying the atmosphere of the house.[p]"
+  ],
+  [
+   359,
+   "気持ちはわかります。[p]",
+   "I know exactly what you mean.[p]"
+  ],
+  [
+   363,
+   "この異国感がたまらないんですよね。[p]",
+   "I just love how different it feels from everyday Japan.[p]"
+  ],
+  [
+   369,
+   "ははは、君は本当にユニークだな。[p]",
+   "Ha ha, you really are one of a kind.[p]"
+  ],
+  [
+   373,
+   "いっそ、本場のイギリスで探偵を開業するというのはどうだい？[p]",
+   "Why not set up as a detective in England itself?[p]"
+  ],
+  [
+   391,
+   "ありかも。[p]",
+   "That could work.[p]"
+  ],
+  [
+   400,
+   "無いわよ。[p]",
+   "Absolutely not.[p]"
+  ],
+  [
+   413,
+   "叡留久はソファに腰かけ、スマートフォンを操作していた。[p]",
+   "Eruku sat on the sofa, checking something on his phone.[p]"
+  ],
+  [
+   419,
+   "叡留久さん、またお仕事ですか？[p]",
+   "Mr Hoaro, working again?[p]"
+  ],
+  [
+   426,
+   "バレてしまったか。……珠璃には内緒にしてほしいなあ？[p]",
+   "You caught me. ...Don't tell Juri, all right?[p]"
+  ],
+  [
+   432,
+   "それ、絶対怒られますよ？[p]",
+   "She's definitely going to be mad.[p]"
+  ],
+  [
+   439,
+   "大丈夫だよ。珠璃はわかっているからね。[p]",
+   "It's all right. Juri knows what I'm like.[p]"
+  ],
+  [
+   443,
+   "それに、もう終わったからね。[p]",
+   "Besides, I've finished now.[p]"
+  ],
+  [
+   446,
+   "叡留久は軽く笑ってみせた。[p]",
+   "Eruku gave a light laugh.[p]"
+  ],
+  [
+   452,
+   "さて……少し館内を散策してくるか。君たちも、楽しむといいさ。[p]",
+   "Well... I think I'll take a look around the house. You two enjoy yourselves.[p]"
+  ],
+  [
+   455,
+   "叡留久はそう言って颯爽とリビングを後にした。[p]",
+   "With that, Eruku headed briskly out of the living room.[p]"
+  ],
+  [
+   467,
+   "[gage_draw place=\"舞黒館:リビング\"]",
+   "[gage_draw place=\"Maicro House:Living Room\"]"
+  ],
+  [
+   476,
+   "この館は、とても落ち着く場所ですね。[p]",
+   "This house is so relaxing.[p]"
+  ],
+  [
+   490,
+   "愛理が、メアリーに真剣な表情で向き直った。[p]",
+   "Airi turned to Mary with a serious face.[p]"
+  ],
+  [
+   495,
+   "メアリーさん、少し聞いてもいいですか？[p]",
+   "Mary, may I ask you something?[p]"
+  ],
+  [
+   501,
+   "……何でしょうか。[p]",
+   "...What is it?[p]"
+  ],
+  [
+   506,
+   "今回のこの宿泊イベントに参加したのって、親戚の方と関係があるんですか？[p]",
+   "Does your coming to this event have something to do with your relative?[p]"
+  ],
+  [
+   509,
+   "メアリーの目が、わずかに見開かれた。[p]",
+   "Mary's eyes widened a fraction.[p]"
+  ],
+  [
+   515,
+   "どうして……？[p]",
+   "How did you...?[p]"
+  ],
+  [
+   520,
+   "だって、親戚の方を探して日本に来ているのに、それを忘れて宿泊イベントに参加するとは思えなくて。[p]",
+   "Because you came to Japan to look for them. I can't believe you'd forget that and come to an event like this.[p]"
+  ],
+  [
+   523,
+   "しばらくの沈黙の後、メアリーはゆっくりと息を吐いた。[p]",
+   "After a silence, Mary let out a slow breath.[p]"
+  ],
+  [
+   529,
+   "……ご明察です。祖母から聞いたんです。もしかしたら、舞黒館に何か手がかりがあるかもしれないって。[p]",
+   "...You're quite right. My grandmother told me there might be some trace of them at Maicro House.[p]"
+  ],
+  [
+   535,
+   "（私たちと目的は同じなんだ）[p]",
+   "(Her purpose is the same as ours.)[p]"
+  ],
+  [
+   539,
+   "愛理と真歩流は、静かに顔を見合わせた。[p]",
+   "Airi and I looked quietly at one another.[p]"
+  ],
+  [
+   545,
+   "……手がかりが見つかるといいですね。[p]",
+   "...I hope you find your trace.[p]"
+  ],
+  [
+   553,
+   "……きっと見つけてみせます。[p]",
+   "...I mean to.[p]"
+  ],
+  [
+   567,
+   "メアリーは窓辺に腰かけ、外の景色を眺めていた。[r]",
+   "Mary was sitting by the window, looking out at the view.[r]"
+  ],
+  [
+   570,
+   "真歩流と愛理が近づくと、メアリーは穏やかに振り返った。[p]",
+   "As we came near, she turned round gently.[p]"
+  ],
+  [
+   575,
+   "真歩流さん、先ほどはありがとうございました。ペンダントを見つけていただいて。[p]",
+   "Mahoru, thank you for earlier. For finding my pendant.[p]"
+  ],
+  [
+   581,
+   "いえ、いつの間にか持っていたので、見つかってよかったです。[p]",
+   "Not at all. It was in my hand before I knew it — I'm just glad it turned up.[p]"
+  ],
+  [
+   585,
+   "……そのペンダントはやっぱり大切なものなんですね。[p]",
+   "...So it really is precious to you.[p]"
+  ],
+  [
+   592,
+   "はい。これは……親戚の手がかりになるものなんです。失くしてしまったら大変で。[p]",
+   "Yes. It's... a clue to my relative. Losing it would be dreadful.[p]"
+  ],
+  [
+   598,
+   "親戚……ですか。日本に親戚の方がいるんですか？[p]",
+   "A relative. Do you have family here in Japan?[p]"
+  ],
+  [
+   605,
+   "それがよくわからなくて。ずっと交流が途絶えていて……もう何十年も連絡を取っていないらしいんです。[p]",
+   "I don't really know. We lost touch long ago... nobody has been in contact for decades, apparently.[p]"
+  ],
+  [
+   610,
+   "家族の話をあまり聞かせてもらえなかったので、名前も顔もわからない。でも、どこかにいるはずだと思って、日本に来ました。[p]",
+   "I was never told much about the family, so I don't know their names or faces. But I believe they must be somewhere, and so I came to Japan.[p]"
+  ],
+  [
+   616,
+   "……変な話をしてしまいましたね。気にしないでください。[p]",
+   "...I've told you something strange. Please don't mind me.[p]"
+  ],
+  [
+   622,
+   "いえ。見つかるといいですね、その親戚の方が。[p]",
+   "Not at all. I hope you find them.[p]"
+  ],
+  [
+   636,
+   "[gage_draw place=\"舞黒館:リビング\"]",
+   "[gage_draw place=\"Maicro House:Living Room\"]"
+  ],
+  [
+   645,
+   "（メアリーさんの香水……大切に使わせてもらおう）[p]",
+   "(Mary's perfume... I'll use it carefully.)[p]"
+  ],
+  [
+   663,
+   "メアリーさん。お部屋の前を通ったとき、すごくいい香りがして……[p]",
+   "Mary. When I passed your room there was the loveliest scent...[p]"
+  ],
+  [
+   670,
+   "あら、気づかれてしまいましたか。[p]",
+   "Oh, you noticed.[p]"
+  ],
+  [
+   676,
+   "お恥ずかしい話ですけど、旅行にも一式持ってきてしまうんです。[p]",
+   "It's rather embarrassing, but I bring the whole set with me even when I travel.[p]"
+  ],
+  [
+   679,
+   "メアリーは鞄から小さな硝子の瓶を取り出し、真歩流の手のひらに載せた。[p]",
+   "Mary took a small glass bottle from her bag and set it in my palm.[p]"
+  ],
+  [
+   684,
+   "これ、差し上げます。素材から選んで、自分で調香したものなんですよ。[p]",
+   "Here, this is for you. I chose the ingredients and blended it myself.[p]"
+  ],
+  [
+   690,
+   "えっ、いいんですか？[p]",
+   "Really? Are you sure?[p]"
+  ],
+  [
+   697,
+   "ええ。イギリスで作ったものですから、日本ではきっと珍しいと思います。[p]",
+   "Yes. I made it in England, so I imagine it's rather unusual here.[p]"
+  ],
+  [
+   703,
+   "わあ、いい匂い……お姉ちゃん、よかったね。[p]",
+   "Oh, that smells wonderful... lucky you, sis.[p]"
+  ],
+  [
+   709,
+   "ありがとうございます。大切にします。[p]",
+   "Thank you. I'll treasure it.[p]"
+  ],
+  [
+   728,
+   "[gage_draw place=\"舞黒館:リビング\"]",
+   "[gage_draw place=\"Maicro House:Living Room\"]"
+  ],
+  [
+   738,
+   "（口紅は小出里亜さんに届けてあげないと……）[p]",
+   "(I ought to take the lipstick back to Koderia...)[p]"
+  ],
+  [
+   754,
+   "真歩流がソファのクッションを整えようとすると、その隙間から口紅が一本、転がり落ちた。[p]",
+   "As I went to straighten the sofa cushions, a lipstick rolled out of the gap.[p]"
+  ],
+  [
+   760,
+   "あれ……？ 口紅だ。[p]",
+   "What's this...? A lipstick.[p]"
+  ],
+  [
+   764,
+   "誰のかな？[p]",
+   "Whose do you suppose?[p]"
+  ],
+  [
+   770,
+   "小出里亜さんのかも。キッチンに届けてあげようよ。[p]",
+   "It might be Koderia's. Let's take it to the kitchen.[p]"
+  ],
+  [
+   786,
+   "[gage_draw place=\"舞黒館:リビング\"]",
+   "[gage_draw place=\"Maicro House:Living Room\"]"
+  ],
+  [
+   796,
+   "やっぱりしっかりした作りだなあ……冬に来てみたいな。[p]",
+   "It really is solidly built... I'd love to come here in winter.[p]"
+  ],
+  [
+   808,
+   "暖炉を覗き込んでみると、しっかりとした作りで、今でも普通に使えそうだとわかった。[p]",
+   "Looking into the fireplace showed it was well made, and looked perfectly usable even now.[p]"
+  ],
+  [
+   814,
+   "冬に来たら、ここで火が焚けるのかな。いいなあ。[p]",
+   "I wonder if they light it in winter. How lovely that would be.[p]"
+  ],
+  [
+   820,
+   "今は秋だからね。[p]",
+   "It's autumn now, though.[p]"
+  ],
+  [
+   824,
+   "そういえば、この洋館って至る所に暖炉があるなあ。[p]",
+   "Come to think of it, this house has fireplaces everywhere.[p]"
+  ],
+  [
+   828,
+   "どれも同じなのかな？[p]",
+   "Are they all the same, I wonder?[p]"
+  ],
+  [
+   834,
+   "次に見かけたら調べてみようか。[p]",
+   "Shall we take a look at the next one we find?[p]"
+  ],
+  [
+   862,
+   "[gage_draw place=\"舞黒館:ダイニング\"]",
+   "[gage_draw place=\"Maicro House:Dining Room\"]"
+  ],
+  [
+   866,
+   "ダイニングに入ると、朱志香が一人でテーブルを拭いていた。[p]",
+   "In the dining room, Jushika was wiping the table alone.[p]"
+  ],
+  [
+   895,
+   "[gage_draw place=\"舞黒館:ダイニング\"]",
+   "[gage_draw place=\"Maicro House:Dining Room\"]"
+  ],
+  [
+   906,
+   "半年前の来館者でしたら、玄関の記帳記録を確認するのが一番確実かと思います。[p]",
+   "If you want visitors from half a year ago, the surest thing is the register in the entrance hall.[p]"
+  ],
+  [
+   920,
+   "朱志香さん。ひとつ、聞きたいことがあるんです。[p]",
+   "Jushika. There's something I want to ask you.[p]"
+  ],
+  [
+   924,
+   "半年くらい前に、真白奢禄という人がこの館へ来ませんでしたか？　私たちの父なんです。[p]",
+   "Did a man called Sharoku Mashiro come to this house about half a year ago? He's our father.[p]"
+  ],
+  [
+   928,
+   "朱志香の手が、ほんの一瞬だけ止まった。[p]",
+   "Jushika's hand stopped, for just an instant.[p]"
+  ],
+  [
+   933,
+   "……半年前、ですか。[p]",
+   "...Half a year ago.[p]"
+  ],
+  [
+   938,
+   "この館には見学や催しで多くの方がお見えになりますので、記憶だけで確かなことを申し上げるのは難しいですね。[p]",
+   "A great many people come here for tours and events, so I couldn't say anything certain from memory alone.[p]"
+  ],
+  [
+   942,
+   "ですが、玄関の記帳台には過去の来館記録も保管しております。[p]",
+   "But the register desk in the entrance hall keeps past visitor records.[p]"
+  ],
+  [
+   946,
+   "もしお父様が記帳されていれば、そちらで確認できるかもしれません。[p]",
+   "If your father signed in, you may be able to confirm it there.[p]"
+  ],
+  [
+   951,
+   "ありがとうございます。見てみます。[p]",
+   "Thank you. We'll take a look.[p]"
+  ],
+  [
+   966,
+   "[gage_draw place=\"舞黒館:ダイニング\"]",
+   "[gage_draw place=\"Maicro House:Dining Room\"]"
+  ],
+  [
+   977,
+   "何かご入用でしたら、お気軽にお声がけください。[p]",
+   "If you need anything, do please say.[p]"
+  ],
+  [
+   988,
+   "声をかけると、朱志香は顔を上げてやや申し訳なさそうな表情になった。[p]",
+   "When I spoke to her, Jushika looked up with something apologetic in her face.[p]"
+  ],
+  [
+   994,
+   "真白様……執務室でのことは、本当に申し訳ございませんでした。危険な目に遭わせてしまって。[p]",
+   "Miss Mashiro... I am truly sorry about what happened in the study. To have put you in danger like that.[p]"
+  ],
+  [
+   1000,
+   "いえ、朱志香さんのせいじゃないですよ。ハプニングです、ハプニング。[p]",
+   "It wasn't your fault, Jushika. It was an accident, that's all.[p]"
+  ],
+  [
+   1007,
+   "……真白様は、お優しいですね。[p]",
+   "...You are very kind.[p]"
+  ],
+  [
+   1010,
+   "しばらく沈黙が続いた後、真歩流は何となく気になっていたことを訊いてみた。[p]",
+   "After a silence, I asked what had been vaguely on my mind.[p]"
+  ],
+  [
+   1016,
+   "朱志香さんって……お子さんはいらっしゃるんですか？[p]",
+   "Jushika... do you have any children?[p]"
+  ],
+  [
+   1020,
+   "朱志香の手が、一瞬だけ止まった。[p]",
+   "Jushika's hand stopped for an instant.[p]"
+  ],
+  [
+   1026,
+   "……昔、いましたよ。[p]",
+   "...I did, once.[p]"
+  ],
+  [
+   1030,
+   "今はもういないですけどね。[p]",
+   "Not any more.[p]"
+  ],
+  [
+   1036,
+   "すみません。そうとは知らずに……[p]",
+   "I'm sorry. I didn't know...[p]"
+  ],
+  [
+   1043,
+   "いえ、構いませんよ。[p]",
+   "No, it's quite all right.[p]"
+  ],
+  [
+   1047,
+   "……でも、会えるのなら、会いたいですね。[p]",
+   "...But if I could see her, I would want to.[p]"
+  ],
+  [
+   1053,
+   "朱志香さん……[p]",
+   "Jushika...[p]"
+  ],
+  [
+   1057,
+   "朱志香はそれ以上語ろうとしなかった。[p]",
+   "She said nothing more.[p]"
+  ],
+  [
+   1072,
+   "[gage_draw place=\"舞黒館:ダイニング\"]",
+   "[gage_draw place=\"Maicro House:Dining Room\"]"
+  ],
+  [
+   1083,
+   "三つの原色を重ねれば、知識の宝庫に新たな兆しが現れる――でしたね。[p]",
+   "Lay the three primary colors one over another and a new sign appears in the storehouse of knowledge — wasn't it?[p]"
+  ],
+  [
+   1098,
+   "朱志香さん。この館を建てた方って、どんな人だったんですか？[p]",
+   "Jushika. What sort of man built this house?[p]"
+  ],
+  [
+   1105,
+   "舞黒邦夢様――戦前の資産家で、政治家もされていた方です。[p]",
+   "Mr Maicro — a man of means before the war, and a politician besides.[p]"
+  ],
+  [
+   1109,
+   "留学先の英仏で学ばれて、戦争を止めようと各国の要人と交渉を重ねていらした。[p]",
+   "He studied in England and France, and negotiated with important people in many countries to try to stop the war.[p]"
+  ],
+  [
+   1115,
+   "立派な方でしたが……なんと申しますか、少し、遊び心のありすぎる方でして。[p]",
+   "A fine man... though, how shall I put it, a man with rather too much mischief in him.[p]"
+  ],
+  [
+   1121,
+   "遊び心？[p]",
+   "Mischief?[p]"
+  ],
+  [
+   1128,
+   "館のあちこちに、仕掛けやからくりを仕込んでおられるのです。[p]",
+   "He built contrivances and devices into the house, all over it.[p]"
+  ],
+  [
+   1132,
+   "訪ねてきた客人を退屈させないように、と。[p]",
+   "So that guests who came should never be bored.[p]"
+  ],
+  [
+   1137,
+   "えっ、それって……宝探しみたいな？[p]",
+   "What, like a treasure hunt?[p]"
+  ],
+  [
+   1143,
+   "ええ。どうぞ、解いていただいて構いませんよ。壊しさえしなければ。[p]",
+   "Yes. You are welcome to solve them, so long as nothing gets broken.[p]"
+  ],
+  [
+   1147,
+   "わたくしどもも、全部は把握しておりませんの。[p]",
+   "We ourselves don't know where all of them are.[p]"
+  ],
+  [
+   1153,
+   "い、いいんですか？[p]",
+   "R-really? We may?[p]"
+  ],
+  [
+   1160,
+   "はい。ひとつだけ、言い伝えられているものがございます。[p]",
+   "Yes. There is one that has been handed down in words.[p]"
+  ],
+  [
+   1163,
+   "朱志香は、暗誦するように言った。[p]",
+   "Jushika recited it.[p]"
+  ],
+  [
+   1168,
+   "――三つの原色を重ねれば、知識の宝庫に新たな兆しが現れる。[p]",
+   "—Lay the three primary colors one over another, and a new sign appears in the storehouse of knowledge.[p]"
+  ],
+  [
+   1174,
+   "三つの原色……知識の宝庫……？[p]",
+   "Three primary colors... storehouse of knowledge...?[p]"
+  ],
+  [
+   1181,
+   "知識の宝庫って、本がたくさんある場所――資料室のことじゃない？[p]",
+   "A storehouse of knowledge would be a place full of books — the archive room, surely?[p]"
+  ],
+  [
+   1187,
+   "さて。それは、お二人でお確かめくださいませ。[p]",
+   "Well now. That is for the two of you to find out.[p]"
+  ],
+  [
+   1191,
+   "……ああ、それと。よろしければ執務室もご覧になりますか？[p]",
+   "...Ah, and one more thing. Would you like to see the study as well?[p]"
+  ],
+  [
+   1195,
+   "先ほどの壁の仕掛けは、もう動かないように固定してありますから。[p]",
+   "The wall mechanism from earlier has been fixed so that it cannot move again.[p]"
+  ],
+  [
+   1201,
+   "ぜひ！ ありがとうございます。[p]",
+   "Yes, please! Thank you.[p]"
+  ],
+  [
+   1204,
+   "[get_item name=\"舞黒邦夢の言い伝え\" type=\"info\" memo=\"「三つの原色を重ねれば、知識の宝庫に新たな兆しが現れる」――館には邦夢が仕込んだ仕掛けがいくつも隠されているらしい。\"]",
+   "[get_item name=\"Maicro's saying\" type=\"info\" memo=\"“Lay the three primary colors one over another, and a new sign appears in the storehouse of knowledge.” Maicro seems to have hidden a number of contrivances about the house.\"]"
+  ],
+  [
+   1205,
+   "[get_item name=\"執務室\" type=\"info\"]",
+   "[get_item name=\"The study\" type=\"info\"]"
+  ],
+  [
+   1217,
+   "[gage_draw place=\"舞黒館:ダイニング\"]",
+   "[gage_draw place=\"Maicro House:Dining Room\"]"
+  ],
+  [
+   1228,
+   "模型の鍵は、お使いになったらお返しくださいね。[p]",
+   "Do return the key to the model once you've used it.[p]"
+  ],
+  [
+   1242,
+   "……ところで、2階の資料室を見てくださったんですね。足をお運びいただき、ありがとうございます。[p]",
+   "...By the way, I hear you visited the archive room on the second floor. Thank you for going up.[p]"
+  ],
+  [
+   1246,
+   "資料室に、模型がありましたでしょう？[p]",
+   "There is a model in the archive, isn't there?[p]"
+  ],
+  [
+   1250,
+   "あれにも仕掛けがあって、この鍵を使うと中にある資料が読めます。[p]",
+   "It has a mechanism of its own, and this key lets you read the documents inside.[p]"
+  ],
+  [
+   1254,
+   "よかったらどうぞ。[p]",
+   "Do take it, if you like.[p]"
+  ],
+  [
+   1260,
+   "ありがとうございます！[p]",
+   "Thank you very much![p]"
+  ],
+  [
+   1264,
+   "でも、どうして模型の中に資料があるんですか？[p]",
+   "But why are there documents inside a model?[p]"
+  ],
+  [
+   1277,
+   "ごゆっくり、見学なさってください。[p]",
+   "Do enjoy your tour.[p]"
+  ],
+  [
+   1283,
+   "無かったことにされた！[p]",
+   "She pretended I hadn't asked![p]"
+  ],
+  [
+   1286,
+   "[get_item name=\"模型の鍵\" type=\"info\"]",
+   "[get_item name=\"Key to the model\" type=\"info\"]"
+  ],
+  [
+   1297,
+   "[gage_draw place=\"舞黒館:ダイニング\"]",
+   "[gage_draw place=\"Maicro House:Dining Room\"]"
+  ],
+  [
+   1308,
+   "『A・K』……アーサー王だったらなあ。[p]",
+   "“A.K.”... if only it stood for King Arthur.[p]"
+  ],
+  [
+   1320,
+   "食器棚には、年代を感じさせる上品な食器が並んでいた。[p]",
+   "The dresser held elegant tableware with the weight of years about it.[p]"
+  ],
+  [
+   1325,
+   "それらは当時実際に使用していたものなんですよ。館ごと引き継いだので、そのまま残っているんです。[p]",
+   "Those were actually in use at the time. The house came with everything, so they are still here.[p]"
+  ],
+  [
+   1328,
+   "真歩流が食器を手に取ってみると、その裏面にイニシャルが刻まれていた。[p]",
+   "When I picked one up, there were initials engraved on the underside.[p]"
+  ],
+  [
+   1334,
+   "……『A・K』？ 誰のイニシャルだろう。[p]",
+   "...\"A.K.\"? Whose initials are those?[p]"
+  ],
+  [
+   1340,
+   "A・K……あの頃ここに住んでいた人かな？[p]",
+   "A.K.... someone who lived here back then, perhaps?[p]"
+  ],
+  [
+   1346,
+   "わかった！？ アーサー王！[p]",
+   "I've got it! King Arthur![p]"
+  ],
+  [
+   1361,
+   "そんなわけないでしょう！[p]",
+   "Of course it isn't![p]"
+  ],
+  [
+   1373,
+   "[gage_draw place=\"舞黒館:ダイニング\"]",
+   "[gage_draw place=\"Maicro House:Dining Room\"]"
+  ],
+  [
+   1383,
+   "（このテーブルを囲んで食事をして、その後は談話室へ移ったのかもしれない）[p]",
+   "(Maybe they ate around this table and then moved through to the drawing room.)[p]"
+  ],
+  [
+   1395,
+   "古くて立派な木のテーブル。長い年月を経ているのに、丁寧に磨かれていた。[p]",
+   "An old and handsome wooden table. For all its years it had been carefully polished.[p]"
+  ],
+  [
+   1401,
+   "昔の人たちも、ここで食事をしながら団欒してたのかな。[p]",
+   "Do you suppose the people back then ate here together too?[p]"
+  ],
+  [
+   1407,
+   "きっとね。でも、食事が終わったらずっとここにいたわけじゃないと思う。[p]",
+   "I'm sure they did. But I don't think they stayed here after the meal.[p]"
+  ],
+  [
+   1413,
+   "あ、そうか。談話室もあったよね。[p]",
+   "Oh, of course. There's a drawing room too, isn't there.[p]"
+  ],
+  [
+   1420,
+   "うん。食事の後に場所を移して、そこでゆっくり話したりしてたのかも。[p]",
+   "Mm. Perhaps they moved after dinner and talked at their leisure there.[p]"
+  ],
+  [
+   1424,
+   "各国から人が来ていたなら、あっちの方が社交の場だったのかもしれないね。[p]",
+   "If people came from all over the world, that may have been where the real socialising happened.[p]"
+  ],
+  [
+   1430,
+   "談話室か……どんな部屋なのか、ちょっと気になってきた。[p]",
+   "The drawing room... now I'm kind of curious what it's like.[p]"
+  ],
+  [
+   1443,
+   "[gage_draw place=\"舞黒館:ダイニング\"]",
+   "[gage_draw place=\"Maicro House:Dining Room\"]"
+  ],
+  [
+   1453,
+   "（額の裏にあったのは、赤い硝子の板だった）[p]",
+   "(Behind the frame was a pane of red glass.)[p]"
+  ],
+  [
+   1466,
+   "壁に掛かった風景画。よく見ると、額がわずかに傾いていた。[p]",
+   "A landscape hung on the wall. Looking closely, the frame was slightly askew.[p]"
+  ],
+  [
+   1472,
+   "……ちょっとだけ、まっすぐに直しておこうかな。[p]",
+   "...I'll just straighten it a little.[p]"
+  ],
+  [
+   1476,
+   "額に手をかけて水平に戻すと、裏側で何かがカタリと落ちた。[p]",
+   "When I took hold of the frame and levelled it, something dropped with a clatter behind it.[p]"
+  ],
+  [
+   1482,
+   "お姉ちゃん、何か落ちたよ！[p]",
+   "Sis, something fell![p]"
+  ],
+  [
+   1485,
+   "額の裏に挟まっていたのは、手のひらほどの赤い硝子の板だった。[r]",
+   "Wedged behind the frame was a pane of red glass about the size of a palm.[r]"
+  ],
+  [
+   1487,
+   "縁は真鍮で縁取られていて、装飾品というより部品のように見える。[p]",
+   "The edges were bound in brass; it looked less like an ornament than a component.[p]"
+  ],
+  [
+   1493,
+   "硝子……？ こんなところに挟まってるなんて。[p]",
+   "Glass...? Wedged in a place like this.[p]"
+  ],
+  [
+   1500,
+   "わざと隠した、って感じだよね。[p]",
+   "It feels deliberately hidden, doesn't it?[p]"
+  ],
+  [
+   1530,
+   "[gage_draw place=\"舞黒館:サンルーム(1F)\"]",
+   "[gage_draw place=\"Maicro House:Sunroom (1F)\"]"
+  ],
+  [
+   1534,
+   "陽光があふれるサンルーム。庭へと続く大きな窓から、緑の庭園が見渡せた。[p]",
+   "The sunroom, brimming with light. Through the great windows onto the garden you could see the green all around.[p]"
+  ],
+  [
+   1563,
+   "[gage_draw place=\"舞黒館:サンルーム(1F)\"]",
+   "[gage_draw place=\"Maicro House:Sunroom (1F)\"]"
+  ],
+  [
+   1574,
+   "ここはいつ来ても気持ちがいいわ。ゆっくりしていって。[p]",
+   "It's pleasant here whenever you come. Do stay a while.[p]"
+  ],
+  [
+   1585,
+   "珠璃はサンルームの椅子にゆったりと腰かけ、窓の外を眺めていた。[p]",
+   "Juri sat at ease in a sunroom chair, looking out of the window.[p]"
+  ],
+  [
+   1591,
+   "珠璃さん、サンルームがお好きなんですね。[p]",
+   "You're fond of the sunroom, Juri.[p]"
+  ],
+  [
+   1598,
+   "ええ。ここは開放感があって、暖かくて……気持ちがいいわ。[p]",
+   "Yes. It's so open, and warm... it feels good.[p]"
+  ],
+  [
+   1604,
+   "叡留久さんと一緒じゃなくて、いいんですか？[p]",
+   "Don't you want to be with Mr Hoaro?[p]"
+  ],
+  [
+   1607,
+   "愛理の無邪気な問いに、珠璃は少し間を置いた。[p]",
+   "At Airi's guileless question, Juri paused a moment.[p]"
+  ],
+  [
+   1613,
+   "……今はいいの。今だけはね。[p]",
+   "...Not just now. Only for now.[p]"
+  ],
+  [
+   1618,
+   "そう……ですか。[p]",
+   "I... see.[p]"
+  ],
+  [
+   1623,
+   "……彼も仕事づくめだからね。ゆっくりさせてあげたいのよ。[p]",
+   "...He works himself to the bone. I'd like him to have some peace.[p]"
+  ],
+  [
+   1629,
+   "珠璃さんが見ていないと仕事しちゃいそうですけどね。[p]",
+   "Though if you're not watching him, I imagine he'll get straight back to work.[p]"
+  ],
+  [
+   1635,
+   "……そうかもしれないわね。[p]",
+   "...Perhaps he will.[p]"
+  ],
+  [
+   1639,
+   "もう少し、したら彼の所へ戻るわ。[p]",
+   "I'll go back to him in a little while.[p]"
+  ],
+  [
+   1642,
+   "珠璃はそう言って、窓の外を見つめていた。[p]",
+   "Juri said it, and went on gazing out of the window.[p]"
+  ],
+  [
+   1653,
+   "[gage_draw place=\"舞黒館:サンルーム(1F)\"]",
+   "[gage_draw place=\"Maicro House:Sunroom (1F)\"]"
+  ],
+  [
+   1663,
+   "（この大きな鉢、動かしたら床を傷つけそうだな……）[p]",
+   "(This great pot would scar the floor if you moved it...)[p]"
+  ],
+  [
+   1678,
+   "大きい観葉植物だよね……。[p]",
+   "It's an enormous plant, isn't it?[p]"
+  ],
+  [
+   1682,
+   "鉢だけでもすごく重そう。[p]",
+   "Even the pot alone looks terribly heavy.[p]"
+  ],
+  [
+   1688,
+   "これ、一人で動かすのは大変そうだね。[p]",
+   "Moving this on your own would be quite a job.[p]"
+  ],
+  [
+   1694,
+   "床がちょっと傷んでるのも、この鉢を動かしたからかな。[p]",
+   "Perhaps the floor is worn here because someone moved the pot.[p]"
+  ],
+  [
+   1701,
+   "そうかも。よく見ると、この辺だけ床の感じも少し違うね。[p]",
+   "Maybe. Looking closely, the floor does feel a little different just here.[p]"
+  ],
+  [
+   1707,
+   "……後で足元も見てみようかな。[p]",
+   "...Perhaps I'll take a look at the floor later.[p]"
+  ],
+  [
+   1720,
+   "[gage_draw place=\"舞黒館:サンルーム(1F)\"]",
+   "[gage_draw place=\"Maicro House:Sunroom (1F)\"]"
+  ],
+  [
+   1730,
+   "（庭にあったホワイトセージ……昔から薬草として親しまれてきたんだっけ）[p]",
+   "(The white sage in the garden... it's been used as a medicinal herb for ages, hasn't it.)[p]"
+  ],
+  [
+   1742,
+   "テーブルの椅子に腰かけると、窓の向こうに庭園が大きく広がって見えた。[p]",
+   "Sitting in the chair by the table, the garden spread out wide beyond the window.[p]"
+  ],
+  [
+   1748,
+   "ここ、座って見ると庭がよく見えるね。[p]",
+   "You can see the garden so well from here.[p]"
+  ],
+  [
+   1754,
+   "本当だ。……あ、あそこ。白っぽい葉がまとまってるところ。[p]",
+   "You can. ...Oh, look there. Where the whitish leaves are clustered.[p]"
+  ],
+  [
+   1760,
+   "あれ、何だろう。[p]",
+   "What's that, I wonder.[p]"
+  ],
+  [
+   1767,
+   "ホワイトセージじゃない？[p]",
+   "Isn't that white sage?[p]"
+  ],
+  [
+   1771,
+   "ヨーロッパには「長生きしたければ五月にセージを食べろ」っていう言い回しもあるらしいよ。[p]",
+   "They say there's an old European saying: “If you would live forever, eat sage in May.”[p]"
+  ],
+  [
+   1777,
+   "へえ。セージって、そんなに昔から身体にいいものとして使われてたんだ。[p]",
+   "Really. So sage has been thought good for you for that long.[p]"
+  ],
+  [
+   1784,
+   "薬草としては有名みたい。でも、同じセージでも種類はいろいろあるけどね。[p]",
+   "It's famous as a medicinal herb. Though there are many kinds of sage.[p]"
+  ],
+  [
+   1790,
+   "庭だけでも知らないものがいっぱいあるなあ。[p]",
+   "There's so much I don't know, even in one garden.[p]"
+  ],
+  [
+   1818,
+   "[gage_draw place=\"舞黒館:キッチン\"]",
+   "[gage_draw place=\"Maicro House:Kitchen\"]"
+  ],
+  [
+   1822,
+   "キッチンにやってきた。[p]",
+   "We came to the kitchen.[p]"
+  ],
+  [
+   1851,
+   "[gage_draw place=\"舞黒館:キッチン\"]",
+   "[gage_draw place=\"Maicro House:Kitchen\"]"
+  ],
+  [
+   1860,
+   "夕食まで、もう少しですよ。楽しみにしていてくださいね。[p]",
+   "Dinner won't be long now. Do look forward to it.[p]"
+  ],
+  [
+   1876,
+   "小出里亜さんって、メイドさん以外にもお仕事されているんですか？[p]",
+   "Koderia, do you do other work besides being a maid?[p]"
+  ],
+  [
+   1883,
+   "ええ。日本ではメイドというより秘書や世話係という位置づけで、普段は事務のお手伝いもしているんですよ。[p]",
+   "Yes. In Japan the post is less a maid than a secretary or attendant, so I help with the office work as well.[p]"
+  ],
+  [
+   1889,
+   "朱志香さんのところで働くことになったのは、どういう経緯で？[p]",
+   "How did you come to work for Jushika?[p]"
+  ],
+  [
+   1896,
+   "実は、私の家……灰音の家なんですが、富礼知家とは昔お付き合いがあって。[p]",
+   "In fact, my family — the Haines — had dealings with the Furechis long ago.[p]"
+  ],
+  [
+   1899,
+   "交流が途絶えていたのですが、お手伝いを探していると聞いたんです。[p]",
+   "We had lost touch, but I heard they were looking for help.[p]"
+  ],
+  [
+   1903,
+   "私が働きたいと申し出たら、朱志香様が快く受け入れてくださったんです。[p]",
+   "When I offered myself, Miss Jushika took me on very kindly.[p]"
+  ],
+  [
+   1910,
+   "どうして、舞黒館で働こうと思ったんですか？[p]",
+   "What made you want to work at Maicro House?[p]"
+  ],
+  [
+   1916,
+   "洋館でメイドって素晴らしい取り合わせだと思いませんか？[p]",
+   "Don't you think a maid in a Western house is a wonderful combination?[p]"
+  ],
+  [
+   1920,
+   "私ずっと憧れていたんです。[p]",
+   "I always dreamed of it.[p]"
+  ],
+  [
+   1924,
+   "ちゃんとしたメイドに。[p]",
+   "Of being a proper maid.[p]"
+  ],
+  [
+   1931,
+   "わかります！ 洋館にメイドさんは雰囲気ありますよね！[p]",
+   "I know exactly! A maid in a Western house is so atmospheric![p]"
+  ],
+  [
+   1934,
+   "探偵ものではよく出てくるのに全然見たことなかったので、小出里亜さんを見てドキドキしましたもん！[p]",
+   "They're always in detective stories and I'd never seen one, so my heart raced when I saw you![p]"
+  ],
+  [
+   1942,
+   "ふふふ、ありがとうございます。[p]",
+   "Thank you.[p]"
+  ],
+  [
+   1946,
+   "そのようなわけで大きな洋館を持つ富礼知家に来たんです。[p]",
+   "And that is how I came to the Furechis, who own a great Western house.[p]"
+  ],
+  [
+   1954,
+   "良かったですね、夢がかなって。[p]",
+   "I'm so glad your dream came true.[p]"
+  ],
+  [
+   1966,
+   "ええ、そうですね。[p]",
+   "Yes, so am I.[p]"
+  ],
+  [
+   1979,
+   "棚の前で、小出里亜が小さなガラス瓶を手に取っているところだった。[r]",
+   "At the cupboard, Koderia was holding a small glass bottle.[r]"
+  ],
+  [
+   1981,
+   "真歩流が興味を惹かれて近づくと、小出里亜はびくっと振り返った。[p]",
+   "When I came closer out of curiosity, she turned round with a start.[p]"
+  ],
+  [
+   1987,
+   "ひゃっ！？　真白様、いつからそこに……[p]",
+   "Eek!? Miss Mashiro, how long have you been there...[p]"
+  ],
+  [
+   1993,
+   "今来ました。何ですか、それ？[p]",
+   "I've only just come. What's that?[p]"
+  ],
+  [
+   1997,
+   "真歩流が手を伸ばしかけると、小出里亜は慌てて棚へ戻した。[p]",
+   "As I reached out, Koderia hurriedly put it back on the shelf.[p]"
+  ],
+  [
+   2003,
+   "こ、これは特別な香りづけ用のスパイスなんです……！ 企業秘密ということで、よろしくお願いします……！[p]",
+   "Th-this is a special spice for scenting things...! A trade secret, if you don't mind...![p]"
+  ],
+  [
+   2006,
+   "小出里亜は急いで瓶を棚にしまった。[p]",
+   "She hastily shut the bottle away in the cupboard.[p]"
+  ],
+  [
+   2012,
+   "（……きっと甘い高級ジュースとかだろうなあ）[p]",
+   "(...It's bound to be some expensive sweet cordial.)[p]"
+  ],
+  [
+   2025,
+   "[gage_draw place=\"舞黒館:キッチン\"]",
+   "[gage_draw place=\"Maicro House:Kitchen\"]"
+  ],
+  [
+   2036,
+   "キッチンのドアに手をかけた瞬間、中から会話の気配がした。[p]",
+   "The moment I put my hand to the kitchen door, I sensed voices inside.[p]"
+  ],
+  [
+   2042,
+   "……誰かいる？[p]",
+   "...Is someone there?[p]"
+  ],
+  [
+   2056,
+   "かすかに声が聞こえてくる。[p]",
+   "I could faintly hear talking.[p]"
+  ],
+  [
+   2059,
+   "……え、……い……てる？[p]",
+   "...What, ...are... you...?[p]"
+  ],
+  [
+   2061,
+   "ああ……[p]",
+   "Ah...[p]"
+  ],
+  [
+   2064,
+   "そっと扉を開けると、叡留久がカップを持ってキッチンから出てくるところだった。[p]",
+   "When I eased the door open, Eruku was coming out of the kitchen with a cup.[p]"
+  ],
+  [
+   2071,
+   "やあ。喉が渇いてね、一杯もらっていたんだ。[p]",
+   "Ah. I was thirsty, and asked for a cup.[p]"
+  ],
+  [
+   2080,
+   "小出里亜さん、ありがとう。紅茶、美味しかったよ。[p]",
+   "Thank you, Koderia. The tea was excellent.[p]"
+  ],
+  [
+   2083,
+   "叡留久はカップを小出里亜に手渡した。[p]",
+   "He handed the cup back to Koderia.[p]"
+  ],
+  [
+   2088,
+   "……いえ。お口に合ったのなら何よりです。[p]",
+   "...Not at all. I'm glad it was to your liking.[p]"
+  ],
+  [
+   2094,
+   "それじゃあ、僕はお先に。[p]",
+   "Well then, I'll leave you to it.[p]"
+  ],
+  [
+   2097,
+   "叡留久はそう言うと、ひとつ会釈してそのまま廊下へと去っていった。[p]",
+   "With that, Eruku gave a small bow and went off down the corridor.[p]"
+  ],
+  [
+   2106,
+   "小出里亜さん、これ落としてたんじゃないかと思って。[p]",
+   "Koderia, I thought you might have dropped this.[p]"
+  ],
+  [
+   2113,
+   "あら……！ ありがとうございます。リビングに忘れてしまっていたんですね。[p]",
+   "Oh...! Thank you. I must have left it in the living room.[p]"
+  ],
+  [
+   2116,
+   "小出里亜は口紅を受け取り、丁寧に礼をした。[p]",
+   "Koderia took the lipstick and thanked me carefully.[p]"
+  ],
+  [
+   2134,
+   "かすかに声が聞こえてくる。[p]",
+   "I could faintly hear talking.[p]"
+  ],
+  [
+   2137,
+   "……ありがとうございます。[p]",
+   "...Thank you.[p]"
+  ],
+  [
+   2139,
+   "いいさ。手は大丈夫かい。[p]",
+   "It's nothing. Is your hand all right?[p]"
+  ],
+  [
+   2141,
+   "はい、大丈夫です。[p]",
+   "Yes, I'm fine.[p]"
+  ],
+  [
+   2143,
+   "それなら、良かった。[p]",
+   "Good.[p]"
+  ],
+  [
+   2148,
+   "（小出里亜さんの火傷のこと、気にかけてるんだ）[p]",
+   "(He's worried about Koderia's burn.)[p]"
+  ],
+  [
+   2152,
+   "そっと扉を開けると、叡留久がキッチンから出てくるところだった。[r]",
+   "When I eased the door open, Eruku was coming out of the kitchen.[r]"
+  ],
+  [
+   2154,
+   "上着の前を軽く払うようにして、こちらへ会釈する。[p]",
+   "He brushed lightly at the front of his jacket and nodded to us.[p]"
+  ],
+  [
+   2160,
+   "やあ。[p]",
+   "Ah.[p]"
+  ],
+  [
+   2164,
+   "小出里亜さんの手が心配でね。少し様子を見に来ていたんだ。[p]",
+   "I was worried about Koderia's hand, so I came to see how she was.[p]"
+  ],
+  [
+   2169,
+   "……お優しいんですね。[p]",
+   "...That's kind of you.[p]"
+  ],
+  [
+   2175,
+   "そんな大層なものじゃないよ。[p]",
+   "Nothing so grand as that.[p]"
+  ],
+  [
+   2181,
+   "それじゃあ、僕はお先に。[p]",
+   "Well then, I'll leave you to it.[p]"
+  ],
+  [
+   2184,
+   "叡留久はそう言うと、ひとつ会釈してそのまま廊下へと去っていった。[p]",
+   "With that, Eruku gave a small bow and went off down the corridor.[p]"
+  ],
+  [
+   2192,
+   "……真歩流様。お騒がせしてしまって、申し訳ありません。[p]",
+   "...Miss Mahoru. I'm sorry for all the fuss.[p]"
+  ],
+  [
+   2197,
+   "いえ。手、まだ痛みますか？[p]",
+   "Not at all. Does your hand still hurt?[p]"
+  ],
+  [
+   2202,
+   "もう平気ですよ。徐音様に診ていただきましたから。[p]",
+   "I'm fine now. Mr Joon took a look at it.[p]"
+  ],
+  [
+   2205,
+   "小出里亜はそう言って、右手をそっと後ろへ回した。[p]",
+   "Koderia said it and slipped her right hand quietly behind her.[p]"
+  ],
+  [
+   2208,
+   "もう片方の手は、エプロンのポケットのあたりを押さえていた。[p]",
+   "Her other hand was pressed to her apron pocket.[p]"
+  ],
+  [
+   2222,
+   "[gage_draw place=\"舞黒館:キッチン\"]",
+   "[gage_draw place=\"Maicro House:Kitchen\"]"
+  ],
+  [
+   2232,
+   "新鮮な野菜が並んでる。夕食が楽しみだな。[p]",
+   "Fresh vegetables laid out. I'm looking forward to dinner.[p]"
+  ],
+  [
+   2244,
+   "テーブルには、調理道具が並べられていた。[r]",
+   "Cooking things were set out on the table.[r]"
+  ],
+  [
+   2246,
+   "夕食の準備が着々と進んでいるようだ。[p]",
+   "The preparations for dinner were coming along steadily.[p]"
+  ],
+  [
+   2252,
+   "すごい……本格的だね。小出里亜さん、料理が得意なんだ。[p]",
+   "Goodness, how professional. Koderia really can cook.[p]"
+  ],
+  [
+   2258,
+   "美味しそうな匂いがしてきた。早く食べたいな。[p]",
+   "Something smells delicious. I can't wait to eat.[p]"
+  ],
+  [
+   2262,
+   "キッチンで思い出したけど、私たちの宿泊する部屋も調べたほうがいいかも。[p]",
+   "Speaking of the kitchen — perhaps we should search our own room too.[p]"
+  ],
+  [
+   2268,
+   "どうして？[p]",
+   "Why?[p]"
+  ],
+  [
+   2274,
+   "宿泊部屋って普段は非公開だから、何かあるかもしれない。[p]",
+   "The guest rooms aren't usually open, so there might be something there.[p]"
+  ],
+  [
+   2286,
+   "[gage_draw place=\"舞黒館:キッチン\"]",
+   "[gage_draw place=\"Maicro House:Kitchen\"]"
+  ],
+  [
+   2297,
+   "（小出里亜さんがしまった小瓶……あれは本当にスパイスなのかな）[p]",
+   "(That little bottle Koderia put away... was it really a spice?)[p]"
+  ],
+  [
+   2301,
+   "もしかして、輸入物の高級な何かだったりして……[p]",
+   "Perhaps it was something expensive and imported...[p]"
+  ],
+  [
+   2305,
+   "うーん、気になる。[p]",
+   "Hmm. I'm curious.[p]"
+  ],
+  [
+   2313,
+   "年代物のコンロだけど、しっかり現役みたいだね。[p]",
+   "It's an old range, but it looks properly in service.[p]"
+  ],
+  [
+   2326,
+   "年代を感じさせる大きな鋳鉄製のコンロが、堂々と構えていた。[r]",
+   "A great cast-iron range with the weight of years about it stood there in state.[r]"
+  ],
+  [
+   2328,
+   "磨き込まれた銅製の鍋がいくつも吊るされている。[p]",
+   "A row of polished copper pans hung above it.[p]"
+  ],
+  [
+   2334,
+   "すごい存在感……。昔の西洋館みたいだね。[p]",
+   "What a presence... it's like an old Western house.[p]"
+  ],
+  [
+   2340,
+   "本当に。この館、どこを見ても凝ってるよね。[p]",
+   "It really is. Every corner of this place has been thought about.[p]"
+  ],
+  [
+   2347,
+   "（そういえば……小出里亜さんがここの棚に戻していたあの瓶。絶対ジュースだよね！）[p]",
+   "(Come to think of it... that bottle Koderia put back on this shelf. It's cordial, I'm sure of it!)[p]"
+  ],
+  [
+   2362,
+   "[gage_draw place=\"舞黒館:廊下(1F)\"]",
+   "[gage_draw place=\"Maicro House:Corridor (1F)\"]"
+  ],
+  [
+   2370,
+   "廊下を歩いていると、愛理が立ち止まった。[p]",
+   "As we walked down the corridor, Airi stopped.[p]"
+  ],
+  [
+   2375,
+   "お姉ちゃん、お父さんの手がかりが見つかるといいね。[p]",
+   "Sis, I hope we find a trace of Dad.[p]"
+  ],
+  [
+   2380,
+   "……なんとなくだけど、2Fにある資料室が怪しい気がするんだよね。[p]",
+   "...It's only a feeling, but the archive room on the second floor seems suspicious to me.[p]"
+  ],
+  [
+   2387,
+   "どうして？[p]",
+   "Why?[p]"
+  ],
+  [
+   2393,
+   "舞黒館の過去の記録とかがあるなら、そこに何かあるかもしれないでしょ。[p]",
+   "If the past records of Maicro House are anywhere, something might be there.[p]"
+  ],
+  [
+   2398,
+   "お父さんが舞黒館に来た理由も、そこにあるかも。[p]",
+   "The reason Dad came here might be there too.[p]"
+  ],
+  [
+   2405,
+   "そうだね。行ってみよう。[p]",
+   "You're right. Let's go and see.[p]"
+  ],
+  [
+   2415,
+   "歩き出そうとしたとき、階段脇の飾り棚が目に入った。[r]",
+   "As I made to walk on, a display cabinet beside the stairs caught my eye.[r]"
+  ],
+  [
+   2417,
+   "硝子戸の中に、写真立てや小物に混じって、板状の硝子が立てかけてある。[p]",
+   "Behind the glass, among photograph frames and trinkets, a flat pane of glass was propped up.[p]"
+  ],
+  [
+   2423,
+   "お姉ちゃん、これ何だろう。青いガラスの板……[p]",
+   "Sis, what's this? A pane of blue glass...[p]"
+  ],
+  [
+   2429,
+   "飾りにしては地味だね。……縁が真鍮で縁取られている。[p]",
+   "It's very plain for an ornament. ...The edge is bound in brass.[p]"
+  ],
+  [
+   2433,
+   "手のひらほどの、真鍮縁の青い硝子板だった。[r]",
+   "A brass-framed pane of blue glass about the size of a palm.[r]"
+  ],
+  [
+   2435,
+   "埃をかぶっておらず、時折誰かが手に取っているように見える。[p]",
+   "There was no dust on it; it looked as though someone picked it up from time to time.[p]"
+  ],
+  [
+   2444,
+   "廊下は静かだった。[p]",
+   "The corridor was quiet.[p]"
+  ],
+  [
+   2473,
+   "ステンドグラスが彩る玄関ホール。外の光が床に色鮮やかな模様を描いていた。[p]",
+   "The entrance hall, coloured by its stained glass. The light outside drew bright patterns on the floor.[p]"
+  ],
+  [
+   2492,
+   "[gage_draw place=\"舞黒館:玄関(1F)\"]",
+   "[gage_draw place=\"Maicro House:Entrance Hall (1F)\"]"
+  ],
+  [
+   2501,
+   "（半年前、お父さんは確かに舞黒館へ来ていた。目的は「資料閲覧」……）[p]",
+   "(Half a year ago, Dad really did come to Maicro House. Purpose: “to consult documents”...)[p]"
+  ],
+  [
+   2515,
+   "玄関の脇にある記帳台に、宿泊者全員の入館記録が置いてあった。[p]",
+   "On the register desk beside the entrance lay the arrival record for every guest.[p]"
+  ],
+  [
+   2521,
+   "これ、入館の際に記入したやつだ。[p]",
+   "This is what we signed when we came in.[p]"
+  ],
+  [
+   2525,
+   "ページをめくっていくと、ある記述が目に留まった。[p]",
+   "As I turned the pages, one entry caught my eye.[p]"
+  ],
+  [
+   2531,
+   "……珠璃さんたち、随分早く来たんだね。[p]",
+   "...Juri and her husband came awfully early.[p]"
+  ],
+  [
+   2534,
+   "うーん、やっぱりこういうのは早く来るのがマナーなのかな。[p]",
+   "Hmm. Perhaps it's good manners to arrive early for this sort of thing.[p]"
+  ],
+  [
+   2540,
+   "それにしても随分早いね。[p]",
+   "Even so, that is very early.[p]"
+  ],
+  [
+   2553,
+   "記帳台の下には、日付ごとに綴じられた過去の来館記録も並んでいた。[p]",
+   "Under the desk stood past visitor records, bound up by date.[p]"
+  ],
+  [
+   2555,
+   "真歩流は半年前の冊子を取り出し、ページを一枚ずつ追っていった。[p]",
+   "I took out the volume for half a year ago and followed the pages one by one.[p]"
+  ],
+  [
+   2560,
+   "……お姉ちゃん。ここ。[p]",
+   "...Sis. Here.[p]"
+  ],
+  [
+   2565,
+   "「真白 奢禄」……。[p]",
+   "“Sharoku Mashiro”...[p]"
+  ],
+  [
+   2569,
+   "お父さんの名前だ。[p]",
+   "It's Dad's name.[p]"
+  ],
+  [
+   2574,
+   "本当に来てたんだ……。メールに舞黒館って書いてあっただけじゃなかったんだね。[p]",
+   "He really did come... it wasn't just the word “Maicro House” in his email.[p]"
+  ],
+  [
+   2579,
+   "来館目的は……「資料閲覧」。[p]",
+   "Purpose of visit... “to consult documents.”[p]"
+  ],
+  [
+   2583,
+   "お父さん、ここで何かを調べてたんだ。[p]",
+   "Dad was looking into something here.[p]"
+  ],
+  [
+   2586,
+   "[get_item name=\"父の来館記録\" type=\"info\" memo=\"半年前、真白奢禄が舞黒館を訪れていた。来館目的の欄には「資料閲覧」と記されている。\"]",
+   "[get_item name=\"Father's visitor record\" type=\"info\" memo=\"Half a year ago, Sharoku Mashiro visited Maicro House. The purpose of visit is given as “to consult documents.”\"]"
+  ],
+  [
+   2616,
+   "[gage_draw place=\"舞黒館:宿泊部屋(2F)\"]",
+   "[gage_draw place=\"Maicro House:Guest Rooms (2F)\"]"
+  ],
+  [
+   2620,
+   "宿泊部屋の並ぶ一角には、誰もいなかった。[p]",
+   "There was nobody in the wing where the guest rooms stood.[p]"
+  ],
+  [
+   2626,
+   "部屋ごとに分かれてるんだね。どの部屋から見てみようか。[p]",
+   "They're separate rooms. Which shall we look at first?[p]"
+  ],
+  [
+   2652,
+   "[gage_draw place=\"舞黒館:穂在呂夫妻の部屋(2F)\"]",
+   "[gage_draw place=\"Maicro House:The Hoaros' Room (2F)\"]"
+  ],
+  [
+   2655,
+   "穂在呂夫妻の部屋。夫婦二人分の荷物が、きちんと壁際にまとめられていた。[p]",
+   "The Hoaros' room. Both their bags were tidily gathered against the wall.[p]"
+  ],
+  [
+   2680,
+   "[gage_draw place=\"舞黒館:和人の部屋(2F)\"]",
+   "[gage_draw place=\"Maicro House:Kazuto's Room (2F)\"]"
+  ],
+  [
+   2683,
+   "和人の部屋。物が少なく、荷物はきちんと一か所に置かれていた。[p]",
+   "Kazuto's room. Very little in it, his luggage set neatly in one place.[p]"
+  ],
+  [
+   2708,
+   "[gage_draw place=\"舞黒館:メアリーの部屋(2F)\"]",
+   "[gage_draw place=\"Maicro House:Mary's Room (2F)\"]"
+  ],
+  [
+   2711,
+   "メアリーの部屋。扉を開けた瞬間、柔らかな花の香りがふわりと流れ出した。[p]",
+   "Mary's room. The moment the door opened, a soft floral scent drifted out.[p]"
+  ],
+  [
+   2736,
+   "[gage_draw place=\"舞黒館:真白姉妹の部屋(2F)\"]",
+   "[gage_draw place=\"Maicro House:The Mashiro Sisters' Room (2F)\"]"
+  ],
+  [
+   2740,
+   "私と愛理にあてがわれた部屋。朝に置いたバッグがそのままになっていた。[p]",
+   "The room given to Airi and me. The bags we left this morning were still where we put them.[p]"
+  ],
+  [
+   2759,
+   "[gage_draw place=\"舞黒館:和人の部屋(2F)\"]",
+   "[gage_draw place=\"Maicro House:Kazuto's Room (2F)\"]"
+  ],
+  [
+   2768,
+   "（リュックパンパンで重くないのかな？）[p]",
+   "(Isn't that rucksack heavy, stuffed like that?)[p]"
+  ],
+  [
+   2780,
+   "和人のリュックサックは几帳面に置かれていた。[r]",
+   "Kazuto's rucksack had been set down with great care.[r]"
+  ],
+  [
+   2782,
+   "外からでも中身がうっすらと見える。[p]",
+   "You could just make out what was inside from the outside.[p]"
+  ],
+  [
+   2788,
+   "本と……薬を入れるような瓶？[p]",
+   "Books... and a bottle, the sort you'd keep medicine in?[p]"
+  ],
+  [
+   2792,
+   "勉強のために持ってきたのかな？[p]",
+   "Did he bring them to study?[p]"
+  ],
+  [
+   2798,
+   "宿泊イベントで？[p]",
+   "To an overnight event?[p]"
+  ],
+  [
+   2802,
+   "大学の帰りにそのまま来たんじゃない。[p]",
+   "Perhaps he came straight here from university.[p]"
+  ],
+  [
+   2808,
+   "確かにそうかも。[p]",
+   "That could be it.[p]"
+  ],
+  [
+   2812,
+   "和人は宿泊イベントに来たのにあまり楽しんでなさそうだけど、何かあったのかな。[p]",
+   "He came to an overnight event and hardly seems to be enjoying it. I wonder if something's wrong.[p]"
+  ],
+  [
+   2818,
+   "何か別で目的があるとか？[p]",
+   "Perhaps he had some other purpose?[p]"
+  ],
+  [
+   2824,
+   "何かって？[p]",
+   "Such as?[p]"
+  ],
+  [
+   2831,
+   "例えば、誰かに会いに来たとか……そんなわけないね。[p]",
+   "Coming to meet someone, say... no, that can't be it.[p]"
+  ],
+  [
+   2843,
+   "[gage_draw place=\"舞黒館:和人の部屋(2F)\"]",
+   "[gage_draw place=\"Maicro House:Kazuto's Room (2F)\"]"
+  ],
+  [
+   2852,
+   "（本の奥に、緑の硝子が挟まっていた）[p]",
+   "(A pane of green glass was wedged behind the books.)[p]"
+  ],
+  [
+   2865,
+   "壁際の書棚には、革張りの古書がびっしりと並んでいた。[p]",
+   "The bookcase against the wall was packed tight with old leather-bound volumes.[p]"
+  ],
+  [
+   2871,
+   "……ねえお姉ちゃん。ここだけ、背表紙の高さが揃ってないよ。[p]",
+   "...Sis. The spines aren't level just here.[p]"
+  ],
+  [
+   2877,
+   "本当だ。一冊だけ、奥に押し込まれてる。[p]",
+   "You're right. One of them is pushed right to the back.[p]"
+  ],
+  [
+   2881,
+   "その本を引き出すと、奥の板との隙間に、緑の硝子板が立てて挟まれていた。[p]",
+   "When I drew that book out, a pane of green glass stood wedged in the gap behind it.[p]"
+  ],
+  [
+   2887,
+   "緑色の硝子だ！[p]",
+   "Green glass![p]"
+  ],
+  [
+   2893,
+   "……館のあちこちに散らばってる、ってことかな。[p]",
+   "...So they're scattered all over the house.[p]"
+  ],
+  [
+   2912,
+   "[gage_draw place=\"舞黒館:穂在呂夫妻の部屋(2F)\"]",
+   "[gage_draw place=\"Maicro House:The Hoaros' Room (2F)\"]"
+  ],
+  [
+   2921,
+   "（持ち手だけ濡れてたのは……何だったんだろう）[p]",
+   "(Only the handle was wet... what was that about?)[p]"
+  ],
+  [
+   2933,
+   "珠璃のスーツケースを何気なく見ると、持ち手の部分がうっすらと濡れていた。[p]",
+   "Glancing at Juri's suitcase, the handle was faintly damp.[p]"
+  ],
+  [
+   2939,
+   "……ここだけ濡れてる。何かこぼしたのかな。[p]",
+   "...Only here is wet. Did something spill?[p]"
+  ],
+  [
+   2952,
+   "[gage_draw place=\"舞黒館:メアリーの部屋(2F)\"]",
+   "[gage_draw place=\"Maicro House:Mary's Room (2F)\"]"
+  ],
+  [
+   2961,
+   "（いい香り……メアリーさんらしいな）[p]",
+   "(What a lovely scent... just like Mary.)[p]"
+  ],
+  [
+   2973,
+   "メアリーのスーツケースのそばを通りかかると、複数の花の香りがふわりと漂ってきた。[p]",
+   "As I passed Mary's suitcase, the scent of several flowers drifted up.[p]"
+  ],
+  [
+   2979,
+   "香水……たくさん持ってきてるんだね。手作りって言ってたし、研究熱心なんだなあ。[p]",
+   "Perfume... she's brought a lot with her. She said she made it herself; she really is dedicated.[p]"
+  ],
+  [
+   2992,
+   "[gage_draw place=\"舞黒館:メアリーの部屋(2F)\"]",
+   "[gage_draw place=\"Maicro House:Mary's Room (2F)\"]"
+  ],
+  [
+   3001,
+   "（絵の裏の言葉……青き光は真っすぐな道の中に、かあ）[p]",
+   "(The words behind the painting... “the blue light lies within the straight path.”)[p]"
+  ],
+  [
+   3013,
+   "窓際の書き物机には、布のかかった額が立てかけられていた。[r]",
+   "Against the writing desk by the window leaned a framed picture with a cloth over it.[r]"
+  ],
+  [
+   3015,
+   "布をそっとめくると、油絵の具の厚みが指先に触れた。[p]",
+   "When I lifted the cloth, my fingertips met the thickness of oil paint.[p]"
+  ],
+  [
+   3021,
+   "わ……綺麗な絵。湖かな。[p]",
+   "Oh... what a beautiful painting. A lake?[p]"
+  ],
+  [
+   3027,
+   "うん。あ、縁のところに文字が入ってる。[p]",
+   "Mm. Oh, there's writing on the frame.[p]"
+  ],
+  [
+   3031,
+   "……『舞黒邦夢肖像』？　この帽子のおじさんが、舞黒邦夢さん？[p]",
+   "...\"Portrait of Houmu Maicro\"? Is this gentleman in the hat Mr Maicro?[p]"
+  ],
+  [
+   3038,
+   "お姉ちゃん、裏。裏にも何か書いてあるよ。[p]",
+   "Sis, the back. There's something written on the back too.[p]"
+  ],
+  [
+   3041,
+   "額を裏返すと、褪せたインクで一行だけ書き込まれていた。[p]",
+   "Turning the frame over, one line was written there in faded ink.[p]"
+  ],
+  [
+   3044,
+   "青き光は真っすぐな道の中に……[p]",
+   "The blue light lies within the straight path...[p]"
+  ],
+  [
+   3050,
+   "青き光……。意味はわからないけど、覚えておこう。[p]",
+   "The blue light... I don't know what it means, but let's remember it.[p]"
+  ],
+  [
+   3069,
+   "[gage_draw place=\"舞黒館:真白姉妹の部屋(2F)\"]",
+   "[gage_draw place=\"Maicro House:The Mashiro Sisters' Room (2F)\"]"
+  ],
+  [
+   3078,
+   "（忘れ物はない。他の宿泊部屋も、普段は見られない場所なんだよね）[p]",
+   "(Nothing forgotten. The other guest rooms aren't usually open either, are they.)[p]"
+  ],
+  [
+   3090,
+   "朝に置いたままのバッグを開けてみる。[r]",
+   "I opened the bag I'd left there this morning.[r]"
+  ],
+  [
+   3092,
+   "着替えと洗面用具を確認したが、忘れ物はなさそうだ。[p]",
+   "A change of clothes and washing things — nothing forgotten.[p]"
+  ],
+  [
+   3098,
+   "よし。これなら帰る時に慌てなくて済むね。[p]",
+   "Good. We won't be in a panic when we leave.[p]"
+  ],
+  [
+   3104,
+   "こうして見ると、普通の宿泊部屋だね。[p]",
+   "Looked at like this, it's an ordinary guest room.[p]"
+  ],
+  [
+   3111,
+   "私たちの部屋はね。[p]",
+   "Ours is.[p]"
+  ],
+  [
+   3115,
+   "そういえば、他の人の寝室ってどうなってるんだろう。[p]",
+   "Come to think of it, I wonder what the other bedrooms are like.[p]"
+  ],
+  [
+   3121,
+   "え、勝手に見ていいの？[p]",
+   "What, can we just go and look?[p]"
+  ],
+  [
+   3127,
+   "調査のためでしょ。宿泊部屋は普段は非公開みたいだし、今だから見られるものもあるかもしれないよ。[p]",
+   "It's for the investigation. The guest rooms aren't usually open, so there may be things we can only see now.[p]"
+  ],
+  [
+   3133,
+   "……なるほど。じゃあ、他の部屋も少し見てみようか。[p]",
+   "...Fair enough. Let's check the other rooms too.[p]"
+  ],
+  [
+   3146,
+   "[gage_draw place=\"舞黒館:真白姉妹の部屋(2F)\"]",
+   "[gage_draw place=\"Maicro House:The Mashiro Sisters' Room (2F)\"]"
+  ],
+  [
+   3155,
+   "（1935年の写真……どんな人たちだったんだろう）[p]",
+   "(A photograph from 1935... what sort of people were they?)[p]"
+  ],
+  [
+   3167,
+   "部屋の本棚には、背の高い洋書が隙間なく並んでいた。[r]",
+   "The bookshelf in the room was packed with tall foreign volumes.[r]"
+  ],
+  [
+   3169,
+   "その一冊を抜くと、間から一枚の写真がひらりと落ちた。[p]",
+   "When I pulled one out, a photograph fluttered from between the pages.[p]"
+  ],
+  [
+   3175,
+   "写真……？　ずいぶん古いね。[p]",
+   "A photograph...? It's very old.[p]"
+  ],
+  [
+   3181,
+   "セピア色になってる。洋館の中で撮ったのかな。[p]",
+   "It's gone sepia. Taken inside a Western house, perhaps.[p]"
+  ],
+  [
+   3188,
+   "裏に文字。……1935年。それと、名前がいくつか。[p]",
+   "Writing on the back. ...1935. And several names.[p]"
+  ],
+  [
+   3194,
+   "舞黒邦夢さんと親しかった人たち、ってことかな。[p]",
+   "People who were close to Mr Maicro, I suppose.[p]"
+  ],
+  [
+   3198,
+   "（この人たちの中に、私の知ってる誰かがいたりして……なんてね）[p]",
+   "(Maybe someone I know is among them... as if.)[p]"
+  ],
+  [
+   3234,
+   "2階のサンルームは1階よりも小ぢんまりとしていたが、趣のある空間だった。[p]",
+   "The second-floor sunroom was smaller than the one below, but a room with real character.[p]"
+  ],
+  [
+   3253,
+   "[gage_draw place=\"舞黒館:サンルーム(2F)\"]",
+   "[gage_draw place=\"Maicro House:Sunroom (2F)\"]"
+  ],
+  [
+   3262,
+   "（椅子に座った高さから見ると、暖炉の炉と上部の間に妙な隙間が見えた）[p]",
+   "(From a seated height, there was an odd gap between the hearth and the part above it.)[p]"
+  ],
+  [
+   3274,
+   "ふかふかの椅子に腰を下ろすと、身体がゆっくり沈み込んだ。[p]",
+   "When I sat down in the deep armchair, my body sank slowly into it.[p]"
+  ],
+  [
+   3280,
+   "うわ、すごく座り心地いい。[p]",
+   "Oh, that's comfortable.[p]"
+  ],
+  [
+   3284,
+   "昔の椅子なのに、ちゃんと手入れされてるんだね。[p]",
+   "It's an old chair, and it's been properly looked after.[p]"
+  ],
+  [
+   3290,
+   "本当。……あれ？[p]",
+   "It has. ...Hm?[p]"
+  ],
+  [
+   3296,
+   "どうしたの？[p]",
+   "What is it?[p]"
+  ],
+  [
+   3303,
+   "座ると目線が低くなるからかな。暖炉のところ、立ってた時には気づかなかったけど……。[p]",
+   "Perhaps because sitting lowers your eyeline. The fireplace — I didn't notice it standing up, but...[p]"
+  ],
+  [
+   3307,
+   "炉の燃やすところと、その上の部分の間に少し隙間がある。[p]",
+   "There's a small gap between the firebox and the part above it.[p]"
+  ],
+  [
+   3313,
+   "本当だ。飾りにしては妙な隙間だね。[p]",
+   "You're right. That's an odd gap for decoration.[p]"
+  ],
+  [
+   3319,
+   "暖炉そのものを調べたら、何かわかるかもしれないね。[p]",
+   "Perhaps examining the fireplace itself would tell us something.[p]"
+  ],
+  [
+   3331,
+   "[gage_draw place=\"舞黒館:サンルーム(2F)\"]",
+   "[gage_draw place=\"Maicro House:Sunroom (2F)\"]"
+  ],
+  [
+   3341,
+   "（設計図……地下の通路、本当にあるのかな）[p]",
+   "(The floor plan... is there really a passage underground?)[p]"
+  ],
+  [
+   3358,
+   "暖炉っていいなあ。[p]",
+   "Fireplaces are wonderful.[p]"
+  ],
+  [
+   3365,
+   "お姉ちゃんあんまりべたべた触って壊さないでよ。[p]",
+   "Sis, don't paw at it so much or you'll break it.[p]"
+  ],
+  [
+   3370,
+   "パキャ。[p]",
+   "Crack.[p]"
+  ],
+  [
+   3377,
+   "あれっ……[p]",
+   "Oh dear...[p]"
+  ],
+  [
+   3386,
+   "ちょっと！ 今の音は何！[p]",
+   "Excuse me! What was that noise![p]"
+  ],
+  [
+   3393,
+   "どどど、どうしよう愛理！ 蓋が取れちゃった！[p]",
+   "Wh-what do I do, Airi! The panel's come off![p]"
+  ],
+  [
+   3400,
+   "蓋？[p]",
+   "Panel?[p]"
+  ],
+  [
+   3407,
+   "これ、側面が外れるようになっているみたい。[p]",
+   "It looks as though the side is meant to come away.[p]"
+  ],
+  [
+   3411,
+   "その下にはダイヤル式の仕掛けがあるね。[p]",
+   "And underneath there's some sort of dial mechanism.[p]"
+  ],
+  [
+   3417,
+   "なんだ、良かった！[p]",
+   "Oh good, what a relief![p]"
+  ],
+  [
+   3425,
+   "良かったじゃないでしょ、お姉ちゃん！！[p]",
+   "It is not a relief, sis!![p]"
+  ],
+  [
+   3431,
+   "ひいい！ ごめんなさい！[p]",
+   "Eek! I'm sorry![p]"
+  ],
+  [
+   3439,
+   "でも、このダイヤル式の仕掛けを解いたらどうなるんだろう。[p]",
+   "Still — what do you suppose happens if we solve this dial?[p]"
+  ],
+  [
+   3443,
+   "暖炉の側面を外すと、真鍮の環が四つ並んだダイヤル錠が現れる。[p]",
+   "With the side of the fireplace removed, a dial lock with four brass rings came into view.[p]"
+  ],
+  [
+   3452,
+   "当てずっぽうで回しても、たぶん一万通りだよ……[p]",
+   "Guessing would take ten thousand tries...[p]"
+  ],
+  [
+   3458,
+   "どこかに数字の手がかりがあるはず。探してみよう。[p]",
+   "There must be a clue to the numbers somewhere. Let's look.[p]"
+  ],
+  [
+   3469,
+   "ラジオが読み上げてた数字……試してみようよ。[p]",
+   "The numbers the radio was reading out... let's try those.[p]"
+  ],
+  [
+   3479,
+   "[gage_draw place=\"舞黒館:サンルーム(2F)\"]",
+   "[gage_draw place=\"Maicro House:Sunroom (2F)\"]"
+  ],
+  [
+   3488,
+   "……もう一度、落ち着いて合わせてみよう。[p]",
+   "...Let's take our time and line it up again.[p]"
+  ],
+  [
+   3501,
+   "四つの環が数字を揃えた瞬間、内側で閂の外れる音がした。[p]",
+   "The moment the four rings matched the numbers, a bolt slipped free inside.[p]"
+  ],
+  [
+   3507,
+   "開いた！[p]",
+   "It's open![p]"
+  ],
+  [
+   3511,
+   "炉の奥は小さな金庫になっており、分厚い古い資料が収まっていた。[p]",
+   "Behind the hearth was a small safe, holding a thick bundle of old papers.[p]"
+  ],
+  [
+   3517,
+   "これ……設計図？[p]",
+   "Is this... a floor plan?[p]"
+  ],
+  [
+   3520,
+   "二人で広げてみると、舞黒館の詳細な建築図面だった。[r]",
+   "Spread out between us, it was a detailed architectural drawing of Maicro House.[r]"
+  ],
+  [
+   3522,
+   "かなり古いものだが、保存状態は良い。[p]",
+   "Very old, but well preserved.[p]"
+  ],
+  [
+   3528,
+   "見て、お姉ちゃん。ここ……地下部分に空間が描かれてる！[p]",
+   "Look, sis. Here... there's a space drawn in the basement![p]"
+  ],
+  [
+   3534,
+   "やっぱり地下はあるんだね……！？[p]",
+   "So there is a basement after all...![p]"
+  ],
+  [
+   3540,
+   "資料室にあった『秘密の避難経路』って、これのことだったんだ。[p]",
+   "So this is what the “secret escape route” in the archive meant.[p]"
+  ],
+  [
+   3546,
+   "設計図を確認すると……地下部分に続く入口がある。でも、この館のどこにあるんだろう。[p]",
+   "Looking at the plan... there's an entrance leading down. But where is it in this house?[p]"
+  ],
+  [
+   3584,
+   "資料室には、舞黒館に関する様々な資料が保管されていた。[p]",
+   "The archive room held all sorts of records concerning Maicro House.[p]"
+  ],
+  [
+   3613,
+   "[gage_draw place=\"舞黒館:資料室(2F)\"]",
+   "[gage_draw place=\"Maicro House:Archive Room (2F)\"]"
+  ],
+  [
+   3623,
+   "（お父さんは半年前、地下増築や建築、それに戦前の記録まで調べていた……）[p]",
+   "(Half a year ago Dad was looking into the basement extension, the architecture, even the pre-war records...)[p]"
+  ],
+  [
+   3637,
+   "棚の端に、比較的新しい革表紙の冊子があった。[r]",
+   "At the end of a shelf stood a relatively new leather-bound ledger.[r]"
+  ],
+  [
+   3639,
+   "表紙には「資料閲覧簿」と印字されている。[p]",
+   "“Archive Log” was printed on the cover.[p]"
+  ],
+  [
+   3644,
+   "古い資料は貴重だから、誰が何を見たか記録してるみたい。[p]",
+   "The old documents are precious, so they record who consulted what.[p]"
+  ],
+  [
+   3649,
+   "だったら……半年前の記録もあるかも。[p]",
+   "In that case... the record from half a year ago may be here.[p]"
+  ],
+  [
+   3653,
+   "玄関の記帳簿で見つけた日付まで遡る。[r]",
+   "I went back to the date I had found in the entrance register.[r]"
+  ],
+  [
+   3655,
+   "そこには「真白 奢禄」の名前が記されていた。[p]",
+   "And there was the name: “Sharoku Mashiro.”[p]"
+  ],
+  [
+   3660,
+   "あった……！[p]",
+   "There it is...![p]"
+  ],
+  [
+   3665,
+   "閲覧した資料も書いてあるよ。[p]",
+   "It lists what he consulted too.[p]"
+  ],
+  [
+   3668,
+   "――舞黒館　地下増築関係資料。[r]",
+   "—Maicro House: papers relating to the basement extension.[r]"
+  ],
+  [
+   3670,
+   "――舞黒館　建築関係資料。[r]",
+   "—Maicro House: papers relating to the architecture.[r]"
+  ],
+  [
+   3672,
+   "――昭和十年前後　訪問者記録。[p]",
+   "—Visitor records, around 1935.[p]"
+  ],
+  [
+   3677,
+   "お父さん、舞黒館そのものについてかなり調べてたんだ。[p]",
+   "Dad was looking into Maicro House itself, and thoroughly.[p]"
+  ],
+  [
+   3680,
+   "何を探してたんだろう……。[p]",
+   "What was he searching for...[p]"
+  ],
+  [
+   3683,
+   "[get_item name=\"父の資料閲覧記録\" type=\"info\" memo=\"半年前、奢禄は舞黒館の地下増築・建築関係資料・昭和十年前後の訪問者記録を閲覧していた。\"]",
+   "[get_item name=\"Father's archive log entry\" type=\"info\" memo=\"Half a year ago Sharoku consulted the papers on the basement extension and the architecture of Maicro House, and the visitor records from around 1935.\"]"
+  ],
+  [
+   3690,
+   "[gage_draw place=\"舞黒館:資料室(2F)\"]",
+   "[gage_draw place=\"Maicro House:Archive Room (2F)\"]"
+  ],
+  [
+   3700,
+   "……まだここにいる。気になることが残っているからな。[p]",
+   "...I'm still here. There's something that won't leave me alone.[p]"
+  ],
+  [
+   3711,
+   "資料室の隅で、和人が古い資料をめくっていた。[p]",
+   "In the corner of the archive, Kazuto was turning the pages of an old document.[p]"
+  ],
+  [
+   3717,
+   "和人、ここで何を調べているの？[p]",
+   "Kazuto, what are you looking into here?[p]"
+  ],
+  [
+   3723,
+   "過去の資料を見ていただけだ。[p]",
+   "I was only reading old records.[p]"
+  ],
+  [
+   3729,
+   "……そういえば、どうして今回のイベントに参加したの？[p]",
+   "...Come to that, why did you come to this event?[p]"
+  ],
+  [
+   3733,
+   "和人はしばらく黙っていたが、やがて口を開いた。[p]",
+   "Kazuto was silent for a while, then spoke.[p]"
+  ],
+  [
+   3739,
+   "……俺の母親が経営していた薬屋の庭で、品種改良したセージを育てていた。[p]",
+   "...My mother ran a chemist's shop, and in its garden she grew a sage she had bred herself.[p]"
+  ],
+  [
+   3744,
+   "日本でしか育たない特殊な品種で、脳機能の働きを向上させる効果があると言われている。[p]",
+   "A special cultivar that grows only in Japan; it's said to improve the working of the brain.[p]"
+  ],
+  [
+   3748,
+   "それが、舞黒館の庭にあると聞いたから、見に来た。[p]",
+   "I heard it was in the garden at Maicro House, so I came to see it.[p]"
+  ],
+  [
+   3754,
+   "脳機能を改善するセージ？ 初めて聞いた。[p]",
+   "Sage that improves the brain? I've never heard of it.[p]"
+  ],
+  [
+   3761,
+   "そうだろうな。何と言ってもそのセージは母さんが作った品種だからな。[p]",
+   "I dare say. It was my mother's own cultivar, after all.[p]"
+  ],
+  [
+   3767,
+   "和人のお母さんが作ったの？[p]",
+   "Your mother bred it?[p]"
+  ],
+  [
+   3774,
+   "俺の母親は、元は薬の研究をしていたからな。[p]",
+   "My mother did drug research originally.[p]"
+  ],
+  [
+   3778,
+   "そのセージが本当にあるのか確かめに来たんだ。[p]",
+   "I came to see whether that sage was really here.[p]"
+  ],
+  [
+   3784,
+   "どうして、わざわざ確かめに来たの？ 調べればすぐにわかりそうだけど。[p]",
+   "Why come all this way to check? Surely you could just look it up.[p]"
+  ],
+  [
+   3791,
+   "ホワイトセージと見分けがつきにくいからな。[p]",
+   "It's hard to tell apart from ordinary white sage.[p]"
+  ],
+  [
+   3795,
+   "知識のある人間じゃないと見分けるのは難しいんだ。[p]",
+   "Without the knowledge, you can't distinguish them.[p]"
+  ],
+  [
+   3800,
+   "確かにそれだと難しいね。[p]",
+   "That would make it difficult.[p]"
+  ],
+  [
+   3805,
+   "それに……母さんの研究資料が紛失していてな。[p]",
+   "Besides... my mother's research notes have gone missing.[p]"
+  ],
+  [
+   3809,
+   "もしかしたら、ここにあるんじゃないかと思ったんだ……[p]",
+   "I thought they might be here...[p]"
+  ],
+  [
+   3815,
+   "優しいんだね和人。[p]",
+   "That's kind of you, Kazuto.[p]"
+  ],
+  [
+   3822,
+   "……そんなんじゃない。[p]",
+   "...It isn't that.[p]"
+  ],
+  [
+   3826,
+   "俺は……[p]",
+   "I'm...[p]"
+  ],
+  [
+   3829,
+   "和人はそこまで言うと黙ってしまった。[p]",
+   "Kazuto got that far and fell silent.[p]"
+  ],
+  [
+   3840,
+   "[gage_draw place=\"舞黒館:資料室(2F)\"]",
+   "[gage_draw place=\"Maicro House:Archive Room (2F)\"]"
+  ],
+  [
+   3850,
+   "（真白小五郎……私たちと同じ名字。何か繋がりがあるのかな）[p]",
+   "(Kogoro Mashiro... the same surname as ours. Is there a connection?)[p]"
+  ],
+  [
+   3862,
+   "壁に、「地下増築工事 共同出資者一覧　昭和五年」と題した書類があった。[p]",
+   "On the wall was a document headed “Basement Extension Works: Joint Backers, 1930.”[p]"
+  ],
+  [
+   3868,
+   "お姉ちゃん、見て！　この名前……[p]",
+   "Sis, look! This name...[p]"
+  ],
+  [
+   3874,
+   "『真白小五郎』……真白って、私たちと同じ名字！[p]",
+   "“Kogoro Mashiro”... Mashiro — that's our surname![p]"
+  ],
+  [
+   3881,
+   "何か関係があるのかな。でも、同じ名字というだけで他人って可能性もある……[p]",
+   "Is there a connection? Though the same surname could just be a stranger...[p]"
+  ],
+  [
+   3887,
+   "それに……『富礼知』って名前もある。[p]",
+   "And besides... the name “Furechi” is here too.[p]"
+  ],
+  [
+   3890,
+   "昔この館の工事に関わった家だって、朱志香さんが言っていたよね。[p]",
+   "Jushika said that family was involved in the works here long ago.[p]"
+  ],
+  [
+   3896,
+   "もしかしたら、私たちの家系はここに縁があるのかもしれない。[p]",
+   "Perhaps our family has ties to this place after all.[p]"
+  ],
+  [
+   3900,
+   "（お父さんはその謎を探っていたんじゃ……）[p]",
+   "(Maybe Dad was chasing that same mystery...)[p]"
+  ],
+  [
+   3916,
+   "[gage_draw place=\"舞黒館:資料室(2F)\"]",
+   "[gage_draw place=\"Maicro House:Archive Room (2F)\"]"
+  ],
+  [
+   3926,
+   "（世界中から要人が来ていたんだ……すごいなあ）[p]",
+   "(Important people came from all over the world... how extraordinary.)[p]"
+  ],
+  [
+   3938,
+   "棚の一角に、「戦前の訪問者記録」と書かれた冊子があった。[p]",
+   "On one part of the shelf stood a volume marked “Pre-war Visitor Records.”[p]"
+  ],
+  [
+   3944,
+   "この記録、すごい数の訪問者……世界各国から来てたんだね。[p]",
+   "Look at all these visitors... they came from every country in the world.[p]"
+  ],
+  [
+   3951,
+   "当時の舞黒館は、各国の要人が訪れるほどの場所だったんだね。第二次世界大戦が始まる前までだけど。[p]",
+   "Maicro House was the kind of place dignitaries came to. Until the Second World War, at least.[p]"
+  ],
+  [
+   3954,
+   "当時の記録は非常に貴重なため、厳重に保管されているという注記があった。[p]",
+   "A note said the records of that period were extremely valuable and kept under strict care.[p]"
+  ],
+  [
+   3960,
+   "朱志香さんに頼めば見せてくれるかな。[p]",
+   "Perhaps Jushika would show them to us if we asked.[p]"
+  ],
+  [
+   3973,
+   "[gage_draw place=\"舞黒館:資料室(2F)\"]",
+   "[gage_draw place=\"Maicro House:Archive Room (2F)\"]"
+  ],
+  [
+   3983,
+   "（古い模型では、2階談話室の窓側だけ外形と室内の奥行きが合っていない……）[p]",
+   "(In the old model, only the window side of the second-floor drawing room doesn't match the depth of the room inside...)[p]"
+  ],
+  [
+   3996,
+   "朱志香から借りた鍵でガラスケースを開け、舞黒館の古い模型を間近で確認する。[r]",
+   "Using the key borrowed from Jushika, we opened the glass case and studied the old model of Maicro House close up.[r]"
+  ],
+  [
+   3998,
+   "台座には、増築当時の記録をまとめた薄い冊子も収められていた。[p]",
+   "Set into the base was a slim booklet gathering the records from the time of the extension.[p]"
+  ],
+  [
+   4003,
+   "昭和五年に、地下施設を増築したって書いてある。[p]",
+   "It says the basement was built in 1930.[p]"
+  ],
+  [
+   4008,
+   "地下……。やっぱり、この館には表から見えない場所があるんだ。[p]",
+   "A basement... so there really is a part of this house you can't see from outside.[p]"
+  ],
+  [
+   4012,
+   "記録には、舞黒邦夢が地下に重要なものを保管するための設備も設けたことが簡潔に記されていた。[p]",
+   "The record noted briefly that Houmu Maicro also had a facility built underground for storing something important.[p]"
+  ],
+  [
+   4016,
+   "重要なものって、何だろう。[p]",
+   "Something important — what, I wonder.[p]"
+  ],
+  [
+   4021,
+   "そこまでは書いてないね。[p]",
+   "It doesn't say.[p]"
+  ],
+  [
+   4025,
+   "真歩流は模型を横から覗き込み、実際に歩いた館内を思い返した。[p]",
+   "I looked into the model from the side, thinking back over the rooms we had actually walked.[p]"
+  ],
+  [
+   4030,
+   "……あれ？[p]",
+   "...Hm?[p]"
+  ],
+  [
+   4033,
+   "愛理。2階の談話室って、窓側はあんなに張り出してたっけ。[p]",
+   "Airi. Did the drawing room upstairs really jut out that far on the window side?[p]"
+  ],
+  [
+   4039,
+   "模型だと、部屋の外側が少し膨らんでるね。[p]",
+   "In the model the outside of the room does bulge a little.[p]"
+  ],
+  [
+   4042,
+   "でも中から見たとき、そんな奥行きなかった気がする。[p]",
+   "But from inside, I don't remember it being that deep.[p]"
+  ],
+  [
+   4047,
+   "壁の厚みだけじゃ説明できないよね。[p]",
+   "Wall thickness alone wouldn't explain it.[p]"
+  ],
+  [
+   4050,
+   "……談話室を見てみよう。[p]",
+   "...Let's go and look at the drawing room.[p]"
+  ],
+  [
+   4057,
+   "[get_item name=\"模型と談話室のずれ\" type=\"info\" memo=\"古い模型では、2F談話室の窓側が実際の室内より外へ張り出して見える。模型と現在の部屋の奥行きが一致していない。\"]",
+   "[get_item name=\"Model and drawing room mismatch\" type=\"info\" memo=\"In the old model, the window side of the second-floor drawing room juts further out than the room itself. The depth of the model and the present room do not agree.\"]"
+  ],
+  [
+   4065,
+   "[gage_draw place=\"舞黒館:資料室(2F)\"]",
+   "[gage_draw place=\"Maicro House:Archive Room (2F)\"]"
+  ],
+  [
+   4076,
+   "（三枚の硝子が示したのは――『執務机裏』）[p]",
+   "(What the three panes spelled was — “DESK.”)[p]"
+  ],
+  [
+   4090,
+   "梯子を登って上段の棚に手を伸ばすと、本の列の裏に木の板がはめ込まれていた。[p]",
+   "Climbing the ladder and reaching for the upper shelf, I found a wooden panel set behind the row of books.[p]"
+  ],
+  [
+   4096,
+   "お姉ちゃん、そこ！　板の真ん中が明るくない？[p]",
+   "Sis, there! Isn't the middle of that panel brighter?[p]"
+  ],
+  [
+   4099,
+   "板を外すと、内側から乳白色の光が漏れた。[r]",
+   "When the panel came away, a milky light spilled out from behind it.[r]"
+  ],
+  [
+   4101,
+   "背後に小さな灯りが仕込まれていて、板は硝子を載せるための台になっている。[p]",
+   "A small lamp was fitted inside, and the panel was a stand for laying glass on.[p]"
+  ],
+  [
+   4107,
+   "ここに、何かを重ねろってこと……？[p]",
+   "So something is meant to be laid here...?[p]"
+  ],
+  [
+   4114,
+   "三つの原色を重ねれば、知識の宝庫に新たな兆しが現れる――[p]",
+   "Lay the three primary colors one over another, and a new sign appears in the storehouse of knowledge—[p]"
+  ],
+  [
+   4124,
+   "原色は三つ……青、赤、緑。それらを象徴する何かがあるのかも。[p]",
+   "Three primaries... blue, red, green. There must be something standing for each.[p]"
+  ],
+  [
+   4131,
+   "館のどこかに、隠されてるはずだよ。[p]",
+   "They must be hidden somewhere in the house.[p]"
+  ],
+  [
+   4142,
+   "青、赤、緑……三枚とも揃った。[p]",
+   "Blue, red and green... we have all three.[p]"
+  ],
+  [
+   4149,
+   "重ねてみよう！[p]",
+   "Let's lay them together![p]"
+  ],
+  [
+   4159,
+   "[gage_draw place=\"舞黒館:資料室(2F)\"]",
+   "[gage_draw place=\"Maicro House:Archive Room (2F)\"]"
+  ],
+  [
+   4168,
+   "……もう少し、丁寧に重ねてみよう。[p]",
+   "...Let's lay them a little more carefully.[p]"
+  ],
+  [
+   4182,
+   "三枚の硝子が正しく噛み合った瞬間、灯りの上に四つの文字が浮かび上がった。[p]",
+   "The moment the three panes meshed properly, four letters rose out of the light.[p]"
+  ],
+  [
+   4188,
+   "……『執務机裏』？[p]",
+   "...\"DESK\"?[p]"
+  ],
+  [
+   4195,
+   "執務室の机の裏！ 邦夢さんの仕掛け、次はあそこってこと！[p]",
+   "The desk in the study! So that's where Mr Maicro's next contrivance is![p]"
+  ],
+  [
+   4201,
+   "行ってみよう。[p]",
+   "Let's go and see.[p]"
+  ],
+  [
+   4204,
+   "[get_item name=\"執務机裏\" type=\"info\" memo=\"三色の硝子が結んだ四文字。執務室の机の裏に、次の仕掛けがある。\"]",
+   "[get_item name=\"DESK\" type=\"info\" memo=\"The four letters the three panes of glass spelled out together. The next mechanism is under the desk in the study.\"]"
+  ],
+  [
+   4233,
+   "執務室は重厚な雰囲気の部屋だった。[p]",
+   "The study was a room of considerable weight and dignity.[p]"
+  ],
+  [
+   4252,
+   "[gage_draw place=\"舞黒館:執務室(2F)\"]",
+   "[gage_draw place=\"Maicro House:Study (2F)\"]"
+  ],
+  [
+   4261,
+   "（舞黒館の図面には、改築時に作られたはずの一部の図面が見当たらない）[p]",
+   "(Part of the plans for Maicro House — drawings that must have been made during the rebuilding — are missing.)[p]"
+  ],
+  [
+   4275,
+   "本棚の下段には、筒状に丸められた建築図面が年代順に収められていた。[p]",
+   "The lower shelf of the bookcase held rolled architectural drawings, arranged by date.[p]"
+  ],
+  [
+   4280,
+   "1階、2階、外構……増改築の図面もある。[p]",
+   "Ground floor, first floor, grounds... plans for the extensions too.[p]"
+  ],
+  [
+   4285,
+   "ずいぶん細かく残ってるね。[p]",
+   "They're kept in remarkable detail.[p]"
+  ],
+  [
+   4288,
+   "二人で図面を確認していく。[r]",
+   "We went through the drawings together.[r]"
+  ],
+  [
+   4290,
+   "ところどころ、図面番号が飛んでいる箇所があった。[p]",
+   "Here and there, drawing numbers were missing from the sequence.[p]"
+  ],
+  [
+   4295,
+   "これ、なくなった図面があるってことかな。[p]",
+   "Does that mean some of the plans are gone?[p]"
+  ],
+  [
+   4300,
+   "そうみたい。何の図面だったんだろう……。[p]",
+   "It looks like it. What were they of, I wonder...[p]"
+  ],
+  [
+   4303,
+   "[get_item name=\"欠けた建築図面\" type=\"info\" memo=\"執務室の建築図面一式は一部の番号が欠けている。何の図面が失われたのかは、この時点では分からない。\"]",
+   "[get_item name=\"Gaps in the architectural plans\" type=\"info\" memo=\"Numbers are missing from the set of architectural drawings in the study. What the lost drawings showed is not yet clear.\"]"
+  ],
+  [
+   4312,
+   "[gage_draw place=\"舞黒館:執務室(2F)\"]",
+   "[gage_draw place=\"Maicro House:Study (2F)\"]"
+  ],
+  [
+   4321,
+   "（1946年の手記。若い二人との約束と、再会できなかった心残り……）[p]",
+   "(A memoir from 1946. A promise made to two young people, and the regret of never meeting again...)[p]"
+  ],
+  [
+   4333,
+   "執務室の本棚を調べると、舞黒館に関する大量の資料が詰め込まれていた。[p]",
+   "Searching the study bookcase turned up a great mass of material about Maicro House.[p]"
+  ],
+  [
+   4339,
+   "すごい資料の数だね。どれも古そう……。[p]",
+   "What a lot of documents. All of them look old...[p]"
+  ],
+  [
+   4345,
+   "何だか頭がパンクしてきたよ。[p]",
+   "My head is starting to burst.[p]"
+  ],
+  [
+   4352,
+   "待って。これ、舞黒邦夢さんの手記じゃない？[p]",
+   "Wait. Isn't this Mr Maicro's own memoir?[p]"
+  ],
+  [
+   4355,
+   "革表紙の手帳を開くと、1935年と記されたページに、濃いインクの文字が残っていた。[p]",
+   "Opening the leather-bound notebook, a page marked 1935 still carried its dark ink.[p]"
+  ],
+  [
+   4358,
+   "「1935年――あの年には、本当に様々なことがあった。[r]",
+   "“1935 — so very much happened that year.[r]"
+  ],
+  [
+   4360,
+   "素晴らしい出会いもあれば、二度と思い出したくない出来事もあった。[p]",
+   "There were wonderful meetings, and there were things I never wish to recall.[p]"
+  ],
+  [
+   4362,
+   "世界には再び戦争の影が差し始め、あの若い二人も離れ離れになった。[r]",
+   "The shadow of war fell across the world again, and those two young people were parted.[r]"
+  ],
+  [
+   4364,
+   "だが、私は彼らと交わした約束を守るつもりだ。[p]",
+   "But I mean to keep the promise I made to them.[p]"
+  ],
+  [
+   4366,
+   "幸い、この館には今も多くの客人が訪れる。[r]",
+   "Happily, a great many guests still come to this house.[r]"
+  ],
+  [
+   4368,
+   "人の出入りが多いことが、かえって良い目くらましになるだろう。[p]",
+   "All that coming and going will make a fine screen.[p]"
+  ],
+  [
+   4371,
+   "……ただ一つ心残りなのは、ーー」[p]",
+   "...My one regret is that—”[p]"
+  ],
+  [
+   4374,
+   "ページはそこで切れてしまっていた。[p]",
+   "The page broke off there.[p]"
+  ],
+  [
+   4380,
+   "若い二人……約束……？[p]",
+   "Two young people... a promise...?[p]"
+  ],
+  [
+   4386,
+   "それに「目くらまし」って、何を隠してたんだろう。[p]",
+   "And a “screen” — what was he hiding?[p]"
+  ],
+  [
+   4392,
+   "他にも関連するものがあるかもしれない。[p]",
+   "There may be other things connected to it.[p]"
+  ],
+  [
+   4398,
+   "（お父さんは舞黒邦夢にまつわる謎を調べていたのかな？）[p]",
+   "(Was Dad looking into the mysteries around Houmu Maicro?)[p]"
+  ],
+  [
+   4401,
+   "（そうだとしたら、なぜ……？）[p]",
+   "(And if so, why...?)[p]"
+  ],
+  [
+   4413,
+   "[gage_draw place=\"舞黒館:執務室(2F)\"]",
+   "[gage_draw place=\"Maicro House:Study (2F)\"]"
+  ],
+  [
+   4421,
+   "（さっきは、邦夢さんの仕掛けで大変な目に遭った。この部屋には、まだ何かあるのかもしれない）[p]",
+   "(Mr Maicro's contrivance gave us a bad time earlier. There may be more in this room.)[p]"
+  ],
+  [
+   4433,
+   "革張りの執務椅子を見て、ふと昼間の騒ぎを思い出した。[p]",
+   "Looking at the leather desk chair brought back the commotion of that afternoon.[p]"
+  ],
+  [
+   4438,
+   "あの壁の仕掛けは、もう動かないように固定してあるんだよね。[p]",
+   "That wall mechanism has been fixed so it can't move again, hasn't it.[p]"
+  ],
+  [
+   4443,
+   "うん。でも、邦夢さんが残したものが、あれだけとは限らないかも。[p]",
+   "Mm. But what Mr Maicro left behind may not be only that.[p]"
+  ],
+  [
+   4448,
+   "この部屋をもう少し調べてみよう。[p]",
+   "Let's search this room a little more.[p]"
+  ],
+  [
+   4464,
+   "[gage_draw place=\"舞黒館:執務室(2F)\"]",
+   "[gage_draw place=\"Maicro House:Study (2F)\"]"
+  ],
+  [
+   4474,
+   "（机の裏の隠し箱は、もう空っぽ）[p]",
+   "(The hidden box under the desk is empty now.)[p]"
+  ],
+  [
+   4490,
+   "重厚な執務机。引き出しに手をかけてみたが、電子錠が赤く点灯したまま開かない。[p]",
+   "The imposing writing desk. I tried the drawer, but the electronic lock glowed red and it would not open.[p]"
+  ],
+  [
+   4495,
+   "これは朱志香さんが付けた、普通の防犯用の鍵みたいだね。[p]",
+   "This looks like the ordinary security lock Jushika had fitted.[p]"
+  ],
+  [
+   4500,
+   "無理に開けるのはやめよう。邦夢さんの仕掛けは、引き出しとは別の場所にあるのかも。[p]",
+   "Let's not force it. Mr Maicro's mechanism may be somewhere other than the drawer.[p]"
+  ],
+  [
+   4516,
+   "「執務机裏」――四文字の通りに、机の下へもぐり込む。[p]",
+   "“Desk” — taking the word at face value, I crawled underneath it.[p]"
+  ],
+  [
+   4522,
+   "……天板の裏、何も貼ってないよ？[p]",
+   "...There's nothing stuck to the underside of the top.[p]"
+  ],
+  [
+   4528,
+   "待って。奥の板、ここだけ木目が違う。[p]",
+   "Wait. The panel at the back — the grain is different just here.[p]"
+  ],
+  [
+   4532,
+   "爪をかけて手前に引くと、板の一部が箱状にせり出してきた。[p]",
+   "When I got a nail under it and pulled, part of the panel slid out as a small box.[p]"
+  ],
+  [
+   4537,
+   "中から出てきたのは、不思議と光沢を保った古い鍵だった。[p]",
+   "What came out of it was an old key that had somehow kept its shine.[p]"
+  ],
+  [
+   4543,
+   "これが、仕掛けの終着点……！[p]",
+   "So this is where the trail ends...![p]"
+  ],
+  [
+   4545,
+   "[glink color=\"bth13_dk\" target=\"*study_key_show\" text=\"朱志香さんに見せる\"]",
+   "[glink color=\"bth13_dk\" target=\"*study_key_show\" text=\"Show it to Jushika\"]"
+  ],
+  [
+   4546,
+   "[glink color=\"bth13_dk\" target=\"*study_key_keep\" text=\"そのまま黙って持っておく\"]",
+   "[glink color=\"bth13_dk\" target=\"*study_key_keep\" text=\"Say nothing and keep it\"]"
+  ],
+  [
+   4558,
+   "（引き出しは電子錠で開かない。手がかりを見つけてから、机そのものを調べよう）[p]",
+   "(The drawer won't open; it's electronically locked. Let's find a clue first and then examine the desk itself.)[p]"
+  ],
+  [
+   4573,
+   "[gage_draw place=\"舞黒館:執務室(2F)\"]",
+   "[gage_draw place=\"Maicro House:Study (2F)\"]"
+  ],
+  [
+   4576,
+   "朱志香を呼んで見せると、彼女は驚いた様子で鍵を眺めた。[p]",
+   "When I called Jushika and showed her, she looked at the key in astonishment.[p]"
+  ],
+  [
+   4581,
+   "まあ……こんなところに。ありがとうございます、真歩流様。[p]",
+   "My word... in a place like that. Thank you, Miss Mahoru.[p]"
+  ],
+  [
+   4586,
+   "本当に解いてしまわれるなんて。邦夢様も喜んでおられますよ。[p]",
+   "To think you actually solved it. Mr Maicro must be delighted.[p]"
+  ],
+  [
+   4590,
+   "よろしければ記念に差し上げます。見つけてくださったのですから。[p]",
+   "Do keep it as a memento, if you like. You found it, after all.[p]"
+  ],
+  [
+   4594,
+   "この館が建った頃から残っているものですから、大切にしてくださいね。[p]",
+   "It has been here since the house was built, so do take care of it.[p]"
+  ],
+  [
+   4599,
+   "ありがとうございます。大切にします。[p]",
+   "Thank you. I'll treasure it.[p]"
+  ],
+  [
+   4615,
+   "[gage_draw place=\"舞黒館:執務室(2F)\"]",
+   "[gage_draw place=\"Maicro House:Study (2F)\"]"
+  ],
+  [
+   4618,
+   "真歩流はそっと鍵をポケットにしまった。[p]",
+   "I slipped the key quietly into my pocket.[p]"
+  ],
+  [
+   4623,
+   "（どこかで役に立つかもしれない。とりあえず持っておこう）[p]",
+   "(It might come in useful somewhere. I'll hold on to it for now.)[p]"
+  ],
+  [
+   4644,
+   "[gage_draw place=\"舞黒館:廊下(2F)\"]",
+   "[gage_draw place=\"Maicro House:Corridor (2F)\"]"
+  ],
+  [
+   4647,
+   "2階の廊下は静かで、各部屋への扉が並んでいた。[p]",
+   "The second-floor corridor was quiet, with doors to each room along it.[p]"
+  ],
+  [
+   4653,
+   "どこから調べようか。[p]",
+   "Where shall we start?[p]"
+  ],
+  [
+   4659,
+   "そういえば、荷物を置いた隣の部屋って談話室だっけ？[p]",
+   "Come to think of it, the room next to where we left our bags — was that the drawing room?[p]"
+  ],
+  [
+   4666,
+   "使ってなさそうな部屋だけど……なんだか気になるんだよね。[p]",
+   "It doesn't look like it's used... but something about it interests me.[p]"
+  ],
+  [
+   4669,
+   "[glink color=\"bth13_dk\" target=\"*scene_lounge\" text=\"◆ 談話室へ行く\" x=560 y=380 width=800 size=30]",
+   "[glink color=\"bth13_dk\" target=\"*scene_lounge\" text=\"◆ Go to the drawing room\" x=560 y=380 width=800 size=30]"
+  ],
+  [
+   4670,
+   "[glink color=\"bth13_dk\" target=\"*investigation_start\" text=\"◆ フロアマップへ戻る\" x=560 y=500 width=800 size=30]",
+   "[glink color=\"bth13_dk\" target=\"*investigation_start\" text=\"◆ Back to the floor map\" x=560 y=500 width=800 size=30]"
+  ],
+  [
+   4688,
+   "[gage_draw place=\"舞黒館:談話室(2F)\"]",
+   "[gage_draw place=\"Maicro House:Drawing Room (2F)\"]"
+  ],
+  [
+   4696,
+   "2階の廊下から一つ扉を開けると、そこは談話室だった。[p]",
+   "One door off the second-floor corridor opened into the drawing room.[p]"
+  ],
+  [
+   4698,
+   "大きな木製のテーブルと椅子が整然と並んでいる。[p]",
+   "A great wooden table and chairs stood in neat order.[p]"
+  ],
+  [
+   4700,
+   "ピンクのカーテン越しに、西洋の柔らかな陽光が差し込んでいた。[p]",
+   "Soft Western light fell through pink curtains.[p]"
+  ],
+  [
+   4706,
+   "ここが談話室か……広くて明るいね！[p]",
+   "So this is the drawing room... it's wide and bright![p]"
+  ],
+  [
+   4712,
+   "本当。このテーブル、すごく立派だね。[p]",
+   "It is. What a splendid table.[p]"
+  ],
+  [
+   4718,
+   "使いきれないくらいの広さよね。大勢で会議でもしてたのかな。[p]",
+   "It's more space than anyone could use. Perhaps they held meetings here.[p]"
+  ],
+  [
+   4724,
+   "舞黒館だもの。各国の外交官が集まって、何か重要な話し合いをしていたんじゃないかな。[p]",
+   "It's Maicro House. Diplomats from every country probably gathered for important talks.[p]"
+  ],
+  [
+   4730,
+   "なんか……歴史のロマンを感じるね。[p]",
+   "It feels... romantic, somehow. All that history.[p]"
+  ],
+  [
+   4737,
+   "えっ、お姉ちゃんがそういうこと言うの、珍しい。[p]",
+   "Goodness, it's rare to hear you say that sort of thing.[p]"
+  ],
+  [
+   4743,
+   "えっ、私だってそういうこと思うよ！[p]",
+   "I think things like that too![p]"
+  ],
+  [
+   4750,
+   "まあ……確かに素敵な場所だね。お父さんがここに来たくなった気持ち、少しわかる気がする。[p]",
+   "Well... it is a lovely place. I think I understand a little why Dad wanted to come.[p]"
+  ],
+  [
+   4756,
+   "……うん。お父さんもこうして、いろんな部屋を見て回ったのかな。[p]",
+   "...Mm. Perhaps he walked round all these rooms just as we're doing.[p]"
+  ],
+  [
+   4780,
+   "[gage_draw place=\"舞黒館:談話室(2F)\"]",
+   "[gage_draw place=\"Maicro House:Drawing Room (2F)\"]"
+  ],
+  [
+   4793,
+   "壁際の飾り棚。扉を開けると、中に木製の箱が押し込まれていた。[p]",
+   "The display cabinet against the wall. Opening it revealed a wooden case pushed inside.[p]"
+  ],
+  [
+   4799,
+   "重い……何だろう、これ。[p]",
+   "Heavy... what is this?[p]"
+  ],
+  [
+   4803,
+   "引き出してみると、丸みを帯びた木の筐体に、真鍮の環と硝子窓。[r]",
+   "Drawing it out, it had a rounded wooden case, brass rings and a glass window.[r]"
+  ],
+  [
+   4805,
+   "古い――けれど手入れの行き届いたラジオだった。[p]",
+   "It was a radio — old, but carefully kept.[p]"
+  ],
+  [
+   4811,
+   "わあ、アンティークのラジオだ！　まだ動くのかな？[p]",
+   "Oh, an antique radio! Do you suppose it still works?[p]"
+  ],
+  [
+   4817,
+   "埃をかぶってないってことは……たぶん、動くね。[p]",
+   "No dust on it, so... probably, yes.[p]"
+  ],
+  [
+   4821,
+   "差し込みを繋ぐと、真空管がじんわりと橙色に灯り、雑音が流れはじめた。[p]",
+   "When I plugged it in, the valves glowed slowly orange and static began to pour out.[p]"
+  ],
+  [
+   4823,
+   "ざあざあと鳴りつづける砂嵐。つまみを回しても、鳴りやむ気配はない。[p]",
+   "A sandstorm of noise, on and on. Turning the knob did nothing to stop it.[p]"
+  ],
+  [
+   4829,
+   "……この雑音のどこかに、何か入ってるのかな。[p]",
+   "...Is there something hidden somewhere in this static?[p]"
+  ],
+  [
+   4835,
+   "つまみをゆっくり回してみて。[r]",
+   "Try turning the knob slowly.[r]"
+  ],
+  [
+   4838,
+   "雑音が薄くなるところがあったら、そこに何か入ってるはずだよ。[p]",
+   "If there's a place where the noise thins, something must be there.[p]"
+  ],
+  [
+   4847,
+   "（つまみはもう合わせてある。……あの四桁は、ちゃんと書き留めた）[p]",
+   "(The knob's already set. ...And I wrote those four digits down properly.)[p]"
+  ],
+  [
+   4854,
+   "同じ数字を繰り返してるだけだよ。手がかりボードに残ってるから、いつでも見られるね。[p]",
+   "It's only repeating the same numbers. They're on the clue board, so we can look any time.[p]"
+  ],
+  [
+   4868,
+   "[gage_draw place=\"舞黒館:談話室(2F)\"]",
+   "[gage_draw place=\"Maicro House:Drawing Room (2F)\"]"
+  ],
+  [
+   4877,
+   "雑音ばかり……まだ、どこにも当たってないみたい。[p]",
+   "Nothing but static... we haven't hit anything yet.[p]"
+  ],
+  [
+   4883,
+   "端から端まで、ゆっくり回してみようよ。[r]",
+   "Let's turn it slowly from one end to the other.[r]"
+  ],
+  [
+   4886,
+   "雑音が引っこむところを見つけたら、そこで手を止めるの。[p]",
+   "When you find the place where the noise pulls back, stop there.[p]"
+  ],
+  [
+   4897,
+   "砂嵐がすうっと引いて、そのうしろから女性の声が滲み出した。[r]",
+   "The sandstorm drew back, and a woman's voice bled through from behind it.[r]"
+  ],
+  [
+   4899,
+   "穏やかな声が、ゆっくりと数字を読み上げていく。[p]",
+   "A calm voice, reading out numbers slowly.[p]"
+  ],
+  [
+   4905,
+   "……今の、数字？[p]",
+   "...Were those numbers?[p]"
+  ],
+  [
+   4912,
+   "四桁だったよね。放送……じゃないよ、これ。[p]",
+   "Four digits, weren't they. This isn't a broadcast.[p]"
+  ],
+  [
+   4918,
+   "同じ数字を、ずっと繰り返してる。[p]",
+   "It repeats the same numbers over and over.[p]"
+  ],
+  [
+   4922,
+   "――これ、誰かに宛てた合図なんじゃない？[p]",
+   "—Isn't this a signal meant for someone?[p]"
+  ],
+  [
+   4929,
+   "四桁の数字で開くもの……この館のどこかに、あるのかも。[p]",
+   "Something that opens with four digits... it may be somewhere in this house.[p]"
+  ],
+  [
+   4931,
+   "[get_item name=\"ラジオの四桁\" type=\"info\" memo=\"談話室のラジオが繰り返し読み上げていた四桁の数字。四桁で開く錠が、館のどこかにあるはず。\"]",
+   "[get_item name=\"The radio's four digits\" type=\"info\" memo=\"The four digits the radio in the drawing room read out over and over. There must be a lock somewhere in the house that opens with four digits.\"]"
+  ],
+  [
+   4961,
+   "[gage_draw place=\"舞黒館:談話室(2F)\"]",
+   "[gage_draw place=\"Maicro House:Drawing Room (2F)\"]"
+  ],
+  [
+   4973,
+   "模型だと、この窓側はもう少し外へ張り出してた。[p]",
+   "In the model, this window side stuck out a good deal further.[p]"
+  ],
+  [
+   4976,
+   "でも実際の部屋は……普通に窓があるだけなんだよね。[p]",
+   "But in the actual room... there's simply a window.[p]"
+  ],
+  [
+   4981,
+   "壁の中に空間があるのかな。[p]",
+   "Is there a space inside the wall?[p]"
+  ],
+  [
+   4984,
+   "二人で窓枠や壁板を調べてみたが、動きそうな場所は見つからなかった。[p]",
+   "We examined the window frame and the wall panels together, but found nothing that would move.[p]"
+  ],
+  [
+   4989,
+   "うーん……絶対この辺だと思ったのに。[p]",
+   "Hmm... I was so sure it was around here.[p]"
+  ],
+  [
+   4993,
+   "真歩流は窓際のソファに目を向けた。[p]",
+   "I turned my eyes to the sofa by the window.[p]"
+  ],
+  [
+   4998,
+   "愛理。これ、ちょっと動かしてみよう。[p]",
+   "Airi. Let's try moving this.[p]"
+  ],
+  [
+   5002,
+   "二人でソファをずらす。[r]",
+   "Between us we shifted the sofa.[r]"
+  ],
+  [
+   5004,
+   "その下に現れたのは、周囲と変わらない木の床だった。[p]",
+   "What appeared beneath it was wooden floor, no different from the rest.[p]"
+  ],
+  [
+   5009,
+   "何にもない……！[p]",
+   "There's nothing here...![p]"
+  ],
+  [
+   5012,
+   "もう、絶対ここだと思ったのに！[p]",
+   "And I was so certain![p]"
+  ],
+  [
+   5016,
+   "悔しそうに真歩流が床を踏み鳴らした。[p]",
+   "I stamped on the floor in frustration.[p]"
+  ],
+  [
+   5018,
+   "――コン。[p]",
+   "—Tock.[p]"
+  ],
+  [
+   5023,
+   "……お姉ちゃん。もう一回。[p]",
+   "...Sis. Again.[p]"
+  ],
+  [
+   5028,
+   "え？[p]",
+   "What?[p]"
+  ],
+  [
+   5033,
+   "今の音。そこだけ軽かった。[p]",
+   "That sound. It was lighter just there.[p]"
+  ],
+  [
+   5036,
+   "真歩流は場所をずらしながら、今度は意識して床を踏んだ。[r]",
+   "I moved about, stamping on the floor deliberately this time.[r]"
+  ],
+  [
+   5038,
+   "コン、コン――コォン。[p]",
+   "Tock, tock — toock.[p]"
+  ],
+  [
+   5043,
+   "本当だ。ここだけ下が空洞みたい。[p]",
+   "You're right. It's hollow only here.[p]"
+  ],
+  [
+   5047,
+   "絨毯をめくり、床板の継ぎ目に沿って指を這わせる。[r]",
+   "I turned back the rug and ran my fingers along the joints of the boards.[r]"
+  ],
+  [
+   5049,
+   "細い切れ目と、小さな指掛かりが隠されていた。[p]",
+   "A fine cut, and a small fingerhold, lay hidden there.[p]"
+  ],
+  [
+   5053,
+   "これ……蓋になってる。[p]",
+   "This is... a hatch.[p]"
+  ],
+  [
+   5058,
+   "鍵穴はない。[p]",
+   "No keyhole.[p]"
+  ],
+  [
+   5061,
+   "見つけられなければ、それで十分だったんだ……。[p]",
+   "Not being found was protection enough...[p]"
+  ],
+  [
+   5065,
+   "二人で持ち上げると、床板の一部が静かに開いた。[r]",
+   "We lifted it together, and part of the floor opened quietly.[r]"
+  ],
+  [
+   5067,
+   "暗闇の中へ、細い階段が続いている。[p]",
+   "A narrow staircase led down into the dark.[p]"
+  ],
+  [
+   5070,
+   "[get_item name=\"談話室の隠し階段\" type=\"info\" memo=\"2F談話室のソファと絨毯の下に、地下へ続く隠し階段があった。鍵はなく、入口そのものが巧妙に隠されている。\"]",
+   "[get_item name=\"Hidden stairs in the drawing room\" type=\"info\" memo=\"Beneath the sofa and rug in the second-floor drawing room, a hidden staircase leads underground. There is no lock; the entrance itself is cunningly concealed.\"]"
+  ],
+  [
+   5076,
+   "[gage_draw place=\"舞黒館:談話室(2F)\"]",
+   "[gage_draw place=\"Maicro House:Drawing Room (2F)\"]"
+  ],
+  [
+   5082,
+   "この先、見に行く？[p]",
+   "Shall we go and see what's down there?[p]"
+  ],
+  [
+   5087,
+   "入ったら、夕食までに他の場所を調べる時間はなくなると思う。[p]",
+   "If we go in, I don't think we'll have time to search anywhere else before dinner.[p]"
+  ],
+  [
+   5091,
+   "この先へ進むと、自由探索は終了します。[r]",
+   "Going on from here ends the free search.[r]"
+  ],
+  [
+   5093,
+   "地下書斎を調べますか？[p]",
+   "Search the underground study?[p]"
+  ],
+  [
+   5096,
+   "[glink color=\"bth13_dk\" target=\"*hidden_study_enter\" text=\"◆ 地下へ進む\" x=560 y=380 width=800 size=30]",
+   "[glink color=\"bth13_dk\" target=\"*hidden_study_enter\" text=\"◆ Go down\" x=560 y=380 width=800 size=30]"
+  ],
+  [
+   5097,
+   "[glink color=\"bth13_dk\" target=\"*scene_lounge_stay\" text=\"◆ いったん探索へ戻る\" x=560 y=500 width=800 size=30]",
+   "[glink color=\"bth13_dk\" target=\"*scene_lounge_stay\" text=\"◆ Back to the search for now\" x=560 y=500 width=800 size=30]"
+  ],
+  [
+   5110,
+   "[gage_draw place=\"舞黒館:地下書斎\"]",
+   "[gage_draw place=\"Maicro House:Underground Study\"]"
+  ],
+  [
+   5116,
+   "長い階段を降りた先に、小さな部屋が現れた。[p]",
+   "At the bottom of the long staircase was a small room.[p]"
+  ],
+  [
+   5118,
+   "木張りの壁。古い本棚。大きな地球儀。真鍮の望遠鏡。[p]",
+   "Panelled walls. Old bookcases. A great globe. A brass telescope.[p]"
+  ],
+  [
+   5120,
+   "壁には船の絵が並び、棚には瓶の中に収められた帆船模型がいくつも飾られている。[p]",
+   "Paintings of ships along the walls, and rows of ships in bottles on the shelves.[p]"
+  ],
+  [
+   5124,
+   "……秘密基地みたい。[p]",
+   "...It's like a secret den.[p]"
+  ],
+  [
+   5129,
+   "舞黒邦夢さん、こういうの好きだったのかな。[p]",
+   "Did Mr Maicro like this sort of thing?[p]"
+  ],
+  [
+   5133,
+   "中央の丸机には、古びた手記が置かれていた。[p]",
+   "On the round table in the center lay an aged memoir.[p]"
+  ],
+  [
+   5136,
+   "――昭和十年。[p]",
+   "—1935.[p]"
+  ],
+  [
+   5138,
+   "憤懣を募らせる軍部が、あるものを探し始めている。[r]",
+   "The military, its resentment mounting, has begun searching for a certain thing.[r]"
+  ],
+  [
+   5140,
+   "彼らだけではない。各国の諜報機関の者たちも、同じものを求めて動いているようだ。[p]",
+   "And not only they. The intelligence services of several countries appear to be after the same thing.[p]"
+  ],
+  [
+   5142,
+   "非常に慎重を要する事柄ゆえ、ここに詳細を記すことはできない。[r]",
+   "The matter demands great caution, so I can't set down the details here.[r]"
+  ],
+  [
+   5144,
+   "だが、あれが誰かの手に渡れば、間違いなく戦争の火種となろう。[p]",
+   "But if it should fall into anyone's hands, it would without doubt be tinder for a war.[p]"
+  ],
+  [
+   5146,
+   "だからこそ、誰にも渡してはならない。[r]",
+   "Which is precisely why it must be given to no one.[r]"
+  ],
+  [
+   5148,
+   "私にできることは、それを守ることだけだ。[p]",
+   "All I can do is guard it.[p]"
+  ],
+  [
+   5150,
+   "……もっとも、悪いことばかりではなかった。[r]",
+   "...Though it was not all bad.[r]"
+  ],
+  [
+   5152,
+   "この一件のおかげで、こっそりと私だけの秘密の部屋を作ることができたのだから。[p]",
+   "Thanks to this business I was able to build myself a secret room, quite privately.[p]"
+  ],
+  [
+   5157,
+   "「あれ」って……何のこと？[p]",
+   "“A certain thing”... what does he mean?[p]"
+  ],
+  [
+   5162,
+   "軍部だけじゃなくて、外国の人たちまで探してたもの……。[p]",
+   "Something the military and foreign agents were both looking for...[p]"
+  ],
+  [
+   5164,
+   "[get_item name=\"舞黒邦夢の昭和十年の手記\" type=\"info\" memo=\"1935年、軍部や各国の諜報機関が『あるもの』を探していた。邦夢は、それが誰かの手に渡れば戦争の火種になると警戒していた。\"]",
+   "[get_item name=\"Maicro's 1935 memoir\" type=\"info\" memo=\"In 1935 the military and several countries' intelligence services were searching for “a certain thing.” Maicro feared that if it fell into anyone's hands it would be tinder for a war.\"]"
+  ],
+  [
+   5167,
+   "手記を戻そうとしたとき、真歩流は机の表面に目を留めた。[p]",
+   "As I moved to put the memoir back, my eye caught the surface of the table.[p]"
+  ],
+  [
+   5172,
+   "……愛理。ここ、見て。[p]",
+   "...Airi. Look at this.[p]"
+  ],
+  [
+   5176,
+   "部屋の隅や本棚には、長い年月を思わせる埃が積もっている。[p]",
+   "Dust of many years lay in the corners of the room and over the bookcases.[p]"
+  ],
+  [
+   5178,
+   "ところが入口から机までの床だけ、埃がわずかに薄い。[p]",
+   "And yet only the floor from the entrance to the table was slightly clearer.[p]"
+  ],
+  [
+   5180,
+   "椅子の脚の周囲には一度引き出したような筋があり、本棚の一角にも本を抜いた跡が残っていた。[p]",
+   "There were marks round the chair legs as though it had been drawn out once, and one part of the bookcase showed where a book had been pulled.[p]"
+  ],
+  [
+   5184,
+   "掃除した跡……？[p]",
+   "Signs of cleaning...?[p]"
+  ],
+  [
+   5189,
+   "ううん。部屋全体はこんなに埃だらけなのに、触ったところだけ薄い。[p]",
+   "No. The whole room is thick with dust, and only the parts that were touched are clear.[p]"
+  ],
+  [
+   5192,
+   "誰かがここへ来て、私たちみたいに調べたんだ。[p]",
+   "Someone came down here and searched, the way we're doing.[p]"
+  ],
+  [
+   5196,
+   "舞黒邦夢が亡くなったのは1975年。[r]",
+   "Houmu Maicro died in 1975.[r]"
+  ],
+  [
+   5198,
+   "その後を引き継いだ人物も、1998年には亡くなっている。[r]",
+   "The person who took over after him died in 1998.[r]"
+  ],
+  [
+   5200,
+   "それから2025年までには、長い空白がある。[p]",
+   "And there is a long blank between then and 2025.[p]"
+  ],
+  [
+   5203,
+   "[get_item name=\"地下書斎に残る新しい痕跡\" type=\"info\" memo=\"長年使われていないはずの地下書斎で、入口から机までの埃が薄く、椅子や本棚にも近年誰かが調べたような跡が残っていた。\"]",
+   "[get_item name=\"Fresh marks in the underground study\" type=\"info\" memo=\"In a study nobody should have used for years, the dust from the entrance to the table is thin, and the chair and bookcase show signs of a recent search.\"]"
+  ],
+  [
+   5212,
+   "tf.choices.push({ target:'*hidden_study_deduction_father', text:'半年前に舞黒館を調べていた父', kind:'look' });",
+   "tf.choices.push({ target:'*hidden_study_deduction_father', text:'Father, who was looking into Maicro House half a year ago', kind:'look' });"
+  ],
+  [
+   5213,
+   "tf.choices.push({ target:'*hidden_study_deduction_old', text:'昔この部屋を引き継いだ人物', kind:'look' });",
+   "tf.choices.push({ target:'*hidden_study_deduction_old', text:'The person who took the house over long ago', kind:'look' });"
+  ],
+  [
+   5214,
+   "tf.choices.push({ target:'*hidden_study_deduction_unknown', text:'今の情報では全く見当がつかない', kind:'look' });",
+   "tf.choices.push({ target:'*hidden_study_deduction_unknown', text:'There is no telling from what we know now', kind:'look' });"
+  ],
+  [
+   5215,
+   "tf.choices.push({ target:'*hidden_study_deduction_furechi', text:'館の持ち主である富礼知家の人たち', kind:'look' });",
+   "tf.choices.push({ target:'*hidden_study_deduction_furechi', text:'The Furechis, who own the house', kind:'look' });"
+  ],
+  [
+   5216,
+   "tf.hidden_study_prompt = \"最近、この地下書斎を調べた人物として最も可能性が高いのは？\";",
+   "tf.hidden_study_prompt = \"Who is most likely to have searched this underground study recently?\";"
+  ],
+  [
+   5224,
+   "[gage_draw place=\"舞黒館:地下書斎\"]",
+   "[gage_draw place=\"Maicro House:Underground Study\"]"
+  ],
+  [
+   5228,
+   "でも、その人が亡くなったのは1998年。[p]",
+   "But that person died in 1998.[p]"
+  ],
+  [
+   5231,
+   "この触られ方は、それよりずっと新しく見える。[p]",
+   "These marks look far more recent than that.[p]"
+  ],
+  [
+   5239,
+   "[gage_draw place=\"舞黒館:地下書斎\"]",
+   "[gage_draw place=\"Maicro House:Underground Study\"]"
+  ],
+  [
+   5243,
+   "断定はできない。でも、半年前にこの館へ来て、建築や古い記録まで調べていた人を知ってる。[p]",
+   "I can't be certain. But I know someone who came here half a year ago and looked into the architecture and the old records.[p]"
+  ],
+  [
+   5251,
+   "[gage_draw place=\"舞黒館:地下書斎\"]",
+   "[gage_draw place=\"Maicro House:Underground Study\"]"
+  ],
+  [
+   5260,
+   "……朱志香さんや旦那さんかもしれない。[p]",
+   "...It might be Jushika or her husband.[p]"
+  ],
+  [
+   5263,
+   "舞黒館の今の所有者だから、見つけていてもおかしくない。[p]",
+   "They own Maicro House now, so it would be no surprise if they'd found it.[p]"
+  ],
+  [
+   5268,
+   "確かにそうだね。[p]",
+   "That's true.[p]"
+  ],
+  [
+   5272,
+   "なら、どうしてここは公開しないんだろうね。[p]",
+   "Then why don't they show it to anyone?[p]"
+  ],
+  [
+   5277,
+   "多分、公開したくなかったんじゃないかな。[p]",
+   "Perhaps they didn't want to.[p]"
+  ],
+  [
+   5281,
+   "こういう場所があるなら、他にもあるって思われたら困るでしょ。[p]",
+   "If there's a place like this, people would assume there were others, and that would be awkward.[p]"
+  ],
+  [
+   5286,
+   "言われてみれば、仕掛けがあるって聞いてたからここへ来れたもんね。[p]",
+   "Now you say it, we only got here because we'd heard about the contrivances.[p]"
+  ],
+  [
+   5289,
+   "この部屋のこと、朱志香さんたちにも話す？[p]",
+   "Should we tell Jushika about this room?[p]"
+  ],
+  [
+   5294,
+   "……今はやめよう。[p]",
+   "...Not for now.[p]"
+  ],
+  [
+   5297,
+   "邦夢さんの手記には、誰かの手に渡ったら危険なものがあるみたいに書かれてた。[p]",
+   "Mr Maicro's memoir speaks of something dangerous if it fell into the wrong hands.[p]"
+  ],
+  [
+   5300,
+   "それに、ここには最近誰かが来た形跡もある。[p]",
+   "And there are signs someone was down here recently.[p]"
+  ],
+  [
+   5303,
+   "誰がここを知ってるのか分からないうちは、むやみに話さない方がいいと思う。[p]",
+   "Until we know who else knows about this place, I think we should keep quiet.[p]"
+  ],
+  [
+   5309,
+   "分かった。私たちだけの秘密だね。[p]",
+   "All right. Our secret, then.[p]"
+  ],
+  [
+   5314,
+   "二人は手記を元の場所へ戻し、触れたものをできるだけ元通りにして地下書斎を後にした。[p]",
+   "We put the memoir back where it had been, returned everything we had touched as best we could, and left the underground study.[p]"
+  ],
+  [
+   5324,
+   "[gage_draw place=\"舞黒館:地下書斎\"]",
+   "[gage_draw place=\"Maicro House:Underground Study\"]"
+  ],
+  [
+   5332,
+   "……お父さんだった可能性が高い。[p]",
+   "...It was most likely Dad.[p]"
+  ],
+  [
+   5335,
+   "半年前に舞黒館へ来て、この館の沿革や建築まで調べていた。[p]",
+   "He came to Maicro House half a year ago and looked into its history and its architecture.[p]"
+  ],
+  [
+   5338,
+   "それなら、この部屋を見つけていてもおかしくない。[p]",
+   "If so, it would be no surprise if he found this room.[p]"
+  ],
+  [
+   5343,
+   "でも、絶対にお父さんだって証拠はないよね。[p]",
+   "But there's no proof it was him.[p]"
+  ],
+  [
+   5348,
+   "うん。断定はできない。[p]",
+   "Mm. I can't be certain.[p]"
+  ],
+  [
+   5351,
+   "でも……お父さんがここで何を追っていたのかには、少し近づいた気がする。[p]",
+   "But... I feel we've come a little closer to what he was chasing here.[p]"
+  ],
+  [
+   5356,
+   "この部屋のこと、朱志香さんたちにも話す？[p]",
+   "Should we tell Jushika about this room?[p]"
+  ],
+  [
+   5361,
+   "……今はやめよう。[p]",
+   "...Not for now.[p]"
+  ],
+  [
+   5364,
+   "邦夢さんの手記には、誰かの手に渡ったら危険なものがあるみたいに書かれてた。[p]",
+   "Mr Maicro's memoir speaks of something dangerous if it fell into the wrong hands.[p]"
+  ],
+  [
+   5367,
+   "それに、ここには最近誰かが来た形跡もある。[p]",
+   "And there are signs someone was down here recently.[p]"
+  ],
+  [
+   5370,
+   "誰がここを知ってるのか分からないうちは、むやみに話さない方がいいと思う。[p]",
+   "Until we know who else knows about this place, I think we should keep quiet.[p]"
+  ],
+  [
+   5376,
+   "分かった。私たちだけの秘密だね。[p]",
+   "All right. Our secret, then.[p]"
+  ],
+  [
+   5381,
+   "二人は手記を元の場所へ戻し、触れたものをできるだけ元通りにして地下書斎を後にした。[p]",
+   "We put the memoir back where it had been, returned everything we had touched as best we could, and left the underground study.[p]"
+  ],
+  [
+   5400,
+   "[gage_draw place=\"舞黒館:廊下(1F)\"]",
+   "[gage_draw place=\"Maicro House:Corridor (1F)\"]"
+  ],
+  [
+   5408,
+   "お父さんが半年前にここへ来て、舞黒館について調べていたことまでは分かった。[p]",
+   "We know Dad came here half a year ago and was looking into Maicro House.[p]"
+  ],
+  [
+   5411,
+   "でも、その先で何を見つけたのかはまだ分からない……。[p]",
+   "But we still don't know what he found after that...[p]"
+  ],
+  [
+   5418,
+   "少なくとも、お父さんが半年前にこの館へ来ていたことは分かった。[p]",
+   "At the very least, we know Dad came to this house half a year ago.[p]"
+  ],
+  [
+   5425,
+   "まだ、お父さんがここで何をしていたのかまでは掴めなかった……。[p]",
+   "We still couldn't work out what he was doing here...[p]"
+  ],
+  [
+   5438,
+   "（それにしても……）[p]",
+   "(Still...)[p]"
+  ],
+  [
+   5442,
+   "（この館、まだ見ていない場所がたくさんあった気がする）[p]",
+   "(I feel there are still a great many places in this house we haven't seen.)[p]"
+  ],
+  [
+   5447,
+   "お姉ちゃん、けっこう歩き回ったのにね。[p]",
+   "Sis, and we walked so much of it too.[p]"
+  ],
+  [
+   5451,
+   "夕食のあと、まだ時間があるといいんだけど。[p]",
+   "I hope there's still time after dinner.[p]"
+  ],
+  [
+   5460,
+   "そろそろ夕食の時間だし、皆のところに戻ろうか。[p]",
+   "It's almost dinner. Let's head back to the others.[p]"
+  ],
+  [
+   5466,
+   "そうだね。[p]",
+   "Let's.[p]"
+  ],
+  [
+   5469,
+   "真歩流と愛理は、ダイニングへと向かった。[p]",
+   "Airi and I made our way to the dining room.[p]"
+  ],
+  [
+   5474,
+   "[gage_draw place=\"舞黒館:ダイニング\"]",
+   "[gage_draw place=\"Maicro House:Dining Room\"]"
+  ],
+  [
+   5478,
+   "ダイニングには、次第に皆が集まり始めていた。[p]",
+   "Everyone was gradually gathering in the dining room.[p]"
+  ],
+  [
+   5483,
+   "あら、真歩流様、愛理様。お帰りなさい。[p]",
+   "Ah, Miss Mahoru, Miss Airi. Welcome back.[p]"
+  ],
+  [
+   5492,
+   "もうじき夕食の準備が終わりますよ。[p]",
+   "Dinner will be ready very soon.[p]"
+  ],
+  [
+   5499,
+   "わあ、楽しみです。[p]",
+   "Oh, I can't wait.[p]"
+  ],
+  [
+   5507,
+   "お腹ペコペコだよ。[p]",
+   "I'm starving.[p]"
+  ],
+  [
+   5512,
+   "では、皆さん。夕食の準備に戻りますね。[p]",
+   "Now, everyone. I'll get back to the dinner.[p]"
+  ],
+  [
+   5523,
+   "夕食はどんな料理かしら。[p]",
+   "I wonder what we're having.[p]"
+  ],
+  [
+   5528,
+   "楽しみだな。[p]",
+   "I'm looking forward to it.[p]"
+  ],
+  [
+   5536,
+   "私もお腹が空きました。[p]",
+   "I'm hungry too.[p]"
+  ],
+  [
+   5543,
+   "……あああああっ！！[p]",
+   "...Aaaaaaaah!![p]"
+  ],
+  [
+   5553,
+   "え、な……何！？[p]",
+   "Wh-what was that!?[p]"
+  ],
+  [
+   5560,
+   "キッチンの方から……！[p]",
+   "From the kitchen...![p]"
+  ],
+  [
+   5564,
+   "小出里亜さん！[p]",
+   "Koderia![p]"
+  ],
+  [
+   5568,
+   "私たちは急いでキッチンの方へと駆け出した。[p]",
+   "We ran for the kitchen.[p]"
+  ]
+ ]
+}

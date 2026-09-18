@@ -1,0 +1,557 @@
+
+/* Menu
+-------------------------------------*/
+.menu_item {
+	position: relative;
+	margin: 0;
+	cursor: pointer;
+}
+
+.menu_item img {
+	width: auto;
+	height: auto;
+	max-width: 100%;
+	max-height: 100%;
+}
+
+/* セーブ */
+.menu_save {
+	display: inline-block;
+	position: absolute;
+	margin: 0;
+	padding: 0;
+	top: 288px;
+	left: 770px;
+}
+
+/* ロード */
+.menu_load {
+	display: inline-block;
+	position: absolute;
+	margin: 0;
+	padding: 0;
+	top: 408px;
+	left: 770px;
+}
+
+/* コンフィグ */
+.menu_config {
+	display: inline-block;
+	position: absolute;
+	margin: 0;
+	padding: 0;
+	top: 528px;
+	left: 770px;
+}
+
+/* タイトルに戻る */
+.menu_back_title {
+	display: inline-block;
+	position: absolute;
+	margin: 0;
+	padding: 0;
+	top:  648px;
+	left: 770px;
+}
+
+/* メニュー閉じる */
+.menu_close {
+	display: inline-block;
+	position: absolute;
+	margin: 0;
+	padding: 0;
+	top:  768px;
+	left: 770px;
+}
+
+
+/* バックログ画面の設定
+--------------------------------------*/
+.log_body {
+	position: absolute;
+	top: 310px;
+	left: 320px;
+	width: 1300px;
+	height: 540px;
+	margin: 0;
+	padding: 0 130px 0 60px;
+	border: none;
+	border-radius: none;
+	color: #CCAD70;
+	background: none;
+	font-size: 22px;
+	font-weight: normal;
+	text-align: left;
+	line-height: 1.8em;
+	overflow-y: scroll;
+	-webkit-overflow-scrolling: touch;
+	-webkit-transform: translateZ(0);
+	transform: translateZ(0);
+	box-sizing: border-box;
+}
+
+/* スクロールバー */
+.log_body::-webkit-scrollbar {
+	width: 16px;
+}
+
+.log_body::-webkit-scrollbar-thumb {
+	background-color: #996736;
+}
+
+.log_body::-webkit-scrollbar-track {
+	background: #262221;
+}
+
+
+/* セーブ・ロード画面の設定
+--------------------------------------*/
+.area_save_list {
+	display: block;
+	width: 1350px;
+	height: 640px;
+	margin: 240px 0 0 16px;
+	overflow-y: scroll;
+	-webkit-overflow-scrolling: touch;
+	-webkit-transform: translateZ(0);
+	transform: translateZ(0);
+}
+
+/* スクロールバー */
+.area_save_list::-webkit-scrollbar {
+	width: 16px;
+}
+
+.area_save_list::-webkit-scrollbar-thumb {
+	background-color: #996736;
+}
+
+.area_save_list::-webkit-scrollbar-track {
+	background: #262221;
+}
+
+
+/* セーブデータリスト全体の設定 */
+.save_list {
+	display: table;
+	table-layout: fixed;
+	position: absolute;
+	width: 1200px;
+	height: 148px;
+	margin: 0;
+	padding: 0 0 0 30px;
+	font-size: 20px;
+	font-weight: normal;
+	border: none;
+	border-collapse: separate;
+	border-spacing: 0 24px;
+}
+
+/* セーブデータの設定 */
+.save_list_item {
+	display: table-row;
+	width: 1200px;
+	height: 148px;
+	margin: 0;
+	padding: 0;
+	border: none;
+	cursor: pointer;
+}
+
+.save_list_item:hover > .save_list_item_thumb {
+	background: url('image/system/saveslot2.png') no-repeat left top;
+  transition: .2s ease-out;
+}
+
+.save_list_item:hover > .save_list_item_area {
+	background: url('image/system/saveslot2.png') no-repeat right top;
+  transition: .2s ease-out;
+}
+
+.save_list_item:hover .save_list_item_date {
+	color: #EFDCB6;
+}
+
+.save_list_item:hover .save_list_item_text {
+	color: #E8E0D9;
+}
+
+/* セーブデータのサムネイル部分の設定 */
+.save_list_item_thumb {
+	display: table-cell;
+	margin: 0;
+	padding: 0;
+	width: 330px;
+	height: 148px;
+	border: none;
+	background: url('image/system/saveslot.png');
+	background-repeat: repeat-y;
+	background-position: left top;
+	background-size: cover; /* 画像のズレ防止 */
+	vertical-align: top;
+}
+
+/* サムネイル画像の設定 */
+.save_list_item_thumb img {
+	margin: 0;
+	padding: 16px 16px 0 0 ;
+	width: 192px;
+	height: 108px;
+	border: none;
+	border-radius: 0px;
+}
+
+/* セーブデータのテキスト部文の設定 */
+.save_list_item_area {
+	display: table-cell;
+	margin: 0;
+	padding: 0;
+	width: 870px;
+	height: 148px;
+	background: url('image/system/saveslot.png');
+	background-repeat: repeat-y;
+	background-position: right top;
+	background-size: cover;
+	border: none;
+	text-align: left;
+	vertical-align: top;
+}
+
+/* セーブデータの日付の設定 */
+.save_list_item_date {
+	display: block;
+	margin: 20px 0 0 0;
+	padding: 0;
+	width: 600px;
+	height: 30px;
+	line-height: 1;
+	color: #CC7A29;
+	font-size: 20px;
+	font-weight: normal;
+	box-sizing:border-box;
+}
+
+/* 日付とゲーム内時刻を横に並べる行 */
+.save_list_item_head {
+	display: flex;
+	align-items: baseline;
+	gap: 36px;
+	margin: 20px 0 0 0;
+	padding: 0;
+	width: 800px;
+	height: 30px;
+	box-sizing: border-box;
+}
+
+.save_list_item_head .save_list_item_date {
+	margin: 0;
+	width: auto;
+	height: auto;
+	white-space: nowrap;
+}
+
+/* セーブ時のゲーム内時刻 */
+.save_list_item_gametime {
+	line-height: 1;
+	color: #CC7A29;
+	font-size: 20px;
+	white-space: nowrap;
+}
+
+.save_list_item:hover .save_list_item_gametime {
+	color: #EFDCB6;
+}
+
+/* セーブデータのテキストの設定 */
+.save_list_item_text {
+	display: block;
+	margin: 0;
+	padding: 0;
+	width: 800px;
+	height: 80px;
+	line-height: 1.3;
+	color: #998E82;
+	overflow: hidden;
+	box-sizing:border-box;
+}
+
+.layer_event_click{
+	-webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+	background-color: rgba(0, 0, 0, 0);
+}
+
+.layer{
+	background-size: 100% 100%;
+}
+
+.button_menu{
+	position: absolute;
+	z-index: 99999;
+	cursor: pointer;
+}
+
+
+/*glink
+--------------------------------------------- */
+/* normal */
+
+.bth13_dk {
+	position: relative;
+	display: -webkit-box;
+	display: flex;
+	-webkit-box-pack: center;
+	justify-content: center;
+	-webkit-box-align: center;
+	align-items: center;
+	padding: .7em 1em;
+	background: #332E2D;
+	color: #C6A460;
+  text-shadow: none;
+	border-radius: 0;
+	border: 2px solid #161414;
+  box-sizing: border-box;
+	transition: all .2s ease-out;
+}
+
+.bth13_dk::after {
+	position: absolute;
+	content: "";
+	top: 4px;
+	right: 4px;
+	left: 4px;
+	bottom: 4px;
+	border: 1px solid #996736;
+}
+
+/* hover */
+.bth13_dk:hover {
+	background: #4C3526;
+	color: #EFDCB6;
+	box-shadow: 0 4px 0 rgb(0 0 0 / .25);
+	transform: translateY(-4px);
+}
+
+.bth13_dk:hover::after {
+	border: 1px solid #996736;
+	border-image: linear-gradient(to left, #996736, #C6A460, #EFDCB6, #C6A460, #996736) 1;
+}
+
+/* active */
+.bth13_dk:active {
+	background: #292939;
+	color: #C6A460;
+	box-shadow: none;
+	transform: translateY(0);
+}
+
+.bth13_dk:active::after {
+	border-image: none;
+}
+
+
+/* modal window
+--------------------------------------------- */
+/* base */
+.remodal {
+	color: #C6A460;
+	background: #262322;
+	box-shadow: 6px 6px 0 0 rgb(0 0 0 / .2);
+}
+
+.remodal::after {
+	position: absolute;
+	content: '';
+	top: 6px;
+	left: 6px;
+	bottom: 6px;
+	right: 6px;
+	border: 1px solid #553f31;
+	z-index: -1;
+}
+
+/* button-OK */
+.remodal-confirm {
+	color: #CFB278;
+	padding: 0.5em 1em;
+	font-weight: bolder;
+	background: #632534;
+	border-radius: 100vh;
+}
+
+.remodal-confirm:hover,
+.remodal-confirm:focus {
+	color: #efdcb6;
+	background: #932C45;
+}
+
+/* button-cancel */
+.remodal-cancel {
+	color: #CFB278;
+	padding: 0.5em 1em;
+	font-weight: bolder;
+	background: #2F303E;
+	border-radius: 100vh;
+}
+
+.remodal-cancel:hover,
+.remodal-cancel:focus {
+	color: #efdcb6;
+	background: #36374C;
+}
+
+
+/* animation
+--------------------------------------------- */
+
+/* ラベル登場 */
+
+.anim_label_slide_nlp {
+	animation-name: slide_in_right;
+	animation-duration: .7s;
+	animation-timing-function: ease-in-out;
+	animation-delay: 0;
+	animation-fill-mode: both;
+}
+
+@keyframes slide_in_right {
+	0% {
+		transform: translateX(160px);
+		opacity: 0;
+	}
+	80% {
+		transform: translateX(-5px);
+	}
+	100% {
+		transform: translateX(0);
+		opacity: 1;
+	}
+}
+
+
+/* メニュー画面のパネル登場 */
+
+.anim_bounce {
+	animation-name: panel_bounce;
+	animation-duration: .3s;
+	animation-timing-function: ease-in-out;
+	animation-delay: 0;
+	animation-iteration-count: 1;
+	animation-fill-mode: both;
+}
+
+@keyframes panel_bounce {
+	0% {
+		transform: scale(0.9);
+		transform: translateY(200px);
+	}
+	70% {
+		transform: scale(1.02);
+		transform: translateY(-10px);
+	}
+	100% {
+		transform: scale(1);
+		transform: translateY(0);
+	}
+}
+
+
+/* 左向きの矢印 */
+
+.anim_arrow_left_lp {
+	animation-name: move_left;
+	animation-duration: .6s;
+	animation-timing-function: ease-in-out;
+	animation-delay: 0;
+	animation-iteration-count: infinite;
+	animation-direction: alternate;
+}
+
+@keyframes move_left {
+	0% {
+		transform: translateX(0);
+	}
+	100% {
+		transform: translateX(-16px);
+	}
+}
+
+
+/* 右向きの矢印 */
+
+.anim_arrow_right_lp {
+	animation-name: move_right;
+	animation-duration: .6s;
+	animation-timing-function: ease-in-out;
+	animation-delay: 0;
+	animation-iteration-count: infinite;
+	animation-direction: alternate;
+}
+
+@keyframes move_right {
+	0% {
+		transform: translateX(0);
+	}
+	100% {
+		transform: translateX(16px);
+	}
+}
+
+
+/* 汎用--ズーム大きめ */
+
+@keyframes zoom_m {
+	0% {
+		transform: scale(1);
+	}
+	100% {
+		transform: scale(1.05);
+	}
+}
+
+
+/* 汎用--ズーム小さめ */
+
+@keyframes zoom_s {
+	0% {
+		transform: scale(1);
+	}
+	100% {
+		transform: scale(1.03);
+	}
+}
+
+
+/* メニューボタン、戻るボタン */
+
+.menu_save:hover, .menu_load:hover, .menu_config:hover, .menu_back_title:hover, .menu_close:hover, .back_btn:hover{
+	animation-name: zoom_m;
+	animation-duration: .2s;
+	animation-timing-function: ease-out;
+	animation-delay: 0;
+	animation-iteration-count: 1;
+	animation-fill-mode: both;
+}
+
+
+/* システムボタン */
+
+.role_button:hover {
+	animation-name: zoom_m;
+	animation-duration: .2s;
+	animation-timing-function: ease-out;
+	animation-delay: 0;
+	animation-iteration-count: 1;
+	animation-fill-mode: both;
+}
+
+
+/* セーブスロット */
+.save_list_item:hover {
+	background: none;
+	animation-name: zoom_s;
+	animation-duration: .2s;
+	animation-timing-function: ease-out;
+	animation-delay: 0;
+	animation-iteration-count: 1;
+	animation-fill-mode: both;
+}

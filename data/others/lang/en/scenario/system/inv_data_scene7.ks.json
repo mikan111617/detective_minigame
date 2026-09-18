@@ -1,0 +1,925 @@
+{
+ "src": "data/scenario/system/inv_data_scene7.ks",
+ "lines": [
+  [
+   8,
+   "  title:      \"舞黒館 ― 毒物捜査\",",
+   "  title:      \"Maicro House - Hunting the Poison\","
+  ],
+  [
+   11,
+   "  endLabel:   \"タイムリミットまで\",",
+   "  endLabel:   \"Until the deadline\","
+  ],
+  [
+   12,
+   "  exitLabel:  \"捜査を終える\",",
+   "  exitLabel:  \"End the investigation\","
+  ],
+  [
+   13,
+   "  hint:       \"部屋を選ぶと、その部屋の調査対象と話せる人がまとめて表示されます。\",",
+   "  hint:       \"Choose a room to see everything you can search there and everyone you can speak to.\","
+  ],
+  [
+   18,
+   "      title:\"三人の共通点\",",
+   "      title:\"What the three have in common\","
+  ],
+  [
+   19,
+   "      text:\"倒れた場所も行動も違う三人。まずは推測より先に、三人の身体に同じ痕跡が残っていないか確かめたい。\",",
+   "      text:\"Three people, each found in a different place, each doing something different. Before guessing, check whether the same trace is left on all three bodies.\","
+  ],
+  [
+   20,
+   "      question:\"それぞれを同じ観点から調べれば、共通するものが見えてくるかもしれない。\" },",
+   "      question:\"Examine each of them from the same angle, and something they share may come into view.\" },"
+  ],
+  [
+   24,
+   "      title:\"口にした場所へ戻る\",",
+   "      title:\"Back to where it was drunk\","
+  ],
+  [
+   25,
+   "      text:\"倒れた場所と、毒を口にした場所は同じとは限らない。二人の間をつなぐ、洗われずに残った器がないだろうか。\",",
+   "      text:\"Where someone collapsed is not necessarily where they swallowed the poison. Is there a vessel still unwashed that links the two of them?\","
+  ],
+  [
+   26,
+   "      question:\"調理に使ったものだけでなく、キッチンの流しに置かれたままのものも確かめてみよう。\" },",
+   "      question:\"Check not only what was used for cooking, but whatever was left standing in the kitchen sink.\" },"
+  ],
+  [
+   28,
+   "      title:\"乾いた跡\",",
+   "      title:\"A dried stain\","
+  ],
+  [
+   29,
+   "      text:\"液体が運ばれたなら、器だけでなく、途中でこぼれた場所にも痕跡が残る。昼の出来事を思い返したい。\",",
+   "      text:\"If a liquid was carried, traces remain not only on the vessel but wherever it was spilled along the way. Think back over the afternoon.\","
+  ],
+  [
+   30,
+   "      question:\"一階で飲み物がこぼれた場所を、もう一度調べてみよう。\" },",
+   "      question:\"Search again where a drink was spilled on the ground floor.\" },"
+  ],
+  [
+   32,
+   "      title:\"実験の続き\",",
+   "      title:\"The experiment continues\","
+  ],
+  [
+   33,
+   "      text:\"毒の正体は確かめられたが、館に残った痕跡を見分ける知識がまだ足りない。実験は結果を聞いて終わりではない。\",",
+   "      text:\"The poison has been identified, but you still lack the knowledge to recognize its traces around the house. An experiment does not end with hearing the result.\","
+  ],
+  [
+   34,
+   "      question:\"仮説を立てた人物へ結果を伝えれば、植物を調べる手がかりを借りられるかもしれない。\" },",
+   "      question:\"Take the result back to the person who proposed the theory, and you may borrow the knowledge to examine the plant.\" },"
+  ],
+  [
+   36,
+   "      title:\"本と植物\",",
+   "      title:\"The book and the plant\","
+  ],
+  [
+   37,
+   "      text:\"手元の本には、毒に使われた植物の性質が記されている。知識を得た今なら、以前は見分けられなかった痕跡に気づける。\",",
+   "      text:\"The book in your hands describes the properties of the plant used for the poison. With that knowledge, you can now spot traces you could not before.\","
+  ],
+  [
+   38,
+   "      question:\"一階の、植物が置かれた明るい部屋へ戻り、鉢を詳しく調べてみよう。\" },",
+   "      question:\"Go back to the bright room on the ground floor where the plant stands, and examine the pot closely.\" },"
+  ],
+  [
+   42,
+   "      title:\"遺体のそばに残ったもの\",",
+   "      title:\"What was left beside the body\","
+  ],
+  [
+   43,
+   "      text:\"本人の身体だけでなく、身につけていたものにも毒が移っている可能性がある。小さな持ち物ほど見落としやすい。\",",
+   "      text:\"Poison may have transferred not only to the body but to what the victim was carrying. The smaller the belonging, the easier it is to miss.\","
+  ],
+  [
+   44,
+   "      question:\"キッチンのご遺体を、所持品まで含めて確認してみよう。\" },",
+   "      question:\"Examine the body in the kitchen, belongings and all.\" },"
+  ],
+  [
+   46,
+   "      title:\"拭き取られた作業場所\",",
+   "      title:\"A workspace wiped clean\","
+  ],
+  [
+   47,
+   "      text:\"毒を用意したなら、液体を扱った場所に痕跡が残る。きれいすぎる場所も、何もないとは限らない。\",",
+   "      text:\"Whoever prepared the poison left traces where the liquid was handled. A place that is too clean is not necessarily an empty one.\","
+  ],
+  [
+   48,
+   "      question:\"二階の個室で、天板だけ不自然に拭かれている机がないだろうか。\" },",
+   "      question:\"In the private rooms upstairs, is there a desk whose top alone has been unnaturally wiped?\" },"
+  ],
+  [
+   50,
+   "      title:\"机から持ち出されたもの\",",
+   "      title:\"What was taken from the desk\","
+  ],
+  [
+   51,
+   "      text:\"拭かれた机で使われたものが、その後べつの場所へ運ばれた可能性がある。まず、その道具を特定したい。\",",
+   "      text:\"Whatever was used at that wiped desk may have been carried somewhere else afterwards. First, identify the implement.\","
+  ],
+  [
+   52,
+   "      question:\"個室だけでなく、宿泊部屋の共用スペースに置き忘れられたものを確かめよう。\" },",
+   "      question:\"Check not only the private rooms but whatever was left behind in the shared space of the guest quarters.\" },"
+  ],
+  [
+   54,
+   "      title:\"道具が触れた場所\",",
+   "      title:\"Where the implement was used\","
+  ],
+  [
+   55,
+   "      text:\"拭かれた道具が見つかった。その道具が昼間に触れた場所なら、消し切れなかった毒が移っているかもしれない。\",",
+   "      text:\"You have found the wiped implement. If it touched something during the day, poison that could not be wiped away may have transferred there.\","
+  ],
+  [
+   56,
+   "      question:\"二階の廊下で、昼にその道具を使って開けた仕掛けを調べてみよう。\" },",
+   "      question:\"Examine the mechanism in the second-floor corridor that you opened with it during the day.\" },"
+  ],
+  [
+   60,
+   "      title:\"本に描かれた株\",",
+   "      title:\"The plant drawn in the book\","
+  ],
+  [
+   61,
+   "      text:\"館内に残った毒の痕跡は集まった。次は、手元の本に描かれた植物が、この館のどこかにないか確かめたい。\",",
+   "      text:\"You have gathered every trace of poison inside the house. Next, find out whether the plant drawn in the book grows somewhere on the grounds.\","
+  ],
+  [
+   62,
+   "      question:\"昼に歩いた庭へ戻り、ハーブが植えられていた一角を本の図と見比べてみよう。\" },",
+   "      question:\"Go back to the garden you walked through during the day and compare the herb bed with the illustration.\" },"
+  ],
+  [
+   64,
+   "      title:\"採取した株を照合する\",",
+   "      title:\"Matching the plant you took\","
+  ],
+  [
+   65,
+   "      text:\"庭の株を見つけただけでは、被害者から出た成分と同じものかは断定できない。比較するには鑑識の力が必要になる。\",",
+   "      text:\"Finding the plant in the garden is not proof that it matches what came out of the victims. To compare them, you need forensics.\","
+  ],
+  [
+   66,
+   "      question:\"採取した株を、検査を手配できる人物へ見せてみよう。リビングにいる警察関係者なら頼めるはずだ。\" },",
+   "      question:\"Show the plant you took to someone who can arrange a test. The police officer in the living room should be able to help.\" },"
+  ],
+  [
+   70,
+   "      title:\"毒が運ばれた跡\",",
+   "      title:\"The path the poison took\","
+  ],
+  [
+   71,
+   "      text:\"毒の正体は見えてきた。次は、調合された場所から被害者のもとまで、何を介して運ばれたのかを考えたい。\",",
+   "      text:\"The poison itself is coming into focus. Now think about what carried it from where it was mixed to the victims.\","
+  ],
+  [
+   72,
+   "      question:\"拭き取られた場所と、そこから持ち出されて別の場所でも使われた道具を、順番につないでみよう。\" },",
+   "      question:\"Join up the place that was wiped clean and the implement taken from it and used elsewhere, in order.\" },"
+  ],
+  [
+   74,
+   "      title:\"倒れた場所と口にした場所\",",
+   "      title:\"Where they fell, where they drank\","
+  ],
+  [
+   75,
+   "      text:\"三人が倒れた場所は一致しない。倒れた場所ではなく、それ以前に口にしたものへ視点を戻したい。\",",
+   "      text:\"The three did not fall in the same place. Look past where they fell, back to what they drank before it.\","
+  ],
+  [
+   76,
+   "      question:\"お茶会で、誰の飲み物が誰へ渡ったのか。使われた器から確かめられないだろうか。\" },",
+   "      question:\"At the tea party, whose drink went to whom? Perhaps the vessels can tell you.\" },"
+  ],
+  [
+   78,
+   "      title:\"仮説を確かめる\",",
+   "      title:\"Testing the theory\","
+  ],
+  [
+   79,
+   "      text:\"セージに似た成分と、容器に残ったもの。この二つを組み合わせたとき何が起きるのか、まだ確かめていない。\",",
+   "      text:\"Something like sage, and something left in a container. What happens when those two are combined has not yet been tested.\","
+  ],
+  [
+   80,
+   "      question:\"個人ではできない検査を、手配できる人物へ相談してみよう。\" },",
+   "      question:\"Take a test you cannot run yourself to someone who can arrange it.\" },"
+  ],
+  [
+   82,
+   "      title:\"見つけた容器の意味\",",
+   "      title:\"What the container means\","
+  ],
+  [
+   83,
+   "      text:\"不自然に洗われた容器が見つかった。中身が消えていても、残った反応から用途を考えられるかもしれない。\",",
+   "      text:\"You have found a container washed unnaturally clean. Even with the contents gone, what remains may say what it was for.\","
+  ],
+  [
+   84,
+   "      question:\"セージの性質について仮説を話した人物に、この容器を見せてみよう。\" },",
+   "      question:\"Show the container to the person who proposed the theory about sage.\" },"
+  ],
+  [
+   86,
+   "      title:\"混ぜたものがあるなら\",",
+   "      title:\"If something was mixed in\","
+  ],
+  [
+   87,
+   "      text:\"何かを混ぜて性質を変えたのなら、調合や持ち運びに使ったものが残るはずだ。\",",
+   "      text:\"If something was mixed in to change its properties, whatever was used to mix and carry it should still exist.\","
+  ],
+  [
+   88,
+   "      question:\"液体を入れられるもの、あるいは不自然に洗われているものが、誰かの荷物にないだろうか。\" },",
+   "      question:\"Is there something that could hold a liquid, or something washed unnaturally clean, in anyone's luggage?\" },"
+  ],
+  [
+   90,
+   "      title:\"無害なものが害を持つ条件\",",
+   "      title:\"When the harmless turns harmful\","
+  ],
+  [
+   91,
+   "      text:\"普通のセージは無害。それでも三人から似た成分が出たなら、品種か、加えられた何かに違いがある。\",",
+   "      text:\"Ordinary sage is harmless. If a similar compound came out of all three, then either the cultivar or something added to it is different.\","
+  ],
+  [
+   92,
+   "      question:\"植物や薬の性質に詳しい人物なら、この矛盾から仮説を立てられないだろうか。\" },",
+   "      question:\"Someone who knows plants and drugs might build a theory out of that contradiction.\" },"
+  ],
+  [
+   94,
+   "      title:\"集めた情報をつなぐ\",",
+   "      title:\"Tying the findings together\","
+  ],
+  [
+   95,
+   "      text:\"手がかりは単独では答えにならない。新しく聞けるようになった話と、まだ説明できていない痕跡を結び直そう。\",",
+   "      text:\"No clue is an answer on its own. Tie the newly opened conversations to the traces you still cannot explain.\","
+  ],
+  [
+   96,
+   "      question:\"部屋カードの「新規会話」と、未確認の証拠品をもう一度見直してみよう。\" }",
+   "      question:\"Look again at the “New talk” marks on the room cards, and at the evidence you have not yet checked.\" }"
+  ],
+  [
+   100,
+   "  stepNote:   \"場所を調べると1分、人と話すと2分が経過します。\",",
+   "  stepNote:   \"Searching a place costs one minute; talking to someone costs two.\","
+  ],
+  [
+   115,
+   "  counter:    { label:\"毒物の手がかり\",",
+   "  counter:    { label:\"Poison leads\","
+  ],
+  [
+   127,
+   "    { label:\"証拠品\",",
+   "    { label:\"Evidence\","
+  ],
+  [
+   141,
+   "    { label:\"証言・鑑識\",",
+   "    { label:\"Testimony / forensics\","
+  ],
+  [
+   145,
+   "        s7_koderia_cup_test:{ name:\"小出里亜のカップの鑑定結果\", text:\"小出里亜の指紋が残るカップの縁から、薬物反応が確認された。\" },",
+   "        s7_koderia_cup_test:{ name:\"Analysis of Koderia's cup\", text:\"A drug reaction was confirmed on the rim of the cup bearing Koderia's fingerprints.\" },"
+  ],
+  [
+   146,
+   "        s7_fingerprint:{ name:\"観葉植物の鉢の鑑識結果\", text:\"鉢から毒性物質と指紋が検出された。\" },",
+   "        s7_fingerprint:{ name:\"Forensics on the plant pot\", text:\"A toxic substance and fingerprints were found on the pot.\" },"
+  ],
+  [
+   147,
+   "        s7_jushika_tea:{ name:\"朱志香の証言：お茶会の紅茶\", text:\"お茶会で紅茶を淹れた人物と、そのときの手順についての証言。\" },",
+   "        s7_jushika_tea:{ name:\"Jushika's testimony: the tea\", text:\"Who brewed the tea at the tea party, and how they went about it.\" },"
+  ],
+  [
+   148,
+   "        s7_juri_3:{ name:\"珠璃の証言：紅茶を運んだこと\", text:\"淹れられた紅茶をダイニングへ運んだときの証言。\" }",
+   "        s7_juri_3:{ name:\"Juri's testimony: carrying the tea\", text:\"Her account of carrying the brewed tea through to the dining room.\" }"
+  ],
+  [
+   151,
+   "        s7_koderia_secret:{ name:\"小出里亜の癖に関する証言\", text:\"小出里亜が物を扱うときに見せる、特徴的な癖についての証言。\" },",
+   "        s7_koderia_secret:{ name:\"Testimony about Koderia's habit\", text:\"A distinctive habit Koderia shows when she handles things.\" },"
+  ],
+  [
+   152,
+   "        s7_fingerprint:{ name:\"ポットの鑑識結果\", text:\"お茶会で使われたポットから得られた鑑識情報。\" },",
+   "        s7_fingerprint:{ name:\"Forensics on the kettle\", text:\"Forensic findings from the kettle used at the tea party.\" },"
+  ],
+  [
+   153,
+   "        s7_jushika_tea:{ name:\"朱志香の証言：お茶会の紅茶\", text:\"お茶会で紅茶を淹れた人物と、そのときの手順についての証言。\" },",
+   "        s7_jushika_tea:{ name:\"Jushika's testimony: the tea\", text:\"Who brewed the tea at the tea party, and how they went about it.\" },"
+  ],
+  [
+   154,
+   "        s7_juri_3:{ name:\"珠璃の証言：紅茶を運んだこと\", text:\"淹れられた紅茶をダイニングへ運んだときの証言。\" },",
+   "        s7_juri_3:{ name:\"Juri's testimony: carrying the tea\", text:\"Her account of carrying the brewed tea through to the dining room.\" },"
+  ],
+  [
+   155,
+   "        s7_gimmick_lid:{ name:\"仕掛けの蓋の鑑識結果\", text:\"二階廊下の仕掛けの蓋から、微量の毒性成分が検出された。\" }",
+   "        s7_gimmick_lid:{ name:\"Forensics on the mechanism lid\", text:\"A trace of the toxic compound was found on the lid in the second-floor corridor.\" }"
+  ],
+  [
+   164,
+   "      lockNote:\"昼間に条件達成の場合に解放\",",
+   "      lockNote:\"Unlocked if the conditions were met during the day\","
+  ],
+  [
+   166,
+   "        true_flag_mary:{ name:\"メアリーから聞いた過去\", text:\"メアリーが自分の過去について語った内容。\" },",
+   "        true_flag_mary:{ name:\"Mary's account of her past\", text:\"What Mary said about her own past.\" },"
+  ],
+  [
+   167,
+   "        s7_king_yuzuki_record:{ name:\"舞黒邦夢の1936年の記録\", text:\"キング家が残した家具と、館で働き始めた結月について記された記録。\" },",
+   "        s7_king_yuzuki_record:{ name:\"Houmu Maicro's record from 1936\", text:\"A record of the furniture left by the King family and of Yuduki, who began working at the house.\" },"
+  ],
+  [
+   168,
+   "        base_ment_found:{ name:\"サンルーム床下の空間\", text:\"サンルームの床板の下に、別の空間へ続くと思われる鍵穴が見つかった。\" },",
+   "        base_ment_found:{ name:\"The space beneath the sunroom\", text:\"A keyhole was found under the sunroom floorboards, apparently leading to another space.\" },"
+  ],
+  [
+   169,
+   "        has_blueprint:{ name:\"舞黒館の設計図\", text:\"館の構造と、通常は見えない区画を確認できる設計図。\" },",
+   "        has_blueprint:{ name:\"Floor plan of Maicro House\", text:\"A plan showing the structure of the house, including sections normally out of sight.\" },"
+  ],
+  [
+   170,
+   "        has_old_key:{ name:\"地下への鍵\", text:\"執務机の裏から見つかった古びた鍵。地下へと続く扉を開けるためのもの。\" }",
+   "        has_old_key:{ name:\"Key to the Basement\", text:\"An old key found behind the desk in the study. It opens the door leading underground.\" }"
+  ],
+  [
+   175,
+   "    { id:\"genkan\", name:\"玄関\", floor:1, bg:\"entrance_night.png\", target:\"*scene_genkan\",",
+   "    { id:\"genkan\", name:\"Entrance Hall\", floor:1, bg:\"entrance_night.png\", target:\"*scene_genkan\","
+  ],
+  [
+   177,
+   "        { label:\"記帳台\", note:\"宿泊者全員の入館記録\", x:87, y:51,",
+   "        { label:\"Register desk\", note:\"Arrival times for every guest\", x:87, y:51,"
+  ],
+  [
+   182,
+   "    { id:\"garden\", name:\"庭\", floor:1, floorLabel:\"屋外\", bg:\"garden_night.png\", target:\"*s7_garden\",",
+   "    { id:\"garden\", name:\"Garden\", floor:1, floorLabel:\"Outdoors\", bg:\"garden_night.png\", target:\"*s7_garden\","
+  ],
+  [
+   184,
+   "        { label:\"ハーブの花壇\", note:\"昼にセージが咲いていた一角\", x:80, y:58,",
+   "        { label:\"Herb bed\", note:\"The corner where sage was flowering by day\", x:80, y:58,"
+  ],
+  [
+   186,
+   "        { label:\"花壇のふち\",   note:\"土に何かの跡がある\",         x:22, y:72,",
+   "        { label:\"Edge of the bed\",   note:\"Something has left a mark in the soil\",         x:22, y:72,"
+  ],
+  [
+   190,
+   "    { id:\"living\", name:\"リビング\", floor:1, bg:\"living_night.png\", target:\"*s7_living\",",
+   "    { id:\"living\", name:\"Living Room\", floor:1, bg:\"living_night.png\", target:\"*s7_living\","
+  ],
+  [
+   192,
+   "        { label:\"ソファのクッション\", note:\"隙間に何か挟まっている\", x:33, y:59,",
+   "        { label:\"Sofa cushions\", note:\"Something is wedged in the gap\", x:33, y:59,"
+  ],
+  [
+   194,
+   "        { label:\"暖炉\", note:\"火は落ちている\", x:67, y:54,",
+   "        { label:\"Fireplace\", note:\"The fire has gone out\", x:67, y:54,"
+  ],
+  [
+   198,
+   "        { id:\"reido\", name:\"零度警部\", color:\"#2f4f9e\", initial:\"零\", topics:[",
+   "        { id:\"reido\", name:\"Inspector Reido\", color:\"#2f4f9e\", initial:\"RE\", topics:["
+  ],
+  [
+   199,
+   "          { label:\"死因について\",           flag:\"s7_reido_1\", target:\"*s7_reido_t1\", target_r:\"*s7_reido_t1r\", cond:\"true\" },",
+   "          { label:\"About the cause of death\",           flag:\"s7_reido_1\", target:\"*s7_reido_t1\", target_r:\"*s7_reido_t1r\", cond:\"true\" },"
+  ],
+  [
+   200,
+   "          { label:\"SNS情報について\",         flag:\"s7_reido_2\", target:\"*s7_reido_t2\", target_r:\"*s7_reido_t2r\",",
+   "          { label:\"About the social media messages\",         flag:\"s7_reido_2\", target:\"*s7_reido_t2\", target_r:\"*s7_reido_t2r\","
+  ],
+  [
+   201,
+   "            cond:\"f.s7_eruku_phone2==1\", lock:\"2台目のスマホを見つけると解放\" },",
+   "            cond:\"f.s7_eruku_phone2==1\", lock:\"opens once you find the second phone\" },"
+  ],
+  [
+   202,
+   "          { label:\"ポット調査について\",       flag:\"s7_reido_3\", target:\"*s7_reido_t3\", target_r:\"*s7_reido_t3r\",",
+   "          { label:\"About examining the kettle\",       flag:\"s7_reido_3\", target:\"*s7_reido_t3\", target_r:\"*s7_reido_t3r\","
+  ],
+  [
+   203,
+   "            cond:\"f.s7_jushika_morning==1\", lock:\"朱志香に到着したころのことを聞くと解放\" },",
+   "            cond:\"f.s7_jushika_morning==1\", lock:\"opens once you ask Jushika about the arrivals\" },"
+  ],
+  [
+   204,
+   "          { label:\"アルコール実験を依頼する\", flag:\"s7_sage_done\", target:\"*s7_reido_t4\", target_r:\"*s7_reido_t4r\",",
+   "          { label:\"Request the alcohol experiment\", flag:\"s7_sage_done\", target:\"*s7_reido_t4\", target_r:\"*s7_reido_t4r\","
+  ],
+  [
+   205,
+   "            cond:\"f.s7_sage_request==1\", lock:\"和人の助言後に解放\" },",
+   "            cond:\"f.s7_sage_request==1\", lock:\"opens after Kazuto's advice\" },"
+  ],
+  [
+   206,
+   "          { label:\"庭のセージの鑑定を頼む\",   flag:\"s7_sage_match\", target:\"*s7_reido_t5\", target_r:\"*s7_reido_t5r\",",
+   "          { label:\"Ask for the garden sage to be tested\",   flag:\"s7_sage_match\", target:\"*s7_reido_t5\", target_r:\"*s7_reido_t5r\","
+  ],
+  [
+   207,
+   "            cond:\"f.s7_garden_sage==1\", lock:\"庭で採取すると解放\" },",
+   "            cond:\"f.s7_garden_sage==1\", lock:\"opens once you take a sample in the garden\" },"
+  ],
+  [
+   208,
+   "          { label:\"小出里亜さんのカップを調べる\", flag:\"s7_koderia_cup_test\",",
+   "          { label:\"Have Koderia's cup examined\", flag:\"s7_koderia_cup_test\","
+  ],
+  [
+   211,
+   "            lock:\"メアリーさんのカップを鑑定すると解放\" },",
+   "            lock:\"opens once Mary's cup has been analysed\" },"
+  ],
+  [
+   213,
+   "          { label:\"毒の摂取経路について相談する（時間を使いません）\", flag:\"s7_reido_hint_used\",",
+   "          { label:\"Discuss how the poison was taken (costs no time)\", flag:\"s7_reido_hint_used\","
+  ],
+  [
+   215,
+   "            cond:\"f.s6_trust_rank==2\", lock:\"零度警部の信を得ていると解放\" }",
+   "            cond:\"f.s6_trust_rank==2\", lock:\"opens if you have Inspector Reido's trust\" }"
+  ],
+  [
+   217,
+   "        { id:\"jushika\", name:\"朱志香\", color:\"#1D9E75\", initial:\"朱\", topics:[",
+   "        { id:\"jushika\", name:\"Jushika\", color:\"#1D9E75\", initial:\"JU\", topics:["
+  ],
+  [
+   218,
+   "          { label:\"事件へのショック・小出里亜さんのこと\", flag:\"s7_jushika_1\", target:\"*s7_jushika_t1\", target_r:\"*s7_jushika_t1r\", cond:\"true\" },",
+   "          { label:\"The shock of it, and Koderia\", flag:\"s7_jushika_1\", target:\"*s7_jushika_t1\", target_r:\"*s7_jushika_t1r\", cond:\"true\" },"
+  ],
+  [
+   219,
+   "          { label:\"到着したころの状況について\",       flag:\"s7_jushika_2\", target:\"*s7_jushika_t2\", target_r:\"*s7_jushika_t2r\",",
+   "          { label:\"How things stood when everyone arrived\",       flag:\"s7_jushika_2\", target:\"*s7_jushika_t2\", target_r:\"*s7_jushika_t2r\","
+  ],
+  [
+   220,
+   "            cond:\"f.has_entrance_record==1\", lock:\"入館記録書の入手後に解放\" },",
+   "            cond:\"f.has_entrance_record==1\", lock:\"opens once you have the guest register\" },"
+  ],
+  [
+   221,
+   "          { label:\"お茶会の紅茶について\",             flag:\"s7_jushika_tea\", target:\"*s7_jushika_t4\", target_r:\"*s7_jushika_t4r\", cond:\"true\" },",
+   "          { label:\"About the tea at the tea party\",             flag:\"s7_jushika_tea\", target:\"*s7_jushika_t4\", target_r:\"*s7_jushika_t4r\", cond:\"true\" },"
+  ],
+  [
+   222,
+   "          { label:\"新聞記事について\",     flag:\"s7_jushika_3\", target:\"*s7_jushika_t3\", target_r:\"*s7_jushika_t3r\",",
+   "          { label:\"About the newspaper article\",     flag:\"s7_jushika_3\", target:\"*s7_jushika_t3\", target_r:\"*s7_jushika_t3r\","
+  ],
+  [
+   223,
+   "            cond:\"f.s7_newspaper==1 && f.s7_arc_plate==1\", lock:\"新聞記事とプレートの確認後に解放\" },",
+   "            cond:\"f.s7_newspaper==1 && f.s7_arc_plate==1\", lock:\"opens once you check the article and the plate\" },"
+  ],
+  [
+   224,
+   "          { label:\"「薬学研究」の書類について\", flag:\"s7_jushika_book\", target:\"*s7_jushika_t5\", target_r:\"*s7_jushika_t5r\",",
+   "          { label:\"About the pharmacology papers\", flag:\"s7_jushika_book\", target:\"*s7_jushika_t5\", target_r:\"*s7_jushika_t5r\","
+  ],
+  [
+   225,
+   "            cond:\"f.s7_arc_inventory==1\", lock:\"資料室の整理リストを見つけると解放\" }",
+   "            cond:\"f.s7_arc_inventory==1\", lock:\"opens once you find the inventory in the archive\" }"
+  ],
+  [
+   227,
+   "        { id:\"juri\", name:\"珠璃\", color:\"#D85A30\", initial:\"珠\", topics:[",
+   "        { id:\"juri\", name:\"Juri\", color:\"#D85A30\", initial:\"JR\", topics:["
+  ],
+  [
+   228,
+   "          { label:\"今の気持ち・和人について\",   flag:\"s7_juri_1\", target:\"*s7_juri_t1\", target_r:\"*s7_juri_t1r\", cond:\"true\" },",
+   "          { label:\"How she feels now, and about Kazuto\",   flag:\"s7_juri_1\", target:\"*s7_juri_t1\", target_r:\"*s7_juri_t1r\", cond:\"true\" },"
+  ],
+  [
+   229,
+   "          { label:\"叡留久さんのスマホについて\", flag:\"s7_juri_2\", target:\"*s7_juri_t2\", target_r:\"*s7_juri_t2r\",",
+   "          { label:\"About Eruku's phone\", flag:\"s7_juri_2\", target:\"*s7_juri_t2\", target_r:\"*s7_juri_t2r\","
+  ],
+  [
+   230,
+   "            cond:\"f.s7_eruku_phone==1\", lock:\"スマホの発見後に解放\" },",
+   "            cond:\"f.s7_eruku_phone==1\", lock:\"opens once the phone is found\" },"
+  ],
+  [
+   231,
+   "          { label:\"紅茶を運んだことについて\",   flag:\"s7_juri_3\", target:\"*s7_juri_t3\", target_r:\"*s7_juri_t3r\",",
+   "          { label:\"About carrying the tea through\",   flag:\"s7_juri_3\", target:\"*s7_juri_t3\", target_r:\"*s7_juri_t3r\","
+  ],
+  [
+   232,
+   "            cond:\"f.s7_jushika_tea==1\", lock:\"朱志香の証言の後に解放\" }",
+   "            cond:\"f.s7_jushika_tea==1\", lock:\"opens after Jushika's testimony\" }"
+  ],
+  [
+   234,
+   "        { id:\"mary\", name:\"メアリー\", color:\"#378ADD\", initial:\"メ\", topics:[",
+   "        { id:\"mary\", name:\"Mary\", color:\"#378ADD\", initial:\"MA\", topics:["
+  ],
+  [
+   235,
+   "          { label:\"二人が亡くなったことについて\",   flag:\"s7_mary_1\", target:\"*s7_mary_t1\", target_r:\"*s7_mary_t1r\", cond:\"true\" },",
+   "          { label:\"About the two who died\",   flag:\"s7_mary_1\", target:\"*s7_mary_t1\", target_r:\"*s7_mary_t1r\", cond:\"true\" },"
+  ],
+  [
+   236,
+   "          { label:\"紅茶を愛理にあげた理由\",         flag:\"s7_mary_2\", target:\"*s7_mary_t2\", target_r:\"*s7_mary_t2r\",",
+   "          { label:\"Why she gave her tea to Airi\",         flag:\"s7_mary_2\", target:\"*s7_mary_t2\", target_r:\"*s7_mary_t2r\","
+  ],
+  [
+   237,
+   "            cond:\"f.s7_exchange_topic==1\", lock:\"愛理の話を聞くと解放\" },",
+   "            cond:\"f.s7_exchange_topic==1\", lock:\"opens once you hear Airi's account\" },"
+  ],
+  [
+   238,
+   "          { label:\"スーツケースの中の手紙について\", flag:\"s7_mary_3\", target:\"*s7_mary_t3\", target_r:\"*s7_mary_t3r\",",
+   "          { label:\"About the letter in her suitcase\", flag:\"s7_mary_3\", target:\"*s7_mary_t3\", target_r:\"*s7_mary_t3r\","
+  ],
+  [
+   239,
+   "            cond:\"f.s7_bd_mary==1\", lock:\"手紙の発見後に解放\" }",
+   "            cond:\"f.s7_bd_mary==1\", lock:\"opens once the letter is found\" }"
+  ],
+  [
+   243,
+   "    { id:\"dining\", name:\"ダイニング\", floor:1, bg:\"dining_night.png\", target:\"*s7_dining\",",
+   "    { id:\"dining\", name:\"Dining Room\", floor:1, bg:\"dining_night.png\", target:\"*s7_dining\","
+  ],
+  [
+   245,
+   "        { label:\"食器棚\",   note:\"食器の裏に刻印\", x:62, y:33,",
+   "        { label:\"Dresser\",   note:\"A maker's mark on the underside\", x:62, y:33,"
+  ],
+  [
+   247,
+   "        { label:\"テーブル\", note:\"お茶会の跡\",     x:38, y:68,",
+   "        { label:\"Table\", note:\"The remains of the tea party\",     x:38, y:68,"
+  ],
+  [
+   251,
+   "    { id:\"kitchen\", name:\"キッチン\", floor:1, bg:\"kitchen_night_after_incident.png\", target:\"*s7_kitchen\",",
+   "    { id:\"kitchen\", name:\"Kitchen\", floor:1, bg:\"kitchen_night_after_incident.png\", target:\"*s7_kitchen\","
+  ],
+  [
+   253,
+   "        { label:\"小出里亜さんのご遺体\", note:\"鑑識のシートが掛けられている\", x:45, y:65,",
+   "        { label:\"Koderia's body\", note:\"Covered with a forensic sheet\", x:45, y:65,"
+  ],
+  [
+   255,
+   "        { label:\"コンロ\",   note:\"鑑識が入った跡\",             x:15, y:68,",
+   "        { label:\"Stove\",   note:\"Signs that forensics have been through\",             x:15, y:68,"
+  ],
+  [
+   260,
+   "        { label:\"流しのカップ\", note:\"洗われずに置かれている\",   x:52, y:30,",
+   "        { label:\"Cup in the sink\", note:\"Left standing, unwashed\",   x:52, y:30,"
+  ],
+  [
+   264,
+   "        { label:\"ポット\",   note:\"お茶会で使われたもの\",       x:84, y:34,",
+   "        { label:\"Kettle\",   note:\"The one used at the tea party\",       x:84, y:34,"
+  ],
+  [
+   268,
+   "    { id:\"sunroom1\", name:\"サンルーム\", floor:1, bg:\"sunroom_night.png\", target:\"*s7_sunroom1\",",
+   "    { id:\"sunroom1\", name:\"Sunroom\", floor:1, bg:\"sunroom_night.png\", target:\"*s7_sunroom1\","
+  ],
+  [
+   271,
+   "        { label:\"床の乾いた跡\", note:\"何かをこぼした跡\", x:58, y:89,",
+   "        { label:\"Dried mark on the floor\", note:\"Something was spilled here\", x:58, y:89,"
+  ],
+  [
+   273,
+   "        { label:\"観葉植物の鉢\", note:\"薬学研究の本をもとに詳しく調べる\", x:15, y:76,",
+   "        { label:\"The plant pot\", note:\"Examine it closely, guided by the pharmacology book\", x:15, y:76,"
+  ],
+  [
+   275,
+   "        { label:\"床板の継ぎ目\", note:\"毒の痕跡を追って床を精査する\", x:30, y:90,",
+   "        { label:\"Seam in the floorboards\", note:\"Follow the traces of poison and study the floor\", x:30, y:90,"
+  ],
+  [
+   278,
+   "          lock:\"昼の探索で地下書斎を調べ、サンルームで事件の痕跡を詳しく調べると解放\", get:true }",
+   "          lock:\"opens once you have searched the underground study by day and examined the sunroom closely\", get:true }"
+  ],
+  [
+   281,
+   "    { id:\"rouka1\", name:\"廊下\", floor:1, bg:\"hallway_night_after_incident.png\", target:\"*s7_rouka1\",",
+   "    { id:\"rouka1\", name:\"Corridor\", floor:1, bg:\"hallway_night_after_incident.png\", target:\"*s7_rouka1\","
+  ],
+  [
+   283,
+   "        { label:\"叡留久さんのご遺体\", note:\"鑑識のシートが掛けられている\", x:30, y:80,",
+   "        { label:\"Eruku's body\", note:\"Covered with a forensic sheet\", x:30, y:80,"
+  ],
+  [
+   289,
+   "    { id:\"bedroom\", name:\"宿泊部屋\", floor:2, bg:\"bedroom_night.png\", target:\"*s7_bedroom\",",
+   "    { id:\"bedroom\", name:\"Guest Rooms\", floor:2, bg:\"bedroom_night.png\", target:\"*s7_bedroom\","
+  ],
+  [
+   291,
+   "      wingHint:\"扉を選ぶと、その部屋に入って調査できます。愛理は真白姉妹の部屋で休んでいる。\",",
+   "      wingHint:\"Choose a door to enter that room and search it. Airi is resting in the Mashiro sisters' room.\","
+  ],
+  [
+   295,
+   "    { id:\"bd_main\", parent:\"bedroom\", name:\"メインルーム\", floor:2, bg:\"bedroom_night.png\",",
+   "    { id:\"bd_main\", parent:\"bedroom\", name:\"Main Room\", floor:2, bg:\"bedroom_night.png\","
+  ],
+  [
+   296,
+   "      occupant:\"共用スペース\", door:\"中\", target:\"*s7_bd_main\",",
+   "      occupant:\"Shared space\", door:\"M\", target:\"*s7_bd_main\","
+  ],
+  [
+   299,
+   "        { label:\"棚\", note:\"何か置き忘れられている\", x:90, y:47,",
+   "        { label:\"Shelf\", note:\"Something has been left behind\", x:90, y:47,"
+  ],
+  [
+   304,
+   "    { id:\"bd_hozairo\", parent:\"bedroom\", name:\"穂在呂夫妻の部屋\", floor:2, bg:\"room_hoaro_night.png\",",
+   "    { id:\"bd_hozairo\", parent:\"bedroom\", name:\"The Hoaros' Room\", floor:2, bg:\"room_hoaro_night.png\","
+  ],
+  [
+   305,
+   "      occupant:\"穂在呂 叡留久・珠璃\", door:\"A\", target:\"*s7_bd_hozairo\",",
+   "      occupant:\"Eruku & Juri Hoaro\", door:\"A\", target:\"*s7_bd_hozairo\","
+  ],
+  [
+   307,
+   "        { label:\"珠璃のスーツケース\", note:\"持ち手が濡れている\", x:61, y:86,",
+   "        { label:\"Juri's suitcase\", note:\"The handle is wet\", x:61, y:86,"
+  ],
+  [
+   309,
+   "        { label:\"叡留久のスーツケース\", note:\"まだ荷解きもされていない\", x:38, y:84,",
+   "        { label:\"Eruku's suitcase\", note:\"Still not even unpacked\", x:38, y:84,"
+  ],
+  [
+   314,
+   "    { id:\"bd_kazuto\", parent:\"bedroom\", name:\"和人の部屋\", floor:2, bg:\"room_kazuto_night.png\",",
+   "    { id:\"bd_kazuto\", parent:\"bedroom\", name:\"Kazuto's Room\", floor:2, bg:\"room_kazuto_night.png\","
+  ],
+  [
+   315,
+   "      occupant:\"徐音 和人\", door:\"B\", target:\"*s7_bd_kazuto\",",
+   "      occupant:\"Kazuto Joon\", door:\"B\", target:\"*s7_bd_kazuto\","
+  ],
+  [
+   317,
+   "        { label:\"和人のリュックサック\", note:\"薬と瓶と医学書\", x:70, y:84,",
+   "        { label:\"Kazuto's rucksack\", note:\"Medicine, a bottle and medical texts\", x:70, y:84,"
+  ],
+  [
+   320,
+   "        { label:\"和人の机\",           note:\"天板に拭き跡がある\", x:80, y:60,",
+   "        { label:\"Kazuto's desk\",           note:\"The top has been wiped\", x:80, y:60,"
+  ],
+  [
+   325,
+   "    { id:\"bd_mary\", parent:\"bedroom\", name:\"メアリーの部屋\", floor:2, bg:\"room_mary_night.png\",",
+   "    { id:\"bd_mary\", parent:\"bedroom\", name:\"Mary's Room\", floor:2, bg:\"room_mary_night.png\","
+  ],
+  [
+   326,
+   "      occupant:\"メアリー\", door:\"C\", target:\"*s7_bd_mary\",",
+   "      occupant:\"Mary King\", door:\"C\", target:\"*s7_bd_mary\","
+  ],
+  [
+   328,
+   "        { label:\"メアリーのスーツケース\", note:\"強い香水の匂い\", x:74, y:90,",
+   "        { label:\"Mary's suitcase\", note:\"A strong smell of perfume\", x:74, y:90,"
+  ],
+  [
+   333,
+   "    { id:\"bd_mashiro\", parent:\"bedroom\", name:\"真白姉妹の部屋\", floor:2, bg:\"room_mashiro_night.png\",",
+   "    { id:\"bd_mashiro\", parent:\"bedroom\", name:\"The Mashiro Sisters' Room\", floor:2, bg:\"room_mashiro_night.png\","
+  ],
+  [
+   334,
+   "      occupant:\"真歩流・愛理（和人が付き添い）\", door:\"D\", target:\"*s7_bd_mashiro\",",
+   "      occupant:\"Mahoru & Airi (Kazuto attending)\", door:\"D\", target:\"*s7_bd_mashiro\","
+  ],
+  [
+   336,
+   "        { label:\"愛理のベッドサイド\", note:\"枕元に飲みかけのカップ\", x:70, y:53,",
+   "        { label:\"Airi's bedside\", note:\"A half-drunk cup by the pillow\", x:70, y:53,"
+  ],
+  [
+   340,
+   "        { id:\"kazuto\", name:\"和人\", color:\"#5F5E5A\", initial:\"和\", topics:[",
+   "        { id:\"kazuto\", name:\"Kazuto\", color:\"#5F5E5A\", initial:\"KA\", topics:["
+  ],
+  [
+   341,
+   "          { label:\"捜査について\",               flag:\"s7_kazuto_1\", target:\"*s7_kazuto_t1\", target_r:\"*s7_kazuto_t1r\", cond:\"true\" },",
+   "          { label:\"About the investigation\",               flag:\"s7_kazuto_1\", target:\"*s7_kazuto_t1\", target_r:\"*s7_kazuto_t1r\", cond:\"true\" },"
+  ],
+  [
+   342,
+   "          { label:\"珠璃さんから聞いたこと\",     flag:\"s7_kazuto_2\", target:\"*s7_kazuto_t2\", target_r:\"*s7_kazuto_t2r\",",
+   "          { label:\"What Juri told you\",     flag:\"s7_kazuto_2\", target:\"*s7_kazuto_t2\", target_r:\"*s7_kazuto_t2r\","
+  ],
+  [
+   343,
+   "            cond:\"f.s7_kazuto_secret==1\", lock:\"珠璃の話を聞くと解放\" },",
+   "            cond:\"f.s7_kazuto_secret==1\", lock:\"opens once you hear Juri out\" },"
+  ],
+  [
+   344,
+   "          { label:\"セージについての仮説\", flag:\"s7_kazuto_3_intro\", target:\"*s7_kazuto_t3_intro\", target_r:\"*s7_kazuto_t3_intror\",",
+   "          { label:\"His theory about the sage\", flag:\"s7_kazuto_3_intro\", target:\"*s7_kazuto_t3_intro\", target_r:\"*s7_kazuto_t3_intror\","
+  ],
+  [
+   345,
+   "            cond:\"f.s7_sage_hypothesis==1\", lock:\"三人の成分を考察すると解放\" },",
+   "            cond:\"f.s7_sage_hypothesis==1\", lock:\"opens once you reason about what all three shared\" },"
+  ],
+  [
+   346,
+   "          { label:\"不自然な液体・容器について\", flag:\"s7_kazuto_3\", target:\"*s7_kazuto_t3\", target_r:\"*s7_kazuto_t3r\",",
+   "          { label:\"About the unnatural liquid and its container\", flag:\"s7_kazuto_3\", target:\"*s7_kazuto_t3\", target_r:\"*s7_kazuto_t3r\","
+  ],
+  [
+   347,
+   "            cond:\"f.s7_kazuto_3_intro==1 && f.s7_sage_request==0\", lock:\"セージの仮説を和人に相談すると解放\" },",
+   "            cond:\"f.s7_kazuto_3_intro==1 && f.s7_sage_request==0\", lock:\"opens once you take the sage theory to Kazuto\" },"
+  ],
+  [
+   348,
+   "          { label:\"実験結果について\",           flag:\"s7_kazuto_4\", target:\"*s7_kazuto_t4\", target_r:\"*s7_kazuto_t4r\",",
+   "          { label:\"About the result of the experiment\",           flag:\"s7_kazuto_4\", target:\"*s7_kazuto_t4\", target_r:\"*s7_kazuto_t4r\","
+  ],
+  [
+   349,
+   "            cond:\"f.s7_sage_done==1\", lock:\"アルコール実験の後に解放\" }",
+   "            cond:\"f.s7_sage_done==1\", lock:\"opens after the alcohol experiment\" }"
+  ],
+  [
+   351,
+   "        { id:\"airi\", name:\"愛理\", color:\"#c0699a\", initial:\"愛\", bg:\"event/airi_painful.png\", topics:[",
+   "        { id:\"airi\", name:\"Airi\", color:\"#c0699a\", initial:\"AI\", bg:\"event/airi_painful.png\", topics:["
+  ],
+  [
+   352,
+   "          { label:\"お茶会の飲み物について\", flag:\"s7_airi_1\", target:\"*s7_airi_t1\", target_r:\"*s7_airi_t1r\", cond:\"true\" },",
+   "          { label:\"About the drinks at the tea party\", flag:\"s7_airi_1\", target:\"*s7_airi_t1\", target_r:\"*s7_airi_t1r\", cond:\"true\" },"
+  ],
+  [
+   353,
+   "          { label:\"体を調べてもらう\",       flag:\"s7_airi_2\", target:\"*s7_airi_t2\", target_r:\"*s7_airi_t2r\",",
+   "          { label:\"Have her examined\",       flag:\"s7_airi_2\", target:\"*s7_airi_t2\", target_r:\"*s7_airi_t2r\","
+  ],
+  [
+   354,
+   "            cond:\"f.s7_exchange_topic==1\", lock:\"愛理の話を聞くと解放\", poison:true, poisonFlag:\"s7_pf3\" }",
+   "            cond:\"f.s7_exchange_topic==1\", lock:\"opens once you hear Airi's account\", poison:true, poisonFlag:\"s7_pf3\" }"
+  ],
+  [
+   358,
+   "    { id:\"sunroom2\", name:\"サンルーム\", floor:2, bg:\"sunroom_second_night.png\", target:\"*s7_sunroom2\",",
+   "    { id:\"sunroom2\", name:\"Sunroom\", floor:2, bg:\"sunroom_second_night.png\", target:\"*s7_sunroom2\","
+  ],
+  [
+   360,
+   "        { label:\"古びた椅子\",     note:\"座るとキコキコ軋む\", x:47, y:72,",
+   "        { label:\"Old chair\",     note:\"It creaks when you sit\", x:47, y:72,"
+  ],
+  [
+   364,
+   "    { id:\"lounge\", name:\"談話室\", floor:2, bg:\"talk_room_night.png\", target:\"*s7_lounge\",",
+   "    { id:\"lounge\", name:\"Drawing Room\", floor:2, bg:\"talk_room_night.png\", target:\"*s7_lounge\","
+  ],
+  [
+   366,
+   "        { label:\"テーブル\", note:\"昼と変わらず整然と並んでいる\", x:47, y:76,",
+   "        { label:\"Table\", note:\"As neatly laid out as it was by day\", x:47, y:76,"
+  ],
+  [
+   368,
+   "        { label:\"窓\", note:\"夜風が吹いている\", x:25, y:27,",
+   "        { label:\"Window\", note:\"A night breeze is blowing\", x:25, y:27,"
+  ],
+  [
+   372,
+   "    { id:\"archive\", name:\"資料室\", floor:2, bg:\"reference_room_night.png\", target:\"*s7_archive\",",
+   "    { id:\"archive\", name:\"Archive Room\", floor:2, bg:\"reference_room_night.png\", target:\"*s7_archive\","
+  ],
+  [
+   374,
+   "        { label:\"出資者リスト\", note:\"地下増築工事の出資者一覧\",   x:7, y:38,",
+   "        { label:\"List of backers\", note:\"Backers of the basement extension\",   x:7, y:38,"
+  ],
+  [
+   376,
+   "        { label:\"訪問者記録\",     note:\"戦前の訪問者記録\",           x:66, y:42,",
+   "        { label:\"Visitor records\",     note:\"Pre-war visitor records\",           x:66, y:42,"
+  ],
+  [
+   378,
+   "        { label:\"増築の冊子\",     note:\"「地下増築工事について」\", x:45, y:60,",
+   "        { label:\"Booklet on the extension\",     note:\"“On the basement extension works”\", x:45, y:60,"
+  ],
+  [
+   380,
+   "        { label:\"整理リスト\",     note:\"遺品整理のときの控えらしい\", x:24, y:66,",
+   "        { label:\"Inventory list\",     note:\"Seems to be a copy made when the estate was cleared\", x:24, y:66,"
+  ],
+  [
+   384,
+   "    { id:\"study\", name:\"執務室\", floor:2, bg:\"office_night.png\", target:\"*s7_study\",",
+   "    { id:\"study\", name:\"Study\", floor:2, bg:\"office_night.png\", target:\"*s7_study\","
+  ],
+  [
+   386,
+   "        { label:\"本棚\", note:\"奥に古い紙束\",           x:40, y:35,",
+   "        { label:\"Bookcase\", note:\"An old bundle of papers at the back\",           x:40, y:35,"
+  ],
+  [
+   388,
+   "        { label:\"執務椅子\",     note:\"昼に転んだ椅子\",         x:75, y:52,",
+   "        { label:\"Desk chair\",     note:\"The chair you fell off by day\",         x:75, y:52,"
+  ],
+  [
+   392,
+   "    { id:\"rouka2\", name:\"廊下\", floor:2, bg:\"hallway_second_night.png\", target:\"*s7_rouka2\",",
+   "    { id:\"rouka2\", name:\"Corridor\", floor:2, bg:\"hallway_second_night.png\", target:\"*s7_rouka2\","
+  ],
+  [
+   394,
+   "        { label:\"ステンドグラス\", note:\"夜は色が沈んで見える\", x:30, y:38,",
+   "        { label:\"Stained glass\", note:\"The colors sink into the dark at night\", x:30, y:38,"
+  ],
+  [
+   397,
+   "        { label:\"壁の真鍮の蓋\", note:\"昼に開けた仕掛け\", x:38, y:60,",
+   "        { label:\"Brass lid on the wall\", note:\"The mechanism you opened by day\", x:38, y:60,"
+  ]
+ ]
+}

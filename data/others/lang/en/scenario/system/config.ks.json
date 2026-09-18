@@ -1,0 +1,10 @@
+{
+ "src": "data/scenario/system/config.ks",
+ "lines": [
+  [
+   79,
+   "\ttf.text_sample = 'テストメッセージです。このスピードでテキストが表示されます。';",
+   "\ttf.text_sample = 'This is a test message. Text will be displayed at this speed.';"
+  ]
+ ]
+}

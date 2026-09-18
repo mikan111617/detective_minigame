@@ -1,0 +1,3580 @@
+{
+ "src": "data/scenario/ending/true_end.ks",
+ "lines": [
+  [
+   13,
+   "[gage_draw place=\"舞黒館:サンルーム\"]",
+   "[gage_draw place=\"Maicro House:Sunroom\"]"
+  ],
+  [
+   27,
+   "サンルームの観葉植物が、倒れている……[p]",
+   "The plant in the sunroom has been knocked over...[p]"
+  ],
+  [
+   31,
+   "それに床が……[p]",
+   "And the floor...[p]"
+  ],
+  [
+   35,
+   "床を調べてみると、[r]",
+   "Examining the floor,[r]"
+  ],
+  [
+   37,
+   "その下に——小さな鍵穴のついている扉があった。[p]",
+   "beneath it was a door with a small keyhole.[p]"
+  ],
+  [
+   42,
+   "こんな扉があったなんて。[p]",
+   "I had no idea there was a door here.[p]"
+  ],
+  [
+   46,
+   "私が見たのは鍵穴だけだったのに。[p]",
+   "All I saw was the keyhole.[p]"
+  ],
+  [
+   50,
+   "……だめ、開かない。[p]",
+   "...No good, it won't open.[p]"
+  ],
+  [
+   55,
+   "内側からも鍵がかけられるのか。[p]",
+   "So it can be locked from the inside as well.[p]"
+  ],
+  [
+   59,
+   "メアリーはよほど俺たちに下に来てほしくないようだな。[p]",
+   "Mary really doesn't want us going down there.[p]"
+  ],
+  [
+   64,
+   "この鍵穴の形、もしかして……[p]",
+   "The shape of this keyhole — could it be...[p]"
+  ],
+  [
+   68,
+   "私は執務室で手に入れた鍵を差し込む。[r]",
+   "I slid in the key I had found in the study.[r]"
+  ],
+  [
+   70,
+   "ガチャリ、と鍵穴が回った。[p]",
+   "The key turned in the lock with a click.[p]"
+  ],
+  [
+   72,
+   "扉が静かに持ち上がり——暗い、地下へ続く階段が現れた。[p]",
+   "The door lifted quietly — and a dark staircase appeared, leading down.[p]"
+  ],
+  [
+   79,
+   "お前どこでそんなもの拾ってきたんだ……[p]",
+   "Where did you pick that up...[p]"
+  ],
+  [
+   84,
+   "執務室で見つけたの。[p]",
+   "I found it in the study.[p]"
+  ],
+  [
+   88,
+   "鍵穴の形が似ていたから、もしかしてとは思っていたけど。[p]",
+   "The keyhole looked similar, so I thought the key might fit.[p]"
+  ],
+  [
+   95,
+   "メアリー・キングはこの下にいる可能性があります。[p]",
+   "Mary King may be down there.[p]"
+  ],
+  [
+   99,
+   "ここは私に任せて、皆さんは待機していてください。[p]",
+   "Leave this to me; the rest of you wait here.[p]"
+  ],
+  [
+   103,
+   "じきに警官隊の応援と救急車も来ますから。[p]",
+   "Reinforcements and an ambulance will be here shortly.[p]"
+  ],
+  [
+   106,
+   "零度警部は迷わず、階段を下りていった。[p]",
+   "Inspector Reido went down the stairs without hesitating.[p]"
+  ],
+  [
+   120,
+   "（メアリーさんは何をしに地下へ行ったの？）[p]",
+   "(What did Mary come down here for?)[p]"
+  ],
+  [
+   124,
+   "（何だろう？ この胸のつっかえる感じは……）[p]",
+   "(What is this tight feeling in my chest...?)[p]"
+  ],
+  [
+   128,
+   "気がつくと、ポケットの中でメアリーのペンダントに触れていた。[r]",
+   "I realized I was touching Mary's pendant in my pocket.[r]"
+  ],
+  [
+   130,
+   "指先に、微かな温もりを感じた気がした。[p]",
+   "I thought I felt a faint warmth against my fingertips.[p]"
+  ],
+  [
+   135,
+   "やっぱり行く。私も地下に！[p]",
+   "I'm going after all. Down there![p]"
+  ],
+  [
+   140,
+   "馬鹿、待機しろと言われただろう。[p]",
+   "Idiot, you were told to wait.[p]"
+  ],
+  [
+   145,
+   "行かないといけないの！ なんか……行かないと後悔する気がするの！[p]",
+   "I have to go! I feel... I feel I'll regret it if I don't![p]"
+  ],
+  [
+   151,
+   "……はあ。なら俺も行く。[p]",
+   "...Haah. Then I'm coming too.[p]"
+  ],
+  [
+   155,
+   "ただし、勝手に動き回るなよ。[p]",
+   "But don't go wandering off.[p]"
+  ],
+  [
+   159,
+   "私も行きます。舞黒館の管理者として、皆さんを危険にさらすわけにはいきません。[p]",
+   "I'll come too. As the person responsible for Maicro House, I can't let you put yourselves in danger.[p]"
+  ],
+  [
+   169,
+   "[gage_draw place=\"舞黒館:地下室\"]",
+   "[gage_draw place=\"Maicro House:Basement\"]"
+  ],
+  [
+   175,
+   "階段を下りると——広い空間が広がっていた。[p]",
+   "At the bottom of the stairs, a large space opened up before us.[p]"
+  ],
+  [
+   176,
+   "古い木の香りと、わずかな湿気。[r]",
+   "The smell of old wood and a faint dampness.[r]"
+  ],
+  [
+   178,
+   "薄暗い明かりの中に、古めかしい家具や書類、そして整然とした構造物が浮かび上がっていた。[p]",
+   "In the dim light, antique furniture, old documents, and neatly arranged structures emerged from the darkness.[p]"
+  ],
+  [
+   183,
+   "これって……[p]",
+   "This is...[p]"
+  ],
+  [
+   191,
+   "……見せてもらった設計図と、ほぼ同じ作りだな。[p]",
+   "...Almost exactly what the plan showed.[p]"
+  ],
+  [
+   195,
+   "舞黒邦夢の邸宅として、昭和五年——1930年に増築されたものです。[p]",
+   "It was added in 1930 as part of Houmu Maicro's residence.[p]"
+  ],
+  [
+   199,
+   "当時のまま残っているようです。[p]",
+   "It seems to have been left as it was.[p]"
+  ],
+  [
+   203,
+   "周辺に置かれている本や雑貨は、かなり古いものですから。[p]",
+   "The books and other items around here are all very old.[p]"
+  ],
+  [
+   208,
+   "どうしてそんなことがわかるんですか？[p]",
+   "How can you tell?[p]"
+  ],
+  [
+   213,
+   "置かれているものをよく見てください。[p]",
+   "Look closely at the things lying about.[p]"
+  ],
+  [
+   217,
+   "文字が右から左に読めるようになっているでしょう？[p]",
+   "The writing runs from right to left, doesn't it?[p]"
+  ],
+  [
+   222,
+   "あ、本当だ。[p]",
+   "Oh, so it does.[p]"
+  ],
+  [
+   226,
+   "それにしても、要人を避難させるために随分大きな地下を作ったんだね。[p]",
+   "Even so, that's a very large basement just to shelter important people.[p]"
+  ],
+  [
+   231,
+   "もしくは……他に本当の目的があったのかもしれない。[p]",
+   "Or... maybe it served some other purpose.[p]"
+  ],
+  [
+   235,
+   "いずれにしても、何か理由があるはずだ……[p]",
+   "Either way, there must be a reason...[p]"
+  ],
+  [
+   241,
+   "私、ひとつ気になっていることがあるの。[p]",
+   "There's one thing that's been on my mind.[p]"
+  ],
+  [
+   248,
+   "何だ。[p]",
+   "What?[p]"
+  ],
+  [
+   253,
+   "メアリーさんはどうして親戚を探しているんだろうって。[p]",
+   "Why is Mary looking for her relatives?[p]"
+  ],
+  [
+   257,
+   "海外にいる親戚で連絡が途絶えていても探したくなるってすごいなって思ってたから。[p]",
+   "Wanting to find relatives abroad you've lost touch with entirely — I thought that was remarkable.[p]"
+  ],
+  [
+   263,
+   "他に家族がいないとか……色々考えられる。[p]",
+   "Maybe she has no other family... there could be any number of reasons.[p]"
+  ],
+  [
+   267,
+   "あの人の不可解な行動の数々は、それと関係があるのかもしれない。[p]",
+   "Her strange behavior may have something to do with it.[p]"
+  ],
+  [
+   275,
+   "もう少し奥を探ろう。[p]",
+   "Let's search a little further in.[p]"
+  ],
+  [
+   285,
+   "地下室を進むにつれて、廊下は複雑に入り組んでいた。[r]",
+   "As we went on, the basement corridors grew tangled and complex.[r]"
+  ],
+  [
+   287,
+   "歴史の残滓が、あちこちに漂っている。[p]",
+   "Traces of the past seemed to linger everywhere.[p]"
+  ],
+  [
+   292,
+   "——あそこ、扉が開いている。[p]",
+   "—There. A door is open.[p]"
+  ],
+  [
+   296,
+   "奥の一室に、光が漏れていた。[r]",
+   "Light spilled from a room at the far end.[r]"
+  ],
+  [
+   298,
+   "真歩流はゆっくりと扉を押し開けた。[p]",
+   "I pushed the door slowly open.[p]"
+  ],
+  [
+   314,
+   "警部……！　それに、メアリーさん！[p]",
+   "Inspector...! And Mary![p]"
+  ],
+  [
+   320,
+   "皆さん……なぜここへ。待機するよう言いましたが。[p]",
+   "All of you... why are you here? I told you to wait.[p]"
+  ],
+  [
+   325,
+   "気になることがあって——メアリーさん。[p]",
+   "There's something I need to ask you, Mary.[p]"
+  ],
+  [
+   331,
+   "……真歩流さん。[p]",
+   "...Mahoru.[p]"
+  ],
+  [
+   336,
+   "教えてください。どうして地下室のことが分かったんですか？[p]",
+   "Tell me. How did you know about the basement?[p]"
+  ],
+  [
+   339,
+   "それにどうやってここへ？ 鍵がかかっていたのに……[p]",
+   "And how did you get down here? It was locked...[p]"
+  ],
+  [
+   344,
+   "それは……[p]",
+   "That's...[p]"
+  ],
+  [
+   349,
+   "メアリーは口をつぐんだ。[p]",
+   "Mary shut her mouth.[p]"
+  ],
+  [
+   354,
+   "メアリーさん。私からも聞かせてください。[p]",
+   "Mary, I have a question too.[p]"
+  ],
+  [
+   358,
+   "なぜ、殺人事件が起きて、解決をしている中で姿を消したんですか？[p]",
+   "Why did you disappear in the middle of a murder investigation?[p]"
+  ],
+  [
+   364,
+   "ごめんなさい、逃げたわけじゃないんです。[p]",
+   "I'm sorry, I wasn't running away.[p]"
+  ],
+  [
+   368,
+   "ただ……どうしても知りたいことがあって、サンルームにいるときに、偶然地下への入り口を見つけて。[p]",
+   "It's only... there was something I had to know, and while I was in the sunroom I happened to find the way down.[p]"
+  ],
+  [
+   372,
+   "事件となったら、調べられなくなるかもしれないと思って……[p]",
+   "I thought that once it became a criminal matter I might never be able to look...[p]"
+  ],
+  [
+   377,
+   "知りたいこと……それは何ですか？[p]",
+   "Something you had to know — what is it?[p]"
+  ],
+  [
+   380,
+   "メアリーはしばらく黙っていた。[r]",
+   "Mary was silent for a while.[r]"
+  ],
+  [
+   382,
+   "そして——意を決したように、顔を上げた。[p]",
+   "And then — as though resolving on it, she raised her face.[p]"
+  ],
+  [
+   397,
+   "……私は、手紙でこの舞黒館に呼ばれました。[p]",
+   "...I was called to Maicro House by a letter.[p]"
+  ],
+  [
+   401,
+   "差出人の名前はありませんでした。[p]",
+   "There was no sender's name.[p]"
+  ],
+  [
+   405,
+   "でも、舞黒館に私を呼び出せる人なんて、一人しか考えられません。[p]",
+   "But there is only one person who could summon me to Maicro House.[p]"
+  ],
+  [
+   410,
+   "朱志香さん。あなたです。[p]",
+   "Jushika... it was you.[p]"
+  ],
+  [
+   415,
+   "私ですか……[p]",
+   "Me...[p]"
+  ],
+  [
+   419,
+   "……その手紙を私が書いたという証拠が、どこかにあるのですか？[p]",
+   "...And is there proof anywhere that I wrote that letter?[p]"
+  ],
+  [
+   424,
+   "それは……[p]",
+   "That's...[p]"
+  ],
+  [
+   429,
+   "むしろ、私からすればあなたの方がよほど不可解です。[p]",
+   "If anything, from where I stand it is you who make no sense.[p]"
+  ],
+  [
+   433,
+   "殺人事件の最中に、誰にも告げず姿を消した。[p]",
+   "You vanished in the middle of a murder investigation without a word to anyone.[p]"
+  ],
+  [
+   437,
+   "そのうえ——鍵のかかっていたはずのこの地下に、あなたは先回りしている。[p]",
+   "And on top of that — you got down into this locked basement ahead of us all.[p]"
+  ],
+  [
+   441,
+   "どうやって降りていらしたのです？　メアリーさん。[p]",
+   "How did you come down here, Mary?[p]"
+  ],
+  [
+   446,
+   "……祖母から預かった鍵で、です。[p]",
+   "...With a key my grandmother left me.[p]"
+  ],
+  [
+   449,
+   "メアリーは、古びた鍵を握りしめた。[p]",
+   "Mary gripped an aged key.[p]"
+  ],
+  [
+   453,
+   "おばあ様……ですか。[p]",
+   "Your grandmother, was it.[p]"
+  ],
+  [
+   457,
+   "そのおばあ様が舞黒館の鍵をお持ちだった——その証拠は？[p]",
+   "And what proof is there that your grandmother held a key to Maicro House?[p]"
+  ],
+  [
+   466,
+   "ないのでしょう。[p]",
+   "There is none, I imagine.[p]"
+  ],
+  [
+   470,
+   "証拠もなく人を疑うのなら——怪しいのは、あなたの方では？[p]",
+   "If you will suspect people without proof — is it not you who are suspicious?[p]"
+  ],
+  [
+   475,
+   "——そこまでにしてください。[p]",
+   "—That is enough.[p]"
+  ],
+  [
+   479,
+   "今は殺人事件の最中です。ここで言い争っても仕方がありません。[p]",
+   "This is the middle of a murder investigation. Arguing here achieves nothing.[p]"
+  ],
+  [
+   483,
+   "全員、地上へ戻ります。お話は改めて伺いましょう。[p]",
+   "Everyone, back upstairs. We'll go over all of this later.[p]"
+  ],
+  [
+   488,
+   "い、嫌です！[p]",
+   "N-no![p]"
+  ],
+  [
+   492,
+   "今戻ったら……もう二度と、ここへは来られません。[p]",
+   "If I go up now... I'll never be able to come back down.[p]"
+  ],
+  [
+   496,
+   "お願いします、あと少しだけ……！[p]",
+   "Please, only a little longer...![p]"
+  ],
+  [
+   501,
+   "メアリーさん。いい加減にしてください。[p]",
+   "Mary. That's enough.[p]"
+  ],
+  [
+   506,
+   "（このままだと、メアリーさんは連れて行かれちゃう）[p]",
+   "(At this rate they'll take Mary away.)[p]"
+  ],
+  [
+   510,
+   "（でも……メアリーさんは、嘘をついていない気がする）[p]",
+   "(But... I don't think she's lying.)[p]"
+  ],
+  [
+   515,
+   "警部、待ってください！[p]",
+   "Inspector, wait![p]"
+  ],
+  [
+   519,
+   "メアリーさんの話、私が整理します。[p]",
+   "Let me set out what Mary has said.[p]"
+  ],
+  [
+   523,
+   "そうすれば、メアリーさんが逃げたわけじゃないってわかりますから。[p]",
+   "Then you'll see she wasn't running away.[p]"
+  ],
+  [
+   529,
+   "……いいでしょう。手短にお願いします。[p]",
+   "...Very well. Briefly, please.[p]"
+  ],
+  [
+   534,
+   "どうぞ。お好きなだけ。[p]",
+   "Go ahead. As long as you like.[p]"
+  ],
+  [
+   566,
+   "まず——メアリーさんが、どうして舞黒館に来たのかです。[p]",
+   "First — why Mary came to Maicro House.[p]"
+  ],
+  [
+   571,
+   "観光でしょう？　うちは宿泊イベントを開いていたのですから。[p]",
+   "As a tourist, surely? We were running an overnight event.[p]"
+  ],
+  [
+   576,
+   "違います。メアリーさんには、はっきりした目的がありました。[p]",
+   "No. Mary had a clear purpose.[p]"
+  ],
+  [
+   580,
+   "それを証明できるものがあります。[p]",
+   "And I can prove it.[p]"
+  ],
+  [
+   600,
+   "もう一度——メアリーさんが舞黒館へ来た目的を示すものを、お見せします。[p]",
+   "Let me show you once more what proves why Mary came to Maicro House.[p]"
+  ],
+  [
+   606,
+   "[gage_draw place=\"舞黒館:地下室\"]",
+   "[gage_draw place=\"Maicro House:Basement\"]"
+  ],
+  [
+   615,
+   "メアリーさんのスーツケースに入っていた手紙です。[p]",
+   "The letter that was in Mary's suitcase.[p]"
+  ],
+  [
+   619,
+   "『親戚のことが知りたければ、宿泊イベントに参加せよ』——そう書いてありました。[p]",
+   "“If you wish to learn about your relatives, attend the overnight event” — that is what it says.[p]"
+  ],
+  [
+   623,
+   "メアリーさんの目的は——親戚を探すためです。[p]",
+   "Mary's purpose was — to find her relatives.[p]"
+  ],
+  [
+   629,
+   "……はい。その通りです。[p]",
+   "...Yes. That is right.[p]"
+  ],
+  [
+   633,
+   "私には、日本にいるはずの親戚がいます。[p]",
+   "I have relatives who should be here in Japan.[p]"
+  ],
+  [
+   637,
+   "祖母がずっと探していて……見つけられないまま、歳を取ってしまった。[p]",
+   "My grandmother searched for them for years... and grew old without ever finding them.[p]"
+  ],
+  [
+   641,
+   "だから、私が代わりに来たんです。[p]",
+   "So I came in her place.[p]"
+  ],
+  [
+   651,
+   "親戚探し。結構なことですね。[p]",
+   "Looking for relatives. How admirable.[p]"
+  ],
+  [
+   655,
+   "けれど、それがどうして私を疑う理由になるのかしら。[p]",
+   "But why should that be a reason to suspect me?[p]"
+  ],
+  [
+   660,
+   "メアリーさんは、この宿泊イベントの間ずっと……みんなを見ていましたよね。[p]",
+   "Mary spent this whole event... watching everybody, didn't she?[p]"
+  ],
+  [
+   666,
+   "……ええ。[p]",
+   "...Yes.[p]"
+  ],
+  [
+   670,
+   "私をここへ呼んだのが誰なのか、確かめたかったんです。[p]",
+   "I wanted to know who had called me here.[p]"
+  ],
+  [
+   674,
+   "だから、皆さんの様子をずっと見ていました。[p]",
+   "So I watched everyone all the while.[p]"
+  ],
+  [
+   679,
+   "趣味の悪いこと。[p]",
+   "How distasteful.[p]"
+  ],
+  [
+   684,
+   "その中で、メアリーさんが引っかかったものがあります。[p]",
+   "And in the course of that, something caught Mary's attention.[p]"
+  ],
+  [
+   688,
+   "あるものが無くなったからです。[p]",
+   "Because something went missing.[p]"
+  ],
+  [
+   692,
+   "それが、朱志香さんを疑う理由になりました。[p]",
+   "That is what gave her a reason to suspect you.[p]"
+  ],
+  [
+   712,
+   "メアリーさんの手元から無くなったもの——もう一度、お見せします。[p]",
+   "The thing that went missing from Mary's hands — let me show it again.[p]"
+  ],
+  [
+   718,
+   "[gage_draw place=\"舞黒館:地下室\"]",
+   "[gage_draw place=\"Maicro House:Basement\"]"
+  ],
+  [
+   727,
+   "メアリーさんのペンダントが無くなった時のことです。[p]",
+   "When Mary's pendant went missing.[p]"
+  ],
+  [
+   731,
+   "あのペンダント、執務室で見つかりましたよね。[p]",
+   "That pendant was found in the study, wasn't it?[p]"
+  ],
+  [
+   736,
+   "はい。[p]",
+   "That's right.[p]"
+  ],
+  [
+   740,
+   "あの部屋に入れるのは、朱志香さんと小出里亜さんだけだと聞きました。[p]",
+   "I'm told the only people who can enter that room are Jushika and Koderia.[p]"
+  ],
+  [
+   745,
+   "それに、私たちの荷物を執務室にまとめて運んだのは——朱志香さん、あなたです。[p]",
+   "And the one who carried our luggage into the study was — you, Jushika.[p]"
+  ],
+  [
+   751,
+   "ええ、運びましたわ。[p]",
+   "Yes, I carried it.[p]"
+  ],
+  [
+   755,
+   "客室を整えるために、皆さまのお荷物を一度あの部屋にまとめた。それだけのことです。[p]",
+   "I gathered everyone's things in that room while the guest rooms were made ready. That is all.[p]"
+  ],
+  [
+   759,
+   "落とし物が紛れ込んでいても、おかしくはないでしょう。[p]",
+   "It would be no surprise if something dropped got mixed in.[p]"
+  ],
+  [
+   763,
+   "——それだけでは、私を疑う理由にはなりませんわね。[p]",
+   "—That alone is no reason to suspect me.[p]"
+  ],
+  [
+   768,
+   "（……確かに。ペンダントを持って行っただけで、なんの疑いもない）[p]",
+   "(...True. Carrying the pendant proves nothing at all.)[p]"
+  ],
+  [
+   778,
+   "そもそも——私がメアリーさんを呼び出して、何の得があるのです？[p]",
+   "And in the first place — what would I gain by summoning Mary?[p]"
+  ],
+  [
+   783,
+   "……地下へ、連れて行くためです。[p]",
+   "...To bring her down to the basement.[p]"
+  ],
+  [
+   788,
+   "地下へ？　何のために。[p]",
+   "The basement? For what?[p]"
+  ],
+  [
+   793,
+   "それは……[p]",
+   "That's...[p]"
+  ],
+  [
+   796,
+   "メアリーは、そこで言葉に詰まってしまった。[p]",
+   "Mary's words dried up there.[p]"
+  ],
+  [
+   801,
+   "答えられないのですね。[p]",
+   "You can't answer, can you?[p]"
+  ],
+  [
+   805,
+   "それに、今のお話は——私が地下のことを前から知っていた、という前提があってこそ。[p]",
+   "And what you have just said rests on my having known about the basement all along.[p]"
+  ],
+  [
+   809,
+   "その証拠は、どこに？[p]",
+   "Where is the proof of that?[p]"
+  ],
+  [
+   814,
+   "……ありますよ。[p]",
+   "...There is proof.[p]"
+  ],
+  [
+   818,
+   "それは厳重に守られていましたから。[p]",
+   "Because it was so carefully guarded.[p]"
+  ],
+  [
+   838,
+   "朱志香さんが地下のことを前から知っていた——その証拠を、もう一度お見せします。[p]",
+   "Let me show you again the proof that Jushika knew about the basement beforehand.[p]"
+  ],
+  [
+   844,
+   "[gage_draw place=\"舞黒館:地下室\"]",
+   "[gage_draw place=\"Maicro House:Basement\"]"
+  ],
+  [
+   853,
+   "この鍵です。[p]",
+   "This key.[p]"
+  ],
+  [
+   857,
+   "執務室の、執務机の裏に隠されていました。[p]",
+   "It was hidden under the desk in the study.[p]"
+  ],
+  [
+   861,
+   "あの机には厳重なセキュリティがかけられていました。[p]",
+   "That desk was fitted with a heavy security lock.[p]"
+  ],
+  [
+   867,
+   "だから何だというの？[p]",
+   "And what of it?[p]"
+  ],
+  [
+   871,
+   "古い館です。前の所有者が、大切な鍵を隠していたとしても不思議ではないでしょう。[p]",
+   "It is an old house. It would be no surprise if a previous owner hid an important key.[p]"
+  ],
+  [
+   875,
+   "それだけで、私が地下の存在を知っていた証拠にはなりませんわ。[p]",
+   "That alone is no proof that I knew of the basement.[p]"
+  ],
+  [
+   880,
+   "——いいえ。[p]",
+   "—No.[p]"
+  ],
+  [
+   884,
+   "前の所有者が守っていた鍵なら、その説明で通ります。[p]",
+   "If a previous owner had guarded that key, the explanation would hold.[p]"
+  ],
+  [
+   888,
+   "でも、あのセキュリティを取り付けたのは朱志香さん自身ですよね。[p]",
+   "But it was you, Jushika, who had that lock fitted.[p]"
+  ],
+  [
+   891,
+   "昼間、朱志香さんが言っていました。[p]",
+   "You told me so yourself this afternoon.[p]"
+  ],
+  [
+   894,
+   "この館を購入した後、重要な書類を守るために自分で業者へ頼んだって。[p]",
+   "That after buying the house, you had it fitted to protect important papers.[p]"
+  ],
+  [
+   905,
+   "しかも、引き出しの中にあったのは普通の書類ばかりでした。[p]",
+   "And yet what was in that drawer was ordinary papers, nothing more.[p]"
+  ],
+  [
+   909,
+   "あれだけ厳重に守る理由が見当たらない。[p]",
+   "There is no reason to guard them so heavily.[p]"
+  ],
+  [
+   913,
+   "でも机の裏には、この鍵が隠されていた。[p]",
+   "But behind the desk, this key was hidden.[p]"
+  ],
+  [
+   916,
+   "つまり、守られていたのは引き出しの中身じゃない。[r]",
+   "Which means what was being guarded was not the contents of the drawer.[r]"
+  ],
+  [
+   919,
+   "——この鍵だったんです。[p]",
+   "—It was this key.[p]"
+  ],
+  [
+   923,
+   "朱志香さんは、この鍵が何の鍵なのか知っていた。[p]",
+   "You knew what this key opened.[p]"
+  ],
+  [
+   927,
+   "だからこそ、鍵が隠された机を、自分で取り付けたセキュリティで守った。[p]",
+   "Which is exactly why you protected the desk that hid it with a lock you had fitted yourself.[p]"
+  ],
+  [
+   931,
+   "朱志香さん。あなたは宿泊イベントより前から——この地下室を知っていたんですよね。[p]",
+   "Jushika. You knew about this basement — long before the overnight event.[p]"
+  ],
+  [
+   936,
+   "……よく、そこまで見ていましたね。[p]",
+   "...You saw a great deal, didn't you?[p]"
+  ],
+  [
+   945,
+   "……私が姿を消した理由も、それです。[p]",
+   "...And that is why I disappeared.[p]"
+  ],
+  [
+   948,
+   "事件が起きれば、館の中は警察の方でいっぱいになる。[r]",
+   "Once a crime happened, the house would fill with police.[r]"
+  ],
+  [
+   951,
+   "朱志香さんも、私から目を離さざるを得ない。[p]",
+   "Jushika would have to take her eyes off me.[p]"
+  ],
+  [
+   956,
+   "誰の干渉も受けずに地下を確かめられるのは——今しかないと思ったんです。[p]",
+   "The only chance to see the basement without anyone interfering — was now.[p]"
+  ],
+  [
+   961,
+   "……少なくとも、あなたが逃亡のために姿を消したわけではないことは分かりました。[p]",
+   "...At the least, I accept that you did not vanish in order to flee.[p]"
+  ],
+  [
+   965,
+   "ですが、まだ一つ残っています。[p]",
+   "But one thing remains.[p]"
+  ],
+  [
+   969,
+   "朱志香さんが地下を知っていたとして——なぜ、あなたをここへ呼ぶ必要があったのか。[p]",
+   "Even granting that Jushika knew of the basement — why did she need to bring you here?[p]"
+  ],
+  [
+   981,
+   "朱志香さん。今度は、私が聞かせてください。[p]",
+   "Jushika. Now let me ask you.[p]"
+  ],
+  [
+   985,
+   "あなたは——どうして、私をこの館に呼んだのですか。[p]",
+   "Why did you call me to this house?[p]"
+  ],
+  [
+   1000,
+   "[gage_draw place=\"舞黒館:地下室\"]",
+   "[gage_draw place=\"Maicro House:Basement\"]"
+  ],
+  [
+   1016,
+   "真白さん。今のは違います。[p]",
+   "Ms Mashiro. That's not it.[p]"
+  ],
+  [
+   1020,
+   "まだ聞いています。もう一度、組み立て直してください。[p]",
+   "I am still listening. Build it again.[p]"
+  ],
+  [
+   1025,
+   "……はい。[p]",
+   "...Yes.[p]"
+  ],
+  [
+   1039,
+   "[gage_draw place=\"舞黒館:地下室\"]",
+   "[gage_draw place=\"Maicro House:Basement\"]"
+  ],
+  [
+   1047,
+   "……それが、何か関係がありまして？[p]",
+   "...And what has that to do with anything?[p]"
+  ],
+  [
+   1052,
+   "あれ……違ったのかな……[p]",
+   "Oh... was I wrong...[p]"
+  ],
+  [
+   1056,
+   "すみません、勘違いでした……[p]",
+   "I'm sorry, I was mistaken...[p]"
+  ],
+  [
+   1065,
+   "——もう十分でしょう。全員、地上へ戻ります。[p]",
+   "—That's enough. Everyone, back upstairs.[p]"
+  ],
+  [
+   1072,
+   "メアリーは、それ以上何も言わなかった。[r]",
+   "Mary said nothing further.[r]"
+  ],
+  [
+   1074,
+   "私たちは零度警部に連れられて、地下を後にした。[p]",
+   "Inspector Reido led us out of the basement.[p]"
+  ],
+  [
+   1090,
+   "……では、聞きましょう。[p]",
+   "...Very well, let me hear it.[p]"
+  ],
+  [
+   1094,
+   "仮に私が地下の存在を知っていたとして——どうしてメアリーさんを呼ぶ必要があるの？[p]",
+   "Supposing I did know about the basement — why should I need to summon Mary?[p]"
+  ],
+  [
+   1103,
+   "（そこがまだ繋がってない）[p]",
+   "(That's the part that doesn't join up.)[p]"
+  ],
+  [
+   1106,
+   "（朱志香さんは地下を知っていた）[r]",
+   "(Jushika knew about the basement.)[r]"
+  ],
+  [
+   1109,
+   "（メアリーさんは親戚を探していた）[p]",
+   "(Mary was looking for her relatives.)[p]"
+  ],
+  [
+   1113,
+   "（この二つを繋げるものは……）[p]",
+   "(What connects the two...)[p]"
+  ],
+  [
+   1119,
+   "朱志香さんは、メアリーさんを呼ぶ前から——キング家について調べていたんじゃないですか。[p]",
+   "Jushika — you were looking into the King family before you summoned Mary, weren't you?[p]"
+  ],
+  [
+   1124,
+   "……どうしてそう思うの？[p]",
+   "...What makes you think so?[p]"
+  ],
+  [
+   1129,
+   "館を調べた時、A・Kのイニシャルが刻まれた食器がありました。[p]",
+   "When we searched the house, there was crockery with the initials A.K.[p]"
+  ],
+  [
+   1133,
+   "それに執務室には、舞黒館に関係した人たちの資料も残っていた。[p]",
+   "And the study held papers about the people connected with Maicro House.[p]"
+  ],
+  [
+   1137,
+   "Kはキング——メアリーさんの一族。[p]",
+   "K for King — Mary's family.[p]"
+  ],
+  [
+   1141,
+   "朱志香さんはこの館を調べる中で、キング家とメアリーさんに辿り着いた。[p]",
+   "While looking into this house, you arrived at the Kings and at Mary.[p]"
+  ],
+  [
+   1147,
+   "……父親譲りね。[p]",
+   "...You take after your father.[p]"
+  ],
+  [
+   1152,
+   "え……お父さん？[p]",
+   "What... my father?[p]"
+  ],
+  [
+   1157,
+   "ええ。あなたのお父様——奢禄さんに、この舞黒館の調査を依頼したのは私です。[p]",
+   "Yes. It was I who asked your father, Mr Mashiro, to investigate Maicro House.[p]"
+  ],
+  [
+   1161,
+   "私は、地下にある一つの金庫を探していました。[p]",
+   "I was looking for a certain safe in the basement.[p]"
+  ],
+  [
+   1165,
+   "そこには莫大な価値の宝石が眠っていると言われていた。[p]",
+   "It was said to hold jewels of immense value.[p]"
+  ],
+  [
+   1169,
+   "けれど、金庫は見つかっても開かなかった。[p]",
+   "But though the safe was found, it would not open.[p]"
+  ],
+  [
+   1173,
+   "そして奢禄さんは調査を終えた後、私にこう言いました。[p]",
+   "And when his investigation was done, Mr Mashiro said this to me.[p]"
+  ],
+  [
+   1177,
+   "『この家の調査は、これ以上してはいけない』——と。[p]",
+   "“You must look into this house no further.”[p]"
+  ],
+  [
+   1182,
+   "お父さんが……ここに来てた……。[p]",
+   "Dad... was here...[p]"
+  ],
+  [
+   1187,
+   "その後、彼はさらに何かを調べると言って、姿を消しました。[p]",
+   "After that he said he would look into something further, and disappeared.[p]"
+  ],
+  [
+   1192,
+   "（お父さんは、この地下で何か危険なものに気づいた……？）[p]",
+   "(Did Dad find something dangerous down here...?)[p]"
+  ],
+  [
+   1198,
+   "しかし、それでもメアリーさんを呼ぶ理由にはなりません。[p]",
+   "Even so, that is no reason to summon Mary.[p]"
+  ],
+  [
+   1202,
+   "金庫とメアリーさんに、何の関係が？[p]",
+   "What has the safe to do with her?[p]"
+  ],
+  [
+   1207,
+   "……そこまで分かっているなら、真歩流さんに答えてもらいましょうか。[p]",
+   "...If you have worked out that much, perhaps Mahoru can answer.[p]"
+  ],
+  [
+   1212,
+   "（金庫を開けられない）[p]",
+   "(The safe cannot be opened.)[p]"
+  ],
+  [
+   1216,
+   "（メアリーさんのおばあさんから送られてきたもの……）[p]",
+   "(Something sent by Mary's grandmother...)[p]"
+  ],
+  [
+   1220,
+   "（そして朱志香さんが、わざわざ執務室へ持ち込んだもの……）[p]",
+   "(And something Jushika went out of her way to carry into the study...)[p]"
+  ],
+  [
+   1238,
+   "（……もう一度。金庫を開けるために要るものは、なに。）[p]",
+   "(...Once more. What is needed to open the safe?)[p]"
+  ],
+  [
+   1244,
+   "[gage_draw place=\"舞黒館:地下室\"]",
+   "[gage_draw place=\"Maicro House:Basement\"]"
+  ],
+  [
+   1248,
+   "それが金庫とどう繋がるのです？[p]",
+   "And how does that connect to the safe?[p]"
+  ],
+  [
+   1253,
+   "あれ……違う……。[p]",
+   "Oh... that's not it...[p]"
+  ],
+  [
+   1258,
+   "残念でしたね。[p]",
+   "What a shame.[p]"
+  ],
+  [
+   1262,
+   "——ここまでです。全員、地上へ戻ります。[p]",
+   "—That is as far as this goes. Everyone, back upstairs.[p]"
+  ],
+  [
+   1276,
+   "[gage_draw place=\"舞黒館:地下室\"]",
+   "[gage_draw place=\"Maicro House:Basement\"]"
+  ],
+  [
+   1282,
+   "——ペンダントです。[p]",
+   "—The pendant.[p]"
+  ],
+  [
+   1286,
+   "メアリーさんのおばあ様は、舞黒館へ行くと知って、鍵と一緒にこのペンダントを送った。[p]",
+   "Mary's grandmother knew she was going to Maicro House, and sent this pendant along with the key.[p]"
+  ],
+  [
+   1290,
+   "ただの形見なら、このタイミングで送る必要はありません。[p]",
+   "If it were merely a keepsake, there would be no need to send it just then.[p]"
+  ],
+  [
+   1294,
+   "このペンダントは——金庫を開けるために必要な『証』の一つなんじゃないですか。[p]",
+   "This pendant is — one of the tokens needed to open the safe, isn't it?[p]"
+  ],
+  [
+   1299,
+   "……祖母からも、そう聞いています。[p]",
+   "...That is what my grandmother told me as well.[p]"
+  ],
+  [
+   1303,
+   "地下の金庫を開くには、キング家に伝わるペンダントが必要だと。[p]",
+   "That to open the safe in the basement you need the pendant handed down in the King family.[p]"
+  ],
+  [
+   1313,
+   "だから、ペンダントが執務室で見つかった。[p]",
+   "And that is why the pendant turned up in the study.[p]"
+  ],
+  [
+   1317,
+   "朱志香さんは荷物を運ぶ時に、メアリーさんのペンダントを抜き取った。[p]",
+   "Jushika took Mary's pendant while carrying the luggage.[p]"
+  ],
+  [
+   1320,
+   "でも、なくなったことに気づかれて大騒ぎになった。[r]",
+   "But its loss was noticed, and there was a commotion.[r]"
+  ],
+  [
+   1323,
+   "このままじゃ宿泊イベントそのものが中止になるかもしれない。[p]",
+   "At that rate the overnight event itself might be called off.[p]"
+  ],
+  [
+   1327,
+   "だから『執務室に落ちていた』ことにして、見つけさせた。[p]",
+   "So she made it appear to have been dropped in the study, and let us find it.[p]"
+  ],
+  [
+   1332,
+   "……私が疑い始めたのも、それからです。[p]",
+   "...That is when I began to suspect her, too.[p]"
+  ],
+  [
+   1337,
+   "でも、まだ変です。[p]",
+   "But something is still strange.[p]"
+  ],
+  [
+   1341,
+   "ペンダントが欲しいだけなら、メアリーさんだけを呼び出せばいい。[p]",
+   "If she only wanted the pendant, she need only have summoned Mary.[p]"
+  ],
+  [
+   1345,
+   "どうしてわざわざ——宿泊イベントにしたんですか？[p]",
+   "Why go to the trouble — of an overnight event?[p]"
+  ],
+  [
+   1350,
+   "……目立たせないためよ。[p]",
+   "...So that it would not stand out.[p]"
+  ],
+  [
+   1354,
+   "誰の目を？[p]",
+   "Stand out to whom?[p]"
+  ],
+  [
+   1358,
+   "娘を誘拐した連中です。[p]",
+   "To the people who abducted my daughter.[p]"
+  ],
+  [
+   1363,
+   "十年以上前、私の娘——アンナは誘拐された。[p]",
+   "More than ten years ago, my daughter — Anna — was taken.[p]"
+  ],
+  [
+   1367,
+   "舞黒館を購入した時、そいつらは地下にある何かを狙って再び現れた。[p]",
+   "When I bought Maicro House, they appeared again, after something in the basement.[p]"
+  ],
+  [
+   1371,
+   "メアリー一人だけを呼べば、奴らに気づかれる可能性がある。[p]",
+   "If I summoned Mary alone, they might have noticed.[p]"
+  ],
+  [
+   1375,
+   "だから大勢の宿泊客に紛れさせた。[p]",
+   "So I hid her among a crowd of guests.[p]"
+  ],
+  [
+   1380,
+   "娘さんが……誘拐……。[p]",
+   "Your daughter... abducted...[p]"
+  ],
+  [
+   1391,
+   "それだけじゃないですよね。[p]",
+   "And that isn't all, is it.[p]"
+  ],
+  [
+   1395,
+   "宿泊なら——夜になれば、メアリーさんはこの館で眠る。[p]",
+   "An overnight stay means — when night came, Mary would sleep in this house.[p]"
+  ],
+  [
+   1399,
+   "その時なら、ペンダントを奪ってもすぐには気づかれない。[p]",
+   "And then the pendant could be taken without anyone noticing at once.[p]"
+  ],
+  [
+   1407,
+   "……本当に鋭いですね。[p]",
+   "...You really are sharp.[p]"
+  ],
+  [
+   1411,
+   "その通りです。[p]",
+   "Quite right.[p]"
+  ],
+  [
+   1415,
+   "本来は、お茶会でメアリーさんの紅茶に睡眠薬を入れるつもりでした。[p]",
+   "The plan was to put a sleeping draught in Mary's tea at the tea party.[p]"
+  ],
+  [
+   1419,
+   "眠った後で拘束し、ペンダントと金庫を開くために必要なものを確かめる。[p]",
+   "Once she slept, to restrain her and find out what else was needed to open the safe, along with the pendant.[p]"
+  ],
+  [
+   1423,
+   "でも珠璃さんが殺人計画を実行して——全部、狂ってしまった。[p]",
+   "But Juri carried out her plan to kill — and everything went wrong.[p]"
+  ],
+  [
+   1428,
+   "しかし、執務室にあった茶葉の缶は鑑識が調べています。[p]",
+   "But forensics examined the tea tin in the study.[p]"
+  ],
+  [
+   1432,
+   "中から毒物も薬物も検出されなかった。[p]",
+   "Neither poison nor drug was found inside it.[p]"
+  ],
+  [
+   1437,
+   "薬を混ぜたのは、缶の中の茶葉ではありません。[p]",
+   "The drug was not put into the leaves in the tin.[p]"
+  ],
+  [
+   1441,
+   "メアリーさんに出す一杯分だけ、先に取り分けておいたのです。[p]",
+   "I set aside a single portion, just for Mary's cup, beforehand.[p]"
+  ],
+  [
+   1445,
+   "あの騒ぎの後、細工した分だけ別の場所へ移しました。[p]",
+   "After that commotion, I moved the doctored portion somewhere else.[p]"
+  ],
+  [
+   1450,
+   "……それで愛理だけ症状の出方が違った可能性があるのか。[p]",
+   "...So that may be why Airi's symptoms took a different course.[p]"
+  ],
+  [
+   1454,
+   "毒以外の薬も体に入っていたなら、経過が他の二人と同じにならなくてもおかしくない。[p]",
+   "If another drug was in her as well as the poison, it would be no surprise if she didn't follow the other two.[p]"
+  ],
+  [
+   1467,
+   "朱志香さん……どうして、そこまでして宝石を手に入れたいんですか？[p]",
+   "Jushika... why do you want those jewels so badly?[p]"
+  ],
+  [
+   1471,
+   "朱志香の表情が、静かに変わった。[p]",
+   "Her expression changed, quietly.[p]"
+  ],
+  [
+   1475,
+   "これ以上、語ることはないでしょう？[p]",
+   "There is nothing more to say, is there?[p]"
+  ],
+  [
+   1480,
+   "朱志香は——隠し持っていた拳銃を、ゆっくりと向けた。[p]",
+   "And Jushika — slowly levelled the pistol she had been hiding.[p]"
+  ],
+  [
+   1490,
+   "富礼知さん、やめなさい！　武器を置いてください！[p]",
+   "Ms Furechi, stop! Put the weapon down![p]"
+  ],
+  [
+   1494,
+   "お静かに、警部さん。[p]",
+   "Quietly, Inspector.[p]"
+  ],
+  [
+   1498,
+   "ここで銃声が鳴っても、地上には聞こえません。皆さんは探索の途中でメアリーと共倒れになったことにする。[p]",
+   "A shot down here will not be heard above. You will all have died together with Mary while exploring.[p]"
+  ],
+  [
+   1503,
+   "メアリーさん、こちらへ来なさい。[p]",
+   "Mary, come here.[p]"
+  ],
+  [
+   1508,
+   "行ってはいけません！[p]",
+   "Don't go![p]"
+  ],
+  [
+   1513,
+   "警部さん、殺されたいんですか？[p]",
+   "Inspector, do you want to be shot?[p]"
+  ],
+  [
+   1516,
+   "緊張が、部屋の空気を支配した。[r]",
+   "Tension took hold of the room.[r]"
+  ],
+  [
+   1518,
+   "誰も動けない——そんな中で、真歩流は一つのことを思った。[p]",
+   "Nobody could move — and in the middle of it, one thought came to me.[p]"
+  ],
+  [
+   1528,
+   "（ペンダントを強く握れば……また誰かの声が聞こえるかもしれない）[p]",
+   "(If I grip the pendant hard... perhaps I'll hear someone's voice again.)[p]"
+  ],
+  [
+   1532,
+   "（でも、さっきよりノイズが強くなってる）[p]",
+   "(But the noise is stronger than before.)[p]"
+  ],
+  [
+   1536,
+   "（今ここで頭痛に動けなくなったら——朱志香さんに撃たれる）[p]",
+   "(If the headache stops me moving here — Jushika will shoot me.)[p]"
+  ],
+  [
+   1540,
+   "（使うなら、タイミングを選ばないと……）[p]",
+   "(If I use it, I have to choose the moment...)[p]"
+  ],
+  [
+   1544,
+   "どうする？[p]",
+   "What do you do?[p]"
+  ],
+  [
+   1546,
+   "[glink color=\"bth13_dk\" target=\"*mistake\" text=\"今すぐペンダントを握る\" x=560 y=400 width=800 size=30]",
+   "[glink color=\"bth13_dk\" target=\"*mistake\" text=\"Grip the pendant now\" x=560 y=400 width=800 size=30]"
+  ],
+  [
+   1547,
+   "[glink color=\"bth13_dk\" target=\"*stay\"       text=\"機会を待つ\"             x=560 y=540 width=800 size=30]",
+   "[glink color=\"bth13_dk\" target=\"*stay\"       text=\"Wait for the chance\"             x=560 y=540 width=800 size=30]"
+  ],
+  [
+   1553,
+   "（ペンダントを握ると……また、頭が割れるように痛くなった！）[p]",
+   "(I gripped the pendant... and again my head split with pain!)[p]"
+  ],
+  [
+   1558,
+   "あ、頭が痛い。[p]",
+   "Ah, my head.[p]"
+  ],
+  [
+   1562,
+   "（ノイズは先ほどよりも大きく、頭痛が止まらない）[p]",
+   "(The noise is louder than before, and the pain won't stop.)[p]"
+  ],
+  [
+   1567,
+   "これじゃあ、動けない。[p]",
+   "I can't move like this.[p]"
+  ],
+  [
+   1572,
+   "……どうしたの？[p]",
+   "...What's the matter?[p]"
+  ],
+  [
+   1576,
+   "さあ、早くこっちにいらっしゃい。メアリー。[p]",
+   "Come here, Mary. Quickly.[p]"
+  ],
+  [
+   1584,
+   "メアリーさえ、来ればこちらのものです。[p]",
+   "Once I have Mary, this is over.[p]"
+  ],
+  [
+   1588,
+   "さようなら、皆さん。[p]",
+   "Goodbye, everyone.[p]"
+  ],
+  [
+   1592,
+   "富礼知さん、やめてください！[p]",
+   "Ms Furechi, stop![p]"
+  ],
+  [
+   1595,
+   "零度警部が急いで拳銃を構える。[p]",
+   "Inspector Reido raised his pistol at once.[p]"
+  ],
+  [
+   1598,
+   "しかし、朱志香はメアリーを盾にして、銃を向け続けた。[p]",
+   "But Jushika kept Mary in front of her as a shield, the gun still levelled.[p]"
+  ],
+  [
+   1602,
+   "くっ……[p]",
+   "Nngh...[p]"
+  ],
+  [
+   1607,
+   "銃声が鳴り響く。[p]",
+   "A shot rang out.[p]"
+  ],
+  [
+   1610,
+   "零度警部は銃弾を受けて倒れた。[p]",
+   "Inspector Reido took the bullet and went down.[p]"
+  ],
+  [
+   1615,
+   "メアリーさんが何かを言っているが耳がよく聞こえない。[p]",
+   "Mary was saying something, but I could barely hear.[p]"
+  ],
+  [
+   1618,
+   "それだけじゃない、さっきからずっと、頭の中でノイズが鳴り続けている。[p]",
+   "And not only that — the noise had been ringing in my head all this time.[p]"
+  ],
+  [
+   1622,
+   "さあ、あなたたち二人とも、さようなら。[p]",
+   "Now then, goodbye to the both of you.[p]"
+  ],
+  [
+   1626,
+   "くそ、真白しっかりしろ！[p]",
+   "Damn it, Mashiro, pull yourself together![p]"
+  ],
+  [
+   1629,
+   "和人は真歩流をかばうようにして、朱志香から離れようとした。[p]",
+   "Kazuto tried to shield me and get us away from Jushika.[p]"
+  ],
+  [
+   1634,
+   "だが、拳銃の弾丸はいとも容易く人肉を貫き、その命を砕いた。[p]",
+   "But the bullet passed through flesh as easily as anything and broke his life apart.[p]"
+  ],
+  [
+   1641,
+   "真歩流さん！！！[p]",
+   "Mahoru!!![p]"
+  ],
+  [
+   1645,
+   "ふふふ、邪魔者は片付いたわ。[p]",
+   "There. The nuisances are dealt with.[p]"
+  ],
+  [
+   1649,
+   "さあ、メアリー、金庫を開けてもらうわよ。[p]",
+   "Now, Mary, you're going to open the safe for me.[p]"
+  ],
+  [
+   1652,
+   "意識が途絶えるその瞬間、大きな音が響き、同時に私の意識も完全に吹き飛ばされた。[p]",
+   "In the instant my consciousness failed, a great sound rang out, and my mind was blown away entirely.[p]"
+  ],
+  [
+   1667,
+   "（今じゃない）[p]",
+   "(Not now.)[p]"
+  ],
+  [
+   1671,
+   "（朱志香さんの意識が私から逸れる瞬間を待つんだ）[p]",
+   "(Wait for the moment her attention leaves me.)[p]"
+  ],
+  [
+   1676,
+   "……どうしたの？[p]",
+   "...What's the matter?[p]"
+  ],
+  [
+   1680,
+   "さあ、早くこっちにいらっしゃい。メアリー。[p]",
+   "Come here, Mary. Quickly.[p]"
+  ],
+  [
+   1684,
+   "わかりました……[p]",
+   "Very well...[p]"
+  ],
+  [
+   1692,
+   "メアリーさえ、来ればこちらのものです。[p]",
+   "Once I have Mary, this is over.[p]"
+  ],
+  [
+   1696,
+   "さようなら、皆さん。[p]",
+   "Goodbye, everyone.[p]"
+  ],
+  [
+   1702,
+   "富礼知さん、やめなさい！[p]",
+   "Ms Furechi, stop this![p]"
+  ],
+  [
+   1707,
+   "零度警部が急いで拳銃を構える。[p]",
+   "Inspector Reido raised his pistol at once.[p]"
+  ],
+  [
+   1710,
+   "しかし、朱志香はメアリーを盾にして、銃を向け続けた。[p]",
+   "But Jushika kept Mary in front of her as a shield, the gun still levelled.[p]"
+  ],
+  [
+   1715,
+   "どうしよう？ このままじゃ。[p]",
+   "What do I do? At this rate—[p]"
+  ],
+  [
+   1719,
+   "そうだ、握れないなら、投げつけよう。[p]",
+   "That's it. If I can't grip it, I'll throw it.[p]"
+  ],
+  [
+   1724,
+   "我がことながら、とんでもない発想だと思う。[p]",
+   "Even to me it seemed an outrageous idea.[p]"
+  ],
+  [
+   1727,
+   "しかし、体が先に動く体質の私は、ペンダントをポケットから取り出すと、朱志香さんに向かって投げつけた。[p]",
+   "But my body always moves before my head; I pulled the pendant from my pocket and hurled it at Jushika.[p]"
+  ],
+  [
+   1731,
+   "なっ……！[p]",
+   "What—![p]"
+  ],
+  [
+   1736,
+   "銃声が鳴り響く。[p]",
+   "A shot rang out.[p]"
+  ],
+  [
+   1739,
+   "銃弾は零度警部の肩をかすめ、壁に当たった。[p]",
+   "The bullet grazed Inspector Reido's shoulder and struck the wall.[p]"
+  ],
+  [
+   1742,
+   "零度警部はすかさず、朱志香に向かって銃を構えた。[p]",
+   "He levelled his own gun at Jushika without a moment's delay.[p]"
+  ],
+  [
+   1748,
+   "うっ……！[p]",
+   "Ah—![p]"
+  ],
+  [
+   1751,
+   "警部の放った弾丸は朱志香の拳銃を弾き飛ばした。[p]",
+   "The inspector's shot knocked the pistol clean out of her hand.[p]"
+  ],
+  [
+   1755,
+   "富礼知さん、無駄な抵抗はせずにもうやめてください！[p]",
+   "Ms Furechi, enough! Stop this pointless resistance![p]"
+  ],
+  [
+   1763,
+   "……あんたは、私を止められないわよ！[p]",
+   "...You can't stop me![p]"
+  ],
+  [
+   1767,
+   "地下に来る階段の近くには発火装置がついている。[p]",
+   "There is an incendiary device near the stairs down here.[p]"
+  ],
+  [
+   1771,
+   "発火装置が作動すれば、上の洋館は全焼。地下にはガスが充満して皆死ぬわ！[p]",
+   "If it goes off, the house above burns to the ground. Gas fills the basement and everyone here dies![p]"
+  ],
+  [
+   1775,
+   "発火装置は私が持っている。嘘だと思うなら撃ってみてごらんなさい。[p]",
+   "And I hold the trigger. Shoot me, if you think I'm lying.[p]"
+  ],
+  [
+   1779,
+   "奢禄さんから『これ以上、この館を調べるな』と警告された時に用意した、最後の手段よ。[p]",
+   "The last resort I prepared when Mr Mashiro warned me to look into this house no further.[p]"
+  ],
+  [
+   1783,
+   "館を焼けば、地上に残した証拠は消える。地下も焼けてしまうけれどね。[p]",
+   "Burn the house and the evidence above is gone. Along with the basement, admittedly.[p]"
+  ],
+  [
+   1786,
+   "その言葉に、全員が凍りついた。[p]",
+   "At those words, everyone froze.[p]"
+  ],
+  [
+   1790,
+   "なっ……！[p]",
+   "What—![p]"
+  ],
+  [
+   1794,
+   "あんた、相当いかれてるな。[p]",
+   "You're completely mad.[p]"
+  ],
+  [
+   1798,
+   "お前も死ぬんだぞ！[p]",
+   "You'll die too![p]"
+  ],
+  [
+   1802,
+   "そうね、でも私は生きるわ。私にはやらないといけないことがあるのだから。[p]",
+   "Yes. But I'm going to live. There's something I still have to do.[p]"
+  ],
+  [
+   1805,
+   "朱志香の親指は、発火装置のスイッチにかかったままだった。[r]",
+   "Jushika's thumb stayed on the switch of the device.[r]"
+  ],
+  [
+   1807,
+   "零度警部も和人も、一歩も動けない。[p]",
+   "Neither Inspector Reido nor Kazuto could move a step.[p]"
+  ],
+  [
+   1811,
+   "……朱志香さんのやらなきゃいけないことって何ですか？[p]",
+   "...What is it you must do, Jushika?[p]"
+  ],
+  [
+   1815,
+   "それは人を殺してまでもやることなんですか！？[p]",
+   "Is it something worth killing people for!?[p]"
+  ],
+  [
+   1819,
+   "……あなたには関係ないことよ。[p]",
+   "...That is no concern of yours.[p]"
+  ],
+  [
+   1823,
+   "さあ、メアリー。地下室の金庫を開けなさい。そうすれば、あなただけは命を助けてあげるわ。[p]",
+   "Now, Mary. Open the safe in the basement. Do that and your life alone will be spared.[p]"
+  ],
+  [
+   1826,
+   "メアリーは、朱志香の言葉に従うしかなかった。[p]",
+   "Mary had no choice but to obey.[p]"
+  ],
+  [
+   1830,
+   "……わかりました。[p]",
+   "...Very well.[p]"
+  ],
+  [
+   1834,
+   "でも、金庫の開閉にはペンダントが必要です。[p]",
+   "But opening the safe requires the pendant.[p]"
+  ],
+  [
+   1837,
+   "朱志香は、メアリーの言葉に一瞬だけ、動揺したような表情を見せた。[p]",
+   "For an instant, something like agitation crossed Jushika's face.[p]"
+  ],
+  [
+   1841,
+   "そうね、わかっているわ。[p]",
+   "Yes. I know that.[p]"
+  ],
+  [
+   1845,
+   "真歩流さん、取ってメアリーに渡しなさい。[p]",
+   "Mahoru, pick it up and give it to Mary.[p]"
+  ],
+  [
+   1849,
+   "警部と和人君はそこでおとなしくね。[p]",
+   "Inspector, Kazuto, stay where you are.[p]"
+  ],
+  [
+   1853,
+   "妙な動きをしたら、発火装置を作動させる。[p]",
+   "One odd movement and I set off the device.[p]"
+  ],
+  [
+   1856,
+   "朱志香に言われるがまま先ほど投げ捨てたペンダントを拾い上げる。[p]",
+   "As she told me, I picked up the pendant I had thrown away.[p]"
+  ],
+  [
+   1861,
+   "（発火装置を持たれている。今度は、誰も動けない）[p]",
+   "(She has the incendiary device. This time nobody can move.)[p]"
+  ],
+  [
+   1865,
+   "（でも朱志香さんは、金庫とメアリーさんに意識を向けている）[p]",
+   "(But her attention is on the safe and on Mary.)[p]"
+  ],
+  [
+   1869,
+   "（前にも、握った時に声が聞こえた。もう一度だけ————！）[p]",
+   "(Last time I heard a voice when I gripped it. Just once more——!)[p]"
+  ],
+  [
+   1872,
+   "真歩流は、拾い上げたペンダントを力の限り握りしめた。[p]",
+   "I gripped the pendant with all my strength.[p]"
+  ],
+  [
+   1882,
+   "う……だめ……[p]",
+   "Ugh... no...[p]"
+  ],
+  [
+   1885,
+   "激しいノイズが走る。[p]",
+   "Violent noise tore through me.[p]"
+  ],
+  [
+   1888,
+   "割れるように頭が痛い。[p]",
+   "My head was splitting.[p]"
+  ],
+  [
+   1892,
+   "あ……ぐ……[p]",
+   "Ah... nngh...[p]"
+  ],
+  [
+   1895,
+   "今にも破裂しそうな頭痛が響く中、声が滑り込んできた。[p]",
+   "Through a headache fit to burst, a voice slid in.[p]"
+  ],
+  [
+   1898,
+   "その声はまるで怒号のように重く響く。[p]",
+   "It rang heavy, like a roar of anger.[p]"
+  ],
+  [
+   1901,
+   "許せなかった！[p]",
+   "I couldn't forgive it![p]"
+  ],
+  [
+   1904,
+   "現実を見ろ。[p]",
+   "Look at what's in front of you.[p]"
+  ],
+  [
+   1907,
+   "寧ろあなたは疑わしいですよ。[p]",
+   "If anything, you are the suspicious one.[p]"
+  ],
+  [
+   1910,
+   "これ以上知る必要はないでしょう？[p]",
+   "There is nothing more to say, is there?[p]"
+  ],
+  [
+   1914,
+   "……っ。[p]",
+   "...Ngh.[p]"
+  ],
+  [
+   1917,
+   "怒りの声、疑念の声、憎しみの声……。[p]",
+   "Voices of anger, voices of doubt, voices of hatred...[p]"
+  ],
+  [
+   1920,
+   "私が信じたから、愛理が死にかけたんでしょう？[p]",
+   "Airi nearly died because you trusted people, didn't she?[p]"
+  ],
+  [
+   1924,
+   "（違う……）[p]",
+   "(No...)[p]"
+  ],
+  [
+   1927,
+   "私が疑っていれば、皆助かったんじゃないの？[p]",
+   "If you had doubted, everyone would have been saved, wouldn't they?[p]"
+  ],
+  [
+   1930,
+   "——気づけば、声は私の声になっていた。[p]",
+   "—Before I knew it, the voice had become my own.[p]"
+  ],
+  [
+   1934,
+   "（違う、違う、違う）[p]",
+   "(No, no, no.)[p]"
+  ],
+  [
+   1937,
+   "（私はただ……）[p]",
+   "(All I ever...)[p]"
+  ],
+  [
+   1940,
+   "激しい頭痛と疑念の声に気力がなくなり、気が遠くなる。[p]",
+   "The savage headache and the voices of doubt drained my will, and my mind began to slip.[p]"
+  ],
+  [
+   1944,
+   "（やっぱり、私が間違ってたの……？）[p]",
+   "(Was I wrong after all...?)[p]"
+  ],
+  [
+   1947,
+   "（地下に来なければ、こんなことには……。）[p]",
+   "(If I hadn't come down here, none of this...)[p]"
+  ],
+  [
+   1950,
+   "お姉ちゃんらしくないよ。[p]",
+   "That isn't like you.[p]"
+  ],
+  [
+   1953,
+   "お姉ちゃんはいつだって人を信じて、自分の信じることをやってきたじゃない。[p]",
+   "You've always trusted people and done what you believed in.[p]"
+  ],
+  [
+   1957,
+   "（……そうだ）[p]",
+   "(...That's right.)[p]"
+  ],
+  [
+   1961,
+   "（私は……それでも）[p]",
+   "(Even so, I...)[p]"
+  ],
+  [
+   1964,
+   "そんなお姉ちゃんが好きだよ、私は。[p]",
+   "That's the sister I love.[p]"
+  ],
+  [
+   1968,
+   "（諦めない！）[p]",
+   "(I won't give up!)[p]"
+  ],
+  [
+   1971,
+   "瞬間怨嗟の声は消えた。[p]",
+   "In that instant the voices of resentment vanished.[p]"
+  ],
+  [
+   1973,
+   "ノイズは消えない。頭は今も割れそうな程だ。[r]",
+   "The noise did not. My head still felt fit to split.[r]"
+  ],
+  [
+   1974,
+   "それでも——あふれてくるものの方が、ずっと大きかった。[p]",
+   "And even so — what came flooding in was far greater.[p]"
+  ],
+  [
+   1984,
+   "温かな思い出と悲痛な悲しみの織り交ざった複雑な心。[p]",
+   "A tangled heart, warm memories woven through with bitter grief.[p]"
+  ],
+  [
+   1988,
+   "アンナ……今日は何して遊ぼうか。[p]",
+   "Anna... what shall we play today?[p]"
+  ],
+  [
+   1991,
+   "流れ込んできた思いに堪えられなくなった。[p]",
+   "I could not bear the feelings pouring into me.[p]"
+  ],
+  [
+   1994,
+   "穏やかで優しい気持ち。[p]",
+   "A gentle, tender warmth.[p]"
+  ],
+  [
+   1996,
+   "それを踏み壊されてしまった悲しい気持ち。[p]",
+   "And the sorrow of having it trampled to pieces.[p]"
+  ],
+  [
+   1999,
+   "知らず、頬を涙が伝っている。[p]",
+   "Without knowing it, tears were running down my cheeks.[p]"
+  ],
+  [
+   2003,
+   "アンナ……。[p]",
+   "Anna...[p]"
+  ],
+  [
+   2006,
+   "無意識に——その名前を、こぼしてしまった。[p]",
+   "Without meaning to — I let the name slip out.[p]"
+  ],
+  [
+   2011,
+   "[gage_draw place=\"舞黒館:地下室\"]",
+   "[gage_draw place=\"Maicro House:Basement\"]"
+  ],
+  [
+   2016,
+   "何を泣いて——それになぜ、娘の名前を……？[p]",
+   "Why are you crying — and why my daughter's name...?[p]"
+  ],
+  [
+   2020,
+   "答えなさい、なぜ娘の名前を知っているのか！[p]",
+   "Answer me. How do you know my daughter's name![p]"
+  ],
+  [
+   2027,
+   "私は何も言えず、和人の方へ視線を向けた。[p]",
+   "I could say nothing, and looked toward Kazuto.[p]"
+  ],
+  [
+   2030,
+   "和人は朱志香さんを見つめてハッとしたような表情を浮かべた。[p]",
+   "He was staring at Jushika, and something struck him.[p]"
+  ],
+  [
+   2042,
+   "……『アンナ』。[p]",
+   "...\"Anna.\"[p]"
+  ],
+  [
+   2046,
+   "その名前を口にした時の、あんたの顔。[p]",
+   "Your face when you said that name.[p]"
+  ],
+  [
+   2050,
+   "それで、今までの違和感が一つに繋がった。[p]",
+   "That is what joined everything that has felt wrong into one.[p]"
+  ],
+  [
+   2054,
+   "何を言っているの？[p]",
+   "What are you talking about?[p]"
+  ],
+  [
+   2057,
+   "和人は朱志香さんを見つめたまま、ゆっくりと口を開いた。[p]",
+   "Kazuto kept his eyes on her, and spoke slowly.[p]"
+  ],
+  [
+   2061,
+   "富礼知朱志香。[p]",
+   "Jushika Furechi.[p]"
+  ],
+  [
+   2065,
+   "あんたが探していた娘は——今も、この館にいるかもしれない。[p]",
+   "The daughter you were looking for — may still be in this house.[p]"
+  ],
+  [
+   2074,
+   "小出里亜だ。[p]",
+   "Koderia.[p]"
+  ],
+  [
+   2079,
+   "小出里亜さんが……アンナさん？[p]",
+   "Koderia is... Anna?[p]"
+  ],
+  [
+   2088,
+   "……は？[p]",
+   "...What?[p]"
+  ],
+  [
+   2092,
+   "小出里亜が……私の、アンナ……？[p]",
+   "Koderia is... my Anna...?[p]"
+  ],
+  [
+   2097,
+   "馬鹿な！　そんなはずはない！[p]",
+   "That's impossible! It can't be![p]"
+  ],
+  [
+   2101,
+   "アンナは幼いころに誘拐されて——どこかへ売られたはずよ！[p]",
+   "Anna was taken as a small child — and sold away somewhere![p]"
+  ],
+  [
+   2104,
+   "もう日本にはいないと、ずっと――。[p]",
+   "She was no longer in Japan; all these years I—[p]"
+  ],
+  [
+   2108,
+   "俺も、まだ確証まではない。[p]",
+   "I have no certainty yet either.[p]"
+  ],
+  [
+   2112,
+   "だが……警部。[p]",
+   "But... Inspector.[p]"
+  ],
+  [
+   2116,
+   "小出里亜の身元調査は、どこまで進んでいる？[p]",
+   "How far has the check on Koderia's background gone?[p]"
+  ],
+  [
+   2125,
+   "……小出里亜さんは、灰音家の養子ですが。[p]",
+   "...Koderia was adopted by the Haine family.[p]"
+  ],
+  [
+   2129,
+   "叡留久さんとのやり取りの中で、[l]",
+   "In her exchanges with Mr Hoaro,[l]"
+  ],
+  [
+   2132,
+   "——『本当の家族が近くにいる』と考えていた形跡を確認しています。[p]",
+   "we have found signs that she believed her real family was close by.[p]"
+  ],
+  [
+   2136,
+   "DNA鑑定も依頼済みです。まだ結果は出ていませんが……。[p]",
+   "A DNA test has been requested. The result is not in yet, but...[p]"
+  ],
+  [
+   2140,
+   "富礼知さん、あなたは小出里亜さんのことに気付かなかったのですか？[p]",
+   "Ms Furechi, did you never notice about Koderia?[p]"
+  ],
+  [
+   2144,
+   "娘はもういないと思い込んでいたから……。[p]",
+   "Because I was convinced my daughter was gone...[p]"
+  ],
+  [
+   2147,
+   "親近感は湧いていたけれど、私の中のアンナはあの時のまま……。[p]",
+   "I felt close to her, but the Anna in my mind was still the child she had been...[p]"
+  ],
+  [
+   2151,
+   "小出里亜さんは気づいて欲しかったのかもしれません。[p]",
+   "Perhaps Koderia wanted you to notice.[p]"
+  ],
+  [
+   2154,
+   "母親に自分が娘であることを。[p]",
+   "That she was her mother's daughter.[p]"
+  ],
+  [
+   2159,
+   "……あの時……？[p]",
+   "...That time...?[p]"
+  ],
+  [
+   2167,
+   "[gage_draw place=\"舞黒館:キッチン\" hide_time=\"true\"]",
+   "[gage_draw place=\"Maicro House:Kitchen\" hide_time=\"true\"]"
+  ],
+  [
+   2172,
+   "朱志香様。[p]",
+   "Miss Jushika.[p]"
+  ],
+  [
+   2176,
+   "私は……本当の家族に……会いたいです。[p]",
+   "I... want to meet my real family.[p]"
+  ],
+  [
+   2181,
+   "……いつか、会えるわ。[p]",
+   "...One day, you will.[p]"
+  ],
+  [
+   2185,
+   "きっとね……。[p]",
+   "I'm sure of it...[p]"
+  ],
+  [
+   2191,
+   "[gage_draw place=\"舞黒館:地下室\"]",
+   "[gage_draw place=\"Maicro House:Basement\"]"
+  ],
+  [
+   2204,
+   "朱志香は——その場に凍りついた。[p]",
+   "Jushika — froze where she stood.[p]"
+  ],
+  [
+   2208,
+   "そんな……。[p]",
+   "It can't be...[p]"
+  ],
+  [
+   2212,
+   "アンナが……あの子が……。[p]",
+   "Anna... my girl...[p]"
+  ],
+  [
+   2215,
+   "それでも発火装置は、まだ朱志香の手の中にあった。[r]",
+   "Even then, the ignition device remained in her hand.[r]"
+  ],
+  [
+   2217,
+   "誰も奪っていない。押そうと思えば、今すぐ押せる。[p]",
+   "Nobody had taken it. She could press it that very moment if she chose.[p]"
+  ],
+  [
+   2222,
+   "小出里亜さんは……ずっと、家族を探してたんです。[p]",
+   "Koderia... was searching for her family all along.[p]"
+  ],
+  [
+   2226,
+   "すぐそばにいたのに。[p]",
+   "And she was right beside you.[p]"
+  ],
+  [
+   2230,
+   "朱志香さんも、小出里亜さんも——お互いに気づけなかっただけなんです。[p]",
+   "You and Koderia — you simply failed to recognize each other.[p]"
+  ],
+  [
+   2235,
+   "私は……。[p]",
+   "I...[p]"
+  ],
+  [
+   2239,
+   "あの子を取り戻すために……ずっと……。[p]",
+   "All this, to get her back... all these years...[p]"
+  ],
+  [
+   2243,
+   "なのに、あの子が隣にいたのに……私は……。[p]",
+   "And she was beside me the whole time... and I...[p]"
+  ],
+  [
+   2246,
+   "発火装置のスイッチにかかっていた指が、震えた。[r]",
+   "Her finger on the switch trembled.[r]"
+  ],
+  [
+   2248,
+   "そして——ゆっくりと離れた。[p]",
+   "And then — slowly came away.[p]"
+  ],
+  [
+   2251,
+   "発火装置が朱志香の手から滑り、乾いた音を立てて床へ落ちた。[p]",
+   "The device slipped from her hand and hit the floor with a dry clatter.[p]"
+  ],
+  [
+   2255,
+   "動かないでください！[p]",
+   "Don't move![p]"
+  ],
+  [
+   2258,
+   "零度警部がすぐに発火装置を蹴り離した。[r]",
+   "Inspector Reido kicked the device away at once.[r]"
+  ],
+  [
+   2260,
+   "それでも朱志香は抵抗しなかった。[p]",
+   "Jushika did not resist.[p]"
+  ],
+  [
+   2264,
+   "アンナ……。[p]",
+   "Anna...[p]"
+  ],
+  [
+   2268,
+   "ごめんなさい……。[p]",
+   "I'm sorry...[p]"
+  ],
+  [
+   2272,
+   "ごめんなさい……！[p]",
+   "I'm so sorry...![p]"
+  ],
+  [
+   2275,
+   "朱志香は膝から崩れ落ちた。[p]",
+   "She fell to her knees.[p]"
+  ],
+  [
+   2290,
+   "……富礼知。[p]",
+   "...Furechi.[p]"
+  ],
+  [
+   2294,
+   "俺からも、あんたに話しておくことがある。[p]",
+   "There's something I have to tell you as well.[p]"
+  ],
+  [
+   2302,
+   "どうして、あんたと小出里亜が俺を見て『初めて会った気がしない』と言ったのか。[p]",
+   "Why you and Koderia both looked at me and said it didn't feel like a first meeting.[p]"
+  ],
+  [
+   2306,
+   "その理由も、これで分かった。[p]",
+   "Now I know the reason for that too.[p]"
+  ],
+  [
+   2310,
+   "俺は——あんたの夫、富礼知との間に生まれた子供だ。[p]",
+   "I'm your husband's son.[p]"
+  ],
+  [
+   2315,
+   "和人が……朱志香さんの旦那さんの子供……？[p]",
+   "Kazuto is... Jushika's husband's child...?[p]"
+  ],
+  [
+   2320,
+   "俺の母は、薬の研究をしていた。[p]",
+   "My mother researched pharmaceuticals.[p]"
+  ],
+  [
+   2324,
+   "アンナを失って憔悴していた富礼知は、珍しい薬を求めて母の店へ通っていたらしい。[p]",
+   "Furechi, devastated by losing Anna, apparently visited my mother's shop again and again in search of rare medicines.[p]"
+  ],
+  [
+   2328,
+   "富礼知は娘を取り戻すには珍しい薬が必要なのだと言っていたそうだ。[p]",
+   "He said he needed rare drugs to get his daughter back.[p]"
+  ],
+  [
+   2331,
+   "母は富礼知を励ました。[r]",
+   "My mother tried to encourage him.[r]"
+  ],
+  [
+   2334,
+   "その中で二人は一夜を共にし——俺が生まれた。[p]",
+   "Eventually, the two of them spent a night together — and I was born.[p]"
+  ],
+  [
+   2342,
+   "富礼知は、しばらく俺の存在を知らなかった。[p]",
+   "For a while Furechi did not know I existed.[p]"
+  ],
+  [
+   2346,
+   "だが後になって知ると、母に研究成果と偽聖女を渡すよう迫った。[p]",
+   "But when he found out about me, he pressured my mother to hand over her research and the False Saint.[p]"
+  ],
+  [
+   2350,
+   "『子供を無事に育てたければ、全てを渡して自ら死ね』——そう脅した。[p]",
+   "“If you want your child to grow up safely, hand over everything and kill yourself.” That was his threat.[p]"
+  ],
+  [
+   2354,
+   "母は俺の目の前で、大量の薬を飲んで自ら命を絶った。[p]",
+   "My mother swallowed a great quantity of drugs in front of me and ended her life.[p]"
+  ],
+  [
+   2358,
+   "富礼知は母の研究資料を持ち去り、俺を母の実家へ送った。[p]",
+   "Furechi took her research papers away and sent me to her family.[p]"
+  ],
+  [
+   2362,
+   "俺はその日から——いつか富礼知に復讐するつもりで生きてきた。[p]",
+   "From that day on, I lived for one thing — revenge on Furechi.[p]"
+  ],
+  [
+   2366,
+   "小出里亜は、俺を見て何かを感じたんだろう。[p]",
+   "Koderia must have felt something when she looked at me.[p]"
+  ],
+  [
+   2370,
+   "俺と小出里亜は——母親こそ違うが、兄妹だったんだからな。[p]",
+   "Koderia and I had different mothers, but we were still brother and sister.[p]"
+  ],
+  [
+   2375,
+   "……知らなかった。[p]",
+   "...I never knew.[p]"
+  ],
+  [
+   2379,
+   "私は……何も……。[p]",
+   "I... knew nothing...[p]"
+  ],
+  [
+   2383,
+   "本当は、あんたにも全部ぶつけるつもりだった。[p]",
+   "I meant to take all that anger out on you, too.[p]"
+  ],
+  [
+   2387,
+   "でも……もういい。[p]",
+   "But... it's enough.[p]"
+  ],
+  [
+   2391,
+   "俺が恨んでいた相手は、あんたじゃない。[p]",
+   "The one I hated was not you.[p]"
+  ],
+  [
+   2394,
+   "和人は、それ以上何も言わなかった。[p]",
+   "Kazuto said nothing more.[p]"
+  ],
+  [
+   2404,
+   "……富礼知さん。[p]",
+   "...Ms Furechi.[p]"
+  ],
+  [
+   2408,
+   "あなたが宝石を求めた本当の理由も、署で伺うことになります。[p]",
+   "We'll also need to question you at the station about why you wanted the jewels.[p]"
+  ],
+  [
+   2412,
+   "復讐よ。[p]",
+   "Revenge.[p]"
+  ],
+  [
+   2416,
+   "アンナを誘拐した連中への。[p]",
+   "On the people who took Anna.[p]"
+  ],
+  [
+   2420,
+   "あいつらを全員見つけ出すために、金が必要だった。[p]",
+   "To find every one of them, I needed money.[p]"
+  ],
+  [
+   2424,
+   "それに——あいつらも、この館の地下にある何かを狙っていた。[p]",
+   "And besides — they too were after something in the basement of this house.[p]"
+  ],
+  [
+   2428,
+   "だから先に奪ってやろうと思った。[p]",
+   "So I meant to take it first.[p]"
+  ],
+  [
+   2433,
+   "だから、お父さんは『これ以上調べるな』って……。[p]",
+   "So that's why Dad said not to look into it any further...[p]"
+  ],
+  [
+   2438,
+   "奢禄さんも、何かに気づいたのでしょうね。[p]",
+   "Mr Mashiro must have realized something as well.[p]"
+  ],
+  [
+   2442,
+   "だから私は、最悪の場合に館ごと証拠を消せるようにした。[p]",
+   "That's why I prepared a way to burn the entire house — and all the evidence with it — if necessary.[p]"
+  ],
+  [
+   2446,
+   "……続きは署で伺います。[p]",
+   "...We'll hear the rest at the station.[p]"
+  ],
+  [
+   2450,
+   "富礼知朱志香さん。銃刀法違反および殺人未遂の現行犯で逮捕します。[p]",
+   "Jushika Furechi, I arrest you for firearms offenses and attempted murder.[p]"
+  ],
+  [
+   2453,
+   "零度警部が朱志香に手錠をかけた。[r]",
+   "Inspector Reido put the handcuffs on her.[r]"
+  ],
+  [
+   2455,
+   "朱志香は、もう抵抗しなかった。[p]",
+   "She no longer resisted.[p]"
+  ],
+  [
+   2466,
+   "真歩流さん……最後に、確かめたいことがあります。[p]",
+   "Mahoru... there is one last thing I want to check.[p]"
+  ],
+  [
+   2471,
+   "何ですか？[p]",
+   "What is it?[p]"
+  ],
+  [
+   2476,
+   "奥の金庫です。[p]",
+   "The safe at the far end.[p]"
+  ],
+  [
+   2480,
+   "祖母は、ペンダントが『金庫を起こすための証』だと言っていました。[p]",
+   "My grandmother said the pendant was the token that activates the safe.[p]"
+  ],
+  [
+   2484,
+   "でも——それだけでは開かない、とも。[p]",
+   "But — that alone will not open it, she said.[p]"
+  ],
+  [
+   2487,
+   "メアリーは、真歩流からペンダントを受け取った。[r]",
+   "Mary took the pendant from me.[r]"
+  ],
+  [
+   2489,
+   "金庫の中央にある小さなくぼみへ、そっとはめ込む。[p]",
+   "She fitted it gently into a small hollow at the center of the safe.[p]"
+  ],
+  [
+   2494,
+   "小さな機械音がして、金庫の脇にある手のひら型の読み取り装置へ光が灯った。[p]",
+   "There was a faint mechanical sound, and a palm-shaped reader beside the safe lit up.[p]"
+  ],
+  [
+   2499,
+   "動いた……でも、開かない。[p]",
+   "It moved... but it won't open.[p]"
+  ],
+  [
+   2504,
+   "はい。[p]",
+   "That's right.[p]"
+  ],
+  [
+   2507,
+   "ペンダントは鍵そのものじゃない。[r]",
+   "The pendant is not the key itself.[r]"
+  ],
+  [
+   2510,
+   "本当の持ち主を確かめるための装置を起動するものなんです。[p]",
+   "It starts the device that confirms the true owner.[p]"
+  ],
+  [
+   2514,
+   "真歩流さん。そこへ手を置いてみてください。[p]",
+   "Mahoru. Put your hand there, please.[p]"
+  ],
+  [
+   2519,
+   "私が……？[p]",
+   "Me...?[p]"
+  ],
+  [
+   2524,
+   "お願いします。[p]",
+   "Please.[p]"
+  ],
+  [
+   2527,
+   "真歩流は戸惑いながらも、読み取り装置へ手を置いた。[p]",
+   "Puzzled, I laid my hand on the reader.[p]"
+  ],
+  [
+   2529,
+   "一秒。[r]",
+   "One second.[r]"
+  ],
+  [
+   2530,
+   "二秒。[r]",
+   "Two seconds.[r]"
+  ],
+  [
+   2533,
+   "そして——。[p]",
+   "And then—[p]"
+  ],
+  [
+   2541,
+   "カチリ、と——重い金庫の扉が開いた。[p]",
+   "With a click — the heavy door of the safe opened.[p]"
+  ],
+  [
+   2546,
+   "……どうして、私の手で？[p]",
+   "...Why, with my hand?[p]"
+  ],
+  [
+   2551,
+   "やっぱり……。[p]",
+   "So it was true...[p]"
+  ],
+  [
+   2554,
+   "金庫の中には、高価な宝石類と——一通の古い手紙が入っていた。[p]",
+   "Inside the safe were jewels of great value — and one old letter.[p]"
+  ],
+  [
+   2558,
+   "祖母から聞いていた話があります。[p]",
+   "There is a story my grandmother told me.[p]"
+  ],
+  [
+   2562,
+   "戦争で引き裂かれた、日本人の少女とイギリス人の青年の話です。[p]",
+   "Of a Japanese girl and an English young man, parted by the war.[p]"
+  ],
+  [
+   2566,
+   "青年は帰国する前に、少女と——二人の間に生まれた子供、その子孫のために、この金庫を残した。[p]",
+   "Before he went home, the young man left this safe for the girl — and for the child born to them, and their descendants.[p]"
+  ],
+  [
+   2570,
+   "ペンダントを受け継いだ者が装置を起動し、少女の直系の血を引く者が手を置く。[p]",
+   "Whoever inherits the pendant starts the device, and one of the girl's direct blood lays a hand on it.[p]"
+  ],
+  [
+   2574,
+   "その二つが揃った時だけ、金庫が開く。[p]",
+   "Only when both are present does the safe open.[p]"
+  ],
+  [
+   2579,
+   "じゃあ……私が開けられたってことは……。[p]",
+   "Then... my opening it means...[p]"
+  ],
+  [
+   2584,
+   "中の手紙を見てください。[p]",
+   "Look at the letter inside.[p]"
+  ],
+  [
+   2587,
+   "真歩流は古い封筒を手に取り、慎重に開いた。[p]",
+   "I took the old envelope and opened it carefully.[p]"
+  ],
+  [
+   2598,
+   "——日本語に訳すと、こう書いてある。[p]",
+   "—Rendered into Japanese, it reads like this.[p]"
+  ],
+  [
+   2601,
+   "僕は必ずいつか日本に戻ってくる。[r]",
+   "I shall come back to Japan one day, without fail.[r]"
+  ],
+  [
+   2603,
+   "だから、君も必ず元気でいてほしい。[p]",
+   "So you must stay well, without fail, as well.[p]"
+  ],
+  [
+   2604,
+   "きっと、きっとまた会える。[r]",
+   "We shall meet again. Surely, surely we shall.[r]"
+  ],
+  [
+   2606,
+   "だから——その日まで……いつまでも、元気に……[p]",
+   "So — until that day... stay well, always...[p]"
+  ],
+  [
+   2609,
+   "そして——差出人と宛名に、真歩流の視線が釘付けになった。[p]",
+   "And then — my eyes fixed on the sender and the addressee.[p]"
+  ],
+  [
+   2612,
+   "アーサー・キングより　真白結月へ。[p]",
+   "From Arthur King, to Yuduki Mashiro.[p]"
+  ],
+  [
+   2617,
+   "真白……。[p]",
+   "Mashiro...[p]"
+  ],
+  [
+   2622,
+   "そうです。[p]",
+   "Yes.[p]"
+  ],
+  [
+   2626,
+   "真歩流さんと愛理さんは——かつてこの館で恋をした、日本人の少女とイギリス人の青年の末裔なんです。[p]",
+   "You and Airi are — the descendants of the Japanese girl and the English young man who fell in love in this house.[p]"
+  ],
+  [
+   2630,
+   "そして私は、キング家の側からその血を受け継いでいる。[p]",
+   "And I carry that same blood, from the King side.[p]"
+  ],
+  [
+   2634,
+   "真歩流さん。[p]",
+   "Mahoru.[p]"
+  ],
+  [
+   2638,
+   "あなたと私は——遠い親戚なんです。[p]",
+   "You and I — are distant relatives.[p]"
+  ],
+  [
+   2641,
+   "事件のすべてが終わった後で、最後に残ったのは、誰かを追い詰めるための真実ではなかった。[p]",
+   "When everything about the case was over, what remained at the last was not a truth to corner anyone with.[p]"
+  ],
+  [
+   2643,
+   "長い戦争と時間を越えて、離れていた二つの家族をもう一度結ぶための真実だった。[p]",
+   "It was a truth that bound two long-separated families together again, across a war and across the years.[p]"
+  ],
+  [
+   2646,
+   "誰も言葉を発せなかった。[r]",
+   "Nobody could speak.[r]"
+  ],
+  [
+   2648,
+   "ただ——真歩流だけが、静かに手紙を胸に抱きしめていた。[p]",
+   "Only I stood there, quietly holding the letter to my chest.[p]"
+  ],
+  [
+   2651,
+   "もう、ここにはいない遠い存在へと思いを馳せながら……。[p]",
+   "Thinking of someone far away, who is no longer here...[p]"
+  ],
+  [
+   2670,
+   "事件の後、珠璃さんは殺人と殺人未遂の罪を認め、服役することになった。[p]",
+   "After the case, Juri admitted to murder and attempted murder, and went to prison.[p]"
+  ],
+  [
+   2676,
+   "……罪を、償います。[p]",
+   "...I'll atone for what I've done.[p]"
+  ],
+  [
+   2680,
+   "いつかまた——人を心から信じられるように……[p]",
+   "So that one day — I can believe in someone from the heart again...[p]"
+  ],
+  [
+   2685,
+   "朱志香さんは殺人未遂と銃刀法違反などの罪に問われ、実刑判決を受けた。[p]",
+   "Jushika was charged with attempted murder, firearms offenses and more, and given a custodial sentence.[p]"
+  ],
+  [
+   2688,
+   "そして愛理は、救急車で病院へ搬送された。[r]",
+   "And Airi was taken to hospital by ambulance.[r]"
+  ],
+  [
+   2690,
+   "和人の処置が功を奏し——愛理はすぐに回復した。[p]",
+   "Kazuto's treatment did its work — and she recovered quickly.[p]"
+  ],
+  [
+   2699,
+   "お姉ちゃん！　心配かけてごめんね！[p]",
+   "Sis! I'm sorry for worrying you![p]"
+  ],
+  [
+   2704,
+   "愛理！ 元気になってよかった……！[p]",
+   "Airi! I'm so glad you're well...![p]"
+  ],
+  [
+   2710,
+   "舞黒館の宿泊イベントから——一週間後。[p]",
+   "One week after the overnight event at Maicro House.[p]"
+  ],
+  [
+   2726,
+   "では——出発しましょう。[p]",
+   "Well then — shall we go?[p]"
+  ],
+  [
+   2730,
+   "お姉ちゃん、早く早く！[p]",
+   "Sis, hurry, hurry![p]"
+  ],
+  [
+   2734,
+   "また、その格好で行くの？[p]",
+   "Are you going dressed like that again?[p]"
+  ],
+  [
+   2739,
+   "もちろんよ！[p]",
+   "Of course I am![p]"
+  ],
+  [
+   2743,
+   "今度は本家本元、探偵の国だからね！[p]",
+   "This time it's the real thing — the home of the detective![p]"
+  ],
+  [
+   2747,
+   "真歩流、愛理、メアリーの三人は——飛行機に乗り込んだ。[r]",
+   "Mahoru, Airi and Mary boarded the aeroplane.[r]"
+  ],
+  [
+   2749,
+   "行き先は、イギリス。[p]",
+   "Their destination: England.[p]"
+  ],
+  [
+   2765,
+   "イギリス——メアリーの実家を訪ねると、そこには見覚えのある後ろ姿があった。[p]",
+   "In England — when we visited Mary's family home, a figure with a familiar back stood there.[p]"
+  ],
+  [
+   2770,
+   "お……お父さん……！？[p]",
+   "F-Dad...!?[p]"
+  ],
+  [
+   2776,
+   "真歩流、愛理……！[p]",
+   "Mahoru, Airi...![p]"
+  ],
+  [
+   2784,
+   "二人とも心配をかけてすまなかった。[p]",
+   "I'm sorry for worrying you both.[p]"
+  ],
+  [
+   2789,
+   "お父さん……！[p]",
+   "Dad...![p]"
+  ],
+  [
+   2793,
+   "すごく心配したんだから！[p]",
+   "We were so worried![p]"
+  ],
+  [
+   2800,
+   "もう、もう……！[p]",
+   "Honestly, honestly...![p]"
+  ],
+  [
+   2804,
+   "お母さんも怒っているんだからね！[p]",
+   "Mother is furious with you too![p]"
+  ],
+  [
+   2810,
+   "ああ、お母さんにも連絡をしたよ。ものすごく怒られたよ。[p]",
+   "Yes, I contacted her as well. She gave me a fearful telling-off.[p]"
+  ],
+  [
+   2815,
+   "それはそうよ……！[p]",
+   "And so she should have![p]"
+  ],
+  [
+   2819,
+   "お父さん！　どうして一人でイギリスに……！[p]",
+   "Dad! Why did you go to England alone!?[p]"
+  ],
+  [
+   2823,
+   "ちゃんと説明して！[p]",
+   "Explain properly![p]"
+  ],
+  [
+   2830,
+   "ああ、全部話す。でも——その前に二人に会わせたい人がいるんだ。[p]",
+   "I will, all of it. But — first there is someone I want you to meet.[p]"
+  ],
+  [
+   2837,
+   "奢禄の隣には、白髪の上品な老婦人が立っていた。[r]",
+   "Beside Sharoku stood an elegant old lady with white hair.[r]"
+  ],
+  [
+   2839,
+   "穏やかな青い目が、真歩流と愛理をしっかりと見つめた。[p]",
+   "Calm blue eyes looked steadily at Airi and me.[p]"
+  ],
+  [
+   2846,
+   "……懐かしい。[p]",
+   "...How it takes me back.[p]"
+  ],
+  [
+   2849,
+   "数十年ぶりに——結月に会えたようだわ。[p]",
+   "It is as though I were meeting Yuduki again, after all these decades.[p]"
+  ],
+  [
+   2854,
+   "……あなたは？[p]",
+   "...And you are?[p]"
+  ],
+  [
+   2858,
+   "クロエ・キングよ。メアリーの祖母です。[p]",
+   "Chloe King. Mary's grandmother.[p]"
+  ],
+  [
+   2864,
+   "おばあさま……[p]",
+   "Grandmother...[p]"
+  ],
+  [
+   2867,
+   "メアリー、よくここまで頑張りましたね。[p]",
+   "Mary, you have done wonderfully to come this far.[p]"
+  ],
+  [
+   2870,
+   "クロエはそっと、メアリーの手を取った。[p]",
+   "Chloe took Mary's hand gently.[p]"
+  ],
+  [
+   2882,
+   "真歩流、舞黒館の地下に金庫があっただろう。中は見たかい？[p]",
+   "Mahoru, there was a safe in the basement of Maicro House. Did you see inside it?[p]"
+  ],
+  [
+   2887,
+   "……うん、結月とアーサーという人の手紙があったよ。[p]",
+   "...Mm, there was a letter between someone called Yuduki and an Arthur.[p]"
+  ],
+  [
+   2891,
+   "あと、宝石もあった。そのままにしてきたけどね。[p]",
+   "And jewels. We left those as they were.[p]"
+  ],
+  [
+   2895,
+   "だけどお父さん、金庫はペンダントが無ければ、開かないはずじゃ。[p]",
+   "But Dad, the safe shouldn't open without the pendant.[p]"
+  ],
+  [
+   2900,
+   "真白の家にもペンダントがあるんだ。[p]",
+   "There is a pendant in the Mashiro family too.[p]"
+  ],
+  [
+   2904,
+   "私達のおじいさんが、アーサー・キングからもらったものでね。[p]",
+   "Our grandfather was given it by Arthur King.[p]"
+  ],
+  [
+   2908,
+   "じゃあ、お父さんは全部知っていたの？[p]",
+   "Then you knew all of it, Dad?[p]"
+  ],
+  [
+   2912,
+   "いや、私もほとんど知らなかった。[p]",
+   "No, I knew almost nothing.[p]"
+  ],
+  [
+   2916,
+   "けれど、舞黒館に行くときは持っておくようにとペンダントと共に父からもらったんだ。[p]",
+   "But my father gave me the pendant and told me to carry it whenever I went to Maicro House.[p]"
+  ],
+  [
+   2920,
+   "何のことかはわからなかったが。[p]",
+   "I had no idea what it meant.[p]"
+  ],
+  [
+   2924,
+   "お父さんはどうして途中で調査をやめてしまったの？[p]",
+   "Why did you stop your investigation partway, Dad?[p]"
+  ],
+  [
+   2929,
+   "……ああ、それが重要なことなんだ。[p]",
+   "...Ah, that is the important part.[p]"
+  ],
+  [
+   2933,
+   "地下室の金庫にはとある書類があったんだ。私はその書類の危険性を瞬時に察知した。[p]",
+   "There was a certain document in the safe in the basement. I saw at once how dangerous it was.[p]"
+  ],
+  [
+   2938,
+   "書類？[p]",
+   "A document?[p]"
+  ],
+  [
+   2942,
+   "そんな過去の書類に危険なものとかあるの？[p]",
+   "Can an old document really be dangerous?[p]"
+  ],
+  [
+   2948,
+   "不思議に思うのも無理はないさ。[p]",
+   "It's no wonder you find it strange.[p]"
+  ],
+  [
+   2952,
+   "なんせ、現代の技術でも不可能とされてきたことの資料だからね。[p]",
+   "Because it concerns something considered impossible even with modern technology.[p]"
+  ],
+  [
+   2957,
+   "現代でも不可能な技術……？[p]",
+   "Impossible even today...?[p]"
+  ],
+  [
+   2963,
+   "だから、朱志香さんにばれないよう、こっそりと書類を取って、調査を止めるように伝えたんだ。[p]",
+   "So I took the document quietly, without Jushika knowing, and told her to stop the investigation.[p]"
+  ],
+  [
+   2967,
+   "ただ、この書類をどうするかについては悩んだ。[p]",
+   "Though I agonised over what to do with it.[p]"
+  ],
+  [
+   2971,
+   "なんせ、その内容は非常に危険なものだったから。[p]",
+   "Because what it contained was extremely dangerous.[p]"
+  ],
+  [
+   2975,
+   "そこで内容について知る人物に、アドバイスをもらおうと思い、調べたらクロエさんにたどり着いたんだ。[p]",
+   "So I thought to ask advice from someone who knew about it, and my search led me to Mrs Chloe.[p]"
+  ],
+  [
+   2979,
+   "二人とお母さんには本当に心配をかけてすまなかったと思っている。[p]",
+   "I am truly sorry for worrying you two, and your mother.[p]"
+  ],
+  [
+   2984,
+   "その書類には……いったい何が書いてあったの？[p]",
+   "What... was written in that document?[p]"
+  ],
+  [
+   2989,
+   "ああ、それを話す前にクロエさんから話を聞いた方がわかりやすいだろうね。[p]",
+   "Ah — it will be easier to understand if you hear Mrs Chloe first.[p]"
+  ],
+  [
+   2996,
+   "メアリー……あなたにあげたペンダントはどうしたの？[p]",
+   "Mary... what became of the pendant I gave you?[p]"
+  ],
+  [
+   3000,
+   "真歩流さんに預かってもらっています——[p]",
+   "Mahoru is looking after it—[p]"
+  ],
+  [
+   3003,
+   "メアリーは真歩流を見た。[p]",
+   "Mary looked at me.[p]"
+  ],
+  [
+   3006,
+   "真歩流さん、そのペンダントを持っていた時に……何か不思議なことはなかったかしら？[p]",
+   "Mahoru, while you carried that pendant... did anything strange happen?[p]"
+  ],
+  [
+   3011,
+   "頭にノイズみたいなのが走って……声が聞こえたんです。人が考えているような——思考が、流れ込んでくるような感覚で。[p]",
+   "A kind of noise ran through my head... and I heard voices. As though someone's thoughts were pouring into me.[p]"
+  ],
+  [
+   3015,
+   "そう。それは——脳波で人の感情や思考を読み取る力が、あなたにあるからなのよ。[p]",
+   "I see. That is because you have the power to read people's feelings and thoughts through brainwaves.[p]"
+  ],
+  [
+   3018,
+   "真白家の血筋は、代々その力を潜在的に持っているの。[p]",
+   "The Mashiro line has carried that power latently for generations.[p]"
+  ],
+  [
+   3023,
+   "え……？　お父さんも、愛理も？[p]",
+   "What...? Dad too, and Airi?[p]"
+  ],
+  [
+   3033,
+   "私にはない……[p]",
+   "I have nothing of the sort...[p]"
+  ],
+  [
+   3037,
+   "私も、そんな感覚は全然なかったわ。[p]",
+   "Nor did I ever feel anything like that.[p]"
+  ],
+  [
+   3040,
+   "その力は——幼少の頃に、強力な電波のような、脳に強く影響を与える外的要因がないと発現しないの。[p]",
+   "The power only manifests if, in childhood, some external influence — strong radio waves, something that acts powerfully on the brain — is present.[p]"
+  ],
+  [
+   3043,
+   "あなたにはそれがあったのでしょうね。[p]",
+   "You must have had that.[p]"
+  ],
+  [
+   3048,
+   "え……？ 思い出せないけど、そんなことあったのかなあ。[p]",
+   "What...? I can't remember anything like that happening.[p]"
+  ],
+  [
+   3054,
+   "食い入るように、金魚のアニメを見ていたから、それじゃないの。[p]",
+   "You used to watch that goldfish cartoon as though your eyes would fall out. That'll be it.[p]"
+  ],
+  [
+   3058,
+   "毎日毎日ずっと見てたもんね。飽きもせずに。[p]",
+   "Every single day, without ever getting bored.[p]"
+  ],
+  [
+   3064,
+   "いいじゃない！ それに、それは関係ないわよ！[p]",
+   "What's wrong with that! And it has nothing to do with it![p]"
+  ],
+  [
+   3068,
+   "フフフ、仲がいいのね、二人は。[p]",
+   "Ha ha. You two are close, aren't you?[p]"
+  ],
+  [
+   3071,
+   "話を戻しましょう。[p]",
+   "Let us return to the subject.[p]"
+  ],
+  [
+   3074,
+   "そのペンダントには特別な電波を流す装置が埋め込まれていて、握ると対象者の脳内に電波が走る。[p]",
+   "That pendant has a device inside it that emits a particular wave; grip it, and the wave runs through the holder's brain.[p]"
+  ],
+  [
+   3077,
+   "特殊な脳を持つ人物を特定するために作られたいわゆる判別装置のようなものね。[p]",
+   "A sort of identifying device, made to find a person with that particular kind of brain.[p]"
+  ],
+  [
+   3082,
+   "それじゃあ、メアリーさんは私が親戚だって気づいていたの？[p]",
+   "Then Mary, did you know I was a relative?[p]"
+  ],
+  [
+   3089,
+   "確信はなかったけど、苗字は真白で、舞黒館で出会ったでしょう？[p]",
+   "I wasn't certain, but your name was Mashiro, and we met at Maicro House.[p]"
+  ],
+  [
+   3093,
+   "偶然とは考えられなかったから。[p]",
+   "I couldn't believe it was chance.[p]"
+  ],
+  [
+   3096,
+   "話を戻すと、そのペンダントは脳波をコントロールできる人の脳を活性化させる効果があるの。[p]",
+   "To go back — that pendant also has the effect of stimulating the brain of a person who can control brainwaves.[p]"
+  ],
+  [
+   3101,
+   "……つまり私は、ペンダントのおかげで人の考えを一時的に読み取ることができた、ということ？[p]",
+   "...So thanks to the pendant, I could read people's thoughts for a short time?[p]"
+  ],
+  [
+   3105,
+   "そうよ、真歩流さん。あなたにはその力がある。[p]",
+   "Exactly so, Mahoru. You have that power.[p]"
+  ],
+  [
+   3112,
+   "そして舞黒館にあった書類には——思考を読み取る力のこと、それから研究の詳細が記されていたんだよ。[p]",
+   "And the document at Maicro House recorded — the power to read thoughts, and the details of the research.[p]"
+  ],
+  [
+   3116,
+   "人の思考を読む技術が確立されたら大変なことになる。[p]",
+   "If a technology for reading people's thoughts were ever established, it would be a terrible thing.[p]"
+  ],
+  [
+   3120,
+   "だからこれ以上調べてはいけないと思って、調査を止めたんだ。[p]",
+   "So I decided it must not be looked into any further, and stopped the investigation.[p]"
+  ],
+  [
+   3125,
+   "そういうことだったんだ……[p]",
+   "So that's what it was...[p]"
+  ],
+  [
+   3134,
+   "あの……一つ聞いてもいいですか、クロエさん。[p]",
+   "Um... may I ask you something, Mrs Chloe?[p]"
+  ],
+  [
+   3137,
+   "なんでしょう？[p]",
+   "What is it?[p]"
+  ],
+  [
+   3141,
+   "どうしてクロエさんが……そんなことを知っているんですか？[p]",
+   "How do you... know all this, Mrs Chloe?[p]"
+  ],
+  [
+   3144,
+   "そうね、今から80年以上前のことよ……[p]",
+   "Well now. This was more than eighty years ago...[p]"
+  ],
+  [
+   3161,
+   "私はかつて兄アーサーと共に外交官である両親に連れられて日本へ行った。[p]",
+   "I once went to Japan with my brother Arthur, taken along by our parents, who were diplomats.[p]"
+  ],
+  [
+   3164,
+   "兄も両親も知らなかったけれど——私はイギリス政府付きの諜報員だった。[p]",
+   "Neither my brother nor my parents knew — but I was an agent of the British government.[p]"
+  ],
+  [
+   3167,
+   "私の任務は、あなたたちのお父様が持っている機密書類を回収することだったの。[p]",
+   "My task was to recover the secret document your father held.[p]"
+  ],
+  [
+   3172,
+   "諜報員……？[p]",
+   "An agent...?[p]"
+  ],
+  [
+   3176,
+   "ええ、イギリス政府は、機密書類を得ることで、人を超越する研究を進めようとしていたの。[p]",
+   "Yes. With that document, the British government meant to pursue research to surpass the human being.[p]"
+  ],
+  [
+   3179,
+   "思考が読めれば戦争も交渉事も有利に進められる。[p]",
+   "If you can read thoughts, you have the advantage in war and in negotiation alike.[p]"
+  ],
+  [
+   3182,
+   "戦争で疲弊し国力が落ちていた当時のイギリス政府からすれば、藁にも縋る思いだったのよ。[p]",
+   "To a government worn down by war and losing its strength, it was a straw worth clutching at.[p]"
+  ],
+  [
+   3186,
+   "……確かに人の考えが読めたら途方もない力が得られるでしょうね。[p]",
+   "...If you could read people's minds, the power would be immeasurable.[p]"
+  ],
+  [
+   3189,
+   "ええ、政府は力が欲しかった。絶対的な権力と安定した治世を行えると考えていたんでしょう。[p]",
+   "Yes. The government wanted power. Absolute authority and a settled rule, no doubt.[p]"
+  ],
+  [
+   3192,
+   "でも、私にはできなかった。[p]",
+   "But I could not do it.[p]"
+  ],
+  [
+   3195,
+   "兄アーサーが結月と恋人になり、私もまた結月の親友となり、この関係を崩したくなかった。[p]",
+   "My brother Arthur and Yuduki became lovers, and I became her closest friend, and I did not want to break what we had.[p]"
+  ],
+  [
+   3198,
+   "そうこうしているうちに、第二次世界大戦が始まり、イギリス本国へと戻ってきて、戦争の終結を待った。[p]",
+   "While all that went on, the Second World War began; I returned to Britain and waited for it to end.[p]"
+  ],
+  [
+   3201,
+   "そして——戦争が終わった時、政府は友人であり義姉でもある結月を、存在ごと抹殺しようとした。[p]",
+   "And then — when the war ended, the government tried to erase Yuduki, my friend and my sister-in-law, from existence.[p]"
+  ],
+  [
+   3204,
+   "日本から来た結月たちの乗った船を、誤射と偽って撃沈させたのよ。[p]",
+   "They sank the ship carrying Yuduki and the others from Japan, and called it a misfire.[p]"
+  ],
+  [
+   3207,
+   "兄のアーサーは抗議運動を起こして、政治犯として拘束されて獄中死した。[p]",
+   "My brother Arthur raised a protest, was held as a political prisoner, and died in gaol.[p]"
+  ],
+  [
+   3212,
+   "そんな……そんなのってないよ！[p]",
+   "That's... that's monstrous![p]"
+  ],
+  [
+   3216,
+   "本当にそうね。[p]",
+   "It truly is.[p]"
+  ],
+  [
+   3219,
+   "私も、その出来事を境に政府を見限った。[p]",
+   "I gave up on my government from that day.[p]"
+  ],
+  [
+   3222,
+   "日本に残された結月とアーサーの子供——その子孫たちが無事に暮らせるように、あの手この手で政府の目を欺いたわ。[p]",
+   "I deceived their eyes by every means I could, so that Yuduki and Arthur's child in Japan — and their descendants — might live in peace.[p]"
+  ],
+  [
+   3225,
+   "そして、いつか必ず結月と兄の子孫たちと連絡を取ろうと、思っていたの。[p]",
+   "And I always meant to reach Yuduki's and my brother's descendants, one day, without fail.[p]"
+  ],
+  [
+   3228,
+   "数十年かかったけれど……ようやく、ようやく……それが叶ったわ。[p]",
+   "It took decades... but at last, at last... it has happened.[p]"
+  ],
+  [
+   3231,
+   "会えて嬉しいわよ——真歩流さん、愛理さん。[p]",
+   "I am glad to have met you — Mahoru, Airi.[p]"
+  ],
+  [
+   3241,
+   "私も……会えて本当に嬉しいです、クロエさん。[p]",
+   "And I... am truly glad to have met you, Mrs Chloe.[p]"
+  ],
+  [
+   3252,
+   "あの……クロエさん。これ、洋館で見つけたんです。[p]",
+   "Um... Mrs Chloe. I found this in the house.[p]"
+  ],
+  [
+   3256,
+   "真歩流は、鞄からそっと一枚の古い写真を取り出した。[r]",
+   "I took an old photograph carefully out of my bag.[r]"
+  ],
+  [
+   3258,
+   "セピア色の紙面には、洋館の広間に並んだ人々が写っている。[p]",
+   "On the sepia paper stood a row of people in the hall of a Western house.[p]"
+  ],
+  [
+   3265,
+   "……まあ。[p]",
+   "...Oh, my.[p]"
+  ],
+  [
+   3268,
+   "これは——1935年の、あの日の写真だわ。[p]",
+   "This is — the photograph from that day in 1935.[p]"
+  ],
+  [
+   3271,
+   "舞黒さんと一緒に結月たちと撮ったのよ。一枚だけ、と。[p]",
+   "Taken with Mr Maicro and Yuduki and the rest. Just the one, we said.[p]"
+  ],
+  [
+   3276,
+   "じゃあ、この中に……[p]",
+   "Then in this photograph...[p]"
+  ],
+  [
+   3280,
+   "ええ。兄のアーサーも、結月も、私もいるわ。[p]",
+   "Yes. My brother Arthur, Yuduki, and I are all there.[p]"
+  ],
+  [
+   3283,
+   "舞黒さんの右にいるのが兄、左にいるのが結月よ。[p]",
+   "To Mr Maicro's right is my brother; to his left is Yuduki.[p]"
+  ],
+  [
+   3288,
+   "この人が結月おばあちゃん……[p]",
+   "So this is grandmother Yuduki...[p]"
+  ],
+  [
+   3293,
+   "クロエは棚から一冊の古いアルバムを取り出し、テーブルの上で開いた。[p]",
+   "Chloe took an old album from a shelf and opened it on the table.[p]"
+  ],
+  [
+   3296,
+   "空白のページばかりだった。[p]",
+   "The pages were almost all blank.[p]"
+  ],
+  [
+   3303,
+   "戦争が始まる直前に日本での思い出は全て処分されてしまった。[p]",
+   "Every memory of Japan was destroyed just before the war began.[p]"
+  ],
+  [
+   3306,
+   "ずっと——もう一度会いたかった……[p]",
+   "All these years — I wanted to see them once more...[p]"
+  ],
+  [
+   3309,
+   "クロエは真歩流から受け取った写真を、アルバムの空いた一枠にそっと収めた。[p]",
+   "Chloe took the photograph from me and set it gently into an empty frame on the page.[p]"
+  ],
+  [
+   3312,
+   "ありがとう、真歩流さん。[p]",
+   "Thank you, Mahoru.[p]"
+  ],
+  [
+   3317,
+   "……八十年越しの、忘れ物だね。[p]",
+   "...Eighty years late, and here it is at last.[p]"
+  ],
+  [
+   3332,
+   "私たちの家族には……こんな壮大な物語があったんだね、お姉ちゃん。[p]",
+   "So our family had... a story as grand as that, sis.[p]"
+  ],
+  [
+   3337,
+   "うん。それに今は本当に嬉しい。[p]",
+   "Mm. And I'm so happy right now.[p]"
+  ],
+  [
+   3341,
+   "また、こうして家族全員で会えたんだから……[p]",
+   "Because we're all together again, the whole family...[p]"
+  ],
+  [
+   3345,
+   "上を見上げると、イギリスの柔らかい青い空が広がっていた。[p]",
+   "When I looked up, the soft blue sky of England spread above us.[p]"
+  ],
+  [
+   3361,
+   "日本へ帰ってから——しばらく後。[p]",
+   "After we returned to Japan — a while later.[p]"
+  ],
+  [
+   3368,
+   "和人！　久しぶり。[p]",
+   "Kazuto! It's been a while.[p]"
+  ],
+  [
+   3373,
+   "ああ。イギリスはどうだった。[p]",
+   "Mm. How was England?[p]"
+  ],
+  [
+   3378,
+   "すごかったよ。色々あって……話すと長くなるんだけど。[p]",
+   "Amazing. So much happened... it's a long story.[p]"
+  ],
+  [
+   3383,
+   "そうか。[p]",
+   "I see.[p]"
+  ],
+  [
+   3388,
+   "和人、改めてありがとう。愛理を助けてくれて。[p]",
+   "Kazuto, thank you again. For saving Airi.[p]"
+  ],
+  [
+   3394,
+   "当然のことをしたまでだ。礼はいらない。[p]",
+   "I only did what anyone would. No thanks needed.[p]"
+  ],
+  [
+   3399,
+   "和人と会えて、良かった。本当に。[p]",
+   "I'm glad I met you, Kazuto. Truly.[p]"
+  ],
+  [
+   3405,
+   "……俺もだ。[p]",
+   "...So am I.[p]"
+  ],
+  [
+   3408,
+   "和人が、少し照れたような顔をした。[p]",
+   "Kazuto looked a little embarrassed.[p]"
+  ],
+  [
+   3413,
+   "あのね、和人——少しの間、また日本を離れてイギリスに行くことになるんだけど。[p]",
+   "The thing is, Kazuto — I'll be leaving Japan for England again for a while.[p]"
+  ],
+  [
+   3418,
+   "そうか。[p]",
+   "I see.[p]"
+  ],
+  [
+   3423,
+   "うん……なんか、寂しいな、って思って。[p]",
+   "Mm... it's just, I feel a bit sad about it.[p]"
+  ],
+  [
+   3427,
+   "真歩流が帰ろうと踵を返した——その時。[p]",
+   "I turned on my heel to go — and then.[p]"
+  ],
+  [
+   3431,
+   "——真歩流。[p]",
+   "—Mahoru.[p]"
+  ],
+  [
+   3436,
+   "……え？[p]",
+   "...What?[p]"
+  ],
+  [
+   3440,
+   "和人は今まで「真白」と呼んでいた。[r]",
+   "He had always called me “Mashiro.”[r]"
+  ],
+  [
+   3442,
+   "名前で、呼んでくれた——初めて。[p]",
+   "He called me by my name — for the first time.[p]"
+  ],
+  [
+   3447,
+   "（……なんで、こんなにうれしいんだろう）[p]",
+   "(...Why does that make me so happy?)[p]"
+  ],
+  [
+   3453,
+   "母さんの墓参りに行くんだが……一緒に来るか？[p]",
+   "I'm going to visit my mother's grave... will you come?[p]"
+  ],
+  [
+   3458,
+   "……うん。一緒に行く！[p]",
+   "...Mm. I'll come![p]"
+  ],
+  [
+   3462,
+   "二人は並んで、歩き始めた。[r]",
+   "The two of us began to walk, side by side.[r]"
+  ],
+  [
+   3464,
+   "秋の光が柔らかく降り注いで——遠く、海が光っていた。[p]",
+   "Autumn light fell softly — and far off, the sea was shining.[p]"
+  ],
+  [
+   3469,
+   "一つの物語が終わるとき、また新しい物語が始まる。[p]",
+   "When one story ends, another begins.[p]"
+  ],
+  [
+   3472,
+   "人生という名の物語はこれからも続いていくのだ。[p]",
+   "The story called a life goes on from here.[p]"
+  ],
+  [
+   3478,
+   "真歩流！[p]",
+   "Mahoru![p]"
+  ],
+  [
+   3482,
+   "俺は……[p]",
+   "I...[p]"
+  ],
+  [
+   3489,
+   "……え、えええええ！[p]",
+   "...Wh-whaaaaat![p]"
+  ]
+ ]
+}

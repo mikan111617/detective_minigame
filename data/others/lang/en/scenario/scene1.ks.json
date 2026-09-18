@@ -1,0 +1,1155 @@
+{
+ "src": "data/scenario/scene1.ks",
+ "lines": [
+  [
+   18,
+   "[gage_draw place=\"舞黒館前\"]",
+   "[gage_draw place=\"Outside Maicro House\"]"
+  ],
+  [
+   27,
+   "お姉ちゃん、ここがそうなの？[p]",
+   "Sis, is this the place?[p]"
+  ],
+  [
+   30,
+   "お洒落で素敵な所ね。[p]",
+   "It's beautiful![p]"
+  ],
+  [
+   33,
+   "妹の[ruby text=\"あい\" ]愛[ruby text=\"り\" ]理が、目を輝かせて西洋館を見上げる。[p]",
+   "My little sister Airi looks up at the Western-style mansion, her eyes shining.[p]"
+  ],
+  [
+   40,
+   "そのはずよ……。[p]",
+   "It should be...[p]"
+  ],
+  [
+   43,
+   "お父さんのメモ通りならね。[p]",
+   "If Dad's note was right.[p]"
+  ],
+  [
+   48,
+   "私、真白[ruby text=\"ま\" ]真[ruby text=\"ほ\" ]歩[ruby text=\"る\" ]流と妹の愛理は横浜にある舞黒館に来ていた。[p]",
+   "I am Mahoru Mashiro, and my sister Airi and I had come to Maicro House in Yokohama.[p]"
+  ],
+  [
+   54,
+   "お父さんが来たくなるのも納得だわ。[p]",
+   "No wonder Dad wanted to come here.[p]"
+  ],
+  [
+   57,
+   "……待っててね、お父さん。[p]",
+   "...Wait for me, Dad.[p]"
+  ],
+  [
+   62,
+   "父、真白[ruby text=\"しゃ\" ]奢[ruby text=\"ろく\" ]禄が行方不明になってから、すでに半年。[p]",
+   "It has already been half a year since our father, Sharoku Mashiro, went missing.[p]"
+  ],
+  [
+   64,
+   "コンサルティング会社を経営する父は、ある日突然、姿を消した。[p]",
+   "He ran a consulting firm, and one day he simply vanished.[p]"
+  ],
+  [
+   75,
+   "[gage_draw place=\"真白家:リビング\" hide_time=\"true\"]",
+   "[gage_draw place=\"The Mashiro House:Living Room\" hide_time=\"true\"]"
+  ],
+  [
+   79,
+   "半年前の朝。コーヒーの香りが漂うリビング。[p]",
+   "Six months earlier. The aroma of coffee filled the living room.[p]"
+  ],
+  [
+   81,
+   "新聞を読む父の表情がどこか真剣みを帯びていた。[p]",
+   "Father was reading the paper, and there was something serious in his face.[p]"
+  ],
+  [
+   88,
+   "お父さん、今日はどこか遠くに行くの？[p]",
+   "Dad, are you going somewhere far away today?[p]"
+  ],
+  [
+   93,
+   "何気ない私の問いに、父は新聞を机の上に置いた。[p]",
+   "At my casual question, he set the newspaper down on the table.[p]"
+  ],
+  [
+   97,
+   "ああ、顧客の依頼で……ちょっと調べたいことがあってね。[p]",
+   "Ah — a client's request. There is something I want to look into.[p]"
+  ],
+  [
+   101,
+   "私が留守の間、お母さんと愛理を頼むよ、真歩流。[p]",
+   "While I'm away, look after your mother and Airi for me, Mahoru.[p]"
+  ],
+  [
+   104,
+   "それが、私が見た父の最後の姿だった。[p]",
+   "That was the last I ever saw of my father.[p]"
+  ],
+  [
+   111,
+   "[gage_draw place=\"舞黒館前\"]",
+   "[gage_draw place=\"Outside Maicro House\"]"
+  ],
+  [
+   115,
+   "私は父の行方を追うため、ここに来たのだ。[p]",
+   "I had come here to follow his trail.[p]"
+  ],
+  [
+   117,
+   "手がかりは父のメールに残された「舞黒館」という言葉のみ。[p]",
+   "The only clue was one word left in his email: “Maicro House.”[p]"
+  ],
+  [
+   118,
+   "この場所で開催される特別宿泊イベント。[r]",
+   "A special overnight event held at this very place.[r]"
+  ],
+  [
+   120,
+   "これこそが、千載一遇のチャンス！[p]",
+   "This was the chance of a lifetime![p]"
+  ],
+  [
+   127,
+   "（絶対にお父さんを見つけてみせるんだから！）[p]",
+   "(I am absolutely going to find Dad!)[p]"
+  ],
+  [
+   132,
+   "私は帽子のつばを、くいっと上げた。[p]",
+   "I tipped up the brim of my hat with a flourish.[p]"
+  ],
+  [
+   139,
+   "ねえ、お姉ちゃん……[p]",
+   "Um, sis...[p]"
+  ],
+  [
+   142,
+   "本当にその格好で入るの？[p]",
+   "Are you really going in dressed like that?[p]"
+  ],
+  [
+   148,
+   "似合ってるでしょう。[p]",
+   "It suits me, doesn't it?[p]"
+  ],
+  [
+   156,
+   "変装っていうか、コスプレよそれ。[p]",
+   "That isn't a disguise, it's a costume.[p]"
+  ],
+  [
+   159,
+   "恥ずかしいから他人のふりしてもいい？[p]",
+   "It's embarrassing. Can I pretend I don't know you?[p]"
+  ],
+  [
+   162,
+   "愛理は深く、深く溜息をついた。[r]",
+   "Airi let out a deep, deep sigh.[r]"
+  ],
+  [
+   164,
+   "お洒落が大好きな彼女にとって、私のこの「正装」は許容範囲外らしい。[p]",
+   "For someone who loves fashion as much as she does, my idea of “formal wear” was apparently a step too far.[p]"
+  ],
+  [
+   170,
+   "あら、愛理。何事も形から入るのが大切なのよ。[p]",
+   "Oh, Airi. Looking the part is what matters most.[p]"
+  ],
+  [
+   173,
+   "さあ、張り切って調査開始よ！[p]",
+   "Right then — let the investigation begin![p]"
+  ],
+  [
+   181,
+   "はぁ……お姉ちゃんの暴走を止めるのが私の仕事か……。[p]",
+   "...So I guess it's my job to keep my sister from getting carried away.[p]"
+  ],
+  [
+   184,
+   "お父さん、私頑張るからね。[p]",
+   "Dad, I'm going to do my best.[p]"
+  ],
+  [
+   190,
+   "あっ、ちょっと、お姉ちゃん！ 置いていかないでよ！[p]",
+   "Ah — wait, sis! Don't leave me behind![p]"
+  ],
+  [
+   193,
+   "こうして、真白姉妹の壮絶な一日が幕を開けたのである。[p]",
+   "And so began the Mashiro sisters' quite extraordinary day.[p]"
+  ],
+  [
+   218,
+   "[gage_draw place=\"舞黒館:玄関\"]",
+   "[gage_draw place=\"Maicro House:Entrance Hall\"]"
+  ],
+  [
+   230,
+   "重厚な扉が開くと、そこには凛とした空気の女性が立っていた。[r][l]",
+   "The heavy door opened, revealing a woman with a calm, dignified air.[r][l]"
+  ],
+  [
+   232,
+   "背筋を伸ばし、しかし柔和な笑みを浮かべたその姿は、この館そのもののように落ち着いていた。[p]",
+   "She stood straight-backed with a gentle smile, as composed as the mansion itself.[p]"
+  ],
+  [
+   239,
+   "お待ちしておりました、真白真歩流様、愛理様。[p]",
+   "We've been expecting you — Mahoru Mashiro and Airi Mashiro.[p]"
+  ],
+  [
+   243,
+   "私がこの舞黒館を預かっております、[ruby text=\"ふ\" ]富[ruby text=\"れ\" ]礼[ruby text=\"ち\" ]知[ruby text=\"じゅ\" ]朱[ruby text=\"し\" ]志[ruby text=\"か\" ]香です。[p]",
+   "I am Jushika Furechi, and I look after Maicro House.[p]"
+  ],
+  [
+   250,
+   "あ、どうも！ 真白真歩流です！[p]",
+   "Oh, hello! I'm Mahoru Mashiro![p]"
+  ],
+  [
+   253,
+   "こっちが妹の愛理です。[p]",
+   "And this is my sister, Airi.[p]"
+  ],
+  [
+   261,
+   "よろしくお願いします。[p]",
+   "It's a pleasure to meet you.[p]"
+  ],
+  [
+   269,
+   "すごく素敵な建物ですね！ 西洋の雰囲気に包まれて、何だか海外に来たみたいです！[p]",
+   "What a beautiful building! The whole place feels so European — it's like we've gone abroad![p]"
+  ],
+  [
+   278,
+   "ふふ、お褒めいただき光栄です。[p]",
+   "How kind of you to say so.[p]"
+  ],
+  [
+   281,
+   "どうぞ、中へ。[p]",
+   "Please, do come in.[p]"
+  ],
+  [
+   286,
+   "[gage_draw place=\"舞黒館:リビング\"]",
+   "[gage_draw place=\"Maicro House:Living Room\"]"
+  ],
+  [
+   292,
+   "改めまして、ようこそ。[p]",
+   "Once again, welcome.[p]"
+  ],
+  [
+   295,
+   "本日の宿泊イベントには、お二人を含めて六名様が参加されます。[p]",
+   "Six guests are taking part in today's event, including the two of you.[p]"
+  ],
+  [
+   298,
+   "残るお二方も、まもなく到着されるでしょう。[p]",
+   "The remaining two should arrive shortly.[p]"
+  ],
+  [
+   302,
+   "それから……皆様のお世話をするメイドを紹介しますね。[p]",
+   "And now — let me introduce the maid who will be looking after you all.[p]"
+  ],
+  [
+   305,
+   "小出里亜さん？[p]",
+   "Koderia?[p]"
+  ],
+  [
+   320,
+   "はい、すぐに行きます。[p]",
+   "Yes, I'll be right there.[p]"
+  ],
+  [
+   323,
+   "鈴が転がるような声と共に、一人の女性が現れた。[p]",
+   "A young woman appeared, her clear, lilting voice carrying ahead of her.[p]"
+  ],
+  [
+   325,
+   "完璧な角度のお辞儀。そして顔を上げた瞬間の、花が咲くような笑顔。[p]",
+   "A bow at a perfect angle. And then, as she raised her head, a smile like a flower opening.[p]"
+  ],
+  [
+   329,
+   "いらっしゃいませ。[r][l]",
+   "Welcome.[r][l]"
+  ],
+  [
+   332,
+   "[ruby text=\"はい\" ]灰[ruby text=\"ね\" ]音[ruby text=\"こ\" ]小[ruby text=\"で\" ]出[ruby text=\"り\" ]里[ruby text=\"あ\" ]亜と申します。[p]",
+   "My name is Koderia Haine.[p]"
+  ],
+  [
+   335,
+   "滞在中は、私が皆様の身の回りの世話をお手伝いいたします。[p]",
+   "I'll be looking after you during your stay.[p]"
+  ],
+  [
+   342,
+   "（か、可愛い……！）[p]",
+   "(Sh-she's adorable...!)[p]"
+  ],
+  [
+   345,
+   "（初めてメイドさんを見たよ！）[p]",
+   "(That's the first real maid I've ever seen!)[p]"
+  ],
+  [
+   353,
+   "よ、よろしくお願いします！[p]",
+   "I-it's a pleasure to meet you![p]"
+  ],
+  [
+   362,
+   "ふふっ、元気なお客様で嬉しいです。[p]",
+   "How nice to have such lively guests.[p]"
+  ],
+  [
+   365,
+   "お荷物、お部屋までお運びしますか？[p]",
+   "Shall I carry your luggage up to your rooms?[p]"
+  ],
+  [
+   371,
+   "ありがとうございます。[p]",
+   "Thank you very much.[p]"
+  ],
+  [
+   377,
+   "それでは、お預かりしますね。[p]",
+   "Then I'll take those for you.[p]"
+  ],
+  [
+   386,
+   "それにしても……真白様。[p]",
+   "Though I must say... Miss Mashiro.[p]"
+  ],
+  [
+   389,
+   "とても可愛らしい格好ですね。[p]",
+   "What a charming outfit.[p]"
+  ],
+  [
+   395,
+   "似合ってますか！？[p]",
+   "Does it suit me?![p]"
+  ],
+  [
+   398,
+   "大学の友人が仕立ててくれたんです。[p]",
+   "A friend at university made it for me.[p]"
+  ],
+  [
+   404,
+   "ええ、とても。[p]",
+   "It does, very much.[p]"
+  ],
+  [
+   410,
+   "あの、他の参加者の方は……？[p]",
+   "Um, and the other guests...?[p]"
+  ],
+  [
+   419,
+   "奥のリビングルームでおくつろぎです。[p]",
+   "They're relaxing in the living room at the back.[p]"
+  ],
+  [
+   423,
+   "私は荷物をお運びするので、これにて。[p]",
+   "I'll take your luggage upstairs. Please excuse me.[p]"
+  ],
+  [
+   428,
+   "小出里亜は一礼すると、音もなく奥へと下がっていった。[p]",
+   "Koderia bowed once and withdrew without a sound.[p]"
+  ],
+  [
+   430,
+   "去り際、リビングの方に一瞬だけ視線を向けた。[p]",
+   "As she went, she glanced for just an instant toward the living room.[p]"
+  ],
+  [
+   443,
+   "では、ごゆっくり。[p]",
+   "Please, make yourselves at home.[p]"
+  ],
+  [
+   447,
+   "参加者は全部で6人。[p]",
+   "Six guests in all.[p]"
+  ],
+  [
+   449,
+   "私たち姉妹を含めて、あと4人。[p]",
+   "Which means four besides the two of us.[p]"
+  ],
+  [
+   456,
+   "屋敷を調べるときは怪しまれないように注意しないとね。[p]",
+   "I'll have to be careful not to look suspicious while I search the house.[p]"
+  ],
+  [
+   465,
+   "言うまでもないけれど、あまりこそこそ調べたりしないでよ。[p]",
+   "It goes without saying, but don't go creeping around too much.[p]"
+  ],
+  [
+   468,
+   "まあ、一応お姉ちゃんの格好なら、逆に調べやすいかもしれないけど。[p]",
+   "Though I suppose, dressed like that, it might actually be easier for you.[p]"
+  ],
+  [
+   474,
+   "怪しまれるから、そんなことはしないわよ。[p]",
+   "I'd be found out, so I won't do anything like that.[p]"
+  ],
+  [
+   477,
+   "それにしても、どうして調べやすいのよ……？[p]",
+   "And anyway, why would it be easier?[p]"
+  ],
+  [
+   486,
+   "探偵になりきっている痛い女子大生だと思ってもらえるからね。[p]",
+   "Because they'll just think I'm some weird college student playing detective.[p]"
+  ],
+  [
+   492,
+   "……なるほどね。[p]",
+   "...I see.[p]"
+  ],
+  [
+   495,
+   "って、それじゃあ、ただの変な人じゃない！[p]",
+   "Wait, that just makes me sound weird![p]"
+  ],
+  [
+   503,
+   "だって、その通りでしょ。[p]",
+   "Well, that's exactly my point.[p]"
+  ],
+  [
+   506,
+   "愛理と話していると、ソファの方から声がかかった。[p]",
+   "As I was talking with Airi, a voice came from the direction of the sofa.[p]"
+  ],
+  [
+   516,
+   "おや？ 随分と可愛らしい格好の参加者だね。[p]",
+   "Oh? A guest in a rather charming outfit.[p]"
+  ],
+  [
+   519,
+   "事件の匂いでもかぎつけてきたのかい？[p]",
+   "Have you caught the scent of a case?[p]"
+  ],
+  [
+   522,
+   "ニヤリと笑う優男。[r]",
+   "A handsome, gentle-looking man gave us a playful smirk.[r]"
+  ],
+  [
+   524,
+   "整った顔立ちでこちらを見ている。[p]",
+   "His features were neat and refined.[p]"
+  ],
+  [
+   528,
+   "[ruby text=\"ほ\" ]穂[ruby text=\"あ\" ]在[ruby text=\"ろ\" ]呂[ruby text=\"え\" ]叡[ruby text=\"る\" ]留[ruby text=\"く\" ]久だ。[r][l]",
+   "Eruku Hoaro, at your service.[r][l]"
+  ],
+  [
+   531,
+   "君たちのような若いお嬢さんも参加しているとは驚きだなあ。[p]",
+   "I'm surprised young ladies like you are taking part.[p]"
+  ],
+  [
+   534,
+   "よほど洋館が好きなのかい？[p]",
+   "Are you that fond of Western houses?[p]"
+  ],
+  [
+   537,
+   "それとも、コスプレを楽しみに来たのかい？[p]",
+   "Or did you come for the fun of dressing up?[p]"
+  ],
+  [
+   541,
+   "叡留久から、ふわっと甘い香水の匂いが漂う。[p]",
+   "A sweet trace of cologne drifted from Eruku.[p]"
+  ],
+  [
+   545,
+   "あなた、からかったら可哀想でしょう？[p]",
+   "Darling, it's cruel to tease them.[p]"
+  ],
+  [
+   548,
+   "叡留久の隣にいた女性が、美しい声で嗜めた。[p]",
+   "The woman beside him chided him in a beautiful voice.[p]"
+  ],
+  [
+   552,
+   "初めまして。妻の[ruby text=\"じゅ\" ]珠[ruby text=\"り\" ]璃よ。よろしくね。[p]",
+   "Nice to meet you. I'm his wife, Juri.[p]"
+  ],
+  [
+   555,
+   "ザ・キャリアウーマン。[p]",
+   "The very picture of a career woman.[p]"
+  ],
+  [
+   557,
+   "整ったメイク、高そうな服、そして……圧倒的なプロポーション。[p]",
+   "Immaculate makeup, expensive clothes, and... an absolutely stunning figure.[p]"
+  ],
+  [
+   561,
+   "はは、すまない。[p]",
+   "Ha, sorry about that.[p]"
+  ],
+  [
+   564,
+   "君のその衣装があまりに決まっていたから、ついね。[p]",
+   "Your costume was so perfectly put together that I couldn't resist.[p]"
+  ],
+  [
+   567,
+   "君の手作りかい？[p]",
+   "Did you make it yourself?[p]"
+  ],
+  [
+   573,
+   "いえ！ 友人の力作なんです！[p]",
+   "No! It's a friend's masterpiece![p]"
+  ],
+  [
+   576,
+   "お二人はご夫婦での参加なんですね、素敵です！[p]",
+   "So the two of you came together as a couple? How lovely![p]"
+  ],
+  [
+   582,
+   "ええ、そうよ。[p]",
+   "Yes, that's right.[p]"
+  ],
+  [
+   587,
+   "SNSでここの写真を見つけてね。夫にお願いしたの。[p]",
+   "I found a photograph of this place on social media, and asked my husband to bring me.[p]"
+  ],
+  [
+   590,
+   "珠璃がスマホの画面を見せてくる。[p]",
+   "Juri showed me the screen of her phone.[p]"
+  ],
+  [
+   592,
+   "ネイルまで完璧に手入れされた指先。[p]",
+   "Fingertips with perfectly kept nails.[p]"
+  ],
+  [
+   598,
+   "わあ、素敵な写真……これ、山下公園ですか？[p]",
+   "Oh, what a lovely photograph... is this Yamashita Park?[p]"
+  ],
+  [
+   604,
+   "そうよ。この辺りの雰囲気、昔から好きなの。[p]",
+   "It is. I've always loved the feel of this area.[p]"
+  ],
+  [
+   612,
+   "……ああ、本当にいい場所だ。[p]",
+   "...Ah, it really is a fine place.[p]"
+  ],
+  [
+   616,
+   "この洋館も素敵よね。[p]",
+   "And this house is wonderful too.[p]"
+  ],
+  [
+   619,
+   "ねえあなた、うちにもサンルームを作りましょうよ。[p]",
+   "Darling, let's have a sunroom put in at home.[p]"
+  ],
+  [
+   623,
+   "おお、いいね。[p]",
+   "Ha, why not.[p]"
+  ],
+  [
+   626,
+   "それじゃ、いっちょ張り切って頑張ろうかな。[p]",
+   "All right, I suppose I'd better work hard, then.[p]"
+  ],
+  [
+   639,
+   "[gage_draw place=\"舞黒館:リビング\"]",
+   "[gage_draw place=\"Maicro House:Living Room\"]"
+  ],
+  [
+   647,
+   "その時、玄関の方で再び物音がした。[p]",
+   "Just then, there was another sound from the entrance hall.[p]"
+  ],
+  [
+   654,
+   "お姉ちゃん、最後の方たちが来たみたい。[p]",
+   "Sis, I think the last of them have arrived.[p]"
+  ],
+  [
+   659,
+   "少しして、リビングに入ってきたのは対照的な二人組だった。[p]",
+   "A little later, two very contrasting people came into the living room.[p]"
+  ],
+  [
+   679,
+   "ヒッ……え、英語！？[p]",
+   "Eek... E-English?![p]"
+  ],
+  [
+   682,
+   "あ、あわわ……は、はろー……？[p]",
+   "Uh, um... h-hello...?[p]"
+  ],
+  [
+   687,
+   "愛理が固まった。[p]",
+   "Airi froze on the spot.[p]"
+  ],
+  [
+   689,
+   "英語の成績はトップクラスなのに、会話となると全く話にならないのが愛理の可愛いところだ。[p]",
+   "Her English grades are among the best in her class, but when it comes to actually speaking it, she freezes up completely. It's one of her charms.[p]"
+  ],
+  [
+   713,
+   "でも、日本語でも大丈夫ですよ？[p]",
+   "But Japanese is quite all right, you know?[p]"
+  ],
+  [
+   719,
+   "へ……？[p]",
+   "Huh...?[p]"
+  ],
+  [
+   725,
+   "ふふ、少しなら話せますから。[p]",
+   "I can speak a little.[p]"
+  ],
+  [
+   731,
+   "よ、よかったぁ……。[p]",
+   "Oh, thank goodness...[p]"
+  ],
+  [
+   734,
+   "日本語お上手ですね、びっくりしました。[p]",
+   "Your Japanese is amazing! I had no idea you spoke it so well.[p]"
+  ],
+  [
+   740,
+   "イギリスから来ました、メアリーです。[p]",
+   "I'm Mary. I've come from England.[p]"
+  ],
+  [
+   743,
+   "まだ勉強中なので、変な言葉だったら教えてくださいね。[p]",
+   "I'm still learning, so do tell me if I say anything strange.[p]"
+  ],
+  [
+   749,
+   "イギリス……！ いいなあ、紅茶の国！[p]",
+   "England...! The home of tea! I'm jealous![p]"
+  ],
+  [
+   752,
+   "私も住んでみたいなあ。[p]",
+   "I'd like to live there myself.[p]"
+  ],
+  [
+   760,
+   "お姉ちゃん、それはすごく偏見よ……。[p]",
+   "Sis, that's a pretty big stereotype...[p]"
+  ],
+  [
+   768,
+   "え、そうかなあ？[p]",
+   "Is it? Really?[p]"
+  ],
+  [
+   771,
+   "ごめんなさい、つい興奮しちゃって。[p]",
+   "I'm sorry, I got a little carried away.[p]"
+  ],
+  [
+   777,
+   "いいんですよ。[p]",
+   "Not at all.[p]"
+  ],
+  [
+   780,
+   "私も紅茶とミステリーが大好きですから。[p]",
+   "I love tea and mysteries too.[p]"
+  ],
+  [
+   789,
+   "メアリーは私と愛理の顔をじっと見つめた。[r]",
+   "Mary looked steadily at Airi and me.[r]"
+  ],
+  [
+   791,
+   "なんだか感慨深げにこちらを見つめる。[p]",
+   "There was something wistful in the way she watched us.[p]"
+  ],
+  [
+   795,
+   "あの……もしかして、真白さんは……[p]",
+   "Um... Miss Mashiro, are you by any chance...[p]"
+  ],
+  [
+   801,
+   "え、何ですか？ 私の顔に何かついてます？[p]",
+   "Yes? Is there something on my face?[p]"
+  ],
+  [
+   809,
+   "あ……いえ、なんでもないんです。[p]",
+   "Ah... no, it's nothing.[p]"
+  ],
+  [
+   812,
+   "ただ、とても親しみを感じてしまって。[p]",
+   "It's just... you feel strangely familiar.[p]"
+  ],
+  [
+   815,
+   "仲良くしてくださいね。[p]",
+   "I hope we can be friends.[p]"
+  ],
+  [
+   821,
+   "もちろんです！ こちらこそ！[p]",
+   "Of course! The pleasure's mine![p]"
+  ],
+  [
+   826,
+   "メアリーさんの不思議な雰囲気。初めて会った気がしないのは、なぜだろう。[p]",
+   "There was something curious about Mary. Why did it feel as though we'd met before?[p]"
+  ],
+  [
+   830,
+   "おい、荷物を置きに行きたいんだが？[p]",
+   "Hey. I'd like to put my bags down.[p]"
+  ],
+  [
+   833,
+   "冷たい声が割って入った。[r]",
+   "A cold voice cut in.[r]"
+  ],
+  [
+   835,
+   "メアリーと一緒に入ってきた、不機嫌そうな青年だった。[p]",
+   "It was the sullen-looking young man who had come in with Mary.[p]"
+  ],
+  [
+   842,
+   "[ruby text=\"じょ\" ]徐[ruby text=\"おん\" ]音[ruby text=\"かず\" ]和[ruby text=\"と\" ]人。医大生だ。[p]",
+   "Kazuto Joon. A medical student.[p]"
+  ],
+  [
+   845,
+   "まあ、よろしく。[p]",
+   "Yeah. Nice to meet you, I guess.[p]"
+  ],
+  [
+   851,
+   "あ、はい。真白真歩流です……。[p]",
+   "Oh — yes. I'm Mahoru Mashiro...[p]"
+  ],
+  [
+   854,
+   "医大生なんだ、すごいね！[p]",
+   "A medical student? That's impressive![p]"
+  ],
+  [
+   860,
+   "別に何てことはない。[p]",
+   "It's nothing special.[p]"
+  ],
+  [
+   863,
+   "それより……お前、なんだその格好は？[p]",
+   "More to the point... what is that get-up?[p]"
+  ],
+  [
+   869,
+   "ふふ、似合ってるでしょう！[p]",
+   "It suits me, doesn't it![p]"
+  ],
+  [
+   875,
+   "……。馬鹿はどこにでもいるもんだな。[p]",
+   "...Guess there are idiots everywhere.[p]"
+  ],
+  [
+   878,
+   "荷物を置きに行く。失礼。[p]",
+   "I'm going to put my bags down. Excuse me.[p]"
+  ],
+  [
+   883,
+   "和人はそれだけ言うと、さっさと歩き去ってしまった。[p]",
+   "With that, Kazuto strode off.[p]"
+  ],
+  [
+   889,
+   "クールだね……。でも、格好いいかも。[p]",
+   "He's kind of cold... but maybe a little cool, too.[p]"
+  ],
+  [
+   897,
+   "馬鹿って何よ！[p]",
+   "Who are you calling an idiot?![p]"
+  ],
+  [
+   900,
+   "私、何か悪いことしたわけじゃないのにー！[p]",
+   "I haven't done anything wrong![p]"
+  ],
+  [
+   908,
+   "だから言ったじゃない。[p]",
+   "I told you so.[p]"
+  ],
+  [
+   917,
+   "ふふ、面白い方たちが揃いましたね。[p]",
+   "What an interesting group we have.[p]"
+  ],
+  [
+   920,
+   "私も、荷物を置いてきます。[p]",
+   "I'll put my things away as well.[p]"
+  ],
+  [
+   925,
+   "これで全員揃った。[p]",
+   "Now everyone's here.[p]"
+  ],
+  [
+   927,
+   "無事にお父さんの手がかりを見つけて、楽しく過ごせたらいい。[p]",
+   "If I can find some clue about Dad and still enjoy the day, that would be perfect.[p]"
+  ],
+  [
+   930,
+   "一息ついていると、甘い香りと共に小出里亜が現れた。[p]",
+   "As I caught my breath, Koderia appeared with a sweet scent about her.[p]"
+  ],
+  [
+   939,
+   "皆様、お揃いでしょうか？[p]",
+   "Is everyone here?[p]"
+  ],
+  [
+   942,
+   "これから、舞黒館の管理者である朱志香様よりご挨拶があります。[p]",
+   "Miss Jushika, who looks after Maicro House, would like to say a few words.[p]"
+  ],
+  [
+   945,
+   "それでは、朱志香様お願いします。[p]",
+   "Miss Jushika, if you would.[p]"
+  ],
+  [
+   953,
+   "皆様、お待たせしました。[p]",
+   "Thank you all for waiting.[p]"
+  ],
+  [
+   956,
+   "改めて、舞黒館へようこそ。[p]",
+   "Welcome once again to Maicro House.[p]"
+  ],
+  [
+   960,
+   "舞黒館は1930年に[ruby text=\"まい\" ]舞[ruby text=\"くろ\" ]黒[ruby text=\"ほう\" ]邦[ruby text=\"む\" ]夢が建てた洋館です。[p]",
+   "Maicro House is a Western residence built in 1930 by Houmu Maicro.[p]"
+  ],
+  [
+   964,
+   "アールデコを基調とした美しい外観と広い庭園に囲まれています。[p]",
+   "It has a beautiful Art Deco exterior, and is surrounded by extensive gardens.[p]"
+  ],
+  [
+   968,
+   "庭園には数多くのハーブも植えられており、香り豊かなひと時を楽しめます。[p]",
+   "Many herbs are planted in those gardens, so you may enjoy an hour rich with scent.[p]"
+  ],
+  [
+   972,
+   "また、舞黒は遊び心が豊かで洋館にもいろんな仕掛けをしていたと聞いております。[p]",
+   "I am told Mr Maicro was a playful man, and that he built all manner of contrivances into the house.[p]"
+  ],
+  [
+   976,
+   "私は夫からここの管理を引き継いで、まだ半年になったばかり。[p]",
+   "I took over the running of this place from my husband only half a year ago.[p]"
+  ],
+  [
+   980,
+   "至らぬ点もあるかと思いますが、皆様に楽しい機会をお届けできるよう、尽力いたします。[p]",
+   "I may not get everything right, but I'll do my best to make sure you all have a wonderful time.[p]"
+  ],
+  [
+   984,
+   "それでは、長旅の疲れを癒やすティータイムといたしましょう。[p]",
+   "Now then, let us have tea and recover from your journeys.[p]"
+  ],
+  [
+   987,
+   "ダイニングへご案内します。[p]",
+   "I'll show you to the dining room.[p]"
+  ],
+  [
+   992,
+   "[gage_draw place=\"舞黒館:ダイニング\"]",
+   "[gage_draw place=\"Maicro House:Dining Room\"]"
+  ],
+  [
+   999,
+   "当館自慢の、オリジナルブレンドティーです。[p]",
+   "This is our own original blend.[p]"
+  ],
+  [
+   1002,
+   "注がれた紅茶から、華やかな香りが立ち上る。[p]",
+   "A splendid fragrance rose from the poured tea.[p]"
+  ],
+  [
+   1009,
+   "いい香り……。[p]",
+   "What a lovely scent...[p]"
+  ],
+  [
+   1012,
+   "でも、少し珍しい香りですね。これは……？[p]",
+   "Though it's a little unusual. What is it?[p]"
+  ],
+  [
+   1021,
+   "ハーブを数種類ブレンドしております。[p]",
+   "It is a blend of several herbs.[p]"
+  ],
+  [
+   1024,
+   "リラックス効果が高いんですよ。[p]",
+   "Very good for relaxing.[p]"
+  ],
+  [
+   1028,
+   "まあ、素敵。[p]",
+   "How wonderful.[p]"
+  ],
+  [
+   1031,
+   "……いただきます。[p]",
+   "...Thank you for the tea.[p]"
+  ],
+  [
+   1036,
+   "[gage_draw place=\"舞黒館:ダイニング\"]",
+   "[gage_draw place=\"Maicro House:Dining Room\"]"
+  ],
+  [
+   1044,
+   "ご馳走様でした。[p]",
+   "That was delicious.[p]"
+  ],
+  [
+   1047,
+   "とても美味しかったです！[p]",
+   "It was really lovely![p]"
+  ],
+  [
+   1056,
+   "それは良かったです。[p]",
+   "I'm so glad.[p]"
+  ],
+  [
+   1059,
+   "この後は庭園でゆっくりしてください。近隣にも洋館がありますので見学するなら今のうちです。[p]",
+   "Do please spend some time in the gardens. There are other Western houses nearby, so now is the time if you wish to see them.[p]"
+  ],
+  [
+   1062,
+   "15時までは外へ通じる門を開放しておりますので、ぜひ散策してみてくださいね。[p]",
+   "The gate to the road is open until three o'clock, so do go for a walk.[p]"
+  ],
+  [
+   1065,
+   "また、本日はみなとみらいで大規模なイベントをやっております。[p]",
+   "Also, there is a large event on in Minato Mirai today.[p]"
+  ],
+  [
+   1068,
+   "港の見える丘公園より向こうへは規制がかかっているため、立ち入りできないので散策の際はお気を付けください。[p]",
+   "Everything beyond Harbour View Park is restricted and closed off, so please take care on your walk.[p]"
+  ],
+  [
+   1072,
+   "それでは、当館名物のメイフェア・ガーデンへ移動しましょう。[p]",
+   "Now, let us move to the pride of this house: Mayfair Garden.[p]"
+  ],
+  [
+   1083,
+   "あ、メアリーさん、何か落としましたよ。[p]",
+   "Oh, Mary, you've dropped something.[p]"
+  ],
+  [
+   1092,
+   "あ、ペンダントが外れて落ちたのね。[p]",
+   "Oh, my pendant must have come undone.[p]"
+  ],
+  [
+   1095,
+   "気づいてくれてありがとうございます。[p]",
+   "Thank you for noticing.[p]"
+  ],
+  [
+   1101,
+   "今、拾いますね。[p]",
+   "I'll pick it up.[p]"
+  ],
+  [
+   1109,
+   "あれ……？[p]",
+   "What...?[p]"
+  ],
+  [
+   1112,
+   "なに……これ……？[p]",
+   "What... is this...?[p]"
+  ],
+  [
+   1117,
+   "ペンダントに触れた瞬間、頭の中にノイズが走った。[p]",
+   "The moment I touched the pendant, a noise tore through my head.[p]"
+  ],
+  [
+   1119,
+   "目の前の景色は揺れ、まるで世界が崩れ落ちるような感覚に襲われた。[p]",
+   "The scene in front of me swayed, as though the world were falling apart.[p]"
+  ],
+  [
+   1125,
+   "うっ……！[p]",
+   "Ugh...![p]"
+  ],
+  [
+   1128,
+   "一体……これは……？[p]",
+   "What on earth... was that...?[p]"
+  ],
+  [
+   1137,
+   "真歩流さん、大丈夫ですか？[p]",
+   "Mahoru, are you all right?[p]"
+  ],
+  [
+   1140,
+   "顔が真っ青ですよ。[p]",
+   "You've gone quite white.[p]"
+  ],
+  [
+   1146,
+   "（何が起きたんだろう……？）[p]",
+   "(What just happened...?)[p]"
+  ],
+  [
+   1149,
+   "（落ち着いて、深呼吸しよう）[p]",
+   "(Calm down. Take a deep breath.)[p]"
+  ],
+  [
+   1152,
+   "（スー、ハー。スーハー……）[p]",
+   "(In, out. In, out...)[p]"
+  ],
+  [
+   1161,
+   "もう、大丈夫です！[p]",
+   "I'm all right now![p]"
+  ],
+  [
+   1164,
+   "ご心配おかけしました。[p]",
+   "Sorry to have worried you.[p]"
+  ],
+  [
+   1172,
+   "何事もなくてよかったです。[p]",
+   "I'm glad it was nothing.[p]"
+  ],
+  [
+   1175,
+   "あの、真歩流さん、もしかして……。[p]",
+   "Um, Mahoru, could it be that you...[p]"
+  ],
+  [
+   1181,
+   "何ですか？[p]",
+   "Yes?[p]"
+  ],
+  [
+   1189,
+   "いえ、何でもありません。[p]",
+   "No, it's nothing.[p]"
+  ],
+  [
+   1192,
+   "体調が悪くなったらいつでも言ってくださいね。[p]",
+   "If you start feeling unwell, please let me know right away.[p]"
+  ],
+  [
+   1198,
+   "わかりました！[p]",
+   "I will![p]"
+  ],
+  [
+   1201,
+   "（さっきのは一体何だったんだろう……？）[p]",
+   "(What in the world was that...?)[p]"
+  ]
+ ]
+}

@@ -1,0 +1,35 @@
+{
+ "src": "data/scenario/system/gallery.ks",
+ "lines": [
+  [
+   88,
+   "      + '<div style=\"font-family:' + TITLE + ';font-size:78px;letter-spacing:0.1em;color:#f3dcc4\">記録</div>'",
+   "      + '<div style=\"font-family:' + TITLE + ';font-size:78px;letter-spacing:0.1em;color:#f3dcc4\">ARCHIVE</div>'"
+  ],
+  [
+   91,
+   "        + '周回をまたいで残ります。<br>経路によって手に入るものが違うので、両方を歩くと埋まります。</div>'",
+   "        + 'These carry over between playthroughs.<br>Different routes turn up different finds, so walk both to fill them in.</div>'"
+  ],
+  [
+   94,
+   "      + row(\"glAchievement\", \"称号\", \"ACHIEVEMENTS\", ach_n + \" / \" + ach_max)",
+   "      + row(\"glAchievement\", \"TITLES\", \"ACHIEVEMENTS\", ach_n + \" / \" + ach_max)"
+  ],
+  [
+   95,
+   "      + row(\"glItems\",       \"図鑑：証拠品\", \"EVIDENCE\",  item_n + \" / \" + item_max)",
+   "      + row(\"glItems\",       \"EVIDENCE\", \"ITEMS\",  item_n + \" / \" + item_max)"
+  ],
+  [
+   96,
+   "      + row(\"glCharas\",      \"図鑑：人物\",   \"CHARACTERS\", chara_n + \" / \" + chara_max)",
+   "      + row(\"glCharas\",      \"CHARACTERS\",   \"PEOPLE\", chara_n + \" / \" + chara_max)"
+  ],
+  [
+   97,
+   "      + row(\"glBack\",        \"タイトルへ戻る\", \"BACK\", \"\")",
+   "      + row(\"glBack\",        \"BACK TO TITLE\", \"\", \"\")"
+  ]
+ ]
+}

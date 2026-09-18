@@ -1,0 +1,455 @@
+{
+ "src": "data/scenario/system/inv_data_scene4.ks",
+ "lines": [
+  [
+   8,
+   "  title:      \"舞黒館 ― 父の足取り\",",
+   "  title:      \"Maicro House - Father's Trail\","
+  ],
+  [
+   11,
+   "  endLabel:   \"夕食まで残り\",",
+   "  endLabel:   \"Until dinner\","
+  ],
+  [
+   12,
+   "  exitLabel:  \"探索を終える\",",
+   "  exitLabel:  \"End the search\","
+  ],
+  [
+   13,
+   "  hint:       \"半年前に舞黒館を訪れた父の記録を追いながら、館そのものも調べてみましょう。\",",
+   "  hint:       \"Follow the record of your father's visit half a year ago, and look over the house itself while you are at it.\","
+  ],
+  [
+   17,
+   "  stepNote:   \"新しいことがわかると3分経過します。調べ直しや移動では進みません。\",",
+   "  stepNote:   \"Three minutes pass whenever you learn something new. Re-checking or moving costs nothing.\","
+  ],
+  [
+   23,
+   "  counter:    { label:\"見つけた手がかり\" },",
+   "  counter:    { label:\"Clues found\" },"
+  ],
+  [
+   30,
+   "    { label:\"父の足取り\", reveal:\"true\",",
+   "    { label:\"Father's trail\", reveal:\"true\","
+  ],
+  [
+   33,
+   "    { label:\"四桁の数字\", reveal:\"f.radio_code_known==1\",",
+   "    { label:\"The four digits\", reveal:\"f.radio_code_known==1\","
+  ],
+  [
+   36,
+   "    { label:\"三色の硝子\",",
+   "    { label:\"The three panes\","
+  ],
+  [
+   42,
+   "    { id:\"genkan\", name:\"玄関\", floor:1, bg:\"entrance.png\", target:\"*scene_genkan\",",
+   "    { id:\"genkan\", name:\"Entrance Hall\", floor:1, bg:\"entrance.png\", target:\"*scene_genkan\","
+  ],
+  [
+   44,
+   "        { label:\"記帳台\", note:\"宿泊者全員の入館記録\", x:87, y:51,",
+   "        { label:\"Register desk\", note:\"Arrival times for every guest\", x:87, y:51,"
+  ],
+  [
+   48,
+   "    { id:\"living\", name:\"リビング\", floor:1, bg:\"living.png\", target:\"*scene_living\",",
+   "    { id:\"living\", name:\"Living Room\", floor:1, bg:\"living.png\", target:\"*scene_living\","
+  ],
+  [
+   51,
+   "        { label:\"ソファ\", note:\"クッションの隙間が気になる\", x:20, y:66,",
+   "        { label:\"Sofa\", note:\"Something in the gap between the cushions\", x:20, y:66,"
+  ],
+  [
+   53,
+   "        { label:\"暖炉\", note:\"作りをよく見てみる\", x:67, y:54,",
+   "        { label:\"Fireplace\", note:\"Take a closer look at how it is built\", x:67, y:54,"
+  ],
+  [
+   57,
+   "        { id:\"eruku\", name:\"叡留久\", color:\"#BA7517\", initial:\"叡\",",
+   "        { id:\"eruku\", name:\"Eruku\", color:\"#BA7517\", initial:\"ER\","
+  ],
+  [
+   60,
+   "            { label:\"仕事のことを聞く\",     flag:\"event_hercule_1\", target:\"*evt_hercule\", cond:\"true\" },",
+   "            { label:\"Ask about his work\",     flag:\"event_hercule_1\", target:\"*evt_hercule\", cond:\"true\" },"
+  ],
+  [
+   61,
+   "            { label:\"散策の後の様子を聞く\", flag:\"event_hercule_2\", target:\"*evt_hercule\",",
+   "            { label:\"Ask how he was after the walk\", flag:\"event_hercule_2\", target:\"*evt_hercule\","
+  ],
+  [
+   62,
+   "              cond:\"f.event_hercule_1==1 && f.event_kitchen_lip==1\", lock:\"口紅を渡した後に解放\" }",
+   "              cond:\"f.event_hercule_1==1 && f.event_kitchen_lip==1\", lock:\"opens after you hand over the lipstick\" }"
+  ],
+  [
+   64,
+   "        { id:\"mary\", name:\"メアリー\", color:\"#378ADD\", initial:\"メ\",",
+   "        { id:\"mary\", name:\"Mary\", color:\"#378ADD\", initial:\"MA\","
+  ],
+  [
+   66,
+   "            { label:\"ペンダントと親戚のこと\", flag:\"event_mary_1\", target:\"*evt_mary\", cond:\"true\" },",
+   "            { label:\"The pendant, and her relatives\", flag:\"event_mary_1\", target:\"*evt_mary\", cond:\"true\" },"
+  ],
+  [
+   67,
+   "            { label:\"参加した本当の理由\",     flag:\"event_mary_2\", target:\"*evt_mary\",",
+   "            { label:\"Her real reason for coming\",     flag:\"event_mary_2\", target:\"*evt_mary\","
+  ],
+  [
+   69,
+   "              lock:\"館の記録を調べると解放\" },",
+   "              lock:\"opens once you search the house records\" },"
+  ],
+  [
+   70,
+   "            { label:\"手作りの香水のこと\",     flag:\"event_mary_perfume\", target:\"*evt_mary_perfume\",",
+   "            { label:\"About her handmade perfume\",     flag:\"event_mary_perfume\", target:\"*evt_mary_perfume\","
+  ],
+  [
+   72,
+   "              lock:\"メアリーのスーツケースを調べると解放\" }",
+   "              lock:\"opens once you search Mary's suitcase\" }"
+  ],
+  [
+   76,
+   "    { id:\"dining\", name:\"ダイニング\", floor:1, bg:\"dining.png\", target:\"*scene_dining\",",
+   "    { id:\"dining\", name:\"Dining Room\", floor:1, bg:\"dining.png\", target:\"*scene_dining\","
+  ],
+  [
+   78,
+   "        { label:\"食器棚\",   note:\"当時の食器が並んでいる\", x:62, y:33,",
+   "        { label:\"Dresser\",   note:\"Period tableware on display\", x:62, y:33,"
+  ],
+  [
+   80,
+   "        { label:\"テーブル\", note:\"朱志香が拭いていた\",     x:38, y:68,",
+   "        { label:\"Table\", note:\"Jushika was wiping it down\",     x:38, y:68,"
+  ],
+  [
+   82,
+   "        { label:\"壁の絵\",   note:\"額の位置が少しずれている\", x:46, y:35,",
+   "        { label:\"Painting on the wall\",   note:\"The frame sits slightly askew\", x:46, y:35,"
+  ],
+  [
+   86,
+   "        { id:\"jushika\", name:\"朱志香\", color:\"#1D9E75\", initial:\"朱\",",
+   "        { id:\"jushika\", name:\"Jushika\", color:\"#1D9E75\", initial:\"JU\","
+  ],
+  [
+   88,
+   "            { label:\"半年前の父について聞く\", flag:\"event_shurika_father\", target:\"*evt_shurika_father\", cond:\"true\" },",
+   "            { label:\"Ask about father, half a year ago\", flag:\"event_shurika_father\", target:\"*evt_shurika_father\", cond:\"true\" },"
+  ],
+  [
+   89,
+   "            { label:\"執務室でのことを話す\",   flag:\"event_shurika\", target:\"*evt_shurika\", cond:\"true\" },",
+   "            { label:\"Tell her about the study\",   flag:\"event_shurika\", target:\"*evt_shurika\", cond:\"true\" },"
+  ],
+  [
+   90,
+   "            { label:\"舞黒邦夢さんについて\",   flag:\"event_kunimu\",  target:\"*evt_shurika_kunimu\",",
+   "            { label:\"About Houmu Maicro\",   flag:\"event_kunimu\",  target:\"*evt_shurika_kunimu\","
+  ],
+  [
+   91,
+   "              cond:\"f.event_shurika==1\", lock:\"一度話した後に解放\" },",
+   "              cond:\"f.event_shurika==1\", lock:\"opens after you speak to her once\" },"
+  ],
+  [
+   95,
+   "            { label:\"資料室の模型について\", note:\"館を示す図と古い鍵を手に入れると解放\" ,  flag:\"study_model\",   target:\"*evt_shurika_model\",",
+   "            { label:\"About the model in the archive\", note:\"opens once you have the plan of the house and the old key\" ,  flag:\"study_model\",   target:\"*evt_shurika_model\","
+  ],
+  [
+   97,
+   "              lock:\"館の仕掛けをどちらも解き明かすと解放\" }",
+   "              lock:\"opens once you solve both mechanisms in the house\" }"
+  ],
+  [
+   101,
+   "    { id:\"kitchen\", name:\"キッチン\", floor:1, bg:\"kitchen.png\", target:\"*scene_kitchen\",",
+   "    { id:\"kitchen\", name:\"Kitchen\", floor:1, bg:\"kitchen.png\", target:\"*scene_kitchen\","
+  ],
+  [
+   103,
+   "        { label:\"テーブル\", note:\"夕食の準備が進んでいる\", x:75, y:75,",
+   "        { label:\"Table\", note:\"Dinner preparations under way\", x:75, y:75,"
+  ],
+  [
+   105,
+   "        { label:\"コンロと棚\",         note:\"年代物の鋳鉄コンロ\",     x:15, y:75,",
+   "        { label:\"Stove and shelves\",         note:\"An antique cast-iron range\",     x:15, y:75,"
+  ],
+  [
+   109,
+   "        { id:\"koderia\", name:\"小出里亜\", color:\"#D4537E\", initial:\"里\",",
+   "        { id:\"koderia\", name:\"Koderia\", color:\"#D4537E\", initial:\"KO\","
+  ],
+  [
+   111,
+   "            { label:\"手に取っていた小瓶のこと\", flag:\"event_ria_1\", target:\"*evt_ria\", cond:\"true\" },",
+   "            { label:\"About the small bottle she was holding\", flag:\"event_ria_1\", target:\"*evt_ria\", cond:\"true\" },"
+  ],
+  [
+   112,
+   "            { label:\"メイドになった経緯\",       flag:\"event_ria_2\", target:\"*evt_ria\",",
+   "            { label:\"How she came to be a maid\",       flag:\"event_ria_2\", target:\"*evt_ria\","
+  ],
+  [
+   113,
+   "              cond:\"f.event_ria_1==1\", lock:\"一度話した後に解放\" }",
+   "              cond:\"f.event_ria_1==1\", lock:\"opens after you speak to her once\" }"
+  ],
+  [
+   117,
+   "        { label:\"口紅を渡す\", flag:\"event_kitchen_lip\", target:\"*evt_kitchen_lip\",",
+   "        { label:\"Hand over the lipstick\", flag:\"event_kitchen_lip\", target:\"*evt_kitchen_lip\","
+  ],
+  [
+   120,
+   "        { label:\"キッチンの様子を見る\", flag:\"event_kitchen_lip\", target:\"*evt_kitchen_lip\",",
+   "        { label:\"Look around the kitchen\", flag:\"event_kitchen_lip\", target:\"*evt_kitchen_lip\","
+  ],
+  [
+   122,
+   "          lock:\"叡留久がリビングを離れた後に解放\" }",
+   "          lock:\"opens after Eruku leaves the living room\" }"
+  ],
+  [
+   125,
+   "    { id:\"sunroom1\", name:\"サンルーム\", floor:1, bg:\"sunroom.png\", target:\"*scene_sunroom1\",",
+   "    { id:\"sunroom1\", name:\"Sunroom\", floor:1, bg:\"sunroom.png\", target:\"*scene_sunroom1\","
+  ],
+  [
+   127,
+   "        { label:\"テーブル\",     note:\"陽当たりのいい席\",       x:50, y:67,",
+   "        { label:\"Table\",     note:\"A seat in the sunlight\",       x:50, y:67,"
+  ],
+  [
+   129,
+   "        { label:\"観葉植物\",     note:\"かなり大きい鉢\",         x:15, y:76,",
+   "        { label:\"Potted plant\",     note:\"A very large pot\",         x:15, y:76,"
+  ],
+  [
+   133,
+   "        { id:\"juri\", name:\"珠璃\", color:\"#D85A30\", initial:\"珠\",",
+   "        { id:\"juri\", name:\"Juri\", color:\"#D85A30\", initial:\"JR\","
+  ],
+  [
+   135,
+   "            { label:\"サンルームのことを聞く\", flag:\"event_juri\", target:\"*evt_juri\", cond:\"true\" }",
+   "            { label:\"Ask about the sunroom\", flag:\"event_juri\", target:\"*evt_juri\", cond:\"true\" }"
+  ],
+  [
+   141,
+   "    { id:\"rouka1\", name:\"廊下\", floor:1, bg:\"hallway.png\", target:\"*scene_rouka1\",",
+   "    { id:\"rouka1\", name:\"Corridor\", floor:1, bg:\"hallway.png\", target:\"*scene_rouka1\","
+  ],
+  [
+   143,
+   "      spots:[], chars:[ { id:\"airi\", name:\"愛理\", color:\"#7F77DD\", initial:\"愛\", topics:[] } ] },",
+   "      spots:[], chars:[ { id:\"airi\", name:\"Airi\", color:\"#7F77DD\", initial:\"AI\", topics:[] } ] },"
+  ],
+  [
+   147,
+   "    { id:\"bedroom\", name:\"宿泊部屋\", floor:2, bg:\"bedroom.png\", target:\"*scene_bedroom\",",
+   "    { id:\"bedroom\", name:\"Guest Rooms\", floor:2, bg:\"bedroom.png\", target:\"*scene_bedroom\","
+  ],
+  [
+   149,
+   "      wingHint:\"扉を選ぶと、その部屋に入って調査できます。\",",
+   "      wingHint:\"Choose a door to enter that room and search it.\","
+  ],
+  [
+   152,
+   "    { id:\"bd_hozairo\", parent:\"bedroom\", name:\"穂在呂夫妻の部屋\", floor:2, bg:\"room_hoaro.png\",",
+   "    { id:\"bd_hozairo\", parent:\"bedroom\", name:\"The Hoaros' Room\", floor:2, bg:\"room_hoaro.png\","
+  ],
+  [
+   153,
+   "      occupant:\"穂在呂 叡留久・珠璃\", door:\"A\", target:\"*scene_bd_hozairo\",",
+   "      occupant:\"Eruku & Juri Hoaro\", door:\"A\", target:\"*scene_bd_hozairo\","
+  ],
+  [
+   155,
+   "        { label:\"珠璃のスーツケース\", note:\"持ち手だけが濡れている\", x:61, y:86,",
+   "        { label:\"Juri's suitcase\", note:\"Only the handle is wet\", x:61, y:86,"
+  ],
+  [
+   159,
+   "    { id:\"bd_kazuto\", parent:\"bedroom\", name:\"和人の部屋\", floor:2, bg:\"room_kazuto.png\",",
+   "    { id:\"bd_kazuto\", parent:\"bedroom\", name:\"Kazuto's Room\", floor:2, bg:\"room_kazuto.png\","
+  ],
+  [
+   160,
+   "      occupant:\"徐音 和人\", door:\"B\", target:\"*scene_bd_kazuto\",",
+   "      occupant:\"Kazuto Joon\", door:\"B\", target:\"*scene_bd_kazuto\","
+  ],
+  [
+   162,
+   "        { label:\"和人のリュック\", note:\"几帳面に置かれている\", x:70, y:84,",
+   "        { label:\"Kazuto's rucksack\", note:\"Set down with great care\", x:70, y:84,"
+  ],
+  [
+   164,
+   "        { label:\"和人の書棚\",     note:\"背表紙の並びが妙だ\",   x:10, y:35,",
+   "        { label:\"Kazuto's bookcase\",     note:\"The spines are oddly arranged\",   x:10, y:35,"
+  ],
+  [
+   168,
+   "    { id:\"bd_mary\", parent:\"bedroom\", name:\"メアリーの部屋\", floor:2, bg:\"room_mary.png\",",
+   "    { id:\"bd_mary\", parent:\"bedroom\", name:\"Mary's Room\", floor:2, bg:\"room_mary.png\","
+  ],
+  [
+   169,
+   "      occupant:\"メアリー\", door:\"C\", target:\"*scene_bd_mary\",",
+   "      occupant:\"Mary King\", door:\"C\", target:\"*scene_bd_mary\","
+  ],
+  [
+   171,
+   "        { label:\"メアリーのスーツケース\", note:\"花の香りが漂う\", x:74, y:90,",
+   "        { label:\"Mary's suitcase\", note:\"A scent of flowers hangs about it\", x:74, y:90,"
+  ],
+  [
+   173,
+   "        { label:\"机\",                     note:\"窓際の書き物机\", x:17, y:57,",
+   "        { label:\"Desk\",                     note:\"A writing desk by the window\", x:17, y:57,"
+  ],
+  [
+   177,
+   "    { id:\"bd_mashiro\", parent:\"bedroom\", name:\"真白姉妹の部屋\", floor:2, bg:\"room_mashiro.png\",",
+   "    { id:\"bd_mashiro\", parent:\"bedroom\", name:\"The Mashiro Sisters' Room\", floor:2, bg:\"room_mashiro.png\","
+  ],
+  [
+   178,
+   "      occupant:\"真歩流・愛理\", door:\"D\", target:\"*scene_bd_mashiro\",",
+   "      occupant:\"Mahoru & Airi\", door:\"D\", target:\"*scene_bd_mashiro\","
+  ],
+  [
+   180,
+   "        { label:\"自分たちの荷物\", note:\"朝に置いたままのバッグ\", x:59, y:89,",
+   "        { label:\"Our own luggage\", note:\"The bags left here this morning\", x:59, y:89,"
+  ],
+  [
+   182,
+   "        { label:\"本棚\",           note:\"古い蔵書が並んでいる\",   x:50, y:30,",
+   "        { label:\"Bookshelf\",           note:\"Rows of old volumes\",   x:50, y:30,"
+  ],
+  [
+   186,
+   "    { id:\"sunroom2\", name:\"サンルーム\", floor:2, bg:\"sunroom_second.png\", target:\"*scene_sunroom2\",",
+   "    { id:\"sunroom2\", name:\"Sunroom\", floor:2, bg:\"sunroom_second.png\", target:\"*scene_sunroom2\","
+  ],
+  [
+   188,
+   "        { label:\"暖炉\",           note:\"立派な造りの暖炉\",   x:70, y:55,",
+   "        { label:\"Fireplace\",           note:\"A handsomely built fireplace\",   x:70, y:55,"
+  ],
+  [
+   190,
+   "        { label:\"ふかふかの椅子\", note:\"座るとふわっとする\", x:47, y:72,",
+   "        { label:\"Deep armchair\", note:\"You sink right into it\", x:47, y:72,"
+  ],
+  [
+   194,
+   "    { id:\"lounge\", name:\"談話室\", floor:2, bg:\"talk_room.png\", target:\"*scene_lounge\",",
+   "    { id:\"lounge\", name:\"Drawing Room\", floor:2, bg:\"talk_room.png\", target:\"*scene_lounge\","
+  ],
+  [
+   196,
+   "        { label:\"模型と部屋のずれを確かめる\", note:\"窓側の奥行きが模型と合わない\", x:36, y:50,",
+   "        { label:\"Compare the model with the room\", note:\"The depth by the window does not match the model\", x:36, y:50,"
+  ],
+  [
+   199,
+   "        { label:\"飾り棚\", note:\"扉つきの戸棚がある\", x:75, y:54,",
+   "        { label:\"Display cabinet\", note:\"A cupboard with doors\", x:75, y:54,"
+  ],
+  [
+   203,
+   "    { id:\"archive\", name:\"資料室\", floor:2, bg:\"reference_room.png\", target:\"*scene_archive\",",
+   "    { id:\"archive\", name:\"Archive Room\", floor:2, bg:\"reference_room.png\", target:\"*scene_archive\","
+  ],
+  [
+   205,
+   "        { label:\"出資者リスト\", note:\"「地下増築工事 出資者一覧」\", x:7, y:38,",
+   "        { label:\"List of backers\", note:\"“Backers of the basement extension”\", x:7, y:38,"
+  ],
+  [
+   207,
+   "        { label:\"資料閲覧簿\", note:\"誰がどの資料を閲覧したかの記録\", x:66, y:45,",
+   "        { label:\"Archive log\", note:\"A record of who consulted which documents\", x:66, y:45,"
+  ],
+  [
+   210,
+   "        { label:\"記録表\",         note:\"「戦前の訪問者記録」\",       x:36, y:45,",
+   "        { label:\"Visitor ledger\",         note:\"“Pre-war visitor records”\",       x:36, y:45,"
+  ],
+  [
+   212,
+   "        { label:\"舞黒館の模型\", note:\"改築時の館を再現した古い模型\", x:50, y:63,",
+   "        { label:\"Model of Maicro House\", note:\"An old model of the house as rebuilt\", x:50, y:63,"
+  ],
+  [
+   214,
+   "        { label:\"上段の本棚\",     note:\"はめ込むための窪みがある\", x:42, y:16,",
+   "        { label:\"Upper bookshelf\",     note:\"There is a recess made to fit something\", x:42, y:16,"
+  ],
+  [
+   218,
+   "        { id:\"kazuto\", name:\"和人\", color:\"#5F5E5A\", initial:\"和\",",
+   "        { id:\"kazuto\", name:\"Kazuto\", color:\"#5F5E5A\", initial:\"KA\","
+  ],
+  [
+   220,
+   "            { label:\"参加した理由を聞く\", flag:\"event_arc_kazuto\", target:\"*evt_arc_kazuto\", cond:\"true\" }",
+   "            { label:\"Ask why he came\", flag:\"event_arc_kazuto\", target:\"*evt_arc_kazuto\", cond:\"true\" }"
+  ],
+  [
+   224,
+   "    { id:\"study\", name:\"執務室\", floor:2, bg:\"office.png\", target:\"*scene_study\",",
+   "    { id:\"study\", name:\"Study\", floor:2, bg:\"office.png\", target:\"*scene_study\","
+  ],
+  [
+   225,
+   "      lock:\"f.study_unlocked==1\", lockNote:\"朱志香の許可が必要\",",
+   "      lock:\"f.study_unlocked==1\", lockNote:\"you need Jushika's permission\","
+  ],
+  [
+   227,
+   "        { label:\"建築図面一式\", note:\"舞黒館の正式な建築図面\", x:40, y:48,",
+   "        { label:\"Set of building plans\", note:\"The formal architectural drawings for Maicro House\", x:40, y:48,"
+  ],
+  [
+   230,
+   "        { label:\"古い資料\", note:\"大量の資料が詰まっている\", x:60, y:35,",
+   "        { label:\"Old documents\", note:\"Crammed with papers\", x:60, y:35,"
+  ],
+  [
+   232,
+   "        { label:\"執務机\",       note:\"引き出しに鍵穴がある\",     x:58, y:66,",
+   "        { label:\"Writing desk\",       note:\"There is a keyhole in the drawer\",     x:58, y:66,"
+  ],
+  [
+   234,
+   "        { label:\"執務椅子\",     note:\"立派な椅子\",       x:75, y:52,",
+   "        { label:\"Desk chair\",     note:\"A fine chair\",       x:75, y:52,"
+  ],
+  [
+   238,
+   "    { id:\"rouka2\", name:\"廊下\", floor:2, bg:\"hallway_second.png\", target:\"*scene_rouka2\",",
+   "    { id:\"rouka2\", name:\"Corridor\", floor:2, bg:\"hallway_second.png\", target:\"*scene_rouka2\","
+  ]
+ ]
+}

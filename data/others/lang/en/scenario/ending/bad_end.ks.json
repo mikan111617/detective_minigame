@@ -1,0 +1,880 @@
+{
+ "src": "data/scenario/ending/bad_end.ks",
+ "lines": [
+  [
+   19,
+   "このエンディングは一度見ています。[p]",
+   "You have seen this ending once before.[p]"
+  ],
+  [
+   21,
+   "スタッフロールまで飛ばしますか？[p]",
+   "Skip ahead to the staff roll?[p]"
+  ],
+  [
+   23,
+   "[glink color=\"bth13_dk\" text=\"このまま読む\"           target=\"*bad_end_read\"]",
+   "[glink color=\"bth13_dk\" text=\"Read it through\"           target=\"*bad_end_read\"]"
+  ],
+  [
+   24,
+   "[glink color=\"bth13_dk\" text=\"スタッフロールまで飛ばす\" target=\"*bad_end_skip\"]",
+   "[glink color=\"bth13_dk\" text=\"Skip to the staff roll\" target=\"*bad_end_skip\"]"
+  ],
+  [
+   46,
+   "真歩流は、集めた証拠を見つめていた。[p]",
+   "I stared at the evidence I had gathered.[p]"
+  ],
+  [
+   48,
+   "だが――。[p]",
+   "But—[p]"
+  ],
+  [
+   54,
+   "（……わからない。どうしたらいいのか？）[p]",
+   "(...I don't understand. What am I supposed to do?)[p]"
+  ],
+  [
+   58,
+   "真歩流の頭の中は混乱していた。[p]",
+   "My thoughts were a complete mess.[p]"
+  ],
+  [
+   64,
+   "私……分かりません……分からなくなっちゃいました。[p]",
+   "I... I don't know... I don't understand any of this anymore.[p]"
+  ],
+  [
+   68,
+   "真歩流は力なく答えた。[p]",
+   "I answered feebly.[p]"
+  ],
+  [
+   74,
+   "（どこに毒があるの……？ 誰が……誰が……犯人なの……？）[p]",
+   "(Where is the poison...? Who... who is the culprit...?)[p]"
+  ],
+  [
+   78,
+   "思考は空回りして、物事を余計に複雑に見せていた。[r]",
+   "My thoughts spun in place, making everything look more tangled than it was.[r]"
+  ],
+  [
+   80,
+   "人を信じることも、疑うことも、もう訳が分からなくなっていた。[p]",
+   "Trusting people, doubting them — none of it made sense any more.[p]"
+  ],
+  [
+   89,
+   "愛理の容体がさらに悪化している。[p]",
+   "Airi's condition is getting worse.[p]"
+  ],
+  [
+   93,
+   "救急車はまだ到着しないのか。[p]",
+   "Has the ambulance still not come?[p]"
+  ],
+  [
+   99,
+   "そんな……。嫌よ……[p]",
+   "No... please, no...[p]"
+  ],
+  [
+   105,
+   "諦めるな。お前の妹はまだ必死に戦っているんだぞ。[p]",
+   "Don't give up. Your sister is still fighting for her life.[p]"
+  ],
+  [
+   108,
+   "和人の言葉にハッとする。[p]",
+   "Kazuto's words brought me up short.[p]"
+  ],
+  [
+   114,
+   "そうよ……愛理……絶対に助けるんだから。[p]",
+   "That's right... Airi... I'm going to save you.[p]"
+  ],
+  [
+   118,
+   "崩れかけた心を何とか持ち直す。[p]",
+   "Somehow I held my crumbling heart together.[p]"
+  ],
+  [
+   124,
+   "（私が……私がこのまま何もしなければ……）[p]",
+   "(If I... if I do nothing...)[p]"
+  ],
+  [
+   127,
+   "（愛理は……死んでしまう……）[p]",
+   "(Airi will... die...)[p]"
+  ],
+  [
+   132,
+   "真白さん、私たちが全力で捜索します。部下たちの捜査が進めば証拠も見つかるでしょう。もう少し、耐えてください。[p]",
+   "Ms Mashiro, we'll do everything we can to search the house. My officers will keep investigating, and we may still find more evidence. Just hold on a little longer.[p]"
+  ],
+  [
+   138,
+   "私も頑張ります。[p]",
+   "I'll do my best too.[p]"
+  ],
+  [
+   153,
+   "あっ……煙が……！[p]",
+   "Ah... smoke...![p]"
+  ],
+  [
+   156,
+   "メアリーが叫んだ。[r]",
+   "Mary cried out.[r]"
+  ],
+  [
+   158,
+   "サンルームの方から、煙が立ち上っていた。[p]",
+   "Smoke was rising from the direction of the sunroom.[p]"
+  ],
+  [
+   167,
+   "火事だ！[p]",
+   "Fire![p]"
+  ],
+  [
+   170,
+   "全員、外へ！ 早く！[p]",
+   "Everyone, outside! Quickly![p]"
+  ],
+  [
+   173,
+   "警察官たちが動き出した。[r]",
+   "The officers sprang into action.[r]"
+  ],
+  [
+   175,
+   "真歩流は唖然とした。[p]",
+   "I stood there stunned.[p]"
+  ],
+  [
+   181,
+   "火事……？[p]",
+   "A fire...?[p]"
+  ],
+  [
+   185,
+   "サンルームから、赤い炎が見え始めた。[r]",
+   "Red flame began to show from the sunroom.[r]"
+  ],
+  [
+   187,
+   "炎は急速に広がっていく。[p]",
+   "It spread with terrible speed.[p]"
+  ],
+  [
+   189,
+   "#警察",
+   "#Police"
+  ],
+  [
+   190,
+   "早く逃げてください！[p]",
+   "Get out, quickly![p]"
+  ],
+  [
+   193,
+   "警察官が叫んだ。[r]",
+   "The officer shouted.[r]"
+  ],
+  [
+   195,
+   "朱志香、珠璃、メアリーが次々と外へ逃げ出した。[p]",
+   "Jushika, Juri and Mary fled outside one after another.[p]"
+  ],
+  [
+   197,
+   "真歩流は立ち尽くしていた。[p]",
+   "I stood frozen.[p]"
+  ],
+  [
+   203,
+   "愛理……愛理がまだ……！[p]",
+   "Airi... Airi is still—![p]"
+  ],
+  [
+   207,
+   "真歩流は寝室へと駆け出した。[p]",
+   "I ran for the bedroom.[p]"
+  ],
+  [
+   211,
+   "真白さん！ 危ない！[p]",
+   "Ms Mashiro! It's dangerous![p]"
+  ],
+  [
+   214,
+   "零度警部が制止しようとしたが、真歩流は止まらなかった。[p]",
+   "Inspector Reido tried to stop me, but I kept running.[p]"
+  ],
+  [
+   220,
+   "廊下はすでに煙で充満していた。[r]",
+   "The corridor was already thick with smoke.[r]"
+  ],
+  [
+   222,
+   "真歩流は咳き込みながら、寝室へと向かった。[p]",
+   "Coughing, I made for the bedroom.[p]"
+  ],
+  [
+   228,
+   "愛理！ 愛理！！[p]",
+   "Airi! Airi!![p]"
+  ],
+  [
+   238,
+   "寝室のドアを開けると、愛理がベッドに横たわっていた。[p]",
+   "When I opened the bedroom door, Airi lay on the bed.[p]"
+  ],
+  [
+   242,
+   "愛理！ 起きて！[p]",
+   "Airi! Wake up![p]"
+  ],
+  [
+   246,
+   "真歩流は愛理を抱き起こそうとした。[r]",
+   "I tried to lift her.[r]"
+  ],
+  [
+   248,
+   "だが――。[p]",
+   "But—[p]"
+  ],
+  [
+   253,
+   "その時、天井から何かが落ちてきた。[r]",
+   "Just then something fell from the ceiling.[r]"
+  ],
+  [
+   255,
+   "炎に包まれた梁が、真歩流と愛理の間に落ちた。[p]",
+   "A blazing beam came down between Airi and me.[p]"
+  ],
+  [
+   261,
+   "きゃあ！[p]",
+   "Aah![p]"
+  ],
+  [
+   265,
+   "真歩流は後ろに飛びのいた。[r]",
+   "I threw myself backwards.[r]"
+  ],
+  [
+   267,
+   "炎が二人を隔てた。[p]",
+   "The flames cut us off from each other.[p]"
+  ],
+  [
+   273,
+   "愛理！ 愛理！！[p]",
+   "Airi! Airi!![p]"
+  ],
+  [
+   277,
+   "真歩流は叫んだ。[r]",
+   "I screamed.[r]"
+  ],
+  [
+   279,
+   "だが、炎は激しく燃え上がり、近づくことができなかった。[p]",
+   "But the fire flared up and I could not get near.[p]"
+  ],
+  [
+   283,
+   "真白さん！ もう無理です！ 逃げてください！[p]",
+   "Ms Mashiro! It's no use! Get out![p]"
+  ],
+  [
+   286,
+   "階下から微かに零度警部の声が聞こえた。[p]",
+   "Inspector Reido's voice came faintly from below.[p]"
+  ],
+  [
+   292,
+   "いや！ 愛理を置いていけない！[p]",
+   "No! I can't leave Airi![p]"
+  ],
+  [
+   296,
+   "真歩流は必死に叫んだ。[r]",
+   "I screamed desperately.[r]"
+  ],
+  [
+   297,
+   "だが、炎はどんどん広がっていく。[r]",
+   "But the flames spread further and further.[r]"
+  ],
+  [
+   299,
+   "煙で息ができなくなってきた。[p]",
+   "The smoke made it impossible to breathe.[p]"
+  ],
+  [
+   306,
+   "真白！[p]",
+   "Mashiro![p]"
+  ],
+  [
+   309,
+   "和人が部屋へ駆け込んできた。[p]",
+   "Kazuto burst into the room.[p]"
+  ],
+  [
+   315,
+   "愛理を！ 愛理を助けなきゃ！[p]",
+   "Airi! We have to save Airi![p]"
+  ],
+  [
+   320,
+   "俺が運ぶから、お前は道を確保してくれ。[p]",
+   "I'll carry her. You clear the way.[p]"
+  ],
+  [
+   326,
+   "ありがとう……和人。[p]",
+   "Thank you... Kazuto.[p]"
+  ],
+  [
+   330,
+   "和人は愛理を担いで、三人は廊下に出た。[p]",
+   "Kazuto shouldered Airi, and the three of us got out into the corridor.[p]"
+  ],
+  [
+   333,
+   "火はものすごい勢いで建物を燃やしている。[p]",
+   "The fire was devouring the building at terrifying speed.[p]"
+  ],
+  [
+   336,
+   "急いで1階へと降りた。[p]",
+   "We hurried down to the ground floor.[p]"
+  ],
+  [
+   345,
+   "愛理、もう少しで外だからね。[p]",
+   "Airi, we're nearly outside.[p]"
+  ],
+  [
+   349,
+   "その時、大きな崩れる音が聞こえてきた。[p]",
+   "Then came the deafening sound of something collapsing.[p]"
+  ],
+  [
+   353,
+   "真白！[p]",
+   "Mashiro![p]"
+  ],
+  [
+   359,
+   "きゃあ！[p]",
+   "Aah![p]"
+  ],
+  [
+   367,
+   "突き飛ばされ、崩れ落ちてきた床に潰されるのを何とか避けることができた。[p]",
+   "Shoved aside, I barely escaped being crushed by the falling floor.[p]"
+  ],
+  [
+   375,
+   "う、うう。[p]",
+   "Ugh, uuh.[p]"
+  ],
+  [
+   379,
+   "愛理！ 和人！ 大丈夫！[p]",
+   "Airi! Kazuto! Are you all right?![p]"
+  ],
+  [
+   384,
+   "……ああ。[p]",
+   "...Yes.[p]"
+  ],
+  [
+   390,
+   "良かった。[p]",
+   "Thank goodness.[p]"
+  ],
+  [
+   394,
+   "すぐに行くから待ってて。[p]",
+   "I'm coming, wait there.[p]"
+  ],
+  [
+   399,
+   "来るな！[p]",
+   "Don't![p]"
+  ],
+  [
+   405,
+   "何言ってるの？[p]",
+   "What are you saying?[p]"
+  ],
+  [
+   409,
+   "置いていけるわけないじゃない！[p]",
+   "I can't leave you behind![p]"
+  ],
+  [
+   414,
+   "悪かった。[p]",
+   "I'm sorry.[p]"
+  ],
+  [
+   420,
+   "え？[p]",
+   "What?[p]"
+  ],
+  [
+   425,
+   "お前に冷たく言ったこと……。[p]",
+   "For speaking to you so coldly...[p]"
+  ],
+  [
+   431,
+   "お姉ちゃん……。[p]",
+   "Sis...[p]"
+  ],
+  [
+   437,
+   "愛理！ 大丈夫なの？[p]",
+   "Airi! Are you all right?[p]"
+  ],
+  [
+   443,
+   "お姉ちゃん……。[p]",
+   "Sis...[p]"
+  ],
+  [
+   447,
+   "今までありがとう。[p]",
+   "Thank you, for everything.[p]"
+  ],
+  [
+   451,
+   "いっぱい、いろんなことをして、本当に楽しかったよ。[p]",
+   "We did so many things together. It was really fun.[p]"
+  ],
+  [
+   457,
+   "ちょっと、何を言っているの！？[p]",
+   "Wait, what are you saying!?[p]"
+  ],
+  [
+   461,
+   "今行くから！[p]",
+   "I'm coming now![p]"
+  ],
+  [
+   465,
+   "愛理を急いで助けたいが、崩れてきた天井で床が崩れて思うように進めない。[p]",
+   "I wanted to reach her immediately, but the collapsed ceiling had taken the floor with it and I couldn't get through.[p]"
+  ],
+  [
+   472,
+   "皆さんけがはありませんか？[p]",
+   "Is anyone hurt?[p]"
+  ],
+  [
+   478,
+   "警部さん！[p]",
+   "Inspector![p]"
+  ],
+  [
+   482,
+   "愛理と和人が！[p]",
+   "Airi and Kazuto are—![p]"
+  ],
+  [
+   487,
+   "愛理さん、徐音さん、けがはありませんか？[p]",
+   "Airi, Mr Joon, are you injured?[p]"
+  ],
+  [
+   490,
+   "今応援を……。[p]",
+   "I'll call for help—[p]"
+  ],
+  [
+   494,
+   "警部さん……真白を連れて早く外へ。[p]",
+   "Inspector... take Mashiro outside, quickly.[p]"
+  ],
+  [
+   498,
+   "徐音さん……。[p]",
+   "Mr Joon...[p]"
+  ],
+  [
+   502,
+   "早く、お願いします！[p]",
+   "Hurry, please![p]"
+  ],
+  [
+   512,
+   "すぐにレスキュー隊が来ます。[p]",
+   "The rescue team will be here soon.[p]"
+  ],
+  [
+   516,
+   "それまで辛抱してください。[p]",
+   "Hold on until then.[p]"
+  ],
+  [
+   520,
+   "行きますよ、真白さん。[p]",
+   "We're going, Ms Mashiro.[p]"
+  ],
+  [
+   526,
+   "警部さん、何を言っているんですか？[p]",
+   "Inspector, what are you saying?[p]"
+  ],
+  [
+   530,
+   "愛理が……まだ中にいるんですよ！[p]",
+   "Airi is... still in there![p]"
+  ],
+  [
+   536,
+   "今の我々に彼らを救う方法はありません。[p]",
+   "There is nothing we can do for them now.[p]"
+  ],
+  [
+   540,
+   "さあ、急いで！[p]",
+   "Come, quickly![p]"
+  ],
+  [
+   543,
+   "真歩流は抵抗したが、零度警部に引きずられて外へと連れ出された。[p]",
+   "I fought him, but Inspector Reido dragged me outside.[p]"
+  ],
+  [
+   549,
+   "いや！ 愛理！ 愛理いいいい！！[p]",
+   "No! Airi! Airiiii!![p]"
+  ],
+  [
+   560,
+   "すまないな。[p]",
+   "I'm sorry.[p]"
+  ],
+  [
+   564,
+   "助けられなくて。[p]",
+   "For not being able to save you.[p]"
+  ],
+  [
+   568,
+   "どうして謝るの……。[p]",
+   "Why are you apologizing...[p]"
+  ],
+  [
+   572,
+   "お礼を言うのは私だよ……。[p]",
+   "I'm the one who should thank you...[p]"
+  ],
+  [
+   576,
+   "お姉ちゃんを助けてくれてありがとう……。[p]",
+   "Thank you for saving my sister...[p]"
+  ],
+  [
+   580,
+   "ああ、もっといろんなことを話したかったな……。[p]",
+   "Ah, there was so much more I wanted to talk about...[p]"
+  ],
+  [
+   584,
+   "和人さん、彼女はいるの？[p]",
+   "Kazuto, do you have a girlfriend?[p]"
+  ],
+  [
+   588,
+   "いや、いない。[p]",
+   "No. I don't.[p]"
+  ],
+  [
+   592,
+   "じゃあ……さ、私、和人さんの彼女になってもいいかな……？[p]",
+   "Then... would it be all right if I were your girlfriend...?[p]"
+  ],
+  [
+   596,
+   "……ああ、いいよ。[p]",
+   "...Yes. All right.[p]"
+  ],
+  [
+   600,
+   "だから、安心しろ。[p]",
+   "So don't be afraid.[p]"
+  ],
+  [
+   604,
+   "最期まで一緒だからな。[p]",
+   "I'm with you to the end.[p]"
+  ],
+  [
+   608,
+   "ありが……とう。[p]",
+   "Thank... you.[p]"
+  ],
+  [
+   612,
+   "和人さ……ん。[p]",
+   "Kazu... to.[p]"
+  ],
+  [
+   624,
+   "……母さん。[p]",
+   "...Mom.[p]"
+  ],
+  [
+   628,
+   "ごめん。[p]",
+   "I'm sorry.[p]"
+  ],
+  [
+   632,
+   "俺、結局誰も救えなかったよ……。[p]",
+   "In the end I couldn't save anyone...[p]"
+  ],
+  [
+   641,
+   "真歩流の叫びが、夜空に響いた。[p]",
+   "My scream rang out into the night sky.[p]"
+  ],
+  [
+   643,
+   "洋館は、激しく燃え上がっていた。[p]",
+   "The house burned fiercely.[p]"
+  ],
+  [
+   645,
+   "真歩流は、呆然と炎を見つめていた。[p]",
+   "I stared at the flames in a daze.[p]"
+  ],
+  [
+   651,
+   "愛理……[p]",
+   "Airi...[p]"
+  ],
+  [
+   655,
+   "涙が止まらなかった。[p]",
+   "The tears would not stop.[p]"
+  ],
+  [
+   656,
+   "やがて、消防車が到着したが――。[r]",
+   "Before long the fire engines came — but—[r]"
+  ],
+  [
+   658,
+   "すでに、館の大部分が炎に包まれていた。[p]",
+   "most of the house was already wrapped in flame.[p]"
+  ],
+  [
+   660,
+   "消火活動が始まったが、火の勢いは強かった。[p]",
+   "They began to fight it, but the fire was too strong.[p]"
+  ],
+  [
+   666,
+   "（何もできなかった……）[p]",
+   "(I could do nothing...)[p]"
+  ],
+  [
+   669,
+   "（お父さんの手がかりを見つけることも。愛理を救うことも）[p]",
+   "(I couldn't find a clue about Dad. I couldn't save Airi.)[p]"
+  ],
+  [
+   672,
+   "（全て――失敗した）[p]",
+   "(I failed at everything.)[p]"
+  ],
+  [
+   676,
+   "火事は、明け方近くになってようやく鎮火した。[r]",
+   "The fire was not put out until near dawn.[r]"
+  ],
+  [
+   678,
+   "洋館は、ほぼ全焼していた。[p]",
+   "The house had burned almost to nothing.[p]"
+  ],
+  [
+   679,
+   "消防隊員が館内を調べ、二人の遺体が発見された。[r]",
+   "The firefighters searched inside, and two bodies were found.[r]"
+  ],
+  [
+   681,
+   "愛理と、和人だった。[p]",
+   "Airi, and Kazuto.[p]"
+  ],
+  [
+   684,
+   "真歩流は、その場に崩れ落ちた。[p]",
+   "I collapsed where I stood.[p]"
+  ],
+  [
+   689,
+   "愛理……愛理……[p]",
+   "Airi... Airi...[p]"
+  ],
+  [
+   693,
+   "何度も妹の名を呼んだ。[r]",
+   "I called my sister's name again and again.[r]"
+  ],
+  [
+   695,
+   "だが、もう返事は返ってこなかった。[p]",
+   "But there would never be another answer.[p]"
+  ],
+  [
+   702,
+   "真白さん……[p]",
+   "Ms Mashiro...[p]"
+  ],
+  [
+   706,
+   "大変……申し訳ありません。[p]",
+   "I am... so very sorry.[p]"
+  ],
+  [
+   710,
+   "ご家族を……お助けすることができませんでした……[p]",
+   "We were unable... to save your family...[p]"
+  ],
+  [
+   716,
+   "私は……私は……[p]",
+   "I... I...[p]"
+  ],
+  [
+   720,
+   "何もできなかった……。[p]",
+   "I could do nothing...[p]"
+  ],
+  [
+   723,
+   "いやあああああああああああああああああああああああああああああああああああああ。[p]",
+   "Nooooooooooooooooooooooooooo.[p]"
+  ],
+  [
+   727,
+   "真歩流は声がかれるまで叫び続け、涙が枯れるまで泣き続けた。[p]",
+   "I screamed until my voice gave out, and wept until there were no tears left.[p]"
+  ],
+  [
+   730,
+   "その後の調査で、犯人は特定できなかった。[r]",
+   "The investigation that followed never identified the culprit.[r]"
+  ],
+  [
+   732,
+   "証拠の多くは炎に焼かれて失われた。[p]",
+   "Most of the evidence was lost to the fire.[p]"
+  ],
+  [
+   745,
+   "真歩流は、愛理の葬儀を終えた後、自分の部屋に引きこもった。[r]",
+   "After Airi's funeral, I shut myself in my room.[r]"
+  ],
+  [
+   747,
+   "誰が訪ねてきても、ドアを開けることはなかった。[p]",
+   "Whoever came, I never opened the door.[p]"
+  ],
+  [
+   750,
+   "数か月後。[p]",
+   "Some months later.[p]"
+  ],
+  [
+   751,
+   "真歩流は、徐々に部屋から出るようになった。[r]",
+   "I began, little by little, to leave my room.[r]"
+  ],
+  [
+   753,
+   "だが、その目は虚ろだった。[p]",
+   "But my eyes were empty.[p]"
+  ],
+  [
+   754,
+   "笑うことも、泣くこともできなくなっていた。[r]",
+   "I could no longer laugh, nor cry.[r]"
+  ],
+  [
+   756,
+   "ただ、毎日、愛理の墓の前で過ごした。[p]",
+   "I only spent each day before Airi's grave.[p]"
+  ],
+  [
+   762,
+   "ごめんね、愛理……[p]",
+   "I'm sorry, Airi...[p]"
+  ],
+  [
+   770,
+   "季節が変わり、冬が来た。[p]",
+   "The seasons turned, and winter came.[p]"
+  ],
+  [
+   771,
+   "真歩流は相変わらず、愛理の墓の前で過ごしていた。[r]",
+   "I went on spending my days before her grave.[r]"
+  ],
+  [
+   773,
+   "雪が降り始めても、動こうとしなかった。[p]",
+   "Even when the snow began to fall, I would not move.[p]"
+  ],
+  [
+   779,
+   "会いたいよ……。愛理……[p]",
+   "I want to see you... Airi...[p]"
+  ],
+  [
+   783,
+   "凍えた手で、墓石に触れた。[p]",
+   "With frozen hands, I touched the stone.[p]"
+  ],
+  [
+   784,
+   "洋館で起きた惨劇の真相は、炎と共に消えた。[r]",
+   "The truth of the tragedy at the house vanished with the flames.[r]"
+  ],
+  [
+   786,
+   "犯人も、動機も、全てが謎のまま――。[p]",
+   "The culprit, the motive, all of it left a mystery—[p]"
+  ],
+  [
+   787,
+   "ただ、真歩流の心に残ったのは――。[r]",
+   "All that remained in my heart—[r]"
+  ],
+  [
+   789,
+   "愛理を失った悲しみと、自分への怒りだけだった。[p]",
+   "was grief for Airi, and anger at myself.[p]"
+  ]
+ ]
+}

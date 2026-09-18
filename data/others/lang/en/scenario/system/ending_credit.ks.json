@@ -1,0 +1,330 @@
+{
+ "src": "data/scenario/system/ending_credit.ks",
+ "lines": [
+  [
+   50,
+   "        { name: \"舞黒館の惨劇\" },",
+   "        { name: \"The Tragedy at Maicro House\" },"
+  ],
+  [
+   51,
+   "        { role: \"制作\", name: \"プロジェクト：舞黒館\" },",
+   "        { role: \"Produced by\", name: \"Project Maicro House\" },"
+  ],
+  [
+   52,
+   "        { role: \"シナリオ\", name: \"ひんやりミカン\" },",
+   "        { role: \"Scenario\", name: \"Hinyari Mikan\" },"
+  ],
+  [
+   53,
+   "        { role: \"UI画像\", name: \"空想曲線<br>ゲームUIセット vol.23 (02 ダーク)\" },",
+   "        { role: \"UI Art\", name: \"Kuusou Kyokusen<br>Game UI Set vol.23 (02 Dark)\" },"
+  ],
+  [
+   54,
+   "        { role: \"背景\", name: \"舞黒館\" },",
+   "        { role: \"Backgrounds\", name: \"Maicro House\" },"
+  ],
+  [
+   55,
+   "        { role: \"キャラクター\", name: \"\" },",
+   "        { role: \"Characters\", name: \"\" },"
+  ],
+  [
+   56,
+   "        { role: \"\", name: \"真白　真歩流\" },",
+   "        { role: \"\", name: \"Mahoru Mashiro\" },"
+  ],
+  [
+   57,
+   "        { role: \"\", name: \"真白　愛理\" },",
+   "        { role: \"\", name: \"Airi Mashiro\" },"
+  ],
+  [
+   58,
+   "        { role: \"\", name: \"徐音　和人\" },",
+   "        { role: \"\", name: \"Kazuto Joon\" },"
+  ],
+  [
+   59,
+   "        { role: \"\", name: \"メアリー・キング\" },",
+   "        { role: \"\", name: \"Mary King\" },"
+  ],
+  [
+   60,
+   "        { role: \"\", name: \"富礼知　朱志香\" },",
+   "        { role: \"\", name: \"Jushika Furechi\" },"
+  ],
+  [
+   61,
+   "        { role: \"\", name: \"灰音　小出里亜\" },",
+   "        { role: \"\", name: \"Koderia Haine\" },"
+  ],
+  [
+   62,
+   "        { role: \"\", name: \"穂在呂　叡留久\" },",
+   "        { role: \"\", name: \"Eruku Hoaro\" },"
+  ],
+  [
+   63,
+   "        { role: \"\", name: \"穂在呂　珠璃\" },",
+   "        { role: \"\", name: \"Juri Hoaro\" },"
+  ],
+  [
+   64,
+   "        { role: \"\", name: \"零度　警部\" },",
+   "        { role: \"\", name: \"Inspector Reido\" },"
+  ],
+  [
+   65,
+   "        { role: \"\", name: \"真白　奢禄\" },",
+   "        { role: \"\", name: \"Sharoku Mashiro\" },"
+  ],
+  [
+   66,
+   "        { role: \"\", name: \"クロエ・キング\"},",
+   "        { role: \"\", name: \"Chloe King\"},"
+  ],
+  [
+   68,
+   "        { role: \"SE素材\", name: \"効果音ラボ<br>OtoLogic<br>ポケットサウンド\" },",
+   "        { role: \"Sound Effects\", name: \"Kouka-on Lab<br>OtoLogic<br>Pocket Sound\" },"
+  ],
+  [
+   70,
+   "        { name: \"プレイしてくださった<br>すべての方へ\" }",
+   "        { name: \"To everyone<br>who played\" }"
+  ],
+  [
+   214,
+   "    エンディング3「全ては闇に散って……」[p]",
+   "    Ending 3: “All Scattered into the Dark”[p]"
+  ],
+  [
+   216,
+   "    ここまでゲームをプレイしてくださりありがとうございます。[p]",
+   "    Thank you for playing this far.[p]"
+  ],
+  [
+   217,
+   "    残念ながらバッドエンド到達です……。[p]",
+   "    Sadly, you have reached the bad ending.[p]"
+  ],
+  [
+   219,
+   "    証拠が足りていなかった、あるいは推理パートで推理を間違えるとこのエンディングになります。[p]",
+   "    You get this ending when you are short on evidence, or when you make a mistake during the deduction.[p]"
+  ],
+  [
+   221,
+   "    証拠が不足していると推理が中断されて、バッドエンドになります。[p]",
+   "    If evidence is missing, the deduction breaks off and the bad ending follows.[p]"
+  ],
+  [
+   223,
+   "    また、最後の推理パートでは零度警部の心証が無い状態で間違えるとバッドエンドになってしまいます。[p]",
+   "    And in the final deduction, a mistake made with none of Inspector Reido's trust left will send you to the bad ending.[p]"
+  ],
+  [
+   224,
+   "    心証は推理を間違えるたびに減っていきます。[p]",
+   "    His trust falls by one every time you deduce wrongly.[p]"
+  ],
+  [
+   226,
+   "    零度警部の心証は最初の事件が発生してから調査までの間の行動で変動します。[p]",
+   "    Inspector Reido's trust shifts according to what you do between the first murder and the investigation.[p]"
+  ],
+  [
+   228,
+   "    そのため、慎重に選択肢を選んで、再度挑戦してみてください。[p]",
+   "    So choose carefully, and try again.[p]"
+  ],
+  [
+   238,
+   "    エンディング1「舞黒館の惨劇」[p]",
+   "    Ending 1: “The Tragedy at Maicro House”[p]"
+  ],
+  [
+   240,
+   "    ここまでゲームをプレイしてくださりありがとうございます。[p]",
+   "    Thank you for playing this far.[p]"
+  ],
+  [
+   241,
+   "    物語は一応の結末を迎えましたが、まだ明かされていない真実があります。[p]",
+   "    The story has reached an ending of sorts, but there are truths still unrevealed.[p]"
+  ],
+  [
+   242,
+   "    父親はどこへ行ったのか？[p]",
+   "    Where did her father go?[p]"
+  ],
+  [
+   243,
+   "    その結末を見るためには真エンディングにたどり着く必要があります。[p]",
+   "    To see that ending, you will need to reach the true ending.[p]"
+  ],
+  [
+   254,
+   "    エンディング2「過去の縁は今の絆」[p]",
+   "    Ending 2: “Old Ties, New Bonds”[p]"
+  ],
+  [
+   256,
+   "    おめでとうございます！[r]",
+   "    Congratulations![r]"
+  ],
+  [
+   257,
+   "    トゥルーエンドです！[p]",
+   "    This is the true ending![p]"
+  ],
+  [
+   259,
+   "    ここまでゲームをプレイしてくださり本当にありがとうございました。[p]",
+   "    Thank you, truly, for playing all the way through.[p]"
+  ],
+  [
+   260,
+   "    最後にささやかですが、特典があります。[p]",
+   "    There is one small bonus for you at the end.[p]"
+  ],
+  [
+   261,
+   "    ゲーム本編で遊べるパズルゲームをタイトル画面から遊べるようになります。[p]",
+   "    The puzzle from the main story becomes playable from the title screen.[p]"
+  ],
+  [
+   266,
+   "    最後にここまでプレイしていただき、本当にありがとうございました。[p]",
+   "    Once more: thank you for playing all the way to here.[p]"
+  ],
+  [
+   267,
+   "    まだ、謎が残っている部分もありますが、それは別の物語で明らかになるかもしれません。[p]",
+   "    Some mysteries are still left open, but perhaps another story will answer them.[p]"
+  ],
+  [
+   268,
+   "    それではまたどこかでお会いしましょう！[p]",
+   "    Until we meet again, somewhere![p]"
+  ],
+  [
+   275,
+   "    惨劇から1週間後。[p]",
+   "    One week after the tragedy.[p]"
+  ],
+  [
+   278,
+   "    ねえ、お姉ちゃん豪華客船の話聞いた？[p]",
+   "    Hey, sis, did you hear about the luxury liner?[p]"
+  ],
+  [
+   281,
+   "    うん、私たちが舞黒館に泊まった日のことでしょう？[p]",
+   "    Mm, that was the day we stayed at Maicro House, wasn't it?[p]"
+  ],
+  [
+   284,
+   "    そうそれ！[p]",
+   "    That's the one![p]"
+  ],
+  [
+   286,
+   "    まだ見つかってないんだって。[p]",
+   "    They say it still hasn't been found.[p]"
+  ],
+  [
+   288,
+   "    どこに消えちゃったんだろうね。[p]",
+   "    Where on earth could it have gone?[p]"
+  ],
+  [
+   291,
+   "    わからない。だけど……。[p]",
+   "    I don't know. But...[p]"
+  ],
+  [
+   294,
+   "    お姉ちゃん？[p]",
+   "    Sis?[p]"
+  ],
+  [
+   298,
+   "    ううん、何でもない。[p]",
+   "    No, it's nothing.[p]"
+  ],
+  [
+   299,
+   "    行こう！[p]",
+   "    Let's go![p]"
+  ],
+  [
+   302,
+   "    （もしも、あの日、私たちが豪華客船に乗っていたら……）[p]",
+   "    (If we had been aboard that liner, that day...)[p]"
+  ],
+  [
+   314,
+   "    エンディング2「真実の先にあるもの」[p]",
+   "    Ending 2: “What Lies Beyond the Truth”[p]"
+  ],
+  [
+   321,
+   "エンディングは全部で3つあります。[p]",
+   "There are three endings in all.[p]"
+  ],
+  [
+   322,
+   "ぜひ、すべてのエンディングを目指してプレイしてみてください！[p]",
+   "Do try to reach every one of them![p]"
+  ],
+  [
+   324,
+   "真エンディングにたどり着くための条件は四つあります。[p]",
+   "There are four conditions for reaching the true ending.[p]"
+  ],
+  [
+   326,
+   "①秘密の隠し部屋を見つけること。[p]",
+   "1. Find the secret hidden room.[p]"
+  ],
+  [
+   328,
+   "②とある人物の本当の参加理由を明らかにすること。[p]",
+   "2. Uncover a certain person's real reason for coming.[p]"
+  ],
+  [
+   330,
+   "③事件中に舞黒邦夢の手記を見つけること。[p]",
+   "3. Find Houmu Maicro's memoir during the case.[p]"
+  ],
+  [
+   332,
+   "④地下への入り口を見つけること。[p]",
+   "4. Find the entrance to the basement.[p]"
+  ],
+  [
+   334,
+   "タイトル画面の「舞黒相談所」から、真エンディング等のヒントを得ることができます。[p]",
+   "“CONSULTATION” on the title screen will give you hints toward the true ending and more.[p]"
+  ],
+  [
+   336,
+   "ヒントを参考に真エンディングを目指してみてください！[p]",
+   "Use them, and aim for the true ending![p]"
+  ],
+  [
+   338,
+   "最後に改めまして、本ゲームをプレイしていただき、ありがとうございました。[p]",
+   "Once again, thank you for playing this game.[p]"
+  ],
+  [
+   339,
+   "他のエンディングでお待ちしています。[p]",
+   "We will be waiting for you in the other endings.[p]"
+  ]
+ ]
+}

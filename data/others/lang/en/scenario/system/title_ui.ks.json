@@ -1,0 +1,75 @@
+{
+ "src": "data/scenario/system/title_ui.ks",
+ "lines": [
+  [
+   14,
+   "  TITLE_TEXT: \"舞黒館の惨劇\",",
+   "  TITLE_TEXT: \"舞黒館の惨劇\","
+  ],
+  [
+   129,
+   "          + 'letter-spacing:0.045em;color:#f6ecd2;text-shadow:'+TL.charShadow(false)+'\">舞黒館の</div></div>'",
+   "          + 'letter-spacing:0.045em;color:#f6ecd2;text-shadow:'+TL.charShadow(false)+'\">舞黒館の</div></div>'"
+  ],
+  [
+   134,
+   "          + '0 12px 50px rgba(0,0,0,0.95),0 3px 0 #8a1a1a\">惨劇</div></div>';",
+   "          + '0 12px 50px rgba(0,0,0,0.95),0 3px 0 #8a1a1a\">惨劇</div></div>';"
+  ],
+  [
+   214,
+   "    catch(e){ console.error(\"ボイス初期設定の保存に失敗しました\", e); }",
+   "    catch(e){ console.error(\"ボイス初期設定の保存に失敗しました\", e); }"
+  ],
+  [
+   240,
+   "      { label:\"はじめから\", en:\"NEW GAME\", fn:\"tlNew\" },",
+   "      { label:\"NEW GAME\", en:\"\", fn:\"tlNew\" },"
+  ],
+  [
+   241,
+   "      { label:\"つづきから\", en:\"CONTINUE\", fn:\"tlLoad\" },",
+   "      { label:\"CONTINUE\", en:\"\", fn:\"tlLoad\" },"
+  ],
+  [
+   242,
+   "      { label:\"記録\", en:\"RECORDS\", fn:\"tlRecords\" }",
+   "      { label:\"RECORDS\", en:\"\", fn:\"tlRecords\" }"
+  ],
+  [
+   247,
+   "      rows.push({ label:\"舞黒相談所\", en:\"CONSULTATION\", fn:\"tlHint\" });",
+   "      rows.push({ label:\"CONSULTATION\", en:\"\", fn:\"tlHint\" });"
+  ],
+  [
+   249,
+   "    if(sf.puzzle_unlocked == 1){ rows.push({ label:\"おまけ\", en:\"EXTRA\", fn:\"tlExtra\" }); }",
+   "    if(sf.puzzle_unlocked == 1){ rows.push({ label:\"EXTRA\", en:\"\", fn:\"tlExtra\" }); }"
+  ],
+  [
+   272,
+   "      + ' aria-label=\"' + (isEN ? 'Switch the language to Japanese' : '言語を英語に切り替える') + '\">'",
+   "      + ' aria-label=\"' + (isEN ? 'Switch the language to Japanese' : '言語を英語に切り替える') + '\">'"
+  ],
+  [
+   276,
+   "          + (isEN ? 'Language' : '言語') + '</span>'",
+   "          + (isEN ? 'Language' : '言語') + '</span>'"
+  ],
+  [
+   277,
+   "        + '<span class=\"tl-voice-en\">' + (isEN ? 'TAP FOR 日本語' : 'LANGUAGE') + '</span></span>'",
+   "        + '<span class=\"tl-voice-en\">' + (isEN ? 'TAP FOR 日本語' : 'LANGUAGE') + '</span></span>'"
+  ],
+  [
+   278,
+   "      + '<span class=\"tl-voice-state tl-lang-state\">' + (isEN ? 'ENGLISH' : '日本語') + '</span></button>';",
+   "      + '<span class=\"tl-voice-state tl-lang-state\">' + (isEN ? 'ENGLISH' : '日本語') + '</span></button>';"
+  ],
+  [
+   378,
+   "    catch(e){ console.error(\"ボイス設定の保存に失敗しました\", e); }",
+   "    catch(e){ console.error(\"ボイス設定の保存に失敗しました\", e); }"
+  ]
+ ]
+}

@@ -1,0 +1,1125 @@
+{
+ "src": "data/scenario/scene2.ks",
+ "lines": [
+  [
+   20,
+   "[gage_draw place=\"メイフェア・ガーデン\"]",
+   "[gage_draw place=\"Mayfair Garden\"]"
+  ],
+  [
+   50,
+   "館の裏手にある美しい西洋式庭園に出ると、参加者が思い思いに散らばりはじめた。[p]",
+   "Out in the beautiful Western-style garden behind the house, the guests began to wander off in different directions.[p]"
+  ],
+  [
+   54,
+   "皆様。お茶会の前に、よろしければ一枚いかがでしょうか。[p]",
+   "Everyone. Before the tea, might I take a photograph?[p]"
+  ],
+  [
+   58,
+   "このお庭で撮った写真を、館の記録として残しているのです。[p]",
+   "We keep photographs taken in this garden as a record of the house.[p]"
+  ],
+  [
+   66,
+   "ええ、ぜひ。皆さん、こちらへどうぞ。[p]",
+   "Yes, of course. Everyone, over here, if you please.[p]"
+  ],
+  [
+   69,
+   "小出里亜が芝の上に三脚を立て、慣れた手つきでタイマーを合わせる。[p]",
+   "Koderia set a tripod up on the lawn and set the timer with practiced hands.[p]"
+  ],
+  [
+   76,
+   "……お姉ちゃん。その帽子、脱いだら？[p]",
+   "...Sis. Why don't you take the hat off?[p]"
+  ],
+  [
+   81,
+   "脱がないわよ。これは正装なんだから。[p]",
+   "No way. This is formal wear.[p]"
+  ],
+  [
+   86,
+   "一生残るのに。[p]",
+   "It'll be there forever.[p]"
+  ],
+  [
+   91,
+   "一生残るからよ。[p]",
+   "That's exactly why.[p]"
+  ],
+  [
+   95,
+   "愛理は諦めたように笑って、私の隣に並んだ。[p]",
+   "Airi gave me a resigned smile and came to stand beside me.[p]"
+  ],
+  [
+   100,
+   "八人が肩を寄せ合う。[r]",
+   "The eight of us squeezed in shoulder to shoulder.[r]"
+  ],
+  [
+   102,
+   "小出里亜が焼いたばかりのクッキーの皿を抱え、真ん中で笑っている。[p]",
+   "Koderia stood in the middle with a plate of just-baked biscuits in her arms, smiling.[p]"
+  ],
+  [
+   106,
+   "それでは——参ります。[p]",
+   "Now then — here we go.[p]"
+  ],
+  [
+   112,
+   "[gage_draw place=\"メイフェア・ガーデン\"]",
+   "[gage_draw place=\"Mayfair Garden\"]"
+  ],
+  [
+   116,
+   "——秋の午後の光が、そこにいた全員を等しく照らしていた。[p]",
+   "—The autumn afternoon light fell equally on every one of us.[p]"
+  ],
+  [
+   120,
+   "[gage_draw place=\"メイフェア・ガーデン\"]",
+   "[gage_draw place=\"Mayfair Garden\"]"
+  ],
+  [
+   124,
+   "撮り終えると、参加者たちはまた思い思いに庭へ散っていった。[p]",
+   "Once the photograph was taken, the guests drifted off into the garden again.[p]"
+  ],
+  [
+   136,
+   "少し離れた場所で、二人の人物が話し込んでいるのが見えた。[p]",
+   "A little way off, I could see two people deep in conversation.[p]"
+  ],
+  [
+   138,
+   "医大生の和人と、メイドの小出里亜だ。[p]",
+   "Kazuto the medical student, and Koderia the maid.[p]"
+  ],
+  [
+   144,
+   "あの……徐音様。私たち、以前どこかでお会いしたことはありませんか？[p]",
+   "Um... Mr Joon. Have we perhaps met somewhere before?[p]"
+  ],
+  [
+   147,
+   "なんだか、とても懐かしい気がして……。[p]",
+   "Something about you feels so familiar...[p]"
+  ],
+  [
+   153,
+   "……いや。人違いだろう。[p]",
+   "...No. You've mistaken me for someone else.[p]"
+  ],
+  [
+   156,
+   "俺は、会った覚えはない。[p]",
+   "I don't remember meeting you.[p]"
+  ],
+  [
+   159,
+   "和人はぶっきら棒に言った。[p]",
+   "Kazuto said it flatly.[p]"
+  ],
+  [
+   165,
+   "ちょっと和人、そんなに冷たくしなくても。[p]",
+   "Kazuto, there's no need to be so cold.[p]"
+  ],
+  [
+   168,
+   "小出里亜さんのこと、もっと、よく思い出してみたらどう？[p]",
+   "Why don't you try a little harder to remember Koderia?[p]"
+  ],
+  [
+   175,
+   "思い出すも何もない。俺は物心ついてから家族以外と一緒にいたことがない。[p]",
+   "There's nothing to remember. I've never lived with anyone but my family, for as long as I can remember.[p]"
+  ],
+  [
+   178,
+   "……その家族すら、もういないがな。[p]",
+   "...And even that family is gone now.[p]"
+  ],
+  [
+   184,
+   "え……？ それって、どういう……。[p]",
+   "What...? What do you mean by...[p]"
+  ],
+  [
+   190,
+   "お前に話す筋合いはない。[p]",
+   "It's no business of yours.[p]"
+  ],
+  [
+   193,
+   "和人はそれだけ言い捨てて、足早に花壇の方へと歩き去ってしまった。[p]",
+   "With that, Kazuto strode off toward the flowerbeds.[p]"
+  ],
+  [
+   203,
+   "ありがとうございます、真白様。[p]",
+   "Thank you, Miss Mashiro.[p]"
+  ],
+  [
+   206,
+   "やっぱり私の気のせいだったのかもしれません。[p]",
+   "Perhaps I really was imagining it after all.[p]"
+  ],
+  [
+   209,
+   "徐音様に謝ってまいりますね。[p]",
+   "I'll go and apologize to Mr Joon.[p]"
+  ],
+  [
+   214,
+   "小出里亜も和人を追うようにしてその場を離れた。[p]",
+   "Koderia left too, following after Kazuto.[p]"
+  ],
+  [
+   221,
+   "なんだか、ピリピリしてるね……。[p]",
+   "Things are getting pretty tense...[p]"
+  ],
+  [
+   224,
+   "私たちも、お茶会の準備ができるまで少し庭を見て回ろうか。[p]",
+   "Want to look around the garden until tea is ready?[p]"
+  ],
+  [
+   240,
+   "[gage_draw place=\"メイフェア・ガーデン\"]",
+   "[gage_draw place=\"Mayfair Garden\"]"
+  ],
+  [
+   256,
+   "if(f.talked_couple    == 0){ tf.choices.push({target:'*talk_couple',    text:'景色を見ている叡留久夫妻',   kind:'talk', chara:['eruku','juri']}); }",
+   "if(f.talked_couple    == 0){ tf.choices.push({target:'*talk_couple',    text:'The Hoaros, admiring the view',   kind:'talk', chara:['eruku','juri']}); }"
+  ],
+  [
+   257,
+   "if(f.talked_jushika   == 0){ tf.choices.push({target:'*talk_jushika',   text:'サンルームの壁を見る朱志香', kind:'talk', chara:['jushika']}); }",
+   "if(f.talked_jushika   == 0){ tf.choices.push({target:'*talk_jushika',   text:'Jushika, looking at the sunroom wall', kind:'talk', chara:['jushika']}); }"
+  ],
+  [
+   258,
+   "if(f.talked_kazuto    == 0){ tf.choices.push({target:'*talk_kazuto',    text:'花壇を見つめる和人',         kind:'talk', chara:['kazuto']}); }",
+   "if(f.talked_kazuto    == 0){ tf.choices.push({target:'*talk_kazuto',    text:'Kazuto, staring at the flowerbed',         kind:'talk', chara:['kazuto']}); }"
+  ],
+  [
+   259,
+   "if(f.talked_koderia   == 0){ tf.choices.push({target:'*talk_koderia',   text:'戻ってきた小出里亜',         kind:'talk', chara:['koderia']}); }",
+   "if(f.talked_koderia   == 0){ tf.choices.push({target:'*talk_koderia',   text:'Koderia, back in the garden',         kind:'talk', chara:['koderia']}); }"
+  ],
+  [
+   260,
+   "if(f.talked_mary      == 0){ tf.choices.push({target:'*talk_mary',      text:'庭を散策するメアリー',       kind:'talk', chara:['mary']}); }",
+   "if(f.talked_mary      == 0){ tf.choices.push({target:'*talk_mary',      text:'Mary, walking in the garden',       kind:'talk', chara:['mary']}); }"
+  ],
+  [
+   261,
+   "if(f.checked_monument == 0){ tf.choices.push({target:'*check_monument', text:'庭の隅を調べる',             kind:'look', name:'庭の隅'}); }",
+   "if(f.checked_monument == 0){ tf.choices.push({target:'*check_monument', text:'Examine the corner of the garden',             kind:'look', name:'The garden corner'}); }"
+  ],
+  [
+   262,
+   "if(f.walked_around    == 0){ tf.choices.push({target:'*walk_around',    text:'周辺を散策する',             kind:'move', name:'舞黒館 周辺'}); }",
+   "if(f.walked_around    == 0){ tf.choices.push({target:'*walk_around',    text:'Take a walk around the area',             kind:'move', name:'Around Maicro House'}); }"
+  ],
+  [
+   269,
+   "[stand_select storage=\"scene2.ks\" se=\"decide.mp3\" prompt=\"さて、どこを見て回ろうか……。<br>（お茶会は15時半の予定。まだ少し時間がありそうだ）\"]",
+   "[stand_select storage=\"scene2.ks\" se=\"decide.mp3\" prompt=\"Okay, where should I look around...?<br>(Tea is at half past three. There should still be a little time.)\"]"
+  ],
+  [
+   279,
+   "[gage_draw place=\"メイフェア・ガーデン\"]",
+   "[gage_draw place=\"Mayfair Garden\"]"
+  ],
+  [
+   286,
+   "穂在呂夫妻は庭の景色を眺めながら、楽しそうに談笑していた。[p]",
+   "The Hoaros were admiring the garden and chatting happily.[p]"
+  ],
+  [
+   292,
+   "こんにちは。すごく楽しそうですね！[p]",
+   "Hello. You look like you're having a wonderful time![p]"
+  ],
+  [
+   298,
+   "やあ、君たちも楽しんでいるかい？[p]",
+   "Ah, are you two enjoying yourselves?[p]"
+  ],
+  [
+   303,
+   "仕事の良いリフレッシュになるよ！[p]",
+   "It's a fine change from work![p]"
+  ],
+  [
+   309,
+   "仕事って何をしているんですか？[p]",
+   "What is it you do?[p]"
+  ],
+  [
+   315,
+   "今は健康食品を扱った事業をしているんだ。[p]",
+   "At the moment I run a business in health foods.[p]"
+  ],
+  [
+   320,
+   "しかも、独立してから仕事が順調でね。最近、新しく薬の事業も始めたんだ。[p]",
+   "And things have gone well since I struck out on my own. Recently I've started a pharmaceutical line as well.[p]"
+  ],
+  [
+   326,
+   "薬の事業、ですか？[p]",
+   "A pharmaceutical line?[p]"
+  ],
+  [
+   330,
+   "なんか難しそう。[p]",
+   "That sounds difficult.[p]"
+  ],
+  [
+   334,
+   "いつ頃から始めたのかを尋ねると、叡留久は指を折って数える仕草をした。[p]",
+   "When I asked how long ago he had started, Eruku counted on his fingers.[p]"
+  ],
+  [
+   339,
+   "2か月ほど前かな。知り合いからアドバイスをもらってね。[p]",
+   "Two months or so. An acquaintance gave me some advice.[p]"
+  ],
+  [
+   343,
+   "それに、妻の珠璃がサポートしてくれているおかげで喜ばしい限りだよ。[p]",
+   "And my wife Juri supports me, which is a great blessing.[p]"
+  ],
+  [
+   349,
+   "ふふ、大したことはしていないわ。[p]",
+   "Oh, I do nothing much at all.[p]"
+  ],
+  [
+   352,
+   "私がSNSを通じて、特殊な薬学の書籍を集めたの。[p]",
+   "I gathered some specialist books on pharmacology through social media.[p]"
+  ],
+  [
+   355,
+   "そこから得た知識やトレンドを分析して、事業で扱うものを決めたのよ。[p]",
+   "Then I analysed what I learned and the trends, and decided what the business should handle.[p]"
+  ],
+  [
+   361,
+   "SNSで本を集めるって、凄いですね！[p]",
+   "Collecting books through social media — that's amazing![p]"
+  ],
+  [
+   367,
+   "私も個人でデザインしたブランド商品を販売するために、SNSでマーケティングをしているの。[p]",
+   "I also use social media to market the pieces I design under my own label.[p]"
+  ],
+  [
+   370,
+   "だから、事業以外でも普段からよくSNSを活用してるわ。[p]",
+   "So I'm on it a good deal, quite apart from the business.[p]"
+  ],
+  [
+   373,
+   "珠璃がそう言った瞬間、叡留久の顔が一瞬だけサッと曇った。[p]",
+   "The instant Juri said it, Eruku's face clouded over for just a moment.[p]"
+  ],
+  [
+   379,
+   "あ、ああ……そうだな。SNSは便利だからな……。[p]",
+   "Ah, yes... quite. Social media is a convenient thing...[p]"
+  ],
+  [
+   385,
+   "（……？ 顔合わせの時も驚いていたし、SNSに何か思うところがあるのかな？）[p]",
+   "(...? He looked startled at the introductions too. Does social media trouble him somehow?)[p]"
+  ],
+  [
+   403,
+   "[gage_draw place=\"メイフェア・ガーデン\"]",
+   "[gage_draw place=\"Mayfair Garden\"]"
+  ],
+  [
+   408,
+   "朱志香はサンルームの外壁の補修跡を、じっと見つめていた。[p]",
+   "Jushika was studying the repaired patch on the outer wall of the sunroom.[p]"
+  ],
+  [
+   414,
+   "朱志香さん、どうかしたんですか？[p]",
+   "Jushika, is something the matter?[p]"
+  ],
+  [
+   420,
+   "いえ、補修跡を見て、少し昔を思い出しましてね。[p]",
+   "No. Looking at the repair simply brought back old memories.[p]"
+  ],
+  [
+   423,
+   "私の夫である富礼知が突然この洋館を購入すると言ってきたときは驚きました。[p]",
+   "I was astonished when my husband, Furechi, announced out of nowhere that he was buying this house.[p]"
+  ],
+  [
+   429,
+   "旦那さんはよほど好きだったんですね。[p]",
+   "He must have been very fond of it.[p]"
+  ],
+  [
+   435,
+   "それもありますが、夫の家は元々資産家だったのです。[p]",
+   "That too, but his family were originally people of means.[p]"
+  ],
+  [
+   438,
+   "けれど、バブル崩壊により、財産のほとんどを失ってしまって。[p]",
+   "When the bubble burst, however, they lost almost everything.[p]"
+  ],
+  [
+   441,
+   "挽回のために地価が上がりそうな土地を買い上げていて、ここもその一つです。[p]",
+   "To recover, he bought up land he expected to rise in value, and this was one such place.[p]"
+  ],
+  [
+   445,
+   "淡々と語る朱志香の表情は少し暗かった。[p]",
+   "Jushika spoke evenly, but her face was a little dark.[p]"
+  ],
+  [
+   451,
+   "あの……何か、辛いことでもあったんですか？[p]",
+   "Um... has something painful happened?[p]"
+  ],
+  [
+   459,
+   "……いえ。[p]",
+   "...No.[p]"
+  ],
+  [
+   462,
+   "亡き夫のことを思い出しただけです。お気になさらず。[p]",
+   "I was only remembering my late husband. Please don't mind me.[p]"
+  ],
+  [
+   475,
+   "[gage_draw place=\"メイフェア・ガーデン\"]",
+   "[gage_draw place=\"Mayfair Garden\"]"
+  ],
+  [
+   483,
+   "和人。[p]",
+   "Kazuto.[p]"
+  ],
+  [
+   486,
+   "さっきの「家族がもういない」って、どういう……。[p]",
+   "What you said earlier, about your family being gone...[p]"
+  ],
+  [
+   493,
+   "……お前に話す気はないと言ったはずだ。[p]",
+   "...I believe I said I had no intention of telling you.[p]"
+  ],
+  [
+   499,
+   "うっ……。[p]",
+   "Ugh...[p]"
+  ],
+  [
+   502,
+   "あ、あのさ、この庭の植物すごく綺麗だよね！[p]",
+   "Um, well — the plants in this garden are so lovely, aren't they![p]"
+  ],
+  [
+   505,
+   "香りもいいし。[p]",
+   "And they smell wonderful.[p]"
+  ],
+  [
+   512,
+   "綺麗か。[p]",
+   "Lovely.[p]"
+  ],
+  [
+   515,
+   "見かけはそうかもしれないが、ここにある植物も使い方次第で毒になるものもある。[p]",
+   "They may look it, but some of the plants here can become poison, depending on how you use them.[p]"
+  ],
+  [
+   521,
+   "毒のある植物が植えてあるんですか？[p]",
+   "There are poisonous plants planted here?[p]"
+  ],
+  [
+   527,
+   "有毒というわけじゃないがな。[p]",
+   "They aren't poisonous as such.[p]"
+  ],
+  [
+   530,
+   "使い方次第で毒にもなるってことさ。[p]",
+   "Only that, used a certain way, they can turn poisonous.[p]"
+  ],
+  [
+   533,
+   "薬の原料になるものも多いが、扱いを間違えれば最悪命に関わる。[p]",
+   "Many are used to make medicine, but handle them wrongly and they can cost a life.[p]"
+  ],
+  [
+   536,
+   "例えば、あそこにある……。[p]",
+   "For instance, that one over there—[p]"
+  ],
+  [
+   539,
+   "和人は何かを指さそうとしたが、すぐに口をつぐんだ。[p]",
+   "Kazuto started to point at something, then shut his mouth.[p]"
+  ],
+  [
+   544,
+   "……いや、なんでもない。[p]",
+   "...No. Never mind.[p]"
+  ],
+  [
+   550,
+   "和人って、本当に植物に詳しいんだね！[p]",
+   "You really do know your plants, Kazuto![p]"
+  ],
+  [
+   556,
+   "……医大生なら当然の知識だ。[p]",
+   "...Any medical student would.[p]"
+  ],
+  [
+   559,
+   "用がないならもういいだろう。[p]",
+   "If there's nothing else, that will do.[p]"
+  ],
+  [
+   572,
+   "[gage_draw place=\"メイフェア・ガーデン\"]",
+   "[gage_draw place=\"Mayfair Garden\"]"
+  ],
+  [
+   577,
+   "小出里亜がホッとした様子で戻ってきた。[p]",
+   "Koderia came back looking relieved.[p]"
+  ],
+  [
+   582,
+   "徐音様に謝罪できて、安心しました……。[p]",
+   "I'm glad I could apologize to Mr Joon...[p]"
+  ],
+  [
+   588,
+   "小出里亜さんは、どうしてメイドさんになったんですか？[p]",
+   "Koderia, how did you come to be a maid?[p]"
+  ],
+  [
+   594,
+   "私、家事が得意なんです。掃除も料理もなんでもこなせますから。[p]",
+   "I'm good at housework. Cleaning, cooking — I can turn my hand to anything.[p]"
+  ],
+  [
+   597,
+   "それに、この横浜山手の雰囲気が大好きなのも理由の一つですね。[p]",
+   "And I love the feel of this part of Yamate, which is part of it too.[p]"
+  ],
+  [
+   603,
+   "実は私、両親は義理の親で、本当の両親がどこにいるのか分からないんです。[p]",
+   "In fact, the parents who raised me are not my own, and I have no idea where my real parents are.[p]"
+  ],
+  [
+   607,
+   "けど、この街にいると懐かしい感じがして。[p]",
+   "But being in this town gives me such a feeling of nostalgia.[p]"
+  ],
+  [
+   611,
+   "もしかしたら、昔住んでいたことがあるんじゃないかって。[p]",
+   "I wonder sometimes whether I might have lived here long ago.[p]"
+  ],
+  [
+   617,
+   "そうだったんですね……。[p]",
+   "I see...[p]"
+  ],
+  [
+   621,
+   "今でも、本当のご両親に、会いたいですか？[p]",
+   "Would you still like to meet your real parents?[p]"
+  ],
+  [
+   628,
+   "……ええ、もちろん会いたいです。[p]",
+   "...Yes, of course I would.[p]"
+  ],
+  [
+   633,
+   "……ところで！ お二人は恋愛とかしているんですか？[p]",
+   "...Anyway! Are either of you seeing anyone?[p]"
+  ],
+  [
+   639,
+   "恋愛はまだなんですけど、すごく憧れるんです……。[p]",
+   "Not yet, but I do so long to.[p]"
+  ],
+  [
+   643,
+   "早くしてみたいんです！[p]",
+   "I want it to happen soon![p]"
+  ],
+  [
+   650,
+   "恋愛はいいですよ！[p]",
+   "Being in love is wonderful![p]"
+  ],
+  [
+   653,
+   "胸が熱くなって、頭の中はいつも相手のことでいっぱいになって。[p]",
+   "Your chest goes hot, and your head is full of nothing but them.[p]"
+  ],
+  [
+   656,
+   "私も恋愛が大好きで、これまで数え切れないくらいの人に想いを馳せてきました。[p]",
+   "I love being in love too. I've pined after more people than I can count.[p]"
+  ],
+  [
+   659,
+   "今もね、気になっている人がいて……その人を本気にさせるために、色々と手を尽くしているところなんです。[p]",
+   "And there's someone on my mind even now... I'm doing everything I can to make him serious about me.[p]"
+  ],
+  [
+   665,
+   "いいなあ……。[p]",
+   "How lovely...[p]"
+  ],
+  [
+   669,
+   "私たちも早く恋愛したいね、お姉ちゃん！[p]",
+   "Let's fall in love soon too, sis![p]"
+  ],
+  [
+   678,
+   "ウンソウダネ。[p]",
+   "Yes. Quite.[p]"
+  ],
+  [
+   693,
+   "[gage_draw place=\"メイフェア・ガーデン\"]",
+   "[gage_draw place=\"Mayfair Garden\"]"
+  ],
+  [
+   699,
+   "メアリーは庭の景色を懐かしむように眺めていた。[p]",
+   "Mary was gazing at the garden as though remembering it.[p]"
+  ],
+  [
+   705,
+   "メアリーさんは、どうしてこの宿泊イベントに参加したんですか？[p]",
+   "Mary, why did you decide to come to this event?[p]"
+  ],
+  [
+   711,
+   "私の祖母が舞黒館に行ったことがあると話していて……ずっと気になっていたんです。[p]",
+   "My grandmother told me she had once been to Maicro House... and it has been on my mind ever since.[p]"
+  ],
+  [
+   718,
+   "へえ！ そうなんですね！[p]",
+   "Really! Is that so![p]"
+  ],
+  [
+   725,
+   "実は先ほど拾ってくれたペンダントは祖母からもらったものなんですよ。[p]",
+   "In fact, the pendant you picked up for me earlier came from her.[p]"
+  ],
+  [
+   728,
+   "約80年前のものだそうです。[p]",
+   "It is said to be about eighty years old.[p]"
+  ],
+  [
+   734,
+   "80年前のペンダント！[p]",
+   "An eighty-year-old pendant![p]"
+  ],
+  [
+   737,
+   "すごいねえ、歴史があるねえ！[p]",
+   "That's amazing. Such history![p]"
+  ],
+  [
+   743,
+   "ふふ、そうですね。[p]",
+   "Yes, it is.[p]"
+  ],
+  [
+   746,
+   "祖母からは、舞黒館であった恋の話も聞いています。[p]",
+   "My grandmother also told me of a love affair that happened at Maicro House.[p]"
+  ],
+  [
+   752,
+   "え、恋ですか……！[p]",
+   "Oh, a love affair...![p]"
+  ],
+  [
+   759,
+   "昔、この舞黒館で働いていた日本人女性と、イギリス人の男性が恋に落ちました。[p]",
+   "Long ago, a Japanese woman who worked at Maicro House and an Englishman fell in love.[p]"
+  ],
+  [
+   762,
+   "二人は深く愛し合っていましたが……第二次世界大戦が始まり、引き裂かれてしまったのです。[p]",
+   "They loved each other deeply... but the Second World War began, and they were torn apart.[p]"
+  ],
+  [
+   768,
+   "うう、悲しい恋……。[p]",
+   "Oh, how sad...[p]"
+  ],
+  [
+   772,
+   "でも、たとえ会えなくても二人の想いは通じていたよね。[p]",
+   "But even if they couldn't meet, their feelings still reached each other.[p]"
+  ],
+  [
+   776,
+   "そうだよね、お姉ちゃん！[p]",
+   "That's right, isn't it, sis![p]"
+  ],
+  [
+   784,
+   "うん。[p]",
+   "Mm.[p]"
+  ],
+  [
+   788,
+   "だって、地球は繋がっているんだから！[p]",
+   "After all, the whole earth is connected![p]"
+  ],
+  [
+   796,
+   "そういうことじゃない！！[p]",
+   "That is not the point!![p]"
+  ],
+  [
+   816,
+   "[gage_draw place=\"メイフェア・ガーデン\"]",
+   "[gage_draw place=\"Mayfair Garden\"]"
+  ],
+  [
+   824,
+   "わあ、ここの庭園、本当にきれいだね！[p]",
+   "Wow, this garden really is beautiful![p]"
+  ],
+  [
+   827,
+   "ハーブのいい香りもするし！[p]",
+   "And the herbs smell lovely![p]"
+  ],
+  [
+   834,
+   "うん、綺麗……。ん？ お姉ちゃん、あそこ見て。[p]",
+   "Mm, it's lovely... Hm? Sis, look over there.[p]"
+  ],
+  [
+   837,
+   "愛理が指さした庭の隅に、古びた石碑のようなものがあった。[p]",
+   "In the corner Airi pointed to stood something like an old stone monument.[p]"
+  ],
+  [
+   839,
+   "表面には、薄く詩の一節が刻まれている。[p]",
+   "A verse was faintly carved into its face.[p]"
+  ],
+  [
+   844,
+   "『海の向こうのかの地から　感じているのはあなたのぬくもり』[p]",
+   "“From that land beyond the sea, what I feel is your warmth.”[p]"
+  ],
+  [
+   847,
+   "『決して消えることのない想いを　静かに載せる』[p]",
+   "“A longing that will never fade, laid down in silence.”[p]"
+  ],
+  [
+   854,
+   "（……さっきメアリーさんが言っていた、日本人女性とイギリス人の恋……あれと関係があるのかな？）[p]",
+   "(...The Japanese woman and the Englishman Mary spoke of... could this be connected?)[p]"
+  ],
+  [
+   857,
+   "（でも、どうしてこんな石碑が置かれているんだろう……？）[p]",
+   "(But why would a monument like this be here...?)[p]"
+  ],
+  [
+   863,
+   "愛理、どうしたの？ 難しい顔して。[p]",
+   "Airi, what is it? You look troubled.[p]"
+  ],
+  [
+   869,
+   "ううん。何でもないよ。[p]",
+   "Nothing. It's nothing.[p]"
+  ],
+  [
+   897,
+   "[gage_draw place=\"舞黒館 周辺\"]",
+   "[gage_draw place=\"Around Maicro House\"]"
+  ],
+  [
+   902,
+   "私たちは庭園を抜け、少し周辺を散策してみることにした。[p]",
+   "We went out through the garden and decided to walk around the area a while.[p]"
+  ],
+  [
+   909,
+   "すごく気持ちの良い公園だね。[p]",
+   "What a lovely park.[p]"
+  ],
+  [
+   913,
+   "さすがは有名な観光スポット。[p]",
+   "It's a famous spot for a reason.[p]"
+  ],
+  [
+   917,
+   "推すだけのことはあるわ。[p]",
+   "People are right to recommend it.[p]"
+  ],
+  [
+   923,
+   "本当にきれい！[p]",
+   "It really is beautiful![p]"
+  ],
+  [
+   926,
+   "ねえ、あっちからなら港の方が見えるんじゃないかな。[p]",
+   "Look, I think we can see the harbour from over there.[p]"
+  ],
+  [
+   936,
+   "うわあ、本当に良い景色だね。[p]",
+   "Oh, what a view.[p]"
+  ],
+  [
+   940,
+   "マリンタワーも見えるし、山下公園も見えるね！[p]",
+   "You can see the Marine Tower, and Yamashita Park too![p]"
+  ],
+  [
+   943,
+   "横浜の港を一望しながら、ふと気になったものがあった。[p]",
+   "Looking out over the whole of Yokohama harbour, something caught my eye.[p]"
+  ],
+  [
+   946,
+   "大さん橋に大型の船が入港していた。[p]",
+   "A large ship had docked at Osanbashi Pier.[p]"
+  ],
+  [
+   949,
+   "客船だが、初めて見るタイプだった。[p]",
+   "A passenger liner, but of a kind I had never seen.[p]"
+  ],
+  [
+   956,
+   "ねえ、愛理、あの船って知ってる？[p]",
+   "Airi, do you know that ship?[p]"
+  ],
+  [
+   960,
+   "大さん橋に停泊している。[p]",
+   "The one moored at Osanbashi.[p]"
+  ],
+  [
+   966,
+   "あれは、最近話題の豪華客船だよ。[p]",
+   "That's the luxury liner everyone's talking about.[p]"
+  ],
+  [
+   970,
+   "なんでも、世界で初めて船の中が公開されるんだって。[p]",
+   "Apparently the inside is being opened to the public for the first time anywhere in the world.[p]"
+  ],
+  [
+   976,
+   "そうなんだ！[p]",
+   "Really![p]"
+  ],
+  [
+   980,
+   "機会があったら行ってみたいなあ。[p]",
+   "I'd love to go, if we get the chance.[p]"
+  ],
+  [
+   984,
+   "その後も軽く散歩を楽しんだ。[p]",
+   "We strolled a little longer after that.[p]"
+  ],
+  [
+   990,
+   "すっごく楽しかったね！ 横浜って本当にいいところ！[p]",
+   "That was such fun! Yokohama really is a lovely place![p]"
+  ],
+  [
+   996,
+   "うん。そろそろ庭園に戻ろうか。[p]",
+   "Mm. Shall we head back to the garden?[p]"
+  ],
+  [
+   1001,
+   "庭園に戻ると、ちょうど叡留久が和人に声をかけているところだった。[p]",
+   "When we returned to the garden, Eruku was just then calling out to Kazuto.[p]"
+  ],
+  [
+   1011,
+   "おかえり、外に出ていたのかい？[p]",
+   "Welcome back. Have you been out?[p]"
+  ],
+  [
+   1017,
+   "はい。外、面白かったですよ！[p]",
+   "Yes. It was fun out there![p]"
+  ],
+  [
+   1021,
+   "港の見える丘公園まで行ってきました。[p]",
+   "We went as far as Harbour View Park.[p]"
+  ],
+  [
+   1025,
+   "船も見えました。大さん橋に、大きな客船が停まっていて。[p]",
+   "We could see the ships. There's a great liner moored at Osanbashi.[p]"
+  ],
+  [
+   1029,
+   "叡留久さんたちも見たらきっと面白いですよ！[p]",
+   "I'm sure you'd enjoy it too![p]"
+  ],
+  [
+   1035,
+   "おお、いいねえ。[p]",
+   "Ah, that sounds good.[p]"
+  ],
+  [
+   1038,
+   "和人君、僕たちも散歩に行かないか？[p]",
+   "Kazuto, shall we go for a walk ourselves?[p]"
+  ],
+  [
+   1041,
+   "ついでに話しながら君の知識、少し聞かせてもらいたくてね。[p]",
+   "And while we're at it, I'd like to hear a little of what you know.[p]"
+  ],
+  [
+   1046,
+   "……構わないが。[p]",
+   "...I don't mind.[p]"
+  ],
+  [
+   1055,
+   "善は急げだ。お茶会までまだ間があるし、今から行こう。[p]",
+   "No time like the present. There's still a while before tea; let's go now.[p]"
+  ],
+  [
+   1061,
+   "……せっかちだな、あんたは。[p]",
+   "...You're an impatient man.[p]"
+  ],
+  [
+   1067,
+   "お茶会には間に合いますか？[p]",
+   "Will you make it back in time for the tea?[p]"
+  ],
+  [
+   1073,
+   "今から出れば余裕だよ。[p]",
+   "If we leave now, there's plenty of time.[p]"
+  ],
+  [
+   1077,
+   "珠璃にもそう伝えておいてくれるかい。[p]",
+   "Would you tell Juri as much?[p]"
+  ],
+  [
+   1082,
+   "はい、伝えておきますね。[p]",
+   "Yes, I'll let her know.[p]"
+  ],
+  [
+   1086,
+   "叡留久は和人の背を押すようにして、二人並んで庭の奥へと歩いていった。[p]",
+   "Eruku all but pushed Kazuto along, and the two walked off together into the far end of the garden.[p]"
+  ],
+  [
+   1096,
+   "そうしたら、もう少し庭園を見たいから、また後で声をかけるよ。[p]",
+   "In that case I'd like to see a little more of the garden, so I'll come and find you later.[p]"
+  ],
+  [
+   1108,
+   "[gage_draw place=\"メイフェア・ガーデン\"]",
+   "[gage_draw place=\"Mayfair Garden\"]"
+  ],
+  [
+   1115,
+   "皆様、お茶会を行いますので、どうぞ、屋敷の中へお戻りください。[p]",
+   "Everyone, the tea is about to begin. Please come back inside.[p]"
+  ],
+  [
+   1122,
+   "私たちは朱志香に促され、屋敷へと戻った。[p]",
+   "At Jushika's urging, we went back into the house.[p]"
+  ],
+  [
+   1124,
+   "和人と叡留久はまだ戻っていなかった。[p]",
+   "Kazuto and Eruku had not yet returned.[p]"
+  ],
+  [
+   1134,
+   "真白さん。僕たちはこれから少し散歩をしてくるよ。[p]",
+   "Miss Mashiro. We're going out for a short walk.[p]"
+  ],
+  [
+   1139,
+   "えっ、今からですか？　お茶会、始まっちゃいますよ。[p]",
+   "What, now? The tea is about to start.[p]"
+  ],
+  [
+   1144,
+   "直ぐに戻るから大丈夫さ。珠璃にそう伝えておいてくれるかい。[p]",
+   "Don't worry, we'll be right back. Would you tell Juri for me?[p]"
+  ],
+  [
+   1149,
+   "……はい。伝えておきますね。[p]",
+   "...Yes. I'll let her know.[p]"
+  ],
+  [
+   1155,
+   "和人と叡留久の二人は、そのまま庭の奥へと向かっていった。[r]",
+   "Kazuto and Eruku headed off toward the far end of the garden.[r]"
+  ],
+  [
+   1157,
+   "私たちは朱志香に促され、屋敷へと戻った。[p]",
+   "At Jushika's urging, we went back into the house.[p]"
+  ],
+  [
+   1170,
+   "いやあ、付き合ってくれてありがとう。[p]",
+   "Well now, thank you for humouring me.[p]"
+  ],
+  [
+   1173,
+   "実は、新しい薬のビジネスを考えていてね。[p]",
+   "The truth is, I'm thinking about a new pharmaceutical venture.[p]"
+  ],
+  [
+   1176,
+   "抗体ができにくい薬とか、体が丈夫になる薬とか……作れないものかな？[p]",
+   "A drug that makes antibodies hard to form, or one that makes the body stronger... could such a thing be made?[p]"
+  ],
+  [
+   1182,
+   "……薬は魔法の道具じゃない。[p]",
+   "...Medicine is not a magic wand.[p]"
+  ],
+  [
+   1185,
+   "そんな都合のいい効果などあるわけないだろう。[p]",
+   "There's no such convenient effect.[p]"
+  ],
+  [
+   1190,
+   "はは、厳しいな。[p]",
+   "Ha, you're a hard man.[p]"
+  ],
+  [
+   1193,
+   "けれど、薬は人の命を救ったり、健康を補助してくれるのも確かだろう？[p]",
+   "Still, medicine does save lives and support health, doesn't it?[p]"
+  ],
+  [
+   1196,
+   "庭に咲いているセージなんかは殺菌効果で有名だと聞いたけどな。[p]",
+   "I hear the sage growing in the garden is famous for its antiseptic properties.[p]"
+  ],
+  [
+   1201,
+   "それは一面に過ぎない。[p]",
+   "That's only one side of it.[p]"
+  ],
+  [
+   1204,
+   "植物の中には通常なら全く無害だが特定の条件下で毒になるものもある。[p]",
+   "Some plants are entirely harmless under normal conditions and turn poisonous under particular ones.[p]"
+  ],
+  [
+   1209,
+   "へえ、そんなものがあるのかい？[p]",
+   "Oh? There are such things?[p]"
+  ],
+  [
+   1214,
+   "ああ。[p]",
+   "There are.[p]"
+  ],
+  [
+   1217,
+   "例えば……一定の度数を超えるアルコールと混ぜると、強烈な毒物に変わるものとかな。[p]",
+   "For instance... something that becomes a violent poison when mixed with alcohol above a certain strength.[p]"
+  ],
+  [
+   1222,
+   "なるほど。それは確かに知らないと危険だね。[p]",
+   "I see. That would certainly be dangerous not to know.[p]"
+  ],
+  [
+   1225,
+   "だが、毒になるか薬になるかは使い方次第だろう？[p]",
+   "But whether a thing becomes poison or medicine depends on how it's used, doesn't it?[p]"
+  ],
+  [
+   1230,
+   "確かに……薬は人を救うこともできるが、人を殺すこともできる。[p]",
+   "True enough... medicine can save a person, and it can kill one.[p]"
+  ],
+  [
+   1233,
+   "ビジネスにするなら、常に危険と隣り合わせだってことを徹底して気をつけるべきだな。[p]",
+   "If you're making a business of it, you had better keep it firmly in mind that danger is always right beside you.[p]"
+  ],
+  [
+   1239,
+   "（随分と薬に関してはむきになるんだな……）[p]",
+   "(He gets awfully worked up about medicine...)[p]"
+  ],
+  [
+   1243,
+   "（思うことでもあるとみた……）[p]",
+   "(There must be something behind it...)[p]"
+  ],
+  [
+   1246,
+   "会話を終えると、叡留久は和人と共に屋敷へと戻っていった。[p]",
+   "When the conversation ended, Eruku went back to the house with Kazuto.[p]"
+  ]
+ ]
+}

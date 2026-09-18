@@ -1,0 +1,30 @@
+{
+ "src": "data/scenario/system/notify_ui.ks",
+ "lines": [
+  [
+   30,
+   "        profile_title: \"人物ファイル 解放\",",
+   "        profile_title: \"PROFILE UNLOCKED\","
+  ],
+  [
+   31,
+   "        profile_one:   \"プロフィールを解放しました。\",",
+   "        profile_one:   \"Profile unlocked.\","
+  ],
+  [
+   32,
+   "        profile_many:  \"名のプロフィールを解放しました。\",",
+   "        profile_many:  \" profiles unlocked.\","
+  ],
+  [
+   33,
+   "        info_title:    \"お知らせ\",",
+   "        info_title:    \"NOTICE\","
+  ],
+  [
+   34,
+   "        close:         \"クリックで閉じる\"",
+   "        close:         \"Click to close\""
+  ]
+ ]
+}

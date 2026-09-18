@@ -1,0 +1,315 @@
+{
+ "src": "data/scenario/ending/normal_end.ks",
+ "lines": [
+  [
+   19,
+   "このエンディングは一度見ています。[p]",
+   "You have seen this ending once before.[p]"
+  ],
+  [
+   21,
+   "スタッフロールまで飛ばしますか？[p]",
+   "Skip ahead to the staff roll?[p]"
+  ],
+  [
+   23,
+   "[glink color=\"bth13_dk\" text=\"このまま読む\"           target=\"*normal_end_read\"]",
+   "[glink color=\"bth13_dk\" text=\"Read it through\"           target=\"*normal_end_read\"]"
+  ],
+  [
+   24,
+   "[glink color=\"bth13_dk\" text=\"スタッフロールまで飛ばす\" target=\"*normal_end_skip\"]",
+   "[glink color=\"bth13_dk\" text=\"Skip to the staff roll\" target=\"*normal_end_skip\"]"
+  ],
+  [
+   47,
+   "和人は、珠璃から聞いた植物の特徴をもとに毒物を特定した。[r]",
+   "Working from the properties of the plant Juri described, Kazuto identified the poison.[r]"
+  ],
+  [
+   49,
+   "共同寝室では、和人が慎重に薬を調合していた。[p]",
+   "In the shared bedroom, he compounded the medicine with great care.[p]"
+  ],
+  [
+   53,
+   "これで、すぐに命を落とすということはないだろう。[p]",
+   "This should at least keep her from dying immediately.[p]"
+  ],
+  [
+   56,
+   "和人が愛理に薬を飲ませると愛理の様子が先ほどよりも落ち着き、呼吸が安定してきた。[p]",
+   "When Kazuto gave Airi the medicine, she grew calmer than before and her breathing steadied.[p]"
+  ],
+  [
+   60,
+   "ただし、できたのは応急処置だ。[p]",
+   "But this is only first aid.[p]"
+  ],
+  [
+   63,
+   "すぐに病院へ運んだほうがいい。解毒剤の投与が必要だ。[p]",
+   "She should be taken to hospital at once. She needs the antidote.[p]"
+  ],
+  [
+   76,
+   "救急車の到着はどうか？[p]",
+   "Any word on the ambulance?[p]"
+  ],
+  [
+   78,
+   "#警察",
+   "#Police"
+  ],
+  [
+   79,
+   "まだのようです。[p]",
+   "Not yet, it seems.[p]"
+  ],
+  [
+   83,
+   "救急車が到着し次第、被害者を搬送できるように1階にお連れするんだ。[p]",
+   "As soon as the ambulance arrives, have the victim brought downstairs so she can be transported immediately.[p]"
+  ],
+  [
+   86,
+   "誘導班も外で待機するように伝えろ。[p]",
+   "Tell the officers outside to be ready to guide the paramedics in.[p]"
+  ],
+  [
+   88,
+   "#警察",
+   "#Police"
+  ],
+  [
+   89,
+   "了解です。[p]",
+   "Understood.[p]"
+  ],
+  [
+   100,
+   "愛理……もう少しの辛抱だよ。[p]",
+   "Airi... just a little longer.[p]"
+  ],
+  [
+   106,
+   "ハア……ハア……。[p]",
+   "Hah... hah...[p]"
+  ],
+  [
+   110,
+   "ありがとう……。[p]",
+   "Thank you...[p]"
+  ],
+  [
+   116,
+   "うん。[p]",
+   "Mm.[p]"
+  ],
+  [
+   120,
+   "何があってもお姉ちゃんがついているからね！[p]",
+   "Whatever happens, I'm right here![p]"
+  ],
+  [
+   124,
+   "その後、救急車が到着し、愛理はストレッチャーに乗せられて病院へ搬送された。[r]",
+   "Before long the ambulance arrived, and Airi was carried to hospital on a stretcher.[r]"
+  ],
+  [
+   126,
+   "私も付き添い、愛理の震える手を必死に握りしめていた。[p]",
+   "I went with her, gripping her trembling hand as hard as I could.[p]"
+  ],
+  [
+   136,
+   "病院での治療は――ぎりぎりで間に合った。[r]",
+   "The treatment at the hospital was — just in time.[r]"
+  ],
+  [
+   138,
+   "和人の応急処置と、珠璃から得た情報が愛理の命を救ったのだった。[p]",
+   "Kazuto's first aid and what Juri had told us had saved Airi's life.[p]"
+  ],
+  [
+   140,
+   "#医師",
+   "#Doctor"
+  ],
+  [
+   141,
+   "毒の影響でしばらく入院が必要になります。[p]",
+   "The poison means she will need to stay in hospital for a while.[p]"
+  ],
+  [
+   143,
+   "#医師",
+   "#Doctor"
+  ],
+  [
+   144,
+   "安心してください。後遺症などもなく元の状態に戻れますから。[p]",
+   "Rest assured. There will be no lasting effects; she will be entirely herself again.[p]"
+  ],
+  [
+   151,
+   "[ptext layer=\"1\" page=\"fore\" name=\"cine_txt\" text=\"それから、三か月後。\" x=0 y=350 width=1920 align=\"center\" size=36 color=\"0xECE3D1\" face=\"serif\"]",
+   "[ptext layer=\"1\" page=\"fore\" name=\"cine_txt\" text=\"Three months later.\" x=0 y=350 width=1920 align=\"center\" size=36 color=\"0xECE3D1\" face=\"serif\"]"
+  ],
+  [
+   162,
+   "真歩流は毎日病院へ通い続けた。[r]",
+   "I went to the hospital every single day.[r]"
+  ],
+  [
+   164,
+   "愛理はすぐに元気になったが、入院生活は長かった。[p]",
+   "Airi was soon cheerful again, but her stay was a long one.[p]"
+  ],
+  [
+   167,
+   "長い間毒が体を回っていたので、体の機能が回復するのに時間がかかってしまったのだ。[p]",
+   "The poison had been in her body so long that her strength took time to return.[p]"
+  ],
+  [
+   169,
+   "真歩流は一日たりとも愛理の傍を離れなかった。[p]",
+   "I did not leave my sister's side for a single day.[p]"
+  ],
+  [
+   171,
+   "その間、零度警部からは事件の後日談が届いた。[p]",
+   "During that time, Inspector Reido sent word of what became of the case.[p]"
+  ],
+  [
+   174,
+   "珠璃は逮捕後、長い事情聴取を受けていた。[p]",
+   "After her arrest, Juri was questioned at length.[p]"
+  ],
+  [
+   176,
+   "夫を――意図的ではないにしろ――死なせてしまった事実は、彼女に重くのしかかっていたという。[p]",
+   "The fact that she had caused her husband's death — even unintentionally — weighed heavily on her.[p]"
+  ],
+  [
+   178,
+   "真歩流が最後に放った言葉は、珠璃の心を冷静に戻したらしい。[p]",
+   "The last words I said to her seem to have brought her back to herself.[p]"
+  ],
+  [
+   181,
+   "和人は毒物の知識を理由に任意同行を求められた。[r]",
+   "Kazuto was asked to come to the station voluntarily because of his knowledge of poisons.[r]"
+  ],
+  [
+   182,
+   "大学でも、緊急事態とはいえ医師免許のない学生が処置にあたったことを問題視されたという。[p]",
+   "His university also took issue with an unlicensed medical student providing treatment, even in an emergency.[p]"
+  ],
+  [
+   184,
+   "彼は別の医療大学へ籍を移して、その後の動向は誰も知らない。[p]",
+   "He transferred to another medical school, and nobody knows what became of him after that.[p]"
+  ],
+  [
+   187,
+   "メアリーは事件のあと、ふっと霞のように姿を消した。[r]",
+   "After the case, Mary vanished like mist.[r]"
+  ],
+  [
+   189,
+   "それ以来、一度も消息は掴めていないという。[p]",
+   "Not once since has anyone been able to trace her.[p]"
+  ],
+  [
+   191,
+   "日本から出国したという記録はないため、未だに親戚を探しているのだろうか。[p]",
+   "There is no record of her leaving Japan, so perhaps she is still searching for her relatives.[p]"
+  ],
+  [
+   194,
+   "朱志香は事件の後、舞黒館の管理を他人に任せ、人知れず姿を消したという。[p]",
+   "After the case, Jushika handed the running of Maicro House to someone else and quietly disappeared.[p]"
+  ],
+  [
+   196,
+   "今はどこで何をしているのか、誰も知らない。[p]",
+   "Where she is or what she is doing now, nobody knows.[p]"
+  ],
+  [
+   199,
+   "そして――。[p]",
+   "And—[p]"
+  ],
+  [
+   200,
+   "父・真白奢禄は、まだ見つかっていなかった。[r]",
+   "Our father, Sharoku Mashiro, had still not been found.[r]"
+  ],
+  [
+   202,
+   "零度警部が捜索を続けてくれていたが、有力な情報は一つとして得られなかった。[p]",
+   "Inspector Reido went on searching, but not one solid lead came of it.[p]"
+  ],
+  [
+   205,
+   "そして、事件から三か月後の今日。[r]",
+   "And today, three months after the case.[r]"
+  ],
+  [
+   207,
+   "愛理はようやく回復し、医師から「完治」と言われた。[p]",
+   "Airi had recovered at last, and the doctor pronounced her cured.[p]"
+  ],
+  [
+   208,
+   "退院の日。[r]",
+   "The day she was discharged.[r]"
+  ],
+  [
+   210,
+   "病院の玄関で、愛理はそっと微笑んだ。[p]",
+   "At the hospital entrance, Airi smiled softly.[p]"
+  ],
+  [
+   217,
+   "お姉ちゃん、ありがとう。毎日来てくれて。[p]",
+   "Thank you, sis. For coming every day.[p]"
+  ],
+  [
+   222,
+   "当たり前でしょ。愛理は、私の大切な妹なんだから。[p]",
+   "Of course I did. You're my sister.[p]"
+  ],
+  [
+   226,
+   "一緒にお父さんをまた探そう！[p]",
+   "Let's go and look for Dad again, together![p]"
+  ],
+  [
+   232,
+   "うん！[p]",
+   "Mm![p]"
+  ],
+  [
+   235,
+   "二人はゆっくりと歩き出した。[p]",
+   "The two of us slowly started walking.[p]"
+  ],
+  [
+   243,
+   "真歩流と愛理は、今日も歩き続ける。[p]",
+   "Mahoru and Airi keep moving forward, even now.[p]"
+  ],
+  [
+   245,
+   "父は、どこかで生きている。[p]",
+   "Their father is still alive somewhere.[p]"
+  ],
+  [
+   247,
+   "二人はそう信じている――。[p]",
+   "That is what they believe—[p]"
+  ]
+ ]
+}

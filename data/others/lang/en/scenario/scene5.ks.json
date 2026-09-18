@@ -1,0 +1,1420 @@
+{
+ "src": "data/scenario/scene5.ks",
+ "lines": [
+  [
+   15,
+   "[gage_draw place=\"舞黒館:キッチン\"]",
+   "[gage_draw place=\"Maicro House:Kitchen\"]"
+  ],
+  [
+   41,
+   "真歩流と愛理は悲鳴の方向へと駆け出した。[p]",
+   "Airi and I ran toward the scream.[p]"
+  ],
+  [
+   43,
+   "キッチンの入り口に、小出里亜が倒れていた。[p]",
+   "Koderia lay collapsed in the kitchen doorway.[p]"
+  ],
+  [
+   48,
+   "小出里亜さん！[p]",
+   "Koderia![p]"
+  ],
+  [
+   58,
+   "小出里亜は床に倒れ、苦しそうに喘いでいた。[r]",
+   "She lay on the floor, gasping in pain.[r]"
+  ],
+  [
+   60,
+   "顔面は蒼白で、額には冷や汗が浮かんでいる。[p]",
+   "Her face was white, cold sweat standing on her forehead.[p]"
+  ],
+  [
+   66,
+   "う……ぐ……っ……！[p]",
+   "Ugh... nng...![p]"
+  ],
+  [
+   71,
+   "口から呻き声が漏れる。[r]",
+   "A groan escaped her lips.[r]"
+  ],
+  [
+   73,
+   "体が痙攣し、激しく苦しんでいるのが分かった。[p]",
+   "Her body convulsed; she was clearly in agony.[p]"
+  ],
+  [
+   78,
+   "（何が起きてるの……！？　考えて、考えて——）[p]",
+   "(What's happening...!? Think, think—)[p]"
+  ],
+  [
+   90,
+   "tag:   \"緊急\",",
+   "tag:   \"URGENT\","
+  ],
+  [
+   91,
+   "title: \"手を動かせ\",",
+   "title: \"Move Your Hands\","
+  ],
+  [
+   92,
+   "lead:  \"小出里亜が痙攣している。救急車はまだ来ない。\",",
+   "lead:  \"Koderia is convulsing. The ambulance isn't here yet.\","
+  ],
+  [
+   93,
+   "prompt:\"――今、何をする！？\",",
+   "prompt:\"—What do you do right now!?\","
+  ],
+  [
+   99,
+   "tf.inc.choices.push({ text:\"名前を呼び続ける\", sub:\"意識をこちらへ繋ぎ止める\", target:\"*s5_act_call\" });",
+   "tf.inc.choices.push({ text:\"Keep calling her name\", sub:\"Keep her conscious\", target:\"*s5_act_call\" });"
+  ],
+  [
+   103,
+   "tf.inc.choices.push({ text:\"キッチンの中を見る\", sub:\"何が起きたのかを掴む\", target:\"*s5_act_look\" });",
+   "tf.inc.choices.push({ text:\"Look round the kitchen\", sub:\"Work out what happened\", target:\"*s5_act_look\" });"
+  ],
+  [
+   111,
+   "[inc_back place=\"舞黒館:キッチン\"]",
+   "[inc_back place=\"Maicro House:Kitchen\"]"
+  ],
+  [
+   117,
+   "小出里亜さん！　小出里亜さん、私が分かりますか！？[p]",
+   "Koderia! Can you hear me!? Do you recognize me!?[p]"
+  ],
+  [
+   121,
+   "呼びかけに応えるように、小出里亜の瞼がわずかに震えた。[r]",
+   "As if answering, her eyelids trembled faintly.[r]"
+  ],
+  [
+   123,
+   "濁った瞳が、一度だけ——真歩流の顔を捉えた。[p]",
+   "Her unfocused eyes found my face — for just a moment.[p]"
+  ],
+  [
+   126,
+   "だが、それはほんの一瞬だった。[r]",
+   "But it lasted only an instant.[r]"
+  ],
+  [
+   128,
+   "視線はすぐに逸れ、真歩流の肩越し——廊下へ続く入口の方を、さまようように探しはじめた。[p]",
+   "Her gaze slid away, past my shoulder, searching toward the doorway that led to the corridor.[p]"
+  ],
+  [
+   131,
+   "そこには、まだ誰もいない。[r]",
+   "There was nobody there.[r]"
+  ],
+  [
+   133,
+   "それでも小出里亜は、そちらを見ることをやめなかった。[p]",
+   "Even so, Koderia kept staring toward the corridor.[p]"
+  ],
+  [
+   135,
+   "[inc_insight id=\"koderia_eyes\" name=\"小出里亜さんは、真歩流ではない誰かを探していた\"]",
+   "[inc_insight id=\"koderia_eyes\" name=\"Koderia was looking for someone other than Mahoru\"]"
+  ],
+  [
+   141,
+   "[inc_back place=\"舞黒館:キッチン\"]",
+   "[inc_back place=\"Maicro House:Kitchen\"]"
+  ],
+  [
+   147,
+   "（何が……何が原因なの……！）[p]",
+   "(What is it... what caused this...!)[p]"
+  ],
+  [
+   151,
+   "顔を上げ、キッチンの中を素早く見回す。[p]",
+   "I raised my head and quickly scanned the kitchen.[p]"
+  ],
+  [
+   154,
+   "調理台の上は、片づいている。[r]",
+   "The worktop was clear.[r]"
+  ],
+  [
+   156,
+   "ただ、コンロにかけられたポットだけが、火を止められないまま湯気を上げ続けていた。[p]",
+   "Only the kettle on the stove was still steaming, the burner left on.[p]"
+  ],
+  [
+   158,
+   "[inc_insight id=\"kitchen_pot\" name=\"コンロのポットが、火にかけられたままだった\"]",
+   "[inc_insight id=\"kitchen_pot\" name=\"The kettle was left on the flame\"]"
+  ],
+  [
+   164,
+   "[inc_back place=\"舞黒館:キッチン\"]",
+   "[inc_back place=\"Maicro House:Kitchen\"]"
+  ],
+  [
+   167,
+   "——体が、動かなかった。[p]",
+   "—My body would not move.[p]"
+  ],
+  [
+   170,
+   "目の前で人が壊れていくのを、ただ見ていることしかできない。[r]",
+   "All I could do was watch someone suffer right in front of me.[r]"
+  ],
+  [
+   172,
+   "指一本を動かすのに、途方もない時間がかかった。[p]",
+   "Even moving a single finger felt impossibly difficult.[p]"
+  ],
+  [
+   177,
+   "（……私、何もしてない）[p]",
+   "(...I did nothing.)[p]"
+  ],
+  [
+   189,
+   "小出里亜さん、小出里亜さん！ しっかりして！[p]",
+   "Koderia, Koderia! Stay with me![p]"
+  ],
+  [
+   199,
+   "朱志香が真歩流の叫びを聞いて飛び込んできた。[p]",
+   "Jushika heard me shouting and came running in.[p]"
+  ],
+  [
+   204,
+   "小出里亜さん！？[p]",
+   "Koderia!?[p]"
+  ],
+  [
+   208,
+   "……今すぐ救急車を呼びます！[p]",
+   "...I'll call an ambulance right now![p]"
+  ],
+  [
+   213,
+   "朱志香さん、お願いします！[p]",
+   "Jushika, please![p]"
+  ],
+  [
+   217,
+   "朱志香はすぐにスマートフォンを取り出し、119番に通報した。[p]",
+   "She took out her phone at once and dialled the emergency number.[p]"
+  ],
+  [
+   225,
+   "どうした！？ 何があった！？[p]",
+   "What is it!? What's happened!?[p]"
+  ],
+  [
+   230,
+   "小出里亜さんが突然倒れて……和人を呼んできてください！ 2Fの資料室にいると思います！[p]",
+   "Koderia has collapsed — please fetch Kazuto! I think he's in the archive room upstairs![p]"
+  ],
+  [
+   236,
+   "わかった！[p]",
+   "Right![p]"
+  ],
+  [
+   239,
+   "叡留久は迷わず2階へと駆け上がっていった。[p]",
+   "Eruku ran up the stairs without hesitating.[p]"
+  ],
+  [
+   246,
+   "小出里亜さん……！ もう少しだから、もう少しだけ——[p]",
+   "Koderia...! Just a little longer, hold on—[p]"
+  ],
+  [
+   251,
+   "う……ああ……っ！[p]",
+   "Ah... aah...![p]"
+  ],
+  [
+   256,
+   "苦しさは増すばかりで、小出里亜の体がより激しく痙攣する。[p]",
+   "The pain only grew, and her body convulsed more violently.[p]"
+  ],
+  [
+   268,
+   "足音が廊下を走ってきた。[r]",
+   "Footsteps came running down the corridor.[r]"
+  ],
+  [
+   270,
+   "和人がキッチンに飛び込み、素早く小出里亜の傍に膝をついた。[p]",
+   "Kazuto burst into the kitchen and dropped to his knees beside her.[p]"
+  ],
+  [
+   274,
+   "脈拍……異常に速い。それにこれは——[p]",
+   "Pulse... abnormally fast. And this is—[p]"
+  ],
+  [
+   277,
+   "和人は素早く状態を確認しながら、応急処置を試みた。[p]",
+   "He checked her rapidly and set about first aid.[p]"
+  ],
+  [
+   282,
+   "和人、小出里亜さんは——[p]",
+   "Kazuto, is Koderia—[p]"
+  ],
+  [
+   288,
+   "……黙っていろ。今は集中する。[p]",
+   "...Be quiet. I need to concentrate.[p]"
+  ],
+  [
+   291,
+   "和人の手が止まらない。[r]",
+   "His hands never stopped.[r]"
+  ],
+  [
+   293,
+   "だが——それでも、小出里亜の苦しみは激しさを増していく一方だった。[p]",
+   "And yet — her suffering only grew worse.[p]"
+  ],
+  [
+   297,
+   "ぐ……う……[p]",
+   "Nng... ah...[p]"
+  ],
+  [
+   302,
+   "小出里亜の震える手が、ゆっくりと空を掴もうとするように伸びた。[p]",
+   "Her trembling hand reached slowly out, as though to take hold of the air.[p]"
+  ],
+  [
+   306,
+   "……か……ん……[p]",
+   "...Ka... n...[p]"
+  ],
+  [
+   309,
+   "それきり——手の力が抜けた。[r]",
+   "And then — the strength went out of her hand.[r]"
+  ],
+  [
+   311,
+   "小出里亜の体から、すべての緊張が消えた。[p]",
+   "Every tension left her body.[p]"
+  ],
+  [
+   318,
+   "和人はすぐにAEDを要求し、胸骨圧迫を始めた。[p]",
+   "Kazuto called for a defibrillator at once and began chest compressions.[p]"
+  ],
+  [
+   322,
+   "AEDを持ってこい！ 誰か——！[p]",
+   "Bring an AED! Somebody—![p]"
+  ],
+  [
+   330,
+   "館内にあるはずだ、今すぐ——！[p]",
+   "There must be one in the house. Now—![p]"
+  ],
+  [
+   333,
+   "叡留久が駆け出す。数分後、AEDが持ち込まれ、和人が処置を続けた。[p]",
+   "Eruku ran. Minutes later the AED arrived, and Kazuto went on working.[p]"
+  ],
+  [
+   340,
+   "——しかし。[p]",
+   "—But.[p]"
+  ],
+  [
+   342,
+   "いくら試みても、命は戻らなかった。[p]",
+   "However hard he tried, her life did not come back.[p]"
+  ],
+  [
+   351,
+   "和人はゆっくりと手を止め、目を伏せた。[p]",
+   "Kazuto slowly stopped, and lowered his eyes.[p]"
+  ],
+  [
+   355,
+   "……だめだ。[p]",
+   "...It's no good.[p]"
+  ],
+  [
+   359,
+   "彼女は息を引き取った。[p]",
+   "She's gone.[p]"
+  ],
+  [
+   375,
+   "そんな……嘘でしょ……？ 小出里亜さん……？[p]",
+   "No... it can't be... Koderia...?[p]"
+  ],
+  [
+   380,
+   "お姉ちゃん……[p]",
+   "Sis...[p]"
+  ],
+  [
+   386,
+   "珠璃は蒼白な顔で壁にもたれかかり、口元を手で覆っていた。[p]",
+   "Juri leaned against the wall, white-faced, her hand over her mouth.[p]"
+  ],
+  [
+   392,
+   "叡留久は険しい表情で遺体のそばに立ち、一言も発さない。[p]",
+   "Eruku stood by the body with a hard expression and said nothing.[p]"
+  ],
+  [
+   398,
+   "メアリーは両手で口を覆い、涙をこらえていた。[p]",
+   "Mary covered her mouth with both hands, holding back tears.[p]"
+  ],
+  [
+   405,
+   "小出里亜さん……どうして——[p]",
+   "Koderia... why—[p]"
+  ],
+  [
+   408,
+   "電話を終えた朱志香が戻り、小出里亜の顔を見た瞬間、膝から崩れそうになった。[r]",
+   "Jushika came back from her call, and the moment she saw Koderia's face her knees nearly gave way.[r]"
+  ],
+  [
+   410,
+   "その手が細かく震えていた。[p]",
+   "Her hands were shaking finely.[p]"
+  ],
+  [
+   424,
+   "小出里亜さん……嘘ですよね？[p]",
+   "Koderia... it isn't true, is it?[p]"
+  ],
+  [
+   428,
+   "遺体に近づこうとした瞬間、和人が無言で前に立ちふさがった。[p]",
+   "As she moved toward the body, Kazuto stepped silently into her way.[p]"
+  ],
+  [
+   433,
+   "現場に近づくな。[p]",
+   "Don't go near the scene.[p]"
+  ],
+  [
+   438,
+   "現場って何！？ 小出里亜さんは……だって——[p]",
+   "The scene? What do you mean! Koderia is — she—[p]"
+  ],
+  [
+   443,
+   "それ以上近づくと、証拠が失われる可能性がある。[p]",
+   "Come any closer and evidence may be lost.[p]"
+  ],
+  [
+   448,
+   "証拠……？ 何の話をしているの！？[p]",
+   "Evidence...? What are you talking about!?[p]"
+  ],
+  [
+   454,
+   "あくまで可能性の話だ。[p]",
+   "It's only a possibility.[p]"
+  ],
+  [
+   458,
+   "……小出里亜が、何らかの方法で殺された可能性がある。[p]",
+   "...There is a possibility Koderia was killed, by some means.[p]"
+  ],
+  [
+   465,
+   "そんなわけない！[p]",
+   "That's impossible![p]"
+  ],
+  [
+   469,
+   "この館にいるのは、みんな優しい人たちだよ！ 誰もそんなことする人なんていない！[p]",
+   "Everyone in this house is kind! There's nobody here who would do such a thing![p]"
+  ],
+  [
+   473,
+   "真歩流の頬を涙が伝った。[p]",
+   "Tears ran down my cheeks.[p]"
+  ],
+  [
+   477,
+   "……絶対なんてない。[p]",
+   "...There is no such thing as impossible.[p]"
+  ],
+  [
+   481,
+   "そうでなくとも、何が原因なのかわからないのに安易に近づくな！[p]",
+   "And even if there were, we don't know what caused this. Don't go near it carelessly.[p]"
+  ],
+  [
+   484,
+   "和人はそれだけ言い捨てた。[r]",
+   "Kazuto said that and no more.[r]"
+  ],
+  [
+   486,
+   "冷たくも、揺るぎない声で。[p]",
+   "Cold, and utterly unshaken.[p]"
+  ],
+  [
+   491,
+   "お姉ちゃん、落ち着いて。[p]",
+   "Sis, calm down.[p]"
+  ],
+  [
+   494,
+   "愛理が真歩流の腕をそっと引いた。[p]",
+   "Airi tugged gently at my arm.[p]"
+  ],
+  [
+   499,
+   "愛理……[p]",
+   "Airi...[p]"
+  ],
+  [
+   503,
+   "二人は静かに泣き崩れた。[r]",
+   "The two of us broke down and wept quietly.[r]"
+  ],
+  [
+   505,
+   "キッチンに、重苦しい沈黙が落ちた。[p]",
+   "A heavy silence fell over the kitchen.[p]"
+  ],
+  [
+   512,
+   "……警察を呼びます。[p]",
+   "...I'll call the police.[p]"
+  ],
+  [
+   515,
+   "朱志香は失意の中、再びスマートフォンを手に取った。[p]",
+   "In her despair, Jushika reached for her phone once more.[p]"
+  ],
+  [
+   532,
+   "[gage_draw place=\"舞黒館:リビング\"]",
+   "[gage_draw place=\"Maicro House:Living Room\"]"
+  ],
+  [
+   538,
+   "やがて、サイレンの音が近づいてきた。[r]",
+   "Before long, sirens drew near.[r]"
+  ],
+  [
+   540,
+   "数台のパトカーが舞黒館の前に停まり、警察官たちが館内へと入ってきた。[p]",
+   "Several police cars pulled up outside Maicro House, and officers came into the building.[p]"
+  ],
+  [
+   543,
+   "しかし、その数は思ったより少なかった。[r]",
+   "But there were fewer of them than I expected.[r]"
+  ],
+  [
+   545,
+   "みなとみらいのオータムフェスティバルの警備で、ほとんどの警察官が出払っているのだという。[p]",
+   "Nearly all the officers were out policing the Autumn Festival in Minato Mirai, apparently.[p]"
+  ],
+  [
+   548,
+   "そんな中に、一人の男性がいた。[r]",
+   "Among them was one man.[r]"
+  ],
+  [
+   550,
+   "三十代後半と思われる、落ち着いた眼差しの人物だ。[p]",
+   "He looked to be in his late thirties, with a calm, steady gaze.[p]"
+  ],
+  [
+   556,
+   "横浜中央署の零度です。[p]",
+   "Reido, Yokohama Central.[p]"
+  ],
+  [
+   560,
+   "警備が手薄な中、私と数名の部下でこの場を取り仕切ります。[p]",
+   "With the force stretched thin, I and a few of my men will handle matters here.[p]"
+  ],
+  [
+   564,
+   "まず現場を確認し、その後、全員から事情をお伺いします。[p]",
+   "We'll examine the scene first, then take statements from everyone.[p]"
+  ],
+  [
+   567,
+   "零度警部は冷静な声で言った。[p]",
+   "Inspector Reido said it in a level voice.[p]"
+  ],
+  [
+   581,
+   "医大生の方がいらっしゃると聞きましたが。[p]",
+   "I'm told there is a medical student here.[p]"
+  ],
+  [
+   585,
+   "はい、私です。[p]",
+   "Yes, that's me.[p]"
+  ],
+  [
+   589,
+   "発見時の状況を教えてください。[p]",
+   "Tell me the state of things when you found her.[p]"
+  ],
+  [
+   593,
+   "駆けつけたときには胸を押さえて苦しんでいました。[p]",
+   "When I got here she was clutching her chest, in pain.[p]"
+  ],
+  [
+   597,
+   "AEDと心肺蘇生を試みましたが……[p]",
+   "I tried the AED and resuscitation, but...[p]"
+  ],
+  [
+   602,
+   "なるほど……ありがとうございます。鑑識を呼べ。それから——[p]",
+   "I see... thank you. Call forensics. And then—[p]"
+  ],
+  [
+   605,
+   "零度警部は参加者たちを見回した。[p]",
+   "Inspector Reido looked round at the guests.[p]"
+  ],
+  [
+   609,
+   "全員の事情聴取を行います。[p]",
+   "We'll take statements from everyone.[p]"
+  ],
+  [
+   612,
+   "零度警部は部下たちに指示を出し、参加者たちをリビングへと集めた。[p]",
+   "He gave his men their instructions and gathered the guests in the living room.[p]"
+  ],
+  [
+   625,
+   "皆さん、小出里亜さんが亡くなる直前、どこで何をしていたか教えてください。[p]",
+   "I want to know where each of you was and what you were doing just before Koderia died.[p]"
+  ],
+  [
+   628,
+   "一同は顔を見合わせた。[p]",
+   "We all looked at one another.[p]"
+  ],
+  [
+   637,
+   "富礼知さん、あなたから。[p]",
+   "Ms Furechi, we'll begin with you.[p]"
+  ],
+  [
+   641,
+   "私は……ダイニングでこの後のスケジュールを確認しながら、時折キッチンの小出里亜さんと話をしていました。[p]",
+   "I was... in the dining room, going over the rest of the schedule, and speaking now and then with Koderia in the kitchen.[p]"
+  ],
+  [
+   645,
+   "小出里亜さんはいつも通りに見えました……急に悲鳴を聞くまでは。[p]",
+   "She seemed as usual... until I heard the scream.[p]"
+  ],
+  [
+   649,
+   "わかりました。[p]",
+   "Understood.[p]"
+  ],
+  [
+   658,
+   "徐音さん。[p]",
+   "Mr Joon.[p]"
+  ],
+  [
+   662,
+   "2階の資料室で資料を調べていた。叡留久氏が呼びに来るまで、そこにいた。[p]",
+   "I was going through papers in the archive room upstairs. I was there until Mr Hoaro came for me.[p]"
+  ],
+  [
+   666,
+   "一人で？[p]",
+   "Alone?[p]"
+  ],
+  [
+   670,
+   "ああ。[p]",
+   "Yes.[p]"
+  ],
+  [
+   679,
+   "穂在呂さん。[p]",
+   "Mr Hoaro.[p]"
+  ],
+  [
+   683,
+   "私たちもダイニングで珠璃と一緒にいました。[p]",
+   "We were in the dining room too, Juri and I.[p]"
+  ],
+  [
+   687,
+   "悲鳴を聞いて駆け付けた後、真歩流さんに言われ、2Fへ和人君を呼びに行ったんです。[p]",
+   "After we ran in at the scream, Mahoru asked me to fetch Kazuto from upstairs.[p]"
+  ],
+  [
+   696,
+   "奥様の方は。[p]",
+   "And you, madam?[p]"
+  ],
+  [
+   700,
+   "夫と同じです。ダイニングで叡留久と話していました。ずっと一緒でした。[p]",
+   "The same as my husband. I was in the dining room talking with Eruku. We were together the whole time.[p]"
+  ],
+  [
+   709,
+   "メアリーさん。[p]",
+   "Mary.[p]"
+  ],
+  [
+   713,
+   "私も同じです。[p]",
+   "The same for me.[p]"
+  ],
+  [
+   724,
+   "真白さんたちは？[p]",
+   "And the Mashiros?[p]"
+  ],
+  [
+   728,
+   "二人で館内を散策していました。ダイニングへ戻ってきたところで……悲鳴を聞いたんです。[p]",
+   "The two of us were looking round the house. We had just come back to the dining room when... we heard the scream.[p]"
+  ],
+  [
+   734,
+   "姉と一緒にいました。ずっと二人で行動していました。[p]",
+   "I was with my sister. We were together the whole time.[p]"
+  ],
+  [
+   738,
+   "……わかりました。[p]",
+   "...Understood.[p]"
+  ],
+  [
+   741,
+   "零度警部は部下を振り返り、小声で何かを指示した。[p]",
+   "Inspector Reido turned to his men and gave some quiet instruction.[p]"
+  ],
+  [
+   761,
+   "部下の手帳を覗き込んでいた零度警部が、静かに顔を上げた。[p]",
+   "He had been looking into a constable's notebook; now he raised his head quietly.[p]"
+  ],
+  [
+   765,
+   "徐音さん。もう一度だけ、確認させてください。[p]",
+   "Mr Joon. Let me confirm just once more.[p]"
+  ],
+  [
+   769,
+   "小出里亜さんが倒れる直前まで、あなたは2階の資料室に——お一人でしたね。[p]",
+   "Until the moment before Koderia collapsed, you were in the archive room upstairs — alone.[p]"
+  ],
+  [
+   773,
+   "そう言った。[p]",
+   "That's what I said.[p]"
+  ],
+  [
+   777,
+   "どなたか、あなたをそこで見た方は？[p]",
+   "Did anyone see you there?[p]"
+  ],
+  [
+   781,
+   "……いない。[p]",
+   "...No.[p]"
+  ],
+  [
+   784,
+   "零度警部は、それ以上は何も言わなかった。[r]",
+   "Inspector Reido said nothing further.[r]"
+  ],
+  [
+   786,
+   "ただ、手帳に短く何かを書き足しただけだった。[p]",
+   "He only added a short note to his notebook.[p]"
+  ],
+  [
+   793,
+   "念のためです。皆さんのお話は、すべて同じように確かめています。[p]",
+   "A formality. We are checking everyone's account the same way.[p]"
+  ],
+  [
+   796,
+   "そう言い添えた声は、あくまで穏やかだった。[r]",
+   "The voice that added it was perfectly mild.[r]"
+  ],
+  [
+   798,
+   "だからこそ——余計に、耳に残った。[p]",
+   "Which was exactly why — it stayed in my ears.[p]"
+  ],
+  [
+   803,
+   "（警部さんは、和人を見てる）[p]",
+   "(The inspector is watching Kazuto.)[p]"
+  ],
+  [
+   806,
+   "（和人を疑っているんだ）[p]",
+   "(He suspects him.)[p]"
+  ],
+  [
+   812,
+   "（確かに……小出里亜さんが倒れた18時30分ごろ、和人だけは一人だった）[p]",
+   "(It's true... around 18:30, when Koderia collapsed, Kazuto was the only one alone.)[p]"
+  ],
+  [
+   816,
+   "（でも——本当に、そこだけを見ればいいの？）[p]",
+   "(But — is that really the only place to look?)[p]"
+  ],
+  [
+   829,
+   "tag:   \"検討\",",
+   "tag:   \"REVIEW\","
+  ],
+  [
+   830,
+   "title: \"和人のアリバイ\",",
+   "title: \"Kazuto's Alibi\","
+  ],
+  [
+   831,
+   "lead:  \"発症直前、和人には目撃者がいない。零度警部はそこを確認している。\",",
+   "lead:  \"Nobody can vouch for Kazuto just before she collapsed. That is what Inspector Reido is checking.\","
+  ],
+  [
+   832,
+   "prompt: \"——この見方で、見落としていることは？\",",
+   "prompt: \"—What does this way of looking at it miss?\","
+  ],
+  [
+   834,
+   "{ time:\"18:20頃\", label:\"小出里亜がダイニングへ来る\",",
+   "{ time:\"about 18:20\", label:\"Koderia comes to the dining room\","
+  ],
+  [
+   835,
+   "note:\"夕食準備の完了を報告し、その後キッチンへ戻った\",",
+   "note:\"Reports that dinner is ready, then returns to the kitchen\","
+  ],
+  [
+   836,
+   "link:\"約十分後\" },",
+   "link:\"about ten minutes later\" },"
+  ],
+  [
+   837,
+   "{ time:\"18:30\", label:\"小出里亜がキッチンで倒れる\",",
+   "{ time:\"18:30\", label:\"Koderia collapses in the kitchen\","
+  ],
+  [
+   838,
+   "note:\"悲鳴の後、真歩流と愛理が駆けつけた\", mark:true },",
+   "note:\"Mahoru and Airi came running at the scream\", mark:true },"
+  ],
+  [
+   839,
+   "{ time:\"18:30頃\", label:\"和人は2階の資料室に一人\",",
+   "{ time:\"about 18:30\", label:\"Kazuto alone in the archive room\","
+  ],
+  [
+   840,
+   "note:\"本人の証言のみ。目撃した人物はいない\", mark:true }",
+   "note:\"His word only. Nobody saw him\", mark:true }"
+  ],
+  [
+   843,
+   "{ text:\"目撃者のいない和人の証言を、まず疑う\", target:\"*s5_trace_wrong_kazuto\" },",
+   "{ text:\"Doubt Kazuto's unwitnessed account first\", target:\"*s5_trace_wrong_kazuto\" },"
+  ],
+  [
+   844,
+   "{ text:\"現場のキッチンを、もっと詳しく調べる\", target:\"*s5_trace_wrong_kitchen\" },",
+   "{ text:\"Search the kitchen where it happened more closely\", target:\"*s5_trace_wrong_kitchen\" },"
+  ],
+  [
+   845,
+   "{ text:\"発症時刻と、原因が生じた時刻は同じとは限らない\", target:\"*s5_trace_correct\" }",
+   "{ text:\"The time she collapsed need not be the time the cause occurred\", target:\"*s5_trace_correct\" }"
+  ],
+  [
+   854,
+   "[inc_back place=\"舞黒館:リビング\"]",
+   "[inc_back place=\"Maicro House:Living Room\"]"
+  ],
+  [
+   860,
+   "（目撃者がいないなら、和人が嘘をついている可能性はある）[p]",
+   "(With no witness, Kazuto could be lying.)[p]"
+  ],
+  [
+   864,
+   "（……でも、それは警部さんがもう確かめていることだ）[p]",
+   "(...But that is what the inspector is already checking.)[p]"
+  ],
+  [
+   868,
+   "疑いを深くしただけで、見える範囲は何も広がらなかった。[p]",
+   "It only deepened the suspicion; nothing new came into view.[p]"
+  ],
+  [
+   873,
+   "（違う……何か、もっと大きな見落としがある気がする）[p]",
+   "(No... I feel there's something much bigger I'm missing.)[p]"
+  ],
+  [
+   881,
+   "[inc_back place=\"舞黒館:リビング\"]",
+   "[inc_back place=\"Maicro House:Living Room\"]"
+  ],
+  [
+   887,
+   "（倒れたのはキッチン。なら、原因もキッチンにあるはず……）[p]",
+   "(She collapsed in the kitchen. So the cause must be in the kitchen too...)[p]"
+  ],
+  [
+   891,
+   "そう考えた瞬間、さっき見たポットや調理台が頭に浮かんだ。[r]",
+   "The moment I thought it, the kettle and worktop I had seen came to mind.[r]"
+  ],
+  [
+   893,
+   "けれど、それ以上には繋がらなかった。[p]",
+   "But it went no further than that.[p]"
+  ],
+  [
+   898,
+   "（……今は、まだ分からない）[p]",
+   "(...I still can't see it.)[p]"
+  ],
+  [
+   911,
+   "零度警部は再び和人へ視線を戻した。[p]",
+   "Inspector Reido turned his eyes back to Kazuto.[p]"
+  ],
+  [
+   915,
+   "徐音さんの証言はこちらで裏を取ります。[p]",
+   "We'll verify Mr Joon's account ourselves.[p]"
+  ],
+  [
+   919,
+   "現時点で、誰か一人に絞るつもりはありません。[p]",
+   "At this stage I have no intention of narrowing it to one person.[p]"
+  ],
+  [
+   924,
+   "（……警部さんは、まだ決めつけてはいない）[p]",
+   "(...The inspector hasn't decided anything yet.)[p]"
+  ],
+  [
+   928,
+   "（なのに私は、和人が疑われていることばかり気にしてる……）[p]",
+   "(And yet all I can think about is that Kazuto is under suspicion...)[p]"
+  ],
+  [
+   932,
+   "引っかかりは残ったまま、形にはならなかった。[p]",
+   "Something still snagged, and would not take shape.[p]"
+  ],
+  [
+   940,
+   "[inc_back place=\"舞黒館:リビング\"]",
+   "[inc_back place=\"Maicro House:Living Room\"]"
+  ],
+  [
+   946,
+   "（……待って）[p]",
+   "(...Wait.)[p]"
+  ],
+  [
+   950,
+   "（どうして私は、18時30分が“何かあった時刻”だと思ってるの？）[p]",
+   "(Why do I think 18:30 is “when something happened”?)[p]"
+  ],
+  [
+   954,
+   "（あれは——小出里亜さんが倒れた時刻でしかない）[p]",
+   "(That is only — the time Koderia collapsed.)[p]"
+  ],
+  [
+   958,
+   "私の中で、時間の並び方が変わった。[p]",
+   "Inside my head, the order of the hours rearranged itself.[p]"
+  ],
+  [
+   963,
+   "警部さん。[p]",
+   "Inspector.[p]"
+  ],
+  [
+   967,
+   "ひとつ、いいですか。[p]",
+   "May I say something?[p]"
+  ],
+  [
+   976,
+   "……何でしょう？[p]",
+   "...What is it?[p]"
+  ],
+  [
+   981,
+   "和人に18時30分の目撃者がいないことは分かります。[p]",
+   "I understand there's no witness for Kazuto at 18:30.[p]"
+  ],
+  [
+   985,
+   "でも——小出里亜さんに何かが起きたのも、18時30分だったとは限らないですよね。[p]",
+   "But — whatever happened to Koderia need not have happened at 18:30 either, need it?[p]"
+  ],
+  [
+   989,
+   "もしかしたら、小出里亜さんが倒れる前に何かがあったのかもしれない。[p]",
+   "Maybe something happened to Koderia before she collapsed.[p]"
+  ],
+  [
+   993,
+   "零度警部の手が止まった。[p]",
+   "Inspector Reido's hand stopped.[p]"
+  ],
+  [
+   998,
+   "……その通りです。[p]",
+   "...That's right.[p]"
+  ],
+  [
+   1002,
+   "発症時刻は、原因が生じた時刻の証明にはなりません。[p]",
+   "The time of onset is no proof of the time of the cause.[p]"
+  ],
+  [
+   1006,
+   "勿論、逆もしかりですが。[p]",
+   "Nor, of course, the reverse.[p]"
+  ],
+  [
+   1009,
+   "零度警部はほんの一瞬だけ、真歩流を見る目を変えた。[p]",
+   "For just an instant, the way he looked at me changed.[p]"
+  ],
+  [
+   1014,
+   "[inc_insight id=\"koderia_route\" name=\"発症した時刻と、原因が生じた時刻は一致するとは限らない\"]",
+   "[inc_insight id=\"koderia_route\" name=\"The time of onset and the time of the cause need not agree\"]"
+  ],
+  [
+   1020,
+   "（だったら……もっと前まで遡らないと）[p]",
+   "(Then... I have to go back further.)[p]"
+  ],
+  [
+   1024,
+   "（小出里亜さんが、最後に誰かと接触したところまで——）[p]",
+   "(Back to the last time Koderia was near anyone—)[p]"
+  ],
+  [
+   1034,
+   "tag:   \"整理\",",
+   "tag:   \"REVIEW\","
+  ],
+  [
+   1035,
+   "title: \"発症前に接触できた人\",",
+   "title: \"Who Could Reach Her Before It Began\","
+  ],
+  [
+   1036,
+   "lead:  \"18時20分ごろ。小出里亜がダイニングへ報告に来た、そのとき。\",",
+   "lead:  \"Around 18:20. When Koderia came to the dining room to report.\","
+  ],
+  [
+   1038,
+   "{ id:\"juri\",    name:\"珠璃\",     note:\"夫と並んで座っていた\" },",
+   "{ id:\"juri\",    name:\"Juri\",     note:\"Sitting beside her husband\" },"
+  ],
+  [
+   1039,
+   "{ id:\"eruku\",   name:\"叡留久\",   note:\"珠璃と話し込んでいた\" },",
+   "{ id:\"eruku\",   name:\"Eruku\",   note:\"Deep in conversation with Juri\" },"
+  ],
+  [
+   1040,
+   "{ id:\"mary\",    name:\"メアリー\", note:\"少し離れた席にいた\" },",
+   "{ id:\"mary\",    name:\"Mary\", note:\"Seated a little apart\" },"
+  ],
+  [
+   1041,
+   "{ id:\"jushika\", name:\"朱志香\",   note:\"この後の予定を確かめていた\" }",
+   "{ id:\"jushika\", name:\"Jushika\",   note:\"Going over the rest of the schedule\" }"
+  ],
+  [
+   1049,
+   "[inc_back place=\"舞黒館:リビング\"]",
+   "[inc_back place=\"Maicro House:Living Room\"]"
+  ],
+  [
+   1055,
+   "（……四人）[p]",
+   "(...Four of them.)[p]"
+  ],
+  [
+   1059,
+   "（和人だけじゃない）[p]",
+   "(Not only Kazuto.)[p]"
+  ],
+  [
+   1063,
+   "（小出里亜さんに何かできた人は——もっといる）[p]",
+   "(There are far more people who could have done something to her.)[p]"
+  ],
+  [
+   1067,
+   "キッチンの中だけなら、事故で片づけられたかもしれない。[r]",
+   "If it were only the kitchen, it might have been put down to an accident.[r]"
+  ],
+  [
+   1070,
+   "真歩流は、その先を考えるのをやめた。[r]",
+   "I stopped thinking any further.[r]"
+  ],
+  [
+   1072,
+   "考えたくなかった、と言った方が正しい。[p]",
+   "More accurately — I didn't want to.[p]"
+  ],
+  [
+   1082,
+   "（……違う。誰も、そんなことしてない）[p]",
+   "(...No. Nobody here would do such a thing.)[p]"
+  ],
+  [
+   1097,
+   "[gage_draw place=\"舞黒館:リビング\"]",
+   "[gage_draw place=\"Maicro House:Living Room\"]"
+  ],
+  [
+   1102,
+   "全員の聴取が終わった。[p]",
+   "The statements were finished.[p]"
+  ],
+  [
+   1108,
+   "お待たせしました。一点、お伝えします。[p]",
+   "Thank you for waiting. One thing I must tell you.[p]"
+  ],
+  [
+   1111,
+   "零度警部は静かな声で続けた。[p]",
+   "Inspector Reido went on in a quiet voice.[p]"
+  ],
+  [
+   1115,
+   "小出里亜さんの直接の死因は、毒物による可能性があると連絡が入りました。[p]",
+   "Word has come that Koderia's immediate cause of death may have been poison.[p]"
+  ],
+  [
+   1119,
+   "ただし——毒の摂取経路も、毒物そのものも、まだ発見されていません。[p]",
+   "However — neither the route by which it was taken nor the poison itself has yet been found.[p]"
+  ],
+  [
+   1122,
+   "一同が息を呑んだ。[p]",
+   "Everyone caught their breath.[p]"
+  ],
+  [
+   1126,
+   "そのため現時点では、事故か事件かを断定できない状態です。[p]",
+   "So at this point, we can't say whether this was an accident or a crime.[p]"
+  ],
+  [
+   1130,
+   "捜査を継続します。皆さんは当面、この館からの退館をお控えください。[p]",
+   "The investigation continues. For the time being, please refrain from leaving the house.[p]"
+  ],
+  [
+   1134,
+   "それから——引き続き調査を行いますので、皆さんはリビングでお待ちください。[p]",
+   "And — as the investigation goes on, please wait here in the living room.[p]"
+  ],
+  [
+   1137,
+   "零度警部と部下たちが動き出した。[p]",
+   "Inspector Reido and his men set to work.[p]"
+  ],
+  [
+   1151,
+   "（事故……きっと事故よ）[p]",
+   "(An accident... it must have been an accident.)[p]"
+  ],
+  [
+   1155,
+   "（小出里亜さんは、何かの間違いで、毒を……）[p]",
+   "(Koderia took poison by some mistake...)[p]"
+  ],
+  [
+   1159,
+   "（この館にいる人たちの中に、人を殺す人なんて……絶対にいない）[p]",
+   "(There is nobody in this house who would kill a person. Nobody.)[p]"
+  ],
+  [
+   1164,
+   "お姉ちゃん……[p]",
+   "Sis...[p]"
+  ],
+  [
+   1167,
+   "愛理が静かに真歩流の隣に座った。[r]",
+   "Airi sat down quietly beside me.[r]"
+  ],
+  [
+   1169,
+   "二人の間に、言葉のない時間が流れた。[p]",
+   "Wordless time passed between us.[p]"
+  ],
+  [
+   1180,
+   "そこへ、メアリーが静かに近づいてきた。[p]",
+   "Then Mary came quietly over.[p]"
+  ],
+  [
+   1185,
+   "真歩流さん……[p]",
+   "Mahoru...[p]"
+  ],
+  [
+   1190,
+   "メアリーさん……[p]",
+   "Mary...[p]"
+  ],
+  [
+   1194,
+   "メアリーは首からペンダントを外し、そっと真歩流に差し出した。[p]",
+   "Mary took the pendant from her neck and held it out to me.[p]"
+  ],
+  [
+   1200,
+   "真歩流さん……これを持っていてくれませんか？[p]",
+   "Mahoru... would you keep this for me?[p]"
+  ],
+  [
+   1205,
+   "え、メアリーさんの大切なペンダントですよね。[p]",
+   "What — but it's your precious pendant.[p]"
+  ],
+  [
+   1209,
+   "どうしてですか？[p]",
+   "Why?[p]"
+  ],
+  [
+   1215,
+   "持っていたら、また無くしてしまいそうで、イベント中だけでよいので持っていてくれませんか？[p]",
+   "I feel like I'll lose it again if I keep it. Just until the event is over — would you?[p]"
+  ],
+  [
+   1219,
+   "真歩流さんにしか、お願いできないんです……[p]",
+   "You are the only one I can ask...[p]"
+  ],
+  [
+   1222,
+   "メアリーは優しく微笑んだ。[p]",
+   "Mary smiled gently.[p]"
+  ],
+  [
+   1227,
+   "わかりました。そういうことなら。[p]",
+   "All right. If that's how it is.[p]"
+  ],
+  [
+   1231,
+   "真歩流はペンダントを受け取った。[p]",
+   "I took the pendant.[p]"
+  ],
+  [
+   1234,
+   "——その瞬間。[p]",
+   "—And in that instant.[p]"
+  ],
+  [
+   1242,
+   "っ……！[p]",
+   "Nngh...![p]"
+  ],
+  [
+   1246,
+   "頭の中でノイズが弾けた。[p]",
+   "Noise burst inside my head.[p]"
+  ],
+  [
+   1248,
+   "そして——かすかな声が聞こえた。[p]",
+   "And then — a faint voice.[p]"
+  ],
+  [
+   1251,
+   "『……ずは……とり……』[p]",
+   "“...irst... take...”[p]"
+  ],
+  [
+   1258,
+   "（……今の、声……？）[p]",
+   "(...Was that a voice...?)[p]"
+  ],
+  [
+   1262,
+   "（また、ノイズ……？）[p]",
+   "(More noise...?)[p]"
+  ],
+  [
+   1266,
+   "声は断片的で、意味が取れなかった。[r]",
+   "The voice came in fragments; I could make no sense of it.[r]"
+  ],
+  [
+   1268,
+   "だが、そのトーンはどこか——不気味に感じられた。[p]",
+   "But its tone was, somehow — unsettling.[p]"
+  ],
+  [
+   1271,
+   "ペンダントをポケットにしまい、メアリーにノイズのことを訊いてみる。[p]",
+   "I put the pendant in my pocket and asked Mary about the noise.[p]"
+  ],
+  [
+   1278,
+   "あの、メアリーさん、このペンダントを持っていると何か起きたりしないですか？[p]",
+   "Um, Mary, does anything happen when you carry this pendant?[p]"
+  ],
+  [
+   1282,
+   "なんか、頭がぐらぐらしたり、電撃が走ったような感覚になったり……[p]",
+   "Like your head swimming, or a feeling like a shock running through you...[p]"
+  ],
+  [
+   1289,
+   "……いえ、特に何もないですよ？[p]",
+   "...No, nothing in particular.[p]"
+  ],
+  [
+   1293,
+   "真歩流さん、何か気になることでもありますか？[p]",
+   "Mahoru, is something troubling you?[p]"
+  ],
+  [
+   1298,
+   "いえ、大丈夫です。[p]",
+   "No, I'm fine.[p]"
+  ],
+  [
+   1302,
+   "すみません、変なことを聞いてしまって。[p]",
+   "Sorry, that was a strange thing to ask.[p]"
+  ],
+  [
+   1306,
+   "こうして私は、メアリーのペンダントを預かることになった。[p]",
+   "And so I came to look after Mary's pendant.[p]"
+  ],
+  [
+   1310,
+   "[get_item id=\"pendant\" name=\"ペンダント\"]",
+   "[get_item id=\"pendant\" name=\"Pendant\"]"
+  ],
+  [
+   1325,
+   "（さっきの声……何だったんだろう）[p]",
+   "(That voice just now... what was it?)[p]"
+  ],
+  [
+   1329,
+   "（ペンダントに触るたびに、ノイズが走る）[p]",
+   "(Every time I touch the pendant, that noise runs through me.)[p]"
+  ],
+  [
+   1333,
+   "（気のせい……だよね。疲れているだけ）[p]",
+   "(It's my imagination... surely. I'm just tired.)[p]"
+  ],
+  [
+   1338,
+   "お姉ちゃん、大丈夫？[p]",
+   "Sis, are you all right?[p]"
+  ],
+  [
+   1343,
+   "うん。……ちょっと、色々考えてた。[p]",
+   "Mm. ...I was thinking about a lot of things.[p]"
+  ],
+  [
+   1347,
+   "リビングでは、他の参加者たちも黙ったまま座っていた。[r]",
+   "In the living room the other guests sat in silence too.[r]"
+  ],
+  [
+   1349,
+   "廊下からは、警察官たちが行き交う足音が続いていた。[p]",
+   "From the corridor came the constant sound of officers coming and going.[p]"
+  ],
+  [
+   1352,
+   "事故か、事件か——[r]",
+   "Accident, or crime—[r]"
+  ],
+  [
+   1354,
+   "答えは、まだ誰も持っていない。[p]",
+   "Nobody had the answer yet.[p]"
+  ],
+  [
+   1357,
+   "真歩流は膝の上で手を握りしめた。[p]",
+   "I clenched my hands in my lap.[p]"
+  ],
+  [
+   1358,
+   "小出里亜さんが最後に伸ばした手。[r]",
+   "The hand Koderia reached out at the last.[r]"
+  ],
+  [
+   1360,
+   "あの時の「……か……ん……」という言葉が、頭から消えなかった。[p]",
+   "Those words — “...ka... n...” — would not leave my head.[p]"
+  ],
+  [
+   1365,
+   "（……か……ん……）[p]",
+   "(...Ka... n...)[p]"
+  ],
+  [
+   1369,
+   "（小出里亜さん、最後に何を言おうとしていたの……）[p]",
+   "(Koderia, what were you trying to say at the end...)[p]"
+  ]
+ ]
+}

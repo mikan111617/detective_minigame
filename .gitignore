@@ -1,0 +1,9 @@
+remotion/node_modules
+remotion
+node_modules/
+dist/
+.renoise/
+
+# Python
+__pycache__/
+*.pyc
