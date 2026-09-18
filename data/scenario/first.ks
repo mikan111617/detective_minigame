@@ -11,7 +11,7 @@
 
 ; 初回起動時だけ、各種システムを読み込む前に言語を選んでもらう。
 ; 選択後はページ再読み込みになり、選択言語で以降のシナリオを読み込む。
-[call storage="system/language_select.ks"]
+;[call storage="system/language_select.ks"]  ; ダウト版では言語選択を省略
 
 ; テーマ一括変換プラグイン その１を読み込む
 [plugin name="theme_kopanda_bth_13_dk"]
@@ -123,5 +123,6 @@ try {
     @wait time="1000"
 [endif]
 
-;タイトル画面へ移動
-@jump storage="title.ks"
+;ダウト ミニゲームへ
+[plugin name="doubt"]
+@jump storage="doubt_main.ks"

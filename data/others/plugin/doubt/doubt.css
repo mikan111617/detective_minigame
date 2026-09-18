@@ -1,0 +1,273 @@
+/* フォントは同じフォルダの fonts.css で読み込み（オフラインでも表示できるよう同梱） */
+
+/* ===== 共通 ===== */
+.dbt-root {
+  position: absolute; left: 0; top: 0; width: 1920px; height: 1080px;
+  z-index: 50000; overflow: hidden; background: #0b1122;
+  font-family: "Zen Maru Gothic", "Hiragino Maru Gothic ProN", "Yu Gothic", sans-serif;
+  color: #f6efe0; user-select: none; -webkit-user-select: none;
+}
+.dbt-root * { box-sizing: border-box; }
+.dbt-bg { position: absolute; inset: 0; background-size: cover; background-position: 50% 50%; }
+.dbt-shade { position: absolute; inset: 0; pointer-events: none; }
+.dbt-kiwi { font-family: "Kiwi Maru", "Hiragino Mincho ProN", "Yu Mincho", serif; }
+.dbt-num { font-family: "Bellefair", "Times New Roman", serif; }
+.dbt-fadein { animation: dbtFade .35s ease-out both; }
+@keyframes dbtFade { from { opacity: 0; } to { opacity: 1; } }
+
+.dbt-btn {
+  position: relative; cursor: pointer; text-align: center; white-space: nowrap;
+  font-family: "Kiwi Maru", serif; color: #f6efe0; letter-spacing: .16em;
+  transition: transform .08s, background .15s, opacity .15s, filter .15s;
+}
+.dbt-btn:active { transform: translate(3px, 3px); }
+.dbt-btn.red { background: #d8352a; box-shadow: 0 0 0 3px #e8b54a, 8px 8px 0 0 #7f1810; }
+.dbt-btn.red:hover { background: #f0533f; }
+.dbt-btn.navy { background: #1b2a4a; box-shadow: 0 0 0 3px #e8b54a, 8px 8px 0 0 #0b1122; }
+.dbt-btn.navy:hover { background: #24396b; }
+.dbt-btn.pink { background: #f5a3b8; color: #3a1f52; box-shadow: 0 0 0 3px #e8b54a, 8px 8px 0 0 #7f3a52; }
+.dbt-btn.pink:hover { background: #ffc0cf; }
+.dbt-btn.purple { background: #4b2a6e; box-shadow: 0 0 0 3px #e8b54a, 8px 8px 0 0 #1f0f33; }
+.dbt-btn.purple:hover { background: #5e3a86; }
+.dbt-btn.off { opacity: .32; filter: grayscale(.7); pointer-events: none; }
+.dbt-btn small { display: block; font-family: "Zen Maru Gothic", sans-serif; letter-spacing: .1em; }
+
+/* 立ち絵（画像が無い時は斜線の仮枠） */
+.dbt-portrait {
+  position: relative; overflow: hidden; background: #1b2a4a;
+  background-image: repeating-linear-gradient(45deg, rgba(232,181,74,.14) 0 8px, rgba(232,181,74,0) 8px 22px);
+}
+.dbt-portrait img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: 50% 12%; }
+/* 覚醒した真歩流は、同じ立ち絵を色で変えて出す */
+.dbt-p-mahoru_awake img { filter: brightness(.6) saturate(1.5) hue-rotate(255deg) contrast(1.1); }
+.dbt-portrait .ph {
+  position: absolute; left: 0; right: 0; bottom: 10px; text-align: center;
+  color: #7f92ba; font-size: 20px; letter-spacing: .1em;
+}
+
+/* ===== タイトル ===== */
+.dbt-title .shade { background: linear-gradient(180deg, rgba(11,17,34,.75) 0%, rgba(11,17,34,.15) 45%, rgba(11,17,34,.85) 100%); }
+.dbt-title .head { position: absolute; left: 0; right: 0; top: 64px; text-align: center; }
+.dbt-title .kicker { font-size: 26px; letter-spacing: .4em; color: #ffdca8; }
+.dbt-title h1 {
+  margin: 12px 0 0; font-family: "Kiwi Maru", serif; font-weight: 500; font-size: 150px; letter-spacing: .08em;
+  color: #f6efe0; text-shadow: 6px 6px 0 #4b2a6e, 0 0 40px rgba(232,181,74,.35);
+}
+.dbt-title .sub { margin-top: 6px; font-family: "Kiwi Maru", serif; font-size: 40px; color: #e8b54a; letter-spacing: .12em; }
+.dbt-title .modes { position: absolute; left: 0; right: 0; bottom: 150px; display: flex; justify-content: center; gap: 60px; }
+.dbt-title .modes .dbt-btn { width: 540px; padding: 34px 0 26px; font-size: 52px; }
+.dbt-title .modes .dbt-btn small { font-size: 22px; margin-top: 10px; }
+.dbt-title .hint { position: absolute; left: 0; right: 0; bottom: 70px; text-align: center; font-size: 24px; letter-spacing: .3em; color: #f6efe0; opacity: .85; }
+
+/* ===== 相手選択 ===== */
+.dbt-select .shade { background: linear-gradient(90deg, rgba(40,10,6,.55) 0%, rgba(11,17,34,.25) 50%, rgba(11,17,34,.7) 100%); }
+.dbt-select .me { position: absolute; left: 46px; top: 210px; width: 400px; }
+.dbt-select .me .dbt-portrait { width: 400px; height: 560px; box-shadow: 0 0 0 3px #e8b54a; }
+.dbt-select .me .plate { margin-top: 26px; background: #f6efe0; color: #1b2a4a; box-shadow: 0 0 0 3px #d8352a; text-align: center; padding: 10px 0 14px; }
+.dbt-select .me .plate small { display: block; color: #d8352a; font-size: 22px; letter-spacing: .3em; }
+.dbt-select .me .plate b { font-family: "Kiwi Maru", serif; font-weight: 500; font-size: 58px; letter-spacing: .12em; }
+.dbt-select .grid { position: absolute; left: 490px; top: 300px; display: flex; gap: 12px; padding: 14px; background: rgba(11,17,34,.72); box-shadow: 0 0 0 2px #c08a1e; }
+.dbt-select .col { width: 180px; cursor: pointer; padding: 6px; }
+.dbt-select .col .dbt-portrait { width: 168px; height: 200px; margin-bottom: 8px; }
+.dbt-select .col .nm { position: absolute; left: 0; right: 0; bottom: 8px; text-align: center; font-size: 26px; text-shadow: 0 2px 6px #000; }
+.dbt-select .col .lb { background: #f6efe0; color: #1b2a4a; text-align: center; font-size: 26px; letter-spacing: .2em; padding: 6px 0; }
+.dbt-select .col.on { box-shadow: 0 0 0 6px #d8352a, 0 0 0 9px #e8b54a; background: rgba(216,53,42,.25); }
+.dbt-select .preview { position: absolute; right: 50px; top: 190px; width: 560px; height: 580px; }
+.dbt-select .preview .p1 { position: absolute; left: 0; top: 40px; width: 260px; height: 520px; box-shadow: 0 0 0 3px #f5a3b8; }
+.dbt-select .preview .p2 { position: absolute; right: 0; top: 0; width: 300px; height: 560px; box-shadow: 0 0 0 3px #e8b54a; }
+.dbt-select .pairplate { position: absolute; right: 50px; top: 800px; width: 560px; background: #1b2a4a; box-shadow: 0 0 0 3px #e8b54a; text-align: center; padding: 12px 0 16px; }
+.dbt-select .pairplate small { display: block; color: #e8b54a; font-size: 24px; letter-spacing: .3em; }
+.dbt-select .pairplate b { font-family: "Kiwi Maru", serif; font-weight: 500; font-size: 58px; letter-spacing: .1em; }
+.dbt-select .cmds { position: absolute; left: 560px; top: 830px; display: flex; gap: 40px; }
+.dbt-select .cmds .red { width: 420px; padding: 24px 0; font-size: 46px; }
+.dbt-select .cmds .navy { width: 240px; padding: 24px 0; font-size: 40px; }
+.dbt-select .hint { position: absolute; left: 560px; width: 700px; top: 980px; text-align: center; font-size: 24px; letter-spacing: .2em; }
+
+/* ===== VS ===== */
+.dbt-vs { background: #0b1122; }
+.dbt-vs .left { position: absolute; left: 0; top: 0; width: 960px; height: 1080px; background: linear-gradient(135deg, #3a1410, #0b1122 70%); overflow: hidden; }
+.dbt-vs .right { position: absolute; right: 0; top: 0; width: 960px; height: 1080px; background: linear-gradient(225deg, #2a1846, #0b1122 70%); overflow: hidden; border-left: 3px solid #c08a1e; }
+.dbt-vs .left .dbt-portrait { position: absolute; inset: 0; background: none; }
+.dbt-vs .left .dbt-portrait img { object-position: 50% 8%; transform: scale(1.35); transform-origin: 50% 0; }
+.dbt-vs .right .dbt-portrait { position: absolute; top: 0; height: 1080px; width: 480px; background: none; }
+.dbt-vs .right .dbt-portrait:nth-child(1) { left: 0; }
+.dbt-vs .right .dbt-portrait:nth-child(2) { left: 480px; border-left: 3px solid #c08a1e; }
+.dbt-vs .copy { position: absolute; top: 70px; font-family: "Kiwi Maru", serif; font-size: 76px; letter-spacing: .08em; text-shadow: 5px 5px 0 #7f1810; }
+.dbt-vs .copy.l { left: 60px; }
+.dbt-vs .copy.r { right: 60px; text-shadow: 5px 5px 0 #3a1f52; }
+.dbt-vs .band { position: absolute; left: 0; right: 0; top: 865px; height: 118px; background: rgba(11,17,34,.9); border-top: 3px solid #c08a1e; border-bottom: 3px solid #c08a1e; }
+.dbt-vs .band .n { position: absolute; top: 18px; font-family: "Kiwi Maru", serif; font-size: 68px; letter-spacing: .1em; }
+.dbt-vs .band .n.l { left: 200px; }
+.dbt-vs .band .n.r { right: 200px; }
+.dbt-vs .tagbox { position: absolute; top: 44px; padding: 4px 16px; font-size: 26px; letter-spacing: .2em; }
+.dbt-vs .tagbox.l { left: 64px; background: #d8352a; }
+.dbt-vs .tagbox.r { right: 64px; background: #4b2a6e; }
+.dbt-vs .mark {
+  position: absolute; left: 810px; top: 390px; width: 300px; height: 300px; background: #f6efe0;
+  clip-path: polygon(50% 0, 100% 25%, 100% 75%, 50% 100%, 0 75%, 0 25%);
+  display: flex; align-items: center; justify-content: center; animation: dbtPop .5s cubic-bezier(.2,1.6,.4,1) both;
+}
+.dbt-vs .mark span { font-family: "Bellefair", serif; font-size: 190px; color: #d8352a; line-height: 1; }
+@keyframes dbtPop { from { transform: scale(0); } to { transform: scale(1); } }
+.dbt-vs .go { position: absolute; left: 810px; top: 1000px; width: 300px; padding: 10px 0; font-size: 46px; }
+
+/* ===== 対戦画面 ===== */
+.dbt-battle .shade { background: linear-gradient(180deg, rgba(6,20,16,.72) 0%, rgba(6,20,16,.28) 22%, rgba(6,20,16,.2) 58%, rgba(6,20,16,.78) 100%); }
+.dbt-opp { position: absolute; top: 60px; width: 560px; display: flex; gap: 22px; align-items: flex-start; transition: filter .2s; }
+.dbt-opp.s1 { left: 60px; }
+.dbt-opp.s2 { right: 60px; flex-direction: row-reverse; }
+.dbt-opp .dbt-portrait { width: 190px; height: 240px; box-shadow: 0 0 0 3px #c08a1e; flex: none; transition: box-shadow .2s; }
+.dbt-opp.turn .dbt-portrait { box-shadow: 0 0 0 5px #f5a3b8, 0 0 36px rgba(245,163,184,.7); }
+.dbt-opp .info { display: flex; flex-direction: column; gap: 10px; padding-top: 6px; }
+.dbt-opp.s2 .info { align-items: flex-end; }
+.dbt-opp .nm { font-family: "Kiwi Maru", serif; font-size: 44px; letter-spacing: .08em; text-shadow: 0 2px 8px #000; }
+.dbt-opp .cnt { display: flex; align-items: baseline; gap: 12px; }
+.dbt-opp .cnt .k { color: #e8b54a; font-size: 22px; letter-spacing: .18em; }
+.dbt-opp .cnt .v { font-family: "Bellefair", serif; font-size: 58px; color: #f5a3b8; line-height: 1; }
+.dbt-opp .use { font-size: 20px; color: #cbb6f0; letter-spacing: .1em; }
+.dbt-bubble {
+  position: absolute; top: 250px; max-width: 520px; padding: 14px 22px; background: #f6efe0; color: #1b2a4a;
+  font-family: "Kiwi Maru", serif; font-size: 30px; line-height: 1.4; box-shadow: 0 0 0 3px #1b2a4a, 6px 6px 0 rgba(0,0,0,.4);
+  opacity: 0; transform: translateY(-8px); transition: opacity .18s, transform .18s; pointer-events: none; z-index: 5;
+}
+.dbt-bubble.low { top: 410px; }
+.dbt-bubble.s1 { left: 60px; }
+.dbt-bubble.s2 { right: 60px; }
+.dbt-bubble.show { opacity: 1; transform: none; }
+.dbt-bubble.shaken { background: #ffe2e8; box-shadow: 0 0 0 3px #d8352a, 6px 6px 0 rgba(0,0,0,.4); }
+
+.dbt-maryhand { position: absolute; top: 318px; display: flex; gap: 4px; flex-wrap: wrap; width: 560px; }
+.dbt-maryhand.s1 { left: 60px; }
+.dbt-maryhand.s2 { right: 60px; justify-content: flex-end; }
+.dbt-maryhand .mini {
+  width: 40px; height: 56px; background: #f6efe0; color: #1b2a4a; font-family: "Bellefair", serif; font-size: 22px;
+  display: flex; align-items: center; justify-content: center; box-shadow: 0 0 0 2px #c08a1e;
+}
+.dbt-maryhand .mini.red { color: #d8352a; }
+.dbt-maryhand .mini.back { background: #4b2a6e; background-image: repeating-linear-gradient(45deg, rgba(232,181,74,.3) 0 4px, transparent 4px 10px); }
+
+.dbt-log { position: absolute; left: 640px; right: 640px; top: 70px; text-align: center; font-size: 28px; color: #f5a3b8; letter-spacing: .1em; text-shadow: 0 2px 6px #000; }
+.dbt-field { position: absolute; left: 0; right: 0; top: 150px; display: flex; flex-direction: column; align-items: center; gap: 20px; }
+.dbt-field .lbl { color: #ffdca8; font-size: 26px; letter-spacing: .3em; text-shadow: 0 2px 6px #000; }
+.dbt-field .row { display: flex; align-items: center; gap: 64px; }
+.dbt-rank { width: 200px; height: 200px; background: #d8352a; box-shadow: 0 0 0 5px #e8b54a, 0 0 60px rgba(216,53,42,.6); display: flex; align-items: center; justify-content: center; }
+.dbt-rank span { font-family: "Bellefair", serif; font-size: 140px; line-height: 1; }
+.dbt-pile { position: relative; width: 170px; height: 200px; }
+.dbt-pile .pc { position: absolute; width: 128px; height: 180px; background-size: cover; background-position: center; background-color: #4b2a6e; box-shadow: 0 0 0 2px #c08a1e, 2px 4px 10px rgba(0,0,0,.5); }
+.dbt-pileinfo { display: flex; flex-direction: column; gap: 8px; }
+.dbt-pileinfo .k { color: #e8b54a; font-size: 24px; letter-spacing: .2em; }
+.dbt-pileinfo .v { font-family: "Bellefair", serif; font-size: 64px; line-height: 1; }
+.dbt-pileinfo .d { font-size: 20px; color: #9fb0d4; }
+
+.dbt-hand { position: absolute; left: 110px; width: 1700px; bottom: 170px; height: 300px; }
+.dbt-hand.turn::before { content: ""; position: absolute; left: 0; right: 0; bottom: -10px; height: 60px; background: radial-gradient(ellipse at 50% 100%, rgba(245,163,184,.45), transparent 70%); }
+.dbt-card {
+  position: absolute; bottom: 0; width: 148px; height: 212px; background: #f6efe0; color: #1b2a4a;
+  box-shadow: 0 0 0 2px #c08a1e, 3px 6px 14px rgba(0,0,0,.45); transform-origin: 50% 120%;
+  transition: transform .15s, bottom .15s, box-shadow .15s; cursor: default;
+}
+.dbt-card.red { color: #d8352a; }
+.dbt-card .tl { position: absolute; left: 12px; top: 6px; font-family: "Bellefair", serif; font-size: 44px; line-height: 1; }
+.dbt-card .st { position: absolute; left: 14px; top: 50px; font-size: 26px; }
+.dbt-card .mid { position: absolute; left: 0; right: 0; top: 70px; text-align: center; font-size: 70px; line-height: 1; }
+.dbt-card .mid.face { font-family: "Bellefair", serif; font-size: 96px; top: 58px; opacity: .85; }
+.dbt-card.joker { background: #2a1846; color: #e8b54a; }
+.dbt-card.joker .jk { position: absolute; left: 0; right: 0; top: 14px; text-align: center; font-family: "Bellefair", serif; font-size: 34px; letter-spacing: .12em; }
+.dbt-card.joker .mid { top: 72px; font-size: 90px; }
+.dbt-card.pickable { cursor: pointer; }
+.dbt-card.pickable:hover { bottom: 16px; }
+.dbt-card.sel { bottom: 48px !important; box-shadow: 0 0 0 5px #d8352a, 0 0 0 8px #e8b54a, 3px 10px 18px rgba(0,0,0,.5); }
+
+.dbt-cmd { position: absolute; left: 0; right: 0; bottom: 0; height: 148px; background: rgba(6,20,16,.92); border-top: 4px solid #e8b54a; display: flex; align-items: center; justify-content: center; gap: 34px; }
+.dbt-cmd .dbt-btn { min-width: 360px; padding: 22px 36px; font-size: 36px; }
+.dbt-cmd .dbt-btn small { display: inline; font-size: 22px; margin-left: 10px; }
+.dbt-guide { position: absolute; left: 0; right: 0; bottom: 156px; text-align: center; font-size: 24px; letter-spacing: .12em; color: #ffdca8; text-shadow: 0 2px 6px #000; pointer-events: none; z-index: 4; }
+
+.dbt-fly { position: absolute; width: 96px; height: 136px; background-size: cover; background-color: #4b2a6e; box-shadow: 0 0 0 2px #c08a1e; z-index: 20; transition: left .38s ease-in, top .38s ease-in, transform .38s; pointer-events: none; }
+
+/* オーバーレイ（公開・カットイン・告知・数字パッド） */
+.dbt-overlay { position: absolute; inset: 0; z-index: 40; display: flex; align-items: center; justify-content: center; }
+.dbt-reveal { background: rgba(6,10,20,.72); flex-direction: column; gap: 30px; }
+.dbt-reveal .who { font-family: "Kiwi Maru", serif; font-size: 44px; letter-spacing: .1em; }
+.dbt-reveal .cards { position: relative; display: flex; gap: 20px; height: 230px; }
+.dbt-reveal .cards .dbt-card { position: relative; animation: dbtFlip .35s ease-out both; }
+.dbt-reveal .cards .dbt-card.bad { box-shadow: 0 0 0 6px #d8352a, 0 0 40px rgba(216,53,42,.9); }
+@keyframes dbtFlip { from { transform: rotateY(90deg); } to { transform: none; } }
+.dbt-reveal .verdict { font-family: "Kiwi Maru", serif; font-size: 120px; letter-spacing: .2em; height: 140px; line-height: 140px; }
+.dbt-reveal .verdict.lie { color: #f0533f; text-shadow: 6px 6px 0 #3a0a06; }
+.dbt-reveal .verdict.true { color: #e8b54a; text-shadow: 6px 6px 0 #3a2a06; }
+.dbt-reveal .res { font-size: 34px; letter-spacing: .1em; min-height: 44px; }
+
+.dbt-cutin { pointer-events: auto; }
+.dbt-cutin .band {
+  position: absolute; left: -40px; right: -40px; top: 300px; height: 480px; transform: skewY(-6deg);
+  box-shadow: 0 0 0 6px #f6efe0; overflow: hidden; animation: dbtBand .3s ease-out both;
+}
+.dbt-cutin .band .lines { position: absolute; inset: 0; background-image: repeating-linear-gradient(90deg, rgba(255,255,255,.18) 0 3px, transparent 3px 60px); animation: dbtSpeed .5s linear infinite; }
+@keyframes dbtBand { from { transform: skewY(-6deg) translateX(-110%); } to { transform: skewY(-6deg); } }
+@keyframes dbtSpeed { from { background-position: 0 0; } to { background-position: -120px 0; } }
+.dbt-cutin .band img { position: absolute; right: 120px; top: -80px; height: 760px; transform: skewY(6deg); }
+.dbt-cutin .txt { position: absolute; left: 140px; top: 390px; width: 1100px; transform: skewY(-6deg); animation: dbtFade .35s .15s both; }
+.dbt-cutin .txt .nm { font-family: "Kiwi Maru", serif; font-size: 96px; letter-spacing: .1em; text-shadow: 6px 6px 0 rgba(0,0,0,.45); }
+.dbt-cutin .txt .ef { margin-top: 20px; display: inline-block; background: rgba(11,17,34,.88); padding: 14px 28px; font-size: 40px; line-height: 1.45; box-shadow: 0 0 0 3px #e8b54a; }
+
+.dbt-notice { pointer-events: auto; }
+.dbt-notice .box { background: rgba(11,17,34,.94); box-shadow: 0 0 0 4px #e8b54a; padding: 36px 90px; text-align: center; animation: dbtPop .3s ease-out both; }
+.dbt-notice .t { font-family: "Kiwi Maru", serif; font-size: 80px; letter-spacing: .15em; color: #e8b54a; }
+.dbt-notice .s { margin-top: 10px; font-size: 32px; }
+
+.dbt-pad { background: rgba(6,10,20,.6); }
+.dbt-pad .box { background: #16233f; box-shadow: 0 0 0 4px #e8b54a; padding: 40px 50px; text-align: center; }
+.dbt-pad .q { font-family: "Kiwi Maru", serif; font-size: 40px; margin-bottom: 30px; letter-spacing: .1em; }
+.dbt-pad .keys { display: grid; grid-template-columns: repeat(7, 110px); gap: 16px; }
+.dbt-pad .key { height: 110px; font-family: "Bellefair", serif; font-size: 64px; display: flex; align-items: center; justify-content: center; letter-spacing: 0; }
+.dbt-pad .cancel { margin-top: 36px; display: inline-block; padding: 14px 60px; font-size: 32px; }
+
+/* ===== 結果 ===== */
+.dbt-result .shade.win { background: linear-gradient(90deg, rgba(0,0,0,.55), rgba(0,0,0,0) 45%, rgba(0,0,0,0) 60%, rgba(0,0,0,.55)); }
+.dbt-result.lose { background: radial-gradient(ellipse at 50% 40%, #24396b, #0b1122 70%); }
+.dbt-result .stage { position: absolute; left: 0; right: 0; top: 70px; text-align: center; color: #e8b54a; font-size: 32px; letter-spacing: .4em; }
+.dbt-result .big { position: absolute; left: 140px; top: 170px; font-family: "Kiwi Maru", serif; font-size: 230px; letter-spacing: .15em; line-height: 1; color: #f4e3b4; text-shadow: 0 0 40px rgba(232,181,74,.35); }
+.dbt-result.lose .big { color: #9fb0d4; text-shadow: none; }
+.dbt-result .catch { position: absolute; left: 146px; top: 420px; font-size: 32px; letter-spacing: .3em; color: #e8b54a; }
+.dbt-result .panel { position: absolute; background: rgba(0,0,0,.6); box-shadow: 0 0 0 2px #c08a1e; padding: 28px 36px; }
+.dbt-result .panel .k { font-size: 26px; letter-spacing: .2em; color: #e8b54a; }
+.dbt-result .panel .v { font-family: "Bellefair", serif; font-size: 100px; line-height: 1.1; }
+.dbt-result .panel .v small { font-family: "Zen Maru Gothic", sans-serif; font-size: 30px; color: #e8b54a; margin-left: 10px; }
+.dbt-result .panel .d { font-size: 24px; color: #d8b26a; }
+.dbt-result .p1 { left: 140px; top: 520px; width: 470px; }
+.dbt-result .p2 { left: 140px; top: 760px; width: 470px; }
+.dbt-result .p3 { right: 140px; top: 520px; width: 520px; }
+.dbt-result .lives { display: flex; gap: 12px; margin: 16px 0 10px; }
+.dbt-result .lives i { width: 40px; height: 48px; background: #e8b54a; display: block; }
+.dbt-result .lives i.new { background: #f6efe0; box-shadow: 0 0 20px #f6efe0; }
+.dbt-result .next { position: absolute; right: 140px; top: 760px; width: 520px; padding: 26px 0; font-size: 48px; background: rgba(0,0,0,.5); box-shadow: 0 0 0 3px #e8b54a; }
+.dbt-result .next:hover { background: rgba(232,181,74,.25); }
+
+/* ===== コンティニュー ===== */
+.dbt-continue .shade { background: linear-gradient(180deg, rgba(11,17,34,.3), rgba(11,17,34,.1) 60%, rgba(11,17,34,.6)); }
+.dbt-continue .q { position: absolute; left: 0; right: 0; top: 80px; text-align: center; font-family: "Kiwi Maru", serif; font-size: 110px; letter-spacing: .12em; text-shadow: 6px 6px 0 #0b1122; }
+.dbt-continue .rest { position: absolute; left: 50%; top: 240px; transform: translateX(-50%); display: flex; align-items: center; gap: 18px; padding: 14px 40px; background: rgba(11,17,34,.85); box-shadow: 0 0 0 3px #e8b54a; }
+.dbt-continue .rest i { width: 44px; height: 60px; background: #d8352a; display: block; }
+.dbt-continue .rest span { color: #e8b54a; font-size: 30px; }
+.dbt-continue .rest b { font-family: "Bellefair", serif; font-size: 90px; font-weight: normal; line-height: 1; }
+.dbt-continue .yes { position: absolute; left: 70px; top: 770px; width: 560px; padding: 32px 0 26px; font-size: 80px; }
+.dbt-continue .no { position: absolute; right: 70px; top: 770px; width: 560px; padding: 32px 0 26px; font-size: 80px; color: #9fb0d4; box-shadow: 0 0 0 3px #4a5677; background: rgba(11,17,34,.85); }
+.dbt-continue .no:hover { background: #16233f; }
+.dbt-continue .dbt-btn small { font-size: 26px; margin-top: 8px; }
+
+/* ===== ゲームオーバー ===== */
+.dbt-gameover .flood { position: absolute; inset: 0; background: #7f1810; opacity: 0; animation: dbtFlood 1.4s .9s ease-out forwards; mix-blend-mode: multiply; }
+@keyframes dbtFlood { to { opacity: .55; } }
+.dbt-gameover .go { position: absolute; left: 0; right: 0; top: 190px; text-align: center; font-family: "Bellefair", serif; font-size: 230px; letter-spacing: .08em; color: #d8352a; text-shadow: 8px 8px 0 #3a0a06; animation: dbtDrop .9s cubic-bezier(.3,1.5,.5,1) both; }
+@keyframes dbtDrop { from { transform: translateY(-600px) rotate(-8deg); } to { transform: none; } }
+.dbt-gameover .t { position: absolute; left: 0; right: 0; top: 590px; text-align: center; font-family: "Kiwi Maru", serif; font-size: 96px; letter-spacing: .12em; text-shadow: 5px 5px 0 #3a0a06; }
+.dbt-gameover .q { position: absolute; left: 0; right: 0; top: 740px; text-align: center; font-size: 36px; line-height: 1.8; color: #ffdca8; }
+.dbt-gameover .back { position: absolute; left: 760px; top: 910px; width: 400px; padding: 22px 0; font-size: 42px; }
+
+/* ===== 全戦突破 ===== */
+.dbt-clear { background: radial-gradient(ellipse at 50% 40%, #4b2a6e, #0b1122 70%); }
+.dbt-clear .t { position: absolute; left: 0; right: 0; top: 260px; text-align: center; font-family: "Kiwi Maru", serif; font-size: 170px; letter-spacing: .15em; color: #f4e3b4; }
+.dbt-clear .s { position: absolute; left: 0; right: 0; top: 520px; text-align: center; font-size: 36px; letter-spacing: .3em; color: #e8b54a; }
+.dbt-clear .v { position: absolute; left: 0; right: 0; top: 580px; text-align: center; font-family: "Bellefair", serif; font-size: 150px; }
+.dbt-clear .back { position: absolute; left: 760px; top: 880px; width: 400px; padding: 22px 0; font-size: 42px; }
