@@ -101,12 +101,6 @@
 [chara_face name="mary" face="stop"  storage="chara/mary/stop.png"]
 [chara_face name="mary" face="cry"  storage="chara/mary/cry.png"]
 
-;父
-[chara_new name="sharoku" jname="奢禄" storage="chara/sharoku/normal.png" width="600"]
-[chara_face name="sharoku" face="normal"  storage="chara/sharoku/normal.png"]
-[chara_face name="sharoku" face="surprised"  storage="chara/sharoku/surprised.png"]
-[chara_face name="sharoku" face="thinking"  storage="chara/sharoku/thinking.png"]
-
 ;零度警部
 [chara_new name="reido" jname="零度警部" storage="chara/reido/normal.png" width="600"]
 [chara_face name="reido" face="normal"  storage="chara/reido/normal.png"]
