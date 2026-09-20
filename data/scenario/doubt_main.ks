@@ -29,16 +29,23 @@
 [doubt_continue]
 [jump target="*arcade_battle" cond="f.doubt_continue"]
 [doubt_gameover]
+@playbgm storage="title.mp3"
 [jump target="*arcade_ranking"]
 
 *arcade_clear
 [call storage="doubt_story.ks" target="*clear"]
+; doubt_story.ks の *clear は、最後に system/ending_credit.ks へ @jump する。
+; クレジットが流れ終わると、下の *arcade_ending に戻ってくる。
+
+; エンディングクレジットの後
+*arcade_ending
+@clearstack
+@playbgm storage="title.mp3"
 [doubt_clear]
 [jump target="*arcade_ranking"]
 
 ; 5位以内なら名前を入れて登録し、ランキングを表示してタイトルへ
 *arcade_ranking
-@playbgm storage="title.mp3"
 [doubt_ranking register="true"]
 [jump target="*title"]
 

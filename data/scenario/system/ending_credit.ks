@@ -170,5 +170,5 @@
 [clearfix]
 [free_layer_image]
 [layopt layer="message" visible=false]
-; タイトル画面へ戻る
-[jump storage="title.ks" target="*start"]
+; アーケードプレイの締め（全戦突破画面 → ランキング登録 → タイトル）へ
+[jump storage="doubt_main.ks" target="*arcade_ending"]

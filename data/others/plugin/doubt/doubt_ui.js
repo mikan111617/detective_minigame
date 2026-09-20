@@ -1062,7 +1062,7 @@
       root.appendChild(h("div", "t", "全戦突破"));
       root.appendChild(h("div", "s", "通算スコア"));
       root.appendChild(h("div", "v", (fv.doubt_total || 0).toLocaleString()));
-      root.appendChild(btn("タイトルへ", "navy back", function () {
+      root.appendChild(btn("つぎへ", "navy back", function () {
         closeRoot(root);
         resolve();
       }));
