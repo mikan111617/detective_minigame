@@ -18,6 +18,25 @@
 
 [stop_keyconfig]
 
+; シナリオ画面のUI（デザイン案 1b）
+; message_ui.ks … メッセージ帯・名前銘板の体裁と [hud_draw]（上部プレート／システム操作）
+;                 [gage_draw] [show_menu] から呼ぶので macro.ks の後で読む
+[call storage="system/message_ui.ks"]
+
+; タイトルロゴの共通組みとタイトル演出（title.ks / scene1 で使用）
+[call storage="system/title_ui.ks"]
+
+[call storage="system/chara.ks"]
+
+[chara_config talk_focus="brightness" pos_mode="false"]
+
+[message_config control_line_break="true" line_spacing="20"]
+
+@call storage="system/macro.ks"
+
+; メッセージウィンドウを 1b の帯に組み替える（テーマの枠画像・名前枠を上書き）
+[msg_ui_setup]
+
 ;ティラノスクリプトが標準で用意している便利なライブラリ群
 ;コンフィグ、CG、回想モードを使う場合は必須
 @call storage="system/tyrano.ks"
@@ -42,25 +61,6 @@
     kag.on("load-start", wipe);
     kag.__backlogWipe = wipe;   // 新規開始のときは title.ks から直接呼ぶ
 })();
-[endscript]
-
-; 注意画面はアプリ起動中に一度だけ表示する。
-; sessionStorage はタイトルへ戻る際の再読み込みでは残り、アプリ終了時に破棄される。
-; 初回言語選択の再読み込みより後でフラグを立てるので、選択直後には必ず表示される。
-[iscript]
-tf.show_startup_caution = 0;
-try {
-    if (window.sessionStorage.getItem("maiguro_startup_caution_shown") !== "1") {
-        window.sessionStorage.setItem("maiguro_startup_caution_shown", "1");
-        tf.show_startup_caution = 1;
-    }
-} catch (e) {
-    // sessionStorage を利用できない環境では、同一ページ内だけでも再表示を防ぐ。
-    if (window.__maiguroStartupCautionShown !== true) {
-        window.__maiguroStartupCautionShown = true;
-        tf.show_startup_caution = 1;
-    }
-}
 [endscript]
 
 ;ダウト ミニゲームへ

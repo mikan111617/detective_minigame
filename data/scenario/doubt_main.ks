@@ -3,10 +3,11 @@
 
 ;==================================================
 *title
+@playbgm storage="title.mp3"
 [cm]
 [freeimage layer="base"]
 [doubt_title]
-@playbgm storage="card.mp3"
+@playbgm storage="talk.mp3"
 [jump target="*arcade" cond="f.doubt_mode == 'arcade'"]
 [jump target="*simple"]
 
@@ -21,6 +22,7 @@
 [call storage="doubt_story.ks" target="&'*stage' + f.doubt_stage"]
 
 *arcade_battle
+@playbgm storage="card.mp3"
 [doubt_vs pair="&f.doubt_stage"]
 [doubt_battle pair="&f.doubt_stage"]
 [doubt_result pair="&f.doubt_stage"]
@@ -52,6 +54,7 @@
 [jump target="*title" cond="f.doubt_pair < 0"]
 
 *simple_battle
+@playbgm storage="card.mp3"
 [doubt_vs pair="&f.doubt_pair"]
 [doubt_battle pair="&f.doubt_pair"]
 [doubt_result pair="&f.doubt_pair"]

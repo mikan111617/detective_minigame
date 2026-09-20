@@ -149,7 +149,6 @@
       modes.appendChild(btn("アーケードプレイ<small>五戦通し・館主まで</small>", "purple", function () { go("arcade"); }));
       modes.appendChild(btn("シンプルプレイ<small>一戦だけ・相手を選ぶ</small>", "navy", function () { go("simple"); }));
       root.appendChild(modes);
-      root.appendChild(h("div", "hint", "席に着く相手を選べ"));
     });
   });
 
