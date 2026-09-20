@@ -6,6 +6,8 @@
   var IMG = "./data/image/doubt/";
   // 立ち絵の場所。本編の立ち絵をそのまま使う場合は "./data/fgimage/standing/"
   var STAND = "./data/fgimage/standing/";
+  // スキル発動カットインの一枚絵の場所（1672×941 / 16:9）
+  var CUTIN = "./data/image/cutin/";
 
   var DATA = {
     img: {
@@ -21,14 +23,17 @@
         var base = DATA.charaFile[id] || id;
         return STAND + base + (face ? "_" + face : "") + ".png";
       },
-      // カットイン：cutin/{id}.png（無ければ文字だけのカットイン）
+      // カットイン：data/image/cutin/{id}.png（無ければ文字だけのカットイン）
       cutin: function (id) {
-        return IMG + "cutin/" + id + ".png";
+        return CUTIN + (DATA.cutinFile[id] || id) + ".png";
       },
     },
 
-    // 立ち絵のファイル名が id と違う場合の対応表
-    charaFile: { mahoru_awake: "mahoru" },
+    // 立ち絵のファイル名が id と違う場合の対応表（今は全員 id と同名）
+    charaFile: {},
+
+    // カットイン画像のファイル名が id と違う場合の対応表
+    cutinFile: {},
 
     rules: {
       scorePerCard: 100,
@@ -36,9 +41,15 @@
       baseContinue: 1,
       maxPlay: 4,
       jokers: 2, // 舞黒邦夢が山札から出すジョーカーの枚数
-      kunimuQuiet: 5, // 誰かの手札がこの枚数以下の間は、舞黒邦夢のもてなしが起きない
+      maicroQuiet: 5, // 誰かの手札がこの枚数以下の間は、舞黒邦夢のもてなしが起きない
       safetyLimit: 240, // この手数に達したら時間切れ（手札が最も少ない者の勝ち）
       mateDoubt: 0.4, // 相方同士で疑い合う強さ（通常の疑い確率に掛ける）
+      // true  … スキル発動のたびに一枚絵のカットインを出す
+      // false … 同じキャラの2回目以降は下部の細帯だけにする（和人・朱志香・
+      //         舞黒邦夢は1戦で6〜14回発動するため、既定は false）
+      cutinEveryTime: false,
+      rankingSize: 5, // アーケードプレイのランキングに残す件数
+      nameMax: 5,     // ランキングに登録する名前の文字数
     },
 
     /*
@@ -57,7 +68,7 @@
         ability: "ダウトされても、回収する札が半分になる",
         uses: -1 },
       mary: { name: "メアリー", color: "#c77dd8", doubt: 0.16, tell: 0.4, bluff: 0.1,
-        ability: "序盤は手札が全部見えている。手番ごとに1枚ずつ見えなくなる",
+        ability: "対戦が始まった時点の、自分以外の手札を覚えている（その後の出入りまでは分からない）",
         uses: -1 },
       reido: { name: "零度警部", color: "#6fa8c9", doubt: 0.16, tell: 0.35, bluff: 0.1,
         ability: "手札を3枚渡す代わりに、伏せ札を強制的に暴く。外れても札を引き取らない",
@@ -69,7 +80,7 @@
         ability: "相手と自分の手札を丸ごと入れ替える",
         uses: 1 },
       jushika: { name: "朱志香", color: "#b0413e", doubt: 0.08, tell: 0.2, bluff: 0.15,
-        ability: "小出里亜が追い詰められ、しばらく朱志香が読めなくなる",
+        ability: "小出里亜がダウトを外すと、しばらく二人の手札の枚数が分からなくなる",
         uses: -1 },
       koderia: { name: "小出里亜", color: "#9fb0d4", doubt: 0.08, tell: 0.18, bluff: 0.15,
         ability: "成立するはずのダウトを無効にする",
@@ -77,7 +88,7 @@
       mahoru_awake: { name: "真歩流？", color: "#7a3fd8", doubt: 0.3, tell: 0.3, bluff: 0.1,
         ability: "……ものすごく強い",
         uses: -1, catchRate: 0.55 },
-      kunimu: { name: "舞黒邦夢", color: "#c08a1e", doubt: 0.25, tell: 0.15, bluff: 0.15,
+      maicro: { name: "舞黒邦夢", color: "#c08a1e", doubt: 0.25, tell: 0.15, bluff: 0.15,
         ability: "館主のもてなし。場がかき乱される（ときどき味方の足を引っぱる）",
         uses: -1 },
     },
@@ -87,7 +98,7 @@
       { a: "mary", b: "reido", label: "第二戦", tagline: "狂気の香りと下戸" },
       { a: "juri", b: "eruku", label: "第三戦", tagline: "ハイスペック夫婦" },
       { a: "jushika", b: "koderia", label: "第四戦", tagline: "最強館主と闇のメイド" },
-      { a: "mahoru_awake", b: "kunimu", label: "最終戦", tagline: "ダーク真歩流と舞黒邦夢" },
+      { a: "mahoru_awake", b: "maicro", label: "最終戦", tagline: "ダーク真歩流と舞黒邦夢" },
     ],
     playerTagline: "嘘を全て打ち砕く",
 

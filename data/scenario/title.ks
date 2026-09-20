@@ -1,35 +1,36 @@
+;===============================================================================
+; title.ks ―― ダウト ミニゲームのタイトル画面
+;
+;   [doubt_title] で画面を描き、[s] で入力待ちに入る。
+;   モードのボタンを押すと、このファイルの
+;   *arcade_start / *simple_start へ [jump] して先へ進む。
+;   （system/title_ui.ks と同じ「描画タグ ＋ [s] ＋ ラベルへ jump」の作り）
+;===============================================================================
+
 *start
 [cm]
-[title name="舞黒館の惨劇 ver1.2"]
+[title name="舞黒館の惨劇 探偵少女はダウトで勝ちの目を見るか"]
 @clearstack
 
-;==== 背景とBGMのセットアップ ====
-
+;==== 画面とBGMのセットアップ ====
+[layopt layer="message" visible="false"]
 [layopt layer="message0" visible="false"]
-[layopt layer="0" visible="true"]
-[clearfix]
-[freeimage layer="0"]
-[bg storage="title.png" ]
-[playbgm storage="WhispersintheStardust_Cover.mp3" loop=true]
+[freeimage layer="base"]
 [hidemenubutton]
+@playbgm storage="title.mp3"
 
-[mask_off time=500]
-
-;==== タッチ待ち画面（ロゴ＋TOUCH TO START）====
-; 画面のどこを押しても *show_menu へ進む
-[title_screen phase="touch"]
+;==== タイトル画面（アーケードプレイ／シンプルプレイ）====
+[doubt_title]
 [s]
 
-*show_menu
-[title_screen phase="menu"]
-[s]
+;==== ここから先はボタンの飛び先 ====
+*arcade_start
+[jump storage="doubt_main.ks" target="*arcade"]
 
-*gamestart
-; タイトルのロゴをクリアしてからシーン開始
-[iscript]
-if(window.TL){ window.TL.clear("tl-title"); }
-// バックログは tf に溜まり、タイトルへ戻っても消えない。
-// 新しく始めたのに前の周回の本文がログに残らないよう、ここで捨てる。
-if(tyrano.plugin.kag.__backlogWipe){ tyrano.plugin.kag.__backlogWipe(); }
-[endscript]
-@jump storage="prologue.ks"
+*simple_start
+[jump storage="doubt_main.ks" target="*simple"]
+
+; タイトルの「ランキング」ボタンから
+*ranking
+[doubt_ranking]
+[jump target="*start"]

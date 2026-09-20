@@ -4,7 +4,6 @@
 ; メッセージウィンドウの準備
 ;--------------------------------------------------
 *setup
-@playbgm storage="talk.mp3"
 [bg storage="doubt/bg-salon.png" time="400"]
 [deffont size="38" color="0xf6efe0" face="Zen Maru Gothic"]
 [resetfont]
@@ -73,8 +72,8 @@
 @chara_hide_all
 @reset_message_chara
 [call target="*setup"]
+@playbgm storage="talk.mp3"
 @mask_off
-
 @message_chara name="mahoru" num=0 face="normal"
 
 #mahoru
@@ -180,6 +179,7 @@
 ;--------------------------------------------------
 *stage0
 [call target="*setup"]
+@playbgm storage="talk.mp3"
 @charapos name="airi" num=1 face="normal"
 @charapos name="kazuto" num=2 face="normal"
 
@@ -217,6 +217,7 @@
 
 *stage1
 [call target="*setup"]
+@playbgm storage="talk.mp3"
 #
 二つ目の卓。甘い香りと、鋭い視線。[p]
 
@@ -256,6 +257,7 @@
 
 *stage2
 [call target="*setup"]
+@playbgm storage="talk.mp3"
 #
 三つ目の卓では、珠璃と叡留久が札を揃えていた。[p]
 
@@ -289,6 +291,7 @@
 
 *stage3
 [call target="*setup"]
+@playbgm storage="talk.mp3"
 
 @charapos name="koderia" num=1 face="normal"
 @charapos name="jushika" num=2 face="normal"
@@ -328,6 +331,7 @@
 
 *stage4
 [call target="*setup"]
+@playbgm storage="talk.mp3"
 
 #
 最後の卓。そこに座っていたのは――[p]
@@ -385,9 +389,162 @@
 ;--------------------------------------------------
 *clear
 [call target="*setup"]
-#舞黒邦夢
-見事。今宵の嘘は、すべて君に暴かれた。[p]
-#真歩流
-……ごちそうさま。[p]
-[call target="*finish"]
-[return]
+
+@message_chara name="mahoru" num=0 face="normal"
+
+#mahoru
+か、勝ったの……。[p]
+
+@charapos name="mahoru_awake" num=1 face="normal"
+@charapos name="maicro" num=2 face="normal"
+
+#maicro
+見事だ。[p]
+
+いい読みをしている。[p]
+
+#mahoru_awake
+……。[p]
+
+#mahoru
+あなたも強かった。[p]
+
+#mahoru_awake
+何故……。[p]
+
+何故、あなたはそこまで戦えるの？[p]
+
+#mahoru
+あなたにもわかっているでしょう？[p]
+
+#mahoru_awake
+……？[p]
+
+#mahoru
+愛理の為よ。[p]
+
+大切な家族の為なら、どんな困難も乗り越えられるわ。[p]
+
+#mahoru_awake
+ああ……。[p]
+
+そうだったわね。[p]
+
+#maicro
+さて、名残惜しいが終幕だ。[p]
+
+私達が敗れたことで、この舞黒空間が崩壊する。[p]
+
+#mahoru
+どうすればいいんですか？[p]
+
+#maicro
+何もせずとも、気づいたら戻っているさ。[p]
+
+#maicro
+安心したまえ、君の妹や館の客達も一緒に元の洋館へと戻っていく。[p]
+
+#mahoru
+そうですか。[p]
+
+#mahoru_awake
+最後にわたしに選別をあげる。[p]
+
+#mahoru
+え……？[p]
+
+#mahoru_awake
+いつか、絶望的な状況になることがあるかもしれない。[p]
+
+たとえ、どんなに困難な状況でもあきらめずに、真実を追求し続けなさい。[p]
+
+そうすれば、本当に大切な人を助けることができる。[p]
+
+#mahoru
+……うん、わかった。[p]
+
+#maicro
+それじゃあ、またどこかで会おう。[p]
+
+さらばだ。[p]
+
+@mask
+@chara_hide_all
+@reset_message_chara
+@bg storage="reference_room.png"
+@message_chara name="mahoru" face="smile"
+@mask_off
+
+#mahoru
+ここは……。[p]
+
+#
+気が付くと私は資料室に立っていた。[p]
+
+崩れたはずの本棚も何事もなく、そこにあった。[p]
+
+#airi
+もう、お姉ちゃん聞いているの？[p]
+
+@charapos name=airi num=0 face=anger
+
+#airi
+ぼーっとしていないで探してよ！[p]
+
+#mahoru
+愛理！！[p]
+
+元に戻ったのね。[p]
+
+#airi
+何言っているのお姉ちゃん。[p]
+
+あ、さては資料探しながら、うたた寝してたんでしょう？[p]
+
+#mahoru
+うたた寝……。[p]
+
+うん、そうかもしれない。[p]
+
+でも、愛理がいてよかった。[p]
+
+私の大切な妹。[p]
+
+@chara_mod name="airi" face="surprised"
+
+#airi
+お姉ちゃん……急にどうしたの。[p]
+
+#mahoru
+ううん。[p]
+
+何でもないよ。[p]
+
+さあ、お父さんの手掛かりを探さなくっちゃね。[p]
+
+#
+きっと私はどんな困難も乗り越えてみせる。[p]
+
+どんな苦境にあっても、どれほど悲しいことがあっても。[p]
+
+#mahoru
+あれ？[p]
+
+@chara_mod name="airi" face="smile"
+
+#airi
+どうしたの？[p]
+
+何か見つかったの？[p]
+
+#mahoru
+ここの棚の本。[p]
+
+なんか一つにつながっているみたいで……。[p]
+
+#
+
+@chara_hide_all
+@reset_message_chara
+
+@jump storage="system/ending_credit.ks"

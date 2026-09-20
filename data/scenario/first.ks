@@ -23,8 +23,9 @@
 ;                 [gage_draw] [show_menu] から呼ぶので macro.ks の後で読む
 [call storage="system/message_ui.ks"]
 
-; タイトルロゴの共通組みとタイトル演出（title.ks / scene1 で使用）
-[call storage="system/title_ui.ks"]
+; タイトル画面はダウト版の title.ks（[doubt_title]）で作るため、
+; 本編用の system/title_ui.ks は読み込まない
+;[call storage="system/title_ui.ks"]
 
 [call storage="system/chara.ks"]
 
@@ -65,4 +66,4 @@
 
 ;ダウト ミニゲームへ
 [plugin name="doubt"]
-@jump storage="doubt_main.ks"
+@jump storage="title.ks" target="*start"

@@ -1,17 +1,12 @@
 ; ダウト ミニゲーム 全体の流れ
-@clearstack
+; タイトル画面は title.ks が受け持つ
 
 ;==================================================
 *title
-@playbgm storage="title.mp3"
-[cm]
-[freeimage layer="base"]
-[doubt_title]
-[jump target="*arcade" cond="f.doubt_mode == 'arcade'"]
-[jump target="*simple"]
+[jump storage="title.ks" target="*start"]
 
 ;==================================================
-; アーケードプレイ（4ペア＋最終戦）
+; アーケードプレイ（4ペア＋最終戦・物語つき）
 ;==================================================
 *arcade
 [eval exp="f.doubt_total = 0; f.doubt_lives = 1; f.doubt_stage = 0"]
@@ -34,19 +29,26 @@
 [doubt_continue]
 [jump target="*arcade_battle" cond="f.doubt_continue"]
 [doubt_gameover]
-[jump target="*title"]
+[jump target="*arcade_ranking"]
 
 *arcade_clear
 [call storage="doubt_story.ks" target="*clear"]
 [doubt_clear]
+[jump target="*arcade_ranking"]
+
+; 5位以内なら名前を入れて登録し、ランキングを表示してタイトルへ
+*arcade_ranking
+@playbgm storage="title.mp3"
+[doubt_ranking register="true"]
 [jump target="*title"]
 
 ;==================================================
-; シンプルプレイ（1戦のみ・最終戦なし）
+; シンプルプレイ（物語を飛ばして対戦のみ）
+;   相手選択 → 対戦 → 結果 → 相手選択に戻る
+;   「もどる」でタイトルへ
 ;==================================================
 *simple
 [eval exp="f.doubt_total = 0; f.doubt_lives = 1"]
-[call storage="doubt_story.ks" target="*prologue"]
 
 *simple_select
 [doubt_select]
@@ -57,8 +59,5 @@
 [doubt_vs pair="&f.doubt_pair"]
 [doubt_battle pair="&f.doubt_pair"]
 [doubt_result pair="&f.doubt_pair"]
-[jump target="*title" cond="f.doubt_win"]
-[doubt_continue]
-[jump target="*simple_battle" cond="f.doubt_continue"]
-[doubt_gameover]
-[jump target="*title"]
+@playbgm storage="title.mp3"
+[jump target="*simple_select"]

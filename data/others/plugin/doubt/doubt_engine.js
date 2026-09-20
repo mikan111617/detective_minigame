@@ -33,8 +33,8 @@
     this.last = null;
     this.winner = -1;
     this.steps = 0;
-    this.maryVisible = {};
     this.juriKnown = {};
+    this.maryMemo = {};   // メアリーが覚えている「配り終えた時点の、他人の手札」
     this.unreadable = 0;
     this.juriShown = false;
     this.sealed = 0;
@@ -69,10 +69,6 @@
     var ids = {};
     cards.forEach(function (c) { ids[c.id] = true; });
     this.hands[seat] = this.hands[seat].filter(function (c) { return !ids[c.id]; });
-    if (this.ids[seat] === "mary") {
-      var self = this;
-      cards.forEach(function (c) { delete self.maryVisible[c.id]; });
-    }
   };
 
   P.addToHand = function (seat, cards) {
@@ -106,10 +102,16 @@
     this.pile.push(deck[51]); // 余りの1枚は場に伏せて始める
     for (var k = 0; k < 3; k++) this.sortHand(k);
     var self = this;
-    var ms = this.seatOf("mary");
-    if (ms > 0) this.hands[ms].forEach(function (c) { self.maryVisible[c.id] = true; });
     var js = this.seatOf("juri");
     if (js > 0) this.hands[js].forEach(function (c) { self.juriKnown[c.id] = true; });
+    // メアリーは配り終えた時点の他人の手札だけを覚える。以後は更新しない
+    var ms = this.seatOf("mary");
+    if (ms > 0) {
+      for (var t = 0; t < 3; t++) {
+        if (t === ms) continue;
+        this.hands[t].forEach(function (c) { self.maryMemo[c.id] = t; });
+      }
+    }
   };
 
   P.run = async function () {
@@ -161,7 +163,6 @@
     this.last = { seat: seat, cards: cards, rank: this.rank };
     this.turnsTaken[seat]++;
 
-    if (this.ids[seat] === "mary") this.fadeMary(seat);
     if (this.ids[seat] === "jushika" && this.unreadable > 0) this.unreadable--;
 
     this.io.log(this, this.name(seat) + "：〈" + RANK[this.rank] + "〉が" + cards.length + "枚");
@@ -194,12 +195,6 @@
     if (placer > 0 && this.hands[placer].length === 0) { this.winner = placer; return true; }
     for (var s = 1; s <= 2; s++) if (this.hands[s].length === 0) { this.winner = s; return true; }
     return false;
-  };
-
-  P.fadeMary = function (seat) {
-    var self = this;
-    var vis = this.hands[seat].filter(function (c) { return self.maryVisible[c.id]; });
-    if (vis.length > 0) delete this.maryVisible[this.pickRandom(vis, 1)[0].id];
   };
 
   // ---------------------------------------------------------------- ダウト
@@ -305,7 +300,8 @@
         this.io.say(this, placer, "safe");
       }
 
-      if (lId === "koderia") {
+      // 小出里亜がダウトを外した（＝疑った側として札を引き取った）ときだけ
+      if (lId === "koderia" && loser === doubter && !isLie) {
         var js = this.seatOf("jushika");
         if (js > 0) {
           this.unreadable = 2;
@@ -375,10 +371,6 @@
     var ch = this.ch(seat);
     var rank = this.last.rank;
     var isLie = cards.some(function (c) { return c.r !== rank; });
-    if (this.ids[seat] === "jushika" && this.unreadable > 0) {
-      this.io.say(this, seat, "place_hidden");
-      return;
-    }
     var p = isLie ? ch.tell : ch.tell * 0.3;
     this.io.say(this, seat, this.rng() < p ? "place_shaken" : "place_calm");
   };
@@ -403,6 +395,22 @@
     var known = this.hands[seat].filter(function (c) { return c.r === r; }).length;
     var certain = false;
 
+    // メアリー：配り終えた時点の他人の手札を覚えている。
+    // 「出し手以外が持っていたはず」の同じ数字を数えて、嘘を見抜く材料にする。
+    // 記憶は更新されないので、札が動くほど当てにならなくなる
+    // （古い記憶のまま踏み込んで、空振りすることもある）。
+    var memo = 0;
+    if (id === "mary") {
+      var mine = {};
+      this.hands[seat].forEach(function (c) { mine[c.id] = true; });
+      for (var cid in this.maryMemo) {
+        if (!this.maryMemo.hasOwnProperty(cid)) continue;
+        if (this.maryMemo[cid] === target) continue;   // 出し手の手にあったはずの札は数えない
+        if (mine[cid]) continue;                        // 自分の手札は known 側で数えている
+        if (parseInt(cid.split("_")[1], 10) === r) memo++;
+      }
+    }
+
     if (id === "juri") {
       var self = this;
       var playedIds = {};
@@ -426,6 +434,8 @@
     }
 
     if (known + k > 4) certain = true;
+    // メアリーの記憶ぶんは、確信の判断にだけ使う（当てずっぽうの疑いは増やさない）
+    if (memo && known + memo + k > 4) certain = true;
 
     if (target !== 0) {
       if (this.pendingCutin && this.pendingCutin.seat === seat) this.pendingCutin = null;
@@ -495,12 +505,12 @@
 
     // 誰かの手札が少なくなったら、決着をつけさせるためにもてなしは控える
     var minHand = Math.min(this.hands[0].length, this.hands[1].length, this.hands[2].length);
-    if (id === "kunimu" && (this.turnsTaken[seat] + 1) % 3 === 0 && minHand > this.data.rules.kunimuQuiet) {
-      await this.kunimuEvent(seat);
+    if (id === "maicro" && (this.turnsTaken[seat] + 1) % 3 === 0 && minHand > this.data.rules.maicroQuiet) {
+      await this.maicroEvent(seat);
     }
   };
 
-  P.kunimuEvent = async function (seat) {
+  P.maicroEvent = async function (seat) {
     var roll = 1 + Math.floor(this.rng() * 4);
     if (roll === 2 && this.pile.length === 0) roll = 1;
     if (roll === 4 && this.jokerStock <= 0) roll = 1;

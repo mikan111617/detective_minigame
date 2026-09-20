@@ -2,6 +2,7 @@
  * ダウト ミニゲーム 画面処理とティラノスクリプト用タグ
  *
  * [doubt_title]            モード選択        → f.doubt_mode = "arcade" / "simple"
+ *                                            （title.ks の *arcade_start / *simple_start へ jump）
  * [doubt_select]           相手選択          → f.doubt_pair = 0〜3（もどる = -1）
  * [doubt_vs pair=0]        相手表示
  * [doubt_battle pair=0]    対戦              → f.doubt_win / f.doubt_gain / f.doubt_opp_left
@@ -9,6 +10,7 @@
  * [doubt_continue]         コンティニュー    → f.doubt_continue = true / false
  * [doubt_gameover]         ゲームオーバー
  * [doubt_clear]            全戦突破
+ * [doubt_ranking]          ランキング表示（register="true" で今回のスコアを登録）
  */
 (function () {
   var D = window.DOUBT_DATA;
@@ -104,6 +106,20 @@
     return arr[Math.floor(Math.random() * arr.length)];
   }
 
+  // スキル1件分の表示（名前・発動回数・効果）
+  function skillHTML(id, useText, extraName) {
+    var ch = D.chara[id];
+    return '<div class="skhd">' +
+      '<span class="who" style="color:' + ch.color + '">' + ch.name + (extraName || "") + "</span>" +
+      '<span class="use">' + (useText != null ? useText : (ch.uses > 0 ? "1ゲーム" + ch.uses + "回" : "常時")) + "</span></div>" +
+      '<div class="ab">' + ch.ability + "</div>";
+  }
+
+  // アーケードプレイを突破すると、シンプルプレイで最終戦も選べるようになる
+  function isCleared() {
+    try { return TYRANO.kag.variable.sf.doubt_cleared == 1; } catch (e) { return false; }
+  }
+
   function pairIndexOf(pm) {
     var n = parseInt(pm.pair, 10);
     return isNaN(n) ? 0 : n;
@@ -131,38 +147,47 @@
 
   // ---------------------------------------------------------------- タイトル
 
+  // title.ks から呼ぶ。画面を出したらすぐ制御を返し、title.ks 側の [s] で待つ。
+  // ボタンを押すと title.ks のラベルへ [jump] する（system/title_ui.ks と同じ作り）。
   defineTag("doubt_title", {}, function () {
-    return new Promise(function (resolve) {
-      var root = openRoot("dbt-title");
-      bg(root, D.img.bgTitle);
-      root.appendChild(h("div", "dbt-shade shade"));
-      root.appendChild(h("div", "head",
-        '<div class="kicker">―― 八人の容疑者・一晩の嘘くらべ ――</div>' +
-        "<h1>舞黒館の惨劇</h1>" +
-        '<div class="sub">「探偵少女はダウトで勝ちの目を見るか」</div>'));
-      var modes = h("div", "modes");
-      function go(mode) {
-        f().doubt_mode = mode;
-        closeRoot(root);
-        resolve();
-      }
-      modes.appendChild(btn("アーケードプレイ<small>五戦通し・館主まで</small>", "purple", function () { go("arcade"); }));
-      modes.appendChild(btn("シンプルプレイ<small>一戦だけ・相手を選ぶ</small>", "navy", function () { go("simple"); }));
-      root.appendChild(modes);
-    });
+    var root = openRoot("dbt-title");
+    bg(root, D.img.bgTitle);
+    root.appendChild(h("div", "dbt-shade shade"));
+    root.appendChild(h("div", "head",
+      '<div class="kicker">―― 八人の容疑者・一晩の嘘くらべ ――</div>' +
+      "<h1>舞黒館の惨劇</h1>" +
+      '<div class="sub">「探偵少女はダウトで勝ちの目を見るか」</div>'));
+    var modes = h("div", "modes");
+    function go(mode, target) {
+      f().doubt_mode = mode;
+      closeRoot(root);
+      TYRANO.kag.ftag.startTag("jump", { storage: "title.ks", target: target });
+    }
+    modes.appendChild(btn("アーケードプレイ<small>五戦通し・館主まで</small>", "purple", function () { go("arcade", "*arcade_start"); }));
+    modes.appendChild(btn("シンプルプレイ<small>一戦だけ・相手を選ぶ</small>", "navy", function () { go("simple", "*simple_start"); }));
+    root.appendChild(modes);
+    var extra = h("div", "extra");
+    extra.appendChild(btn("ランキング", "navy", function () {
+      closeRoot(root);
+      TYRANO.kag.ftag.startTag("jump", { storage: "title.ks", target: "*ranking" });
+    }));
+    root.appendChild(extra);
   });
 
   // ---------------------------------------------------------------- 相手選択
 
   defineTag("doubt_select", {}, function () {
     return new Promise(function (resolve) {
-      var root = openRoot("dbt-select");
+      // アーケードプレイを突破していれば、最終戦のペアも選べる
+      var pairCount = isCleared() ? D.pairs.length : 4;
+      var root = openRoot("dbt-select" + (pairCount > 4 ? " five" : ""));
       bg(root, D.img.bgSelect);
       root.appendChild(h("div", "dbt-shade shade"));
 
       var me = h("div", "me");
       me.appendChild(portrait("mahoru"));
       me.appendChild(h("div", "plate", "<small>あなた</small><b>真歩流</b>"));
+      me.appendChild(h("div", "myskill", '<div class="sklbl">あなたのスキル</div><div class="sk">' + skillHTML("mahoru") + "</div>"));
       root.appendChild(me);
 
       var grid = h("div", "grid");
@@ -171,6 +196,11 @@
       var preview = h("div", "preview");
       var plate = h("div", "pairplate");
 
+      // 選んだ相手のスキル（能力）を、名前・発動回数つきで並べる
+      function skillRow(id) {
+        return '<div class="sk">' + skillHTML(id) + "</div>";
+      }
+
       function show(i) {
         current = i;
         cols.forEach(function (c, k) { c.classList.toggle("on", k === i); });
@@ -178,10 +208,11 @@
         preview.innerHTML = "";
         preview.appendChild(portrait(pr.a, "p1"));
         preview.appendChild(portrait(pr.b, "p2"));
-        plate.innerHTML = "<small>" + pr.label + "</small><b>" + D.chara[pr.a].name + " × " + D.chara[pr.b].name + "</b>";
+        plate.innerHTML = "<small>" + pr.label + "</small><b>" + D.chara[pr.a].name + " × " + D.chara[pr.b].name + "</b>" +
+          '<div class="skills"><div class="sklbl">スキル</div>' + skillRow(pr.a) + skillRow(pr.b) + "</div>";
       }
 
-      for (var i = 0; i < 4; i++) {
+      for (var i = 0; i < pairCount; i++) {
         (function (i) {
           var pr = D.pairs[i];
           var col = h("div", "col");
@@ -215,11 +246,11 @@
       cmds.appendChild(btn("この相手で", "red", decide));
       cmds.appendChild(btn("もどる", "navy", function () { finish(-1); }));
       root.appendChild(cmds);
-      root.appendChild(h("div", "hint", "← → で相手を選ぶ"));
+      root.appendChild(h("div", "hint", "← → で相手を選ぶ／選ぶとスキルの内容が出ます"));
 
       function onKey(ev) {
-        if (ev.key === "ArrowLeft") show((current + 3) % 4);
-        else if (ev.key === "ArrowRight") show((current + 1) % 4);
+        if (ev.key === "ArrowLeft") show((current + pairCount - 1) % pairCount);
+        else if (ev.key === "ArrowRight") show((current + 1) % pairCount);
         else if (ev.key === "Enter") decide();
         else if (ev.key === "Escape") finish(-1);
       }
@@ -234,15 +265,36 @@
     var pr = D.pairs[pairIndexOf(pm)];
     return new Promise(function (resolve) {
       var root = openRoot("dbt-vs");
+      // 立ち絵をクリックすると、そのキャラのスキルが出る（真歩流も見られる）
+      var ids = ["mahoru", pr.a, pr.b];
+      var ports = [];
+      var panel = h("div", "skillpanel show");
+      function showSkill(k) {
+        ports.forEach(function (p, j) { p.classList.toggle("on", j === k); });
+        panel.className = "skillpanel show" + (k === 0 ? " l" : "");
+        panel.innerHTML = skillHTML(ids[k], null, k === 0 ? "（あなた）" : "");
+      }
+
       var left = h("div", "left");
-      left.appendChild(portrait("mahoru"));
+      var pMe = portrait("mahoru");
+      pMe.addEventListener("click", function (ev) { ev.stopPropagation(); showSkill(0); });
+      ports.push(pMe);
+      left.appendChild(pMe);
       left.appendChild(h("div", "copy l", D.playerTagline));
+
       var right = h("div", "right");
-      right.appendChild(portrait(pr.a));
-      right.appendChild(portrait(pr.b));
+      [pr.a, pr.b].forEach(function (id, k) {
+        var p = portrait(id);
+        p.addEventListener("click", function (ev) { ev.stopPropagation(); showSkill(k + 1); });
+        ports.push(p);
+        right.appendChild(p);
+      });
       if (pr.tagline) right.appendChild(h("div", "copy r", pr.tagline));
       root.appendChild(left);
       root.appendChild(right);
+      root.appendChild(panel);
+      root.appendChild(h("div", "skhint", "立ち絵をクリックすると、そのキャラのスキルが出ます"));
+      showSkill(1);
       root.appendChild(h("div", "band",
         '<span class="tagbox l">あなた</span><span class="n l">真歩流</span>' +
         '<span class="n r">' + D.chara[pr.a].name + " × " + D.chara[pr.b].name + "</span>" +
@@ -282,7 +334,6 @@
 
     this.opp = {};
     this.bubble = {};
-    this.mary = {};
     this.portraits = {};
     [1, 2].forEach(function (seat) {
       var id = seat === 1 ? self.pair.a : self.pair.b;
@@ -297,12 +348,11 @@
       box.appendChild(info);
       self.root.appendChild(box);
       self.opp[seat] = { box: box, count: info.querySelector(".v"), use: info.querySelector(".use") };
-      var bub = h("div", "dbt-bubble s" + seat + (id === "mary" ? " low" : ""));
+      var bub = h("div", "dbt-bubble s" + seat);
       self.root.appendChild(bub);
       self.bubble[seat] = bub;
-      var mh = h("div", "dbt-maryhand s" + seat);
-      self.root.appendChild(mh);
-      self.mary[seat] = mh;
+      // 名前や立ち絵を押すと、この対戦のスキル一覧が出る
+      box.addEventListener("click", function () { self.openSkills(); });
     });
 
     this.logEl = h("div", "dbt-log", "");
@@ -330,11 +380,14 @@
     this.bMain = btn("伏せる", "red", function () { self.onMain(); });
     this.bDoubt = btn("ダウトを宣言する", "navy", function () { self.onDoubt(); });
     this.bAbility = btn("能力を発動する", "pink", function () { self.onAbility(); });
+    this.bSkill = btn("スキル", "navy info", function () { self.openSkills(); });
     cmd.appendChild(this.bMain);
     cmd.appendChild(this.bDoubt);
     cmd.appendChild(this.bAbility);
+    cmd.appendChild(this.bSkill);
     this.root.appendChild(cmd);
 
+    this.cutinShown = {};   // この対戦でカットインを出し切ったキャラ
     this.mode = "idle";
     this.selected = {};
     this.need = 0;
@@ -346,6 +399,24 @@
   var B = BattleUI.prototype;
 
   B.close = function () { closeRoot(this.root); };
+
+  // この対戦に出ている3人のスキルを並べて見せる
+  B.openSkills = function () {
+    var g = this.game;
+    if (!g) return;
+    var ov = h("div", "dbt-overlay dbt-pad dbt-skills");
+    var box = h("div", "box");
+    box.appendChild(h("div", "q", "スキル"));
+    [0, 1, 2].forEach(function (seat) {
+      var ch = D.chara[g.ids[seat]];
+      var left = ch.uses > 0 ? "残り" + Math.max(0, g.uses[seat]) + "回" : "常時";
+      box.appendChild(h("div", "sk" + (seat === 0 ? " me" : ""),
+        skillHTML(g.ids[seat], left, seat === 0 ? "（あなた）" : "")));
+    });
+    box.appendChild(btn("とじる", "navy cancel", function () { closeRoot(ov); }));
+    ov.appendChild(box);
+    this.root.appendChild(ov);
+  };
 
   B.setButtons = function () {
     var g = this.game;
@@ -368,21 +439,12 @@
     [1, 2].forEach(function (seat) {
       var o = self.opp[seat];
       var id = g.ids[seat];
-      var hidden = id === "jushika" && g.unreadable > 0;
+      var hidden = (id === "jushika" || id === "koderia") && g.unreadable > 0;
       o.count.textContent = hidden ? "？" : g.hands[seat].length;
       o.box.classList.toggle("turn", g.turn === seat && g.winner < 0);
       var ch = D.chara[id];
       o.use.textContent = ch.uses > 0 ? "能力 残り" + Math.max(0, g.uses[seat]) : "";
       if (id === "mahoru_awake" && g.sealed > 0) o.use.textContent = "力を封じられている";
-      if (id === "mary") {
-        var mh = self.mary[seat];
-        mh.innerHTML = "";
-        g.hands[seat].slice().sort(function (a, b) { return a.r - b.r; }).forEach(function (c) {
-          var vis = g.maryVisible[c.id];
-          var red = c.s === 1 || c.s === 2;
-          mh.appendChild(h("div", "mini" + (vis ? (red ? " red" : "") : " back"), vis ? (c.r === 0 ? "★" : RANK[c.r]) : ""));
-        });
-      }
     });
 
     this.rankBox.innerHTML = "<span>" + RANK[g.rank] + "</span>";
@@ -588,23 +650,62 @@
         ui.need = n;
         return ui.waitInput("give", g.name(placer) + "に渡す札を" + n + "枚選ぶ");
       },
+      // スキル発動カットイン
+      //   data/image/cutin/{キャラid}.png があれば一枚絵を全面に出す
+      //   無い場合は、これまで通り色帯＋文字だけのカットインになる
+      //   rules.cutinEveryTime が false のときは、同じキャラの2回目以降は
+      //   下部の細帯（短縮版）にして進行が止まらないようにする
       cutin: function (g, seat, text) {
         var id = g.ids[seat];
         var ch = D.chara[id];
+        var repeat = !!ui.cutinShown[id];
+        ui.cutinShown[id] = true;
+
+        if (repeat && !D.rules.cutinEveryTime) {
+          var mini = h("div", "dbt-overlay dbt-cutin mini");
+          var msrc = D.img.cutin(id);
+          if (!missing[absUrl(msrc)]) {
+            var mart = h("div", "art");
+            var mimg = new Image();
+            mimg.onerror = function () { missing[absUrl(msrc)] = true; mini.classList.remove("has-art"); };
+            mimg.src = msrc;
+            mart.appendChild(mimg);
+            mini.appendChild(mart);
+            mini.classList.add("has-art");
+          }
+          var mtxt = h("div", "txt", '<div class="nm">' + ch.name + '</div><div class="ef">' + text + "</div>");
+          mtxt.style.borderColor = ch.color;
+          mini.appendChild(mtxt);
+          return ui.overlayWait(mini, 1100);
+        }
+
         var ov = h("div", "dbt-overlay dbt-cutin");
+
+        var csrc = D.img.cutin(id);
+        if (!missing[absUrl(csrc)]) {
+          var art = h("div", "art");
+          var img = new Image();
+          img.onerror = function () {
+            missing[absUrl(csrc)] = true;
+            ov.classList.remove("has-art");
+            if (art.parentNode) art.parentNode.removeChild(art);
+          };
+          img.src = csrc;
+          art.appendChild(img);
+          ov.appendChild(art);
+          ov.appendChild(h("div", "flash"));
+          ov.classList.add("has-art");
+        }
+
         var band = h("div", "band");
         band.style.background = "linear-gradient(90deg, " + ch.color + ", #0b1122 90%)";
         band.appendChild(h("div", "lines"));
-        var csrc = D.img.cutin(id);
-        if (!missing[absUrl(csrc)]) {
-          var img = new Image();
-          img.onerror = function () { missing[absUrl(csrc)] = true; img.style.display = "none"; };
-          img.src = csrc;
-          band.appendChild(img);
-        }
         ov.appendChild(band);
-        ov.appendChild(h("div", "txt", '<div class="nm">' + ch.name + '</div><div class="ef">' + text + "</div>"));
-        return ui.overlayWait(ov, 1900);
+
+        var txt = h("div", "txt", '<div class="nm">' + ch.name + '</div><div class="ef">' + text + "</div>");
+        txt.style.borderColor = ch.color;
+        ov.appendChild(txt);
+        return ui.overlayWait(ov, 2000);
       },
       notice: function (g, title, sub) {
         var ov = h("div", "dbt-overlay dbt-notice");
@@ -757,10 +858,205 @@
     });
   });
 
+  // ---------------------------------------------------------------- ランキング
+  //   sf（システム変数）に保存するので、ゲームを閉じても残る
+  //   1件 = { n: 名前（最大5文字）, s: 通算スコア }
+
+  function sysVar() { return TYRANO.kag.variable.sf; }
+
+  function rankingList() {
+    var v = sysVar().doubt_ranking;
+    if (typeof v === "string") { try { v = JSON.parse(v); } catch (e) { v = null; } }
+    if (!(v instanceof Array)) return [];
+    return v.filter(function (r) { return r && typeof r.s === "number"; })
+      .sort(function (a, b) { return b.s - a.s; })
+      .slice(0, D.rules.rankingSize);
+  }
+
+  function rankingSave(list) {
+    var kag = TYRANO.kag;
+    kag.variable.sf.doubt_ranking = list;
+    try { kag.saveSystemVariable(); }
+    catch (e) { console.error("[doubt] ランキングの保存に失敗しました", e); }
+  }
+
+  function rankingIn(score) {
+    var l = rankingList();
+    return score > 0 && (l.length < D.rules.rankingSize || score > l[l.length - 1].s);
+  }
+
+  // 「゛」「゜」は直前の一文字に付ける（か→が、は→ぱ）
+  var DAKU = "かきくけこさしすせそたちつてとはひふへほう";
+  var HANDAKU = "はひふへほ";
+  var KEYS_KANA = [
+    "あいうえおかきくけこ", "さしすせそたちつてと", "なにぬねのはひふへほ",
+    "まみむめもやゆよらり", "るれろわをんーぁぃぅ", "ぇぉっゃゅょ゛゜　",
+  ];
+  var KEYS_ABC = [
+    "ABCDEFGHIJ", "KLMNOPQRST", "UVWXYZ0123", "456789-.!?", "&+*/　",
+  ];
+
+  function nameEntry(score) {
+    return new Promise(function (resolve) {
+      var max = D.rules.nameMax;
+      var root = openRoot("dbt-nameentry");
+      bg(root, D.img.bgTitle);
+      root.appendChild(h("div", "dbt-shade shade"));
+      root.appendChild(h("div", "hd", "RANKING IN"));
+      root.appendChild(h("div", "sub", "名前を入れてください（" + max + "文字まで）"));
+      root.appendChild(h("div", "sc", '<span class="k">通算スコア</span><span class="v">' + score.toLocaleString() + "</span>"));
+
+      var name = "";
+      var slots = h("div", "slots");
+      root.appendChild(slots);
+
+      function drawSlots() {
+        slots.innerHTML = "";
+        for (var i = 0; i < max; i++) {
+          var cell = h("div", "cell" + (i === name.length ? " cur" : ""), name.charAt(i) || "");
+          slots.appendChild(cell);
+        }
+        bOk.classList.toggle("off", name.length === 0);
+      }
+
+      function put(c) {
+        if (c === "゛" || c === "゜") {
+          if (!name.length) return;
+          var last = name.charAt(name.length - 1);
+          var add = c === "゛" ? (DAKU.indexOf(last) >= 0 ? 1 : 0) : (HANDAKU.indexOf(last) >= 0 ? 2 : 0);
+          if (!add) return;
+          name = name.slice(0, -1) + String.fromCharCode(last.charCodeAt(0) + add);
+          drawSlots();
+          return;
+        }
+        if (name.length >= max) return;
+        name += c;
+        drawSlots();
+      }
+
+      var keys = h("div", "keys");
+      root.appendChild(keys);
+
+      function drawKeys(rows) {
+        keys.innerHTML = "";
+        rows.forEach(function (line) {
+          var row = h("div", "krow");
+          for (var i = 0; i < line.length; i++) {
+            (function (c) {
+              var label = c, cls = "navy key";
+              if (c === "\u3000" || c === " ") { label = "\u2423"; }
+              else if (c === "\u309b") { label = "だく"; cls += " mark"; }
+              else if (c === "\u309c") { label = "はんだく"; cls += " mark"; }
+              row.appendChild(btn(label, cls, function () { put(c === " " ? "\u3000" : c); }));
+            })(line.charAt(i));
+          }
+          keys.appendChild(row);
+        });
+      }
+
+      var tabs = h("div", "tabs");
+      var tKana = btn("かな", "navy tab on", function () { setTab(0); });
+      var tAbc = btn("ABC", "navy tab", function () { setTab(1); });
+      tabs.appendChild(tKana);
+      tabs.appendChild(tAbc);
+      root.appendChild(tabs);
+
+      function setTab(k) {
+        tKana.classList.toggle("on", k === 0);
+        tAbc.classList.toggle("on", k === 1);
+        drawKeys(k === 0 ? KEYS_KANA : KEYS_ABC);
+      }
+
+      function finish() {
+        document.removeEventListener("keydown", onKey);
+        closeRoot(root);
+        resolve(name.replace(/\u3000+$/, "") || "ななし");
+      }
+
+      var cmds = h("div", "cmds");
+      var bDel = btn("けす", "navy", function () {
+        if (!name.length) return;
+        name = name.slice(0, -1);
+        drawSlots();
+      });
+      var bOk = btn("きめる", "red", function () { if (name.length) finish(); });
+      cmds.appendChild(bDel);
+      cmds.appendChild(bOk);
+      root.appendChild(cmds);
+      root.appendChild(h("div", "hint", "キーボードでも入力できます（Backspace＝けす／Enter＝きめる）"));
+
+      function onKey(ev) {
+        if (ev.key === "Backspace") {
+          ev.preventDefault();
+          if (name.length) { name = name.slice(0, -1); drawSlots(); }
+        } else if (ev.key === "Enter") {
+          if (name.length) finish();
+        } else if (ev.key.length === 1) {
+          var c = ev.key;
+          if (/[a-z]/.test(c)) c = c.toUpperCase();
+          if (/[A-Z0-9 .!?\-&+*/]/.test(c)) put(c === " " ? "\u3000" : c);
+          else if (/[\u3040-\u309f\u30fc]/.test(c)) put(c);
+        }
+      }
+      document.addEventListener("keydown", onKey);
+
+      setTab(0);
+      drawSlots();
+    });
+  }
+
+  function rankingScreen(newIndex) {
+    return new Promise(function (resolve) {
+      var root = openRoot("dbt-ranking");
+      bg(root, D.img.bgTitle);
+      root.appendChild(h("div", "dbt-shade shade"));
+      root.appendChild(h("div", "hd", "RANKING"));
+      root.appendChild(h("div", "sub", "アーケードプレイ　通算スコア"));
+      var list = rankingList();
+      var rows = h("div", "rows");
+      for (var i = 0; i < D.rules.rankingSize; i++) {
+        var r = list[i];
+        var row = h("div", "row" + (i === newIndex ? " new" : "") + (r ? "" : " empty"));
+        row.innerHTML =
+          '<span class="no">' + (i + 1) + "</span>" +
+          '<span class="nm">' + (r ? r.n : "ーーーーー") + "</span>" +
+          '<span class="pt">' + (r ? r.s.toLocaleString() : "0") + "</span>";
+        rows.appendChild(row);
+      }
+      root.appendChild(rows);
+      root.appendChild(btn("タイトルへ", "navy back", function () {
+        closeRoot(root);
+        resolve();
+      }));
+    });
+  }
+
+  // [doubt_ranking]                … ランキングを見るだけ
+  // [doubt_ranking register="true"] … 今回のスコアが5位以内なら名前を入れて登録
+  defineTag("doubt_ranking", { register: "false" }, async function (pm) {
+    var score = f().doubt_total || 0;
+    var newIndex = -1;
+    if (String(pm.register) === "true" && rankingIn(score)) {
+      var name = await nameEntry(score);
+      var list = rankingList();
+      var entry = { n: name, s: score };
+      list.push(entry);
+      list.sort(function (a, b) { return b.s - a.s; });
+      newIndex = list.indexOf(entry);
+      rankingSave(list.slice(0, D.rules.rankingSize));
+    }
+    await rankingScreen(newIndex);
+  });
+
   // ---------------------------------------------------------------- 全戦突破
 
   defineTag("doubt_clear", {}, function () {
     var fv = f();
+    // シンプルプレイで最終戦を選べるようにする
+    try {
+      TYRANO.kag.variable.sf.doubt_cleared = 1;
+      TYRANO.kag.saveSystemVariable();
+    } catch (e) { console.error("[doubt] 突破フラグの保存に失敗しました", e); }
     return new Promise(function (resolve) {
       var root = openRoot("dbt-clear");
       root.appendChild(h("div", "t", "全戦突破"));
