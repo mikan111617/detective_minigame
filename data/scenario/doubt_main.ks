@@ -7,7 +7,6 @@
 [cm]
 [freeimage layer="base"]
 [doubt_title]
-@playbgm storage="talk.mp3"
 [jump target="*arcade" cond="f.doubt_mode == 'arcade'"]
 [jump target="*simple"]
 

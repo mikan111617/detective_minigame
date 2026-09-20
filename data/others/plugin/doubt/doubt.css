@@ -39,7 +39,6 @@
 }
 .dbt-portrait img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: 50% 12%; }
 /* 覚醒した真歩流は、同じ立ち絵を色で変えて出す */
-.dbt-p-mahoru_awake img { filter: brightness(.6) saturate(1.5) hue-rotate(255deg) contrast(1.1); }
 .dbt-portrait .ph {
   position: absolute; left: 0; right: 0; bottom: 10px; text-align: center;
   color: #7f92ba; font-size: 20px; letter-spacing: .1em;

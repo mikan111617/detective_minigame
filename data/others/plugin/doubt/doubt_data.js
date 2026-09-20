@@ -84,10 +84,10 @@
 
     pairs: [
       { a: "airi", b: "kazuto", label: "第一戦", tagline: "愛と薬だけが友達" },
-      { a: "mary", b: "reido", label: "第二戦", tagline: "" },
-      { a: "juri", b: "eruku", label: "第三戦", tagline: "" },
-      { a: "jushika", b: "koderia", label: "第四戦", tagline: "" },
-      { a: "mahoru_awake", b: "kunimu", label: "最終戦", tagline: "" },
+      { a: "mary", b: "reido", label: "第二戦", tagline: "狂気の香りと下戸" },
+      { a: "juri", b: "eruku", label: "第三戦", tagline: "ハイスペック夫婦" },
+      { a: "jushika", b: "koderia", label: "第四戦", tagline: "最強館主と闇のメイド" },
+      { a: "mahoru_awake", b: "kunimu", label: "最終戦", tagline: "ダーク真歩流と舞黒邦夢" },
     ],
     playerTagline: "嘘を全て打ち砕く",
 
@@ -161,7 +161,7 @@
         place_calm: ["……どうぞ。", "……。"],
         place_shaken: ["……っ。なんでもありません。"],
         place_hidden: ["…………。"],
-        caught: ["……不覚です。"],
+        caught: ["……不覚ですね。"],
         safe: ["……本当です。"],
         partner: ["小出里亜さん……！"],
         doubt: ["……ダウト、です。"],
@@ -172,7 +172,7 @@
         place_shaken: ["あら……困りましたね。"],
         caught: ["見抜かれてしまいましたね。"],
         safe: ["疑うのは悲しいですよ。"],
-        partner: ["朱志香さん、大丈夫ですよ。"],
+        partner: ["朱志香さま、大丈夫ですよ。"],
         doubt: ["それは、ダウトですね。"],
         doubt_miss: ["あら、ごめんなさい。"],
       },

@@ -1,14 +1,11 @@
 ; ダウト ミニゲーム 物語パート
-; ※本文はすべて仮テキスト
 
 ;--------------------------------------------------
 ; メッセージウィンドウの準備
 ;--------------------------------------------------
 *setup
+@playbgm storage="talk.mp3"
 [bg storage="doubt/bg-salon.png" time="400"]
-[position layer="message0" left="140" top="760" width="1640" height="280" page="fore" visible="true" frame="none" color="0x0b1122" opacity="215" marginl="70" margint="80" marginr="70" marginb="30"]
-[ptext name="chara_name_area" layer="message0" color="0xe8b54a" size="36" x="190" y="780" face="Kiwi Maru"]
-[chara_config ptext="chara_name_area"]
 [deffont size="38" color="0xf6efe0" face="Zen Maru Gothic"]
 [resetfont]
 [layopt layer="message0" visible="true"]
@@ -22,7 +19,61 @@
 
 ;--------------------------------------------------
 *prologue
+@stopbgm
+@bg storage="reference_room.png"
+@charapos name="airi" num=0 face="smile"
+@message_chara name="mahoru" face="smile"
+
+#mahoru
+ここにお父さんの手掛かりがあるといいんだけどなあ。[p]
+
+#airi
+きっとあるよ。[p]
+
+私はこっちを見るから、お姉ちゃんはこのあたりを探して。[p]
+
+#mahoru
+うん、わかった。[p]
+
+@chara_hide_all
+
+#mahoru
+じゃあ、早速このあたりを……。[p]
+
+うん？[p]
+
+何だろう、ここの本全部繋がっているみたい。[p]
+
+#airi
+どうかしたの、お姉ちゃん？[p]
+
+#mahoru
+なんか本がつながっているみたいで……。[p]
+
+@charapos name="airi" num=0 face="smile"
+
+#airi
+どれどれ？[p]
+
+#mahoru
+ここ。[p]
+
+#
+がシャン。[p]
+
+#mahoru
+あ……。[p]
+
+#
+愛理に返事をしたときに、本棚の本を押し込んでしまった。[p]
+
+瞬間、本棚が傾き、そのまま本棚と一緒に私と愛理は落下していった。[p]
+
+@mask
+@chara_hide_all
+@reset_message_chara
 [call target="*setup"]
+@mask_off
 
 @message_chara name="mahoru" num=0 face="normal"
 
@@ -84,11 +135,23 @@
 
 君が最後まで勝ち残れば、妹は帰ってくる。[p]
 
-#maicro
-遊びはダウト。嘘を見抜けば勝ち、見抜けなければ負けだ。[p]
+#mahoru
+勝つ？[p]
 
 #maicro
-ただし、君は一人で他のものは結託して君を倒しに来るだろう。[p]
+簡単なゲームさ。[p]
+
+#maicro
+ダウトを知っているだろう？[p]
+
+#maicro
+君にはダウトで勝負をしてもらう。[p]
+
+#maicro
+嘘を見抜き先に上がることができれば君の勝ち。見抜けなければ負けだ。[p]
+
+#maicro
+勝負は3人のバトルロワイアル。[p]
 
 #maicro
 誰かが先に上がれば、君の負けだ。[p]
@@ -123,6 +186,11 @@
 #
 最初の卓では、愛理と和人が待っていた。[p]
 
+#mahoru
+愛理！[p]
+
+良かった無事だったのね。[p]
+
 #airi
 お姉ちゃん、手加減しないからね！[p]
 
@@ -134,9 +202,12 @@
 @message_chara name="mahoru" num=0 face="normal"
 
 #mahoru
+和人まで……。[p]
+
+#mahoru
 二人とも、本当に正気を失っているのね。[p]
 
-いいわ。負けないわよ。[p]
+いいわ。勝って二人の正気を取り戻させる。[p]
 
 @chara_hide_all
 @reset_message_chara
