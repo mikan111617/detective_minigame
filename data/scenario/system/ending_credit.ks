@@ -45,6 +45,7 @@
         { role: "", name: "穂在呂　叡留久" },
         { role: "", name: "穂在呂　珠璃" },
         { role: "", name: "零度　警部" },
+        { role: "", name: "舞黒　邦夢" },
         { role: "BGM", name: "Suno AI" },
         { name: "Special Thanks" },
         { name: "プレイしてくださった<br>すべての方へ" }

@@ -70,7 +70,27 @@
     rules: {
       scorePerCard: 100,
       lifeEvery: 10000,
+      lifeBonus: 5000,  // 遊び終わった時、残機1つにつきこの点を通算に足す
       baseContinue: 1,
+      /*
+       * 難易度。設定画面で選ぶ。
+       *   score  … 得点の倍率
+       *   blind  … 当てずっぽうのダウトの強さ（1 が今までの挙動）
+       *   bluff  … 相手が自分から嘘を混ぜる癖の強さ（小さいほど隙を見せない）
+       *   memory … 公開された札の在処を全員が覚える
+       *   odds   … 「その数字を何枚持っていそうか」の見込みで疑う
+       *   catch  … 真歩流？の嘘センサーの上乗せ（他のキャラだけ賢くならないように）
+       */
+      levels: [
+        { key: "easy",   name: "やさしい", note: "相手は当てずっぽうに疑う",       score: 0.8, blind: 1,    bluff: 1,    memory: false, odds: false, catch: 0 },
+        { key: "normal", name: "ふつう",   note: "相手は公開された札を覚えている", score: 1,   blind: 0.55, bluff: 0.7,  memory: true,  odds: false, catch: 0.12 },
+        { key: "hard",   name: "むずかしい", note: "相手は隙を見せず、見込みで疑う", score: 1.2, blind: 0.2,  bluff: 0.3,  memory: true,  odds: true,  catch: 0.28 },
+      ],
+      levelDefault: 0,
+      hiddenScore: 40000, // この点に届いていれば、コンティニューしていても隠し戦に進める
+      artherDeck: 10,     // 英国の青年が卓に混ぜる札の枚数
+      roundMax: 3,      // 設定画面で選べるラウンド数の上限
+      roundDefault: 1,  // 設定していない時のラウンド数
       maxPlay: 4,
       jokers: 2, // 舞黒邦夢が山札から出すジョーカーの枚数
       maicroQuiet: 5, // 誰かの手札がこの枚数以下の間は、舞黒邦夢のもてなしが起きない
@@ -85,23 +105,25 @@
     },
 
     /*
-     * doubt : 相手の宣言を疑う基本確率
+     * doubt     : 相手の宣言を疑う基本確率
+     * catchRate : 嘘を嘘だと見抜く確率（持っているキャラだけ、勘で疑う）
+     * falseRate : 本当なのに嘘だと思い込む確率（勘の粗さ。無ければ読み違えない）
      * tell  : 嘘をついた時に動揺が顔に出る確率（本当の時は tell×0.3）
      * bluff : 本当の札に余計な1枚を混ぜる確率
      */
     chara: {
       mahoru: { name: "真歩流", color: "#d8352a", doubt: 0, tell: 0, bluff: 0,
         ability: "ダウトの時に相手の出した数字を言い当てると、自分の手札から好きな2枚を相手に渡せる（1ゲーム2回まで）",
-        uses: 2 },
+        uses: 2, sub: "hand_swap", subUses: 2 },
       airi: { name: "愛理", color: "#f5a3b8", doubt: 0.3, tell: 0.6, bluff: 0.05,
-        ability: "同じ数字が重なった分の札を、真歩流の手札と交換する",
-        uses: 2 },
+        ability: "伏せた札がすべて同じ絵柄なら、宣言した数字として通る（ダウトされた時だけ消費）",
+        uses: 3 },
       kazuto: { name: "和人", color: "#4f7fd8", doubt: 0.28, tell: 0.5, bluff: 0.05,
         ability: "ダウトされても、回収する札が半分になる",
         uses: -1 },
       mary: { name: "メアリー", color: "#c77dd8", doubt: 0.16, tell: 0.4, bluff: 0.1,
         ability: "対戦が始まった時点の、自分以外の手札を覚えている（その後の出入りまでは分からない）",
-        uses: -1 },
+        uses: -1, sub: "mary_deal", subUses: 1 },
       reido: { name: "零度警部", color: "#6fa8c9", doubt: 0.16, tell: 0.35, bluff: 0.1,
         ability: "手札を3枚渡す代わりに、伏せ札を強制的に暴く。外れても札を引き取らない",
         uses: 1 },
@@ -110,20 +132,59 @@
         uses: -1 },
       eruku: { name: "叡留久", color: "#3fae7a", doubt: 0.1, tell: 0.25, bluff: 0.15,
         ability: "相手と自分の手札を丸ごと入れ替える",
-        uses: 1 },
+        uses: 1, sub: "eruku_deal", subUses: 1 },
       jushika: { name: "朱志香", color: "#b0413e", doubt: 0.08, tell: 0.2, bluff: 0.15,
-        ability: "小出里亜がダウトを外すと、しばらく二人の手札の枚数が分からなくなる",
+        ability: "自分か小出里亜がダウトを外すと、しばらく二人の手札の枚数がでたらめになり、伏せた枚数も分からなくなる",
         uses: -1 },
       koderia: { name: "小出里亜", color: "#9fb0d4", doubt: 0.08, tell: 0.18, bluff: 0.15,
         ability: "成立するはずのダウトを無効にする",
         uses: 3 },
       mahoru_awake: { name: "真歩流？", color: "#7a3fd8", doubt: 0.3, tell: 0.3, bluff: 0.1,
-        ability: "……ものすごく強い",
-        uses: -1, catchRate: 0.55 },
+        ability: "……ものすごく強い。嘘を見抜き、伏せ札の数字を名指ししてくる。そのうえ、誰かの力を借りている",
+        uses: 2, catchRate: 0.55, guessRate: 0.7 },
       maicro: { name: "舞黒邦夢", color: "#c08a1e", doubt: 0.25, tell: 0.15, bluff: 0.15,
         ability: "館主のもてなし。場がかき乱される（ときどき味方の足を引っぱる）",
         uses: -1 },
+
+      /*
+       * 隠しボスの二人。名前は出さず、呼び名だけで通す。
+       * sub / subUses は「二つ目の能力」。sub には chara のidを書く。
+       */
+      yuduki: { name: "快活な少女", color: "#e86a9a", doubt: 0.32, tell: 0.12, bluff: 0.22,
+        ability: "勘で嘘を見抜く。さらに一巡のあいだ、あなたにダウトを言わせない",
+        uses: 2, sub: "free_doubt", subUses: 3,
+        // 真歩流？と違って粗い勘。本当の札にも踏み込むので、空振りの方で釣り合う
+        catchRate: 0.4, falseRate: 0.05 },
+      arther: { name: "英国の青年", color: "#5f8fd0", doubt: 0.28, tell: 0.08, bluff: 0.2,
+        ability: "取引。同じ数字の札をまとめて渡し、代わりに好きな札を同じ枚数もらう",
+        uses: 2, sub: "arther_deck", subUses: 1 },
+      /*
+       * 二つ目の能力そのもの。卓には座らないので、名前と説明だけの見出し用。
+       * 回数は sub を持つ側の subUses で数えるので、ここの uses は表示のためだけ。
+       */
+      hand_swap: { name: "手札の交換", color: "#d8352a", doubt: 0, tell: 0, bluff: 0,
+        ability: "自分の手番に、好きな枚数を選んで相手の同じ枚数と交換する（相手にその枚数が必要）",
+        uses: 2 },
+      mary_deal: { name: "香りの招待", color: "#c77dd8", doubt: 0, tell: 0, bluff: 0,
+        ability: "一度だけ、新しい札を10枚入れて、自分以外の二人に5枚ずつ配る",
+        uses: 1 },
+      eruku_deal: { name: "危ない取引", color: "#3fae7a", doubt: 0, tell: 0, bluff: 0,
+        ability: "一度だけ、場の伏せ札の半分を引き取る代わりに、三巡のあいだダウトされない",
+        uses: 1 },
+      free_doubt: { name: "空振りを恐れない", color: "#e86a9a", doubt: 0, tell: 0, bluff: 0,
+        ability: "ダウトを外しても、場の札を引き取らない（外した時だけ消費する）",
+        uses: 3 },
+      arther_deck: { name: "もう一組の札", color: "#5f8fd0", doubt: 0, tell: 0, bluff: 0,
+        ability: "一度だけ、もう一組の札から10枚を卓に混ぜる（同じ数字が最大8枚になる）",
+        uses: 1 },
     },
+
+    /*
+     * 真歩流？が対戦開始時に1つ借りる能力。
+     * 真歩流（プレイヤー自身）・舞黒邦夢（相方）・叡留久は入れない。
+     * ここから外すだけで抽選から消えるので、強すぎる・弱すぎる時はこの並びを削る。
+     */
+    awakePool: ["airi", "kazuto", "mary", "reido", "juri", "jushika", "koderia"],
 
     pairs: [
       { a: "airi", b: "kazuto", label: "第一戦", tagline: "愛と薬だけが友達" },
@@ -131,6 +192,7 @@
       { a: "juri", b: "eruku", label: "第三戦", tagline: "ハイスペック夫婦" },
       { a: "jushika", b: "koderia", label: "第四戦", tagline: "最強館主と闇のメイド" },
       { a: "mahoru_awake", b: "maicro", label: "最終戦", tagline: "ダーク真歩流と舞黒邦夢" },
+      { a: "yuduki", b: "arther", label: "隠し戦", tagline: "招かれざる二人" },
     ],
     playerTagline: "嘘を全て打ち砕く",
 
@@ -152,7 +214,7 @@
       //   ability : スキル（名指し推理）を発動した時
       mahoru: {
         doubt: ["ダウト！", "その嘘、見えてる。", "そこまでだよ。"],
-        ability: ["その数字、言い当てる。", "……もう、読めた。"],
+        ability: ["その数字、言い当てる。", "……もう、読めた。", "この手札、交換してもらうわ。"],
       },
       airi: {
         place_calm: ["はい、どうぞ♪", "ちゃんと本当だよ？"],
@@ -162,7 +224,7 @@
         partner: ["和人さん、しっかりー！"],
         doubt: ["読めたよ、それダウト！"],
         doubt_miss: ["あれぇ……本当だった……"],
-        ability: ["お姉ちゃん、これ交換ね♪", "いらない子は、あげちゃう！"],
+        ability: ["同じ絵柄なら、おんなじ数字だよ！", "残念、嘘じゃないもん！"],
       },
       kazuto: {
         place_calm: ["……問題ない。", "次。"],
@@ -182,7 +244,7 @@
         partner: ["警部さん、らしくないですね。"],
         doubt: ["その香り、ダウトですよ。"],
         doubt_miss: ["あら、外れですか。"],
-        ability: ["最初の香り、覚えているのよ。", "ふふ、あなたの手も匂うわ。"],
+        ability: ["最初の香り、覚えているのよ。", "ふふ、あなたの手も匂うわ。", "新しいお客様を、お招きするわ。"],
       },
       reido: {
         place_calm: ["異常なし。", "次です。"],
@@ -212,7 +274,7 @@
         partner: ["珠璃、ここからリカバリーしよう。"],
         doubt: ["その数字、粉飾だね。ダウト。"],
         doubt_miss: ["見込み違いか。"],
-        ability: ["資産を、丸ごと入れ替えよう。", "これも分散投資のうちだよ。"],
+        ability: ["資産を、丸ごと入れ替えよう。", "これも分散投資のうちだよ。", "少々の負債は、安全料さ。"],
       },
       jushika: {
         place_calm: ["……どうぞ。", "さあ、ここからですよ。"],
@@ -244,6 +306,26 @@
         doubt: ["それ、嘘。"],
         doubt_miss: ["……今のはわざと。"],
         ability: ["……遊びは、ここまで。", "その手は、通らないよ。"],
+      },
+      yuduki: {
+        place_calm: ["はい、どうぞ！", "さあ、どんどん行くわよ。"],
+        place_shaken: ["……ん、まあいいか。"],
+        caught: ["あー、やられた！"],
+        safe: ["残念、本当だもん。"],
+        partner: ["ほら、しっかりしてよ。"],
+        doubt: ["それ、嘘でしょ！"],
+        doubt_miss: ["えっ、本当だったの！？"],
+        ability: ["はい、ちょっと黙っててね！", "この一巡、あなたは何も言えないよ！", "外しても痛くないもん！"],
+      },
+      arther: {
+        place_calm: ["どうぞ、ご確認を。", "紳士は嘘をつかないものさ。……たまには。"],
+        place_shaken: ["ふむ、これは失礼。"],
+        caught: ["これは参ったな。"],
+        safe: ["申し上げたとおりだよ。"],
+        partner: ["ははは、彼女は元気が良すぎる。"],
+        doubt: ["それは通らないな。"],
+        doubt_miss: ["……見立てを誤ったか。"],
+        ability: ["さて、取引をしよう。", "悪い話ではないだろう？", "これがきっかけになるといいが。"],
       },
       maicro: {
         place_calm: ["さあさあ、遠慮なく。", "今宵のもてなしはまだまだ！"],

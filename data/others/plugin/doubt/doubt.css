@@ -424,3 +424,101 @@
 .dbt-skills .use { font-size: 22px; letter-spacing: .1em; color: #e8b54a; }
 .dbt-skills .ab { margin-top: 8px; font-size: 28px; line-height: 1.45; }
 .dbt-skills .cancel { display: block; width: 300px; margin: 16px auto 0; }
+
+/* 真歩流？が借りている能力は、一段下げて見せる */
+.dbt-skills .sk.borrow { margin-left: 52px; box-shadow: 0 0 0 2px #7a3fd8; background: rgba(43,20,74,.6); }
+
+/* ===== ラウンド表示（対戦画面）===== */
+.dbt-round {
+  position: absolute; left: 0; right: 0; top: 18px; text-align: center;
+  font-size: 26px; letter-spacing: .16em; color: #ffdca8; text-shadow: 0 2px 6px #000;
+}
+
+/* ===== 設定 ===== */
+.dbt-settings .shade { background: linear-gradient(180deg, rgba(11,17,34,.9) 0%, rgba(11,17,34,.74) 50%, rgba(11,17,34,.94) 100%); }
+.dbt-settings .hd { position: absolute; left: 0; right: 0; top: 80px; text-align: center; font-family: "Kiwi Maru", serif; font-size: 110px; letter-spacing: .3em; color: #e8b54a; text-shadow: 6px 6px 0 #7f1810; }
+.dbt-settings .item { position: absolute; left: 260px; width: 1400px; background: rgba(11,17,34,.82); box-shadow: 0 0 0 3px #e8b54a; padding: 26px 60px 32px; }
+.dbt-settings .item.level { top: 230px; }
+.dbt-settings .item.rounds { top: 640px; }
+.dbt-settings .item .k { font-family: "Kiwi Maru", serif; font-size: 40px; letter-spacing: .12em; color: #f6efe0; }
+.dbt-settings .item .d { margin-top: 10px; font-size: 24px; line-height: 1.5; color: #d8b26a; }
+.dbt-settings .opts { display: flex; justify-content: center; gap: 40px; margin-top: 24px; }
+.dbt-settings .cell { width: 300px; padding: 16px 0 12px; font-family: "Bellefair", serif; font-size: 68px; line-height: 1; }
+.dbt-settings .cell small { font-family: "Zen Maru Gothic", sans-serif; font-size: 22px; margin-top: 8px; line-height: 1.35; }
+/* 難易度は名前が長いので、横幅を取って文字を小さくする */
+.dbt-settings .cell.wide { width: 380px; font-family: "Kiwi Maru", serif; font-size: 40px; letter-spacing: .06em; }
+.dbt-settings .cell.wide small { font-size: 20px; }
+.dbt-settings .cell.on { background: #d8352a; box-shadow: 0 0 0 3px #e8b54a, 8px 8px 0 0 #7f1810; }
+.dbt-settings .back { position: absolute; left: 0; right: 0; margin: 0 auto; bottom: 40px; width: 380px; padding: 16px 0 12px; font-size: 38px; }
+.dbt-settings .hd { top: 60px; font-size: 84px; }
+
+/* ===== 余興：ハイアンドロー ===== */
+.dbt-highlow .shade { background: linear-gradient(180deg, rgba(11,17,34,.88) 0%, rgba(11,17,34,.6) 45%, rgba(11,17,34,.92) 100%); }
+.dbt-highlow .hd { position: absolute; left: 0; right: 0; top: 56px; text-align: center; font-family: "Kiwi Maru", serif; font-size: 52px; letter-spacing: .4em; color: #e8b54a; }
+.dbt-highlow .sub { position: absolute; left: 0; right: 0; top: 122px; text-align: center; font-family: "Bellefair", serif; font-size: 96px; letter-spacing: .14em; text-shadow: 5px 5px 0 #7f1810; }
+.dbt-highlow .bet { position: absolute; left: 0; right: 0; top: 248px; display: flex; align-items: baseline; justify-content: center; gap: 22px; }
+.dbt-highlow .bet .k { font-size: 26px; letter-spacing: .3em; color: #e8b54a; }
+.dbt-highlow .bet .v { font-family: "Bellefair", serif; font-size: 74px; line-height: 1; }
+.dbt-highlow .bet .d { font-size: 24px; color: #d8b26a; }
+.dbt-highlow .table { position: absolute; left: 0; right: 0; top: 380px; height: 300px; display: flex; align-items: center; justify-content: center; gap: 70px; }
+.dbt-highlow .table .dbt-card { position: relative; bottom: auto; width: 222px; height: 318px; transform: none; }
+.dbt-highlow .table .dbt-card .tl { font-size: 66px; }
+.dbt-highlow .table .dbt-card .st { top: 74px; font-size: 38px; }
+.dbt-highlow .table .dbt-card .mid { top: 104px; font-size: 106px; }
+.dbt-highlow .table .dbt-card .mid.face { font-size: 144px; top: 86px; }
+.dbt-highlow .table .dbt-card.back { background-size: cover; background-position: center; background-color: #4b2a6e; }
+.dbt-highlow .table .slot { width: 222px; height: 318px; }
+.dbt-highlow .table .vs { font-family: "Bellefair", serif; font-size: 72px; color: #e8b54a; }
+.dbt-highlow .msg { position: absolute; left: 0; right: 0; top: 716px; text-align: center; font-family: "Kiwi Maru", serif; font-size: 36px; letter-spacing: .1em; }
+.dbt-highlow .msg b { font-size: 60px; letter-spacing: .12em; }
+.dbt-highlow .msg b.hit { color: #ffdca8; text-shadow: 0 0 30px rgba(232,181,74,.8); }
+.dbt-highlow .msg b.miss { color: #9fb0d4; }
+.dbt-highlow .cmds { position: absolute; left: 0; right: 0; bottom: 96px; display: flex; align-items: center; justify-content: center; gap: 60px; }
+.dbt-highlow .cmds .dbt-btn { width: 480px; padding: 26px 0 20px; font-size: 54px; }
+.dbt-highlow .cmds .dbt-btn small { font-size: 24px; margin-top: 10px; }
+.dbt-highlow .cmds .total { display: flex; align-items: baseline; gap: 20px; }
+.dbt-highlow .cmds .total .k { font-size: 26px; letter-spacing: .3em; color: #e8b54a; }
+.dbt-highlow .cmds .total .v { font-family: "Bellefair", serif; font-size: 84px; line-height: 1; }
+.dbt-highlow.hit { background: radial-gradient(ellipse at 50% 45%, #4b2a6e, #0b1122 70%); }
+.dbt-highlow.miss { background: radial-gradient(ellipse at 50% 45%, #24396b, #0b1122 70%); }
+
+/* ===== 残機ボーナス ===== */
+.dbt-bonus { background: radial-gradient(ellipse at 50% 40%, #4b2a6e, #0b1122 70%); }
+.dbt-bonus .hd { position: absolute; left: 0; right: 0; top: 150px; text-align: center; font-family: "Kiwi Maru", serif; font-size: 96px; letter-spacing: .3em; color: #e8b54a; text-shadow: 5px 5px 0 #7f1810; }
+.dbt-bonus .lives { position: absolute; left: 0; right: 0; top: 320px; display: flex; justify-content: center; gap: 18px; }
+.dbt-bonus .lives i { width: 44px; height: 60px; background: #e8b54a; display: block; box-shadow: 0 0 22px rgba(232,181,74,.6); }
+.dbt-bonus .calc { position: absolute; left: 0; right: 0; top: 420px; text-align: center; font-size: 34px; letter-spacing: .2em; color: #d8b26a; }
+.dbt-bonus .plus { position: absolute; left: 0; right: 0; top: 480px; text-align: center; font-family: "Bellefair", serif; font-size: 150px; color: #f4e3b4; }
+.dbt-bonus .total { position: absolute; left: 0; right: 0; top: 690px; display: flex; align-items: baseline; justify-content: center; gap: 26px; }
+.dbt-bonus .total .k { font-size: 30px; letter-spacing: .3em; color: #e8b54a; }
+.dbt-bonus .total .v { font-family: "Bellefair", serif; font-size: 110px; line-height: 1; }
+.dbt-bonus .back { position: absolute; left: 0; right: 0; margin: 0 auto; bottom: 110px; width: 400px; padding: 20px 0 16px; font-size: 42px; }
+
+/* 隠し戦まで並ぶ時は、卓の札をもう一段小さくする */
+.dbt-select.six .grid { left: 452px; }
+.dbt-select.six .col { width: 126px; padding: 5px; }
+.dbt-select.six .col .dbt-portrait { width: 116px; height: 142px; margin-bottom: 6px; }
+.dbt-select.six .col .nm { font-size: 19px; bottom: 6px; }
+.dbt-select.six .col .lb { font-size: 19px; letter-spacing: .04em; padding: 5px 0; }
+
+/* ===== 隠しの二人の解放 ===== */
+.dbt-unlock { background: radial-gradient(ellipse at 50% 42%, #3a2154, #0b1122 72%); }
+.dbt-unlock .hd { position: absolute; left: 0; right: 0; top: 96px; text-align: center; font-family: "Kiwi Maru", serif; font-size: 92px; letter-spacing: .4em; color: #e8b54a; text-shadow: 5px 5px 0 #7f1810; }
+.dbt-unlock .ports { position: absolute; left: 0; right: 0; top: 250px; display: flex; justify-content: center; gap: 60px; }
+.dbt-unlock .ports .dbt-portrait { width: 300px; height: 380px; box-shadow: 0 0 0 3px #e8b54a; }
+.dbt-unlock .t { position: absolute; left: 0; right: 0; top: 680px; text-align: center; font-family: "Kiwi Maru", serif; font-size: 62px; letter-spacing: .12em; }
+.dbt-unlock .s { position: absolute; left: 0; right: 0; top: 780px; text-align: center; font-size: 32px; letter-spacing: .2em; color: #d8b26a; }
+.dbt-unlock .back { position: absolute; left: 0; right: 0; margin: 0 auto; bottom: 100px; width: 400px; padding: 20px 0 16px; font-size: 42px; }
+
+/* 二つ目の能力は、一段下げて続ける */
+.subsk { margin-top: 10px; padding-left: 22px; border-left: 3px solid rgba(232,181,74,.5); }
+
+/* 手札が増えすぎた時の二段表示 */
+.dbt-hand.two { height: 440px; }
+.dbt-hand.two::before { bottom: -10px; }
+
+/* 交換する相手を選ぶ */
+.dbt-swap .box { width: 900px; }
+.dbt-swap .targets { display: flex; justify-content: center; gap: 60px; }
+.dbt-swap .targets .dbt-btn { width: 360px; padding: 26px 0 20px; font-size: 46px; }
+.dbt-swap .targets .dbt-btn small { font-size: 24px; margin-top: 10px; }

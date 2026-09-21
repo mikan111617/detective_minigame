@@ -390,8 +390,119 @@
 [return]
 
 ;--------------------------------------------------
+; 隠し戦（出現条件を満たした時だけ）。二人の名前は出さない
+*stage5
+[call target="*setup"]
+@playbgm storage="secret_boss.mp3"
+
+#
+最後の卓を片付けた時、まだ誰かが座っていることに気づいた。[p]
+
+@charapos name="yuduki" num=1 face="normal"
+@charapos name="arther" num=2 face="normal"
+
+@message_chara name="mahoru" num=0 face="surprised"
+
+#mahoru
+……あなたたちは？[p]
+
+#yuduki
+やっと来た！　ずっと待ってたんだから。[p]
+
+#arther
+失礼、招かれた客ではありません。勝手に混ざっているだけです。[p]
+
+#mahoru
+勝手に……？[p]
+
+#yuduki
+だって、面白そうな勝負をしてるじゃない。[p]
+
+私も混ぜてってお願いしたんだけど、舞黒さんに断られちゃって。[p]
+
+君たちの出番はここじゃないってさ。[p]
+
+#arther
+それで、勝ち残った方を待っていた次第なんだ。[p]
+
+最も来るかどうかはわからなかったけどね。[p]
+
+#mahoru
+私、もう終わったつもりだったんだけど……。[p]
+
+#yuduki
+そう言わないで。ここまで来た人と打ちたかったの。[p]
+
+#arther
+一つだけ言っておくと。彼女は手加減という言葉を知らないからな。[p]
+
+それは相手も同じ。[p]
+
+全力菖蒲じゃないと嫌がるんだ。[p]
+
+#yuduki
+当たり前でしょ。手加減されて勝っても、嬉しくないもん。[p]
+
+#mahoru
+……そういうの、嫌いじゃないわ。[p]
+
+#mahoru
+いいわ。最後に、もう一勝負。[p]
+
+#yuduki
+やった！　じゃあ、始めましょ。[p]
+
+#arther
+では、公正に。……そのうえで、遠慮なく。[p]
+
+@chara_hide_all
+@reset_message_chara
+
+[call target="*finish"]
+[return]
+
+;--------------------------------------------------
+; 出現条件を満たさなかった時。誰かがいたことだけを残して終わる
+*no_hidden
+[call target="*setup"]
+
+#
+最後の卓を片付けた時、卓の隅に、誰かが座っていた跡があった。[p]
+
+#
+札は伏せられたまま、二人分。[p]
+
+#???
+なんだ、私も遊べると思ったのになあ。[p]
+
+#???
+どうやら、時間が足りなかったみたいだな。[p]
+
+#???
+次に来たら、戦えるといいな。私が圧勝して見せるわ！[p]
+
+#???
+相変わらず強気だな。まあ、それがいいところだが。[p]
+
+@message_chara name="mahoru" num=0 face="thinking"
+
+#mahoru
+……今の声、誰？[p]
+
+#
+振り返っても、そこには誰もいなかった。[p]
+
+@chara_hide_all
+@reset_message_chara
+
+[call target="*finish"]
+[return]
+
+;--------------------------------------------------
 *clear
 [call target="*setup"]
+
+@stopbgm
 
 @message_chara name="mahoru" num=0 face="normal"
 

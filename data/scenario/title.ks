@@ -43,3 +43,8 @@
 *ranking
 [doubt_ranking]
 [jump target="*start"]
+
+; タイトルの「設定」ボタンから
+*settings
+[doubt_settings]
+[jump target="*start"]

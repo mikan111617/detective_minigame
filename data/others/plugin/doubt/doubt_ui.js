@@ -7,6 +7,11 @@
  * [doubt_vs pair=0]        相手表示
  * [doubt_battle pair=0]    対戦              → f.doubt_win / f.doubt_gain / f.doubt_opp_left
  * [doubt_result pair=0]    結果（スコア・残機を加算）
+ * [doubt_round_init]       ラウンドの勝ち負けを数え直す
+ * [doubt_unlock_hidden]    隠しの二人をフリー対戦に加える（sf.doubt_hidden_cleared）
+ * [doubt_highlow]          余興のハイアンドロー（挑むかどうかは任意）
+ * [doubt_bonus]            残機ボーナスを通算に足す
+ * [doubt_settings]         設定画面（ラウンド数）→ sf.doubt_rounds
  * [doubt_continue]         コンティニュー    → f.doubt_continue = true / false
  * [doubt_gameover]         ゲームオーバー
  * [doubt_clear]            全戦突破
@@ -34,6 +39,8 @@
   function f() {
     return TYRANO.kag.stat.f;
   }
+
+  function sysVar() { return TYRANO.kag.variable.sf; }
 
   function openRoot(cls) {
     var base = document.querySelector(".tyrano_base") || document.body;
@@ -191,9 +198,79 @@
       '<div class="ab">' + ch.ability + "</div>";
   }
 
+  /*
+   * 通算スコアを増減する。増えた時だけ、規定点ごとに残機が1つ増える。
+   * （ハイアンドローで減った時に、残機まで取り上げることはしない）
+   */
+  function addScore(fv, delta) {
+    var before = fv.doubt_total || 0;
+    var after = Math.max(0, before + delta);
+    if (fv.doubt_lives == null) fv.doubt_lives = D.rules.baseContinue;
+    var added = Math.max(0, Math.floor(after / D.rules.lifeEvery) - Math.floor(before / D.rules.lifeEvery));
+    fv.doubt_total = after;
+    fv.doubt_lives += added;
+    return { before: before, after: after, added: added };
+  }
+
+  // 設定画面で決めた難易度（システム変数なので、ゲームを閉じても残る）
+  function getLevel() {
+    var v = NaN;
+    try { v = parseInt(sysVar().doubt_level, 10); } catch (e) {}
+    if (!(v >= 0 && v < D.rules.levels.length)) v = D.rules.levelDefault;
+    return v;
+  }
+
+  function setLevel(v) {
+    try {
+      TYRANO.kag.variable.sf.doubt_level = v;
+      TYRANO.kag.saveSystemVariable();
+    } catch (e) { console.error("[doubt] 設定の保存に失敗しました", e); }
+  }
+
+  function levelInfo() { return D.rules.levels[getLevel()]; }
+
+  // 設定画面で決めたラウンド数（システム変数なので、ゲームを閉じても残る）
+  function getRounds() {
+    var v = 0;
+    try { v = parseInt(sysVar().doubt_rounds, 10); } catch (e) {}
+    if (!(v >= 1 && v <= D.rules.roundMax)) v = D.rules.roundDefault;
+    return v;
+  }
+
+  function setRounds(v) {
+    try {
+      TYRANO.kag.variable.sf.doubt_rounds = v;
+      TYRANO.kag.saveSystemVariable();
+    } catch (e) { console.error("[doubt] 設定の保存に失敗しました", e); }
+  }
+
+  // 今のラウンド状況の一行（1ラウンド制の時は何も出さない）
+  function roundText() {
+    var fv = f();
+    var need = parseInt(fv.doubt_rounds, 10) || 1;
+    if (need <= 1) return "";
+    return "第" + (fv.doubt_round || 1) + "ラウンド　" + need + "先取　" +
+      "あなた " + (fv.doubt_win_count || 0) + " － " + (fv.doubt_lose_count || 0) + " 相手";
+  }
+
+  // 二つ目の能力（sub）を持っているキャラは、続けて並べる
+  function skillWithSub(id, extraName) {
+    var ch = D.chara[id];
+    var html = skillHTML(id, null, extraName);
+    if (ch.sub && D.chara[ch.sub]) {
+      html += '<div class="subsk">' + skillHTML(ch.sub, "1ゲーム" + ch.subUses + "回", "（二つ目の力）") + "</div>";
+    }
+    return html;
+  }
+
   // アーケードプレイを突破すると、シンプルプレイで最終戦も選べるようになる
   function isCleared() {
     try { return TYRANO.kag.variable.sf.doubt_cleared == 1; } catch (e) { return false; }
+  }
+
+  // 隠しの二人を倒すと、シンプルプレイで隠し戦も選べるようになる
+  function isHiddenCleared() {
+    try { return TYRANO.kag.variable.sf.doubt_hidden_cleared == 1; } catch (e) { return false; }
   }
 
   function pairIndexOf(pm) {
@@ -293,6 +370,10 @@
       closeRoot(root);
       TYRANO.kag.ftag.startTag("jump", { storage: "title.ks", target: "*ranking" });
     }));
+    extra.appendChild(btn("設定", "navy", function () {
+      closeRoot(root);
+      TYRANO.kag.ftag.startTag("jump", { storage: "title.ks", target: "*settings" });
+    }));
     root.appendChild(extra);
   });
 
@@ -301,15 +382,16 @@
   defineTag("doubt_select", {}, function () {
     return new Promise(function (resolve) {
       // アーケードプレイを突破していれば、最終戦のペアも選べる
-      var pairCount = isCleared() ? D.pairs.length : 4;
-      var root = openRoot("dbt-select" + (pairCount > 4 ? " five" : ""));
+      var pairCount = 4 + (isCleared() ? 1 : 0) + (isHiddenCleared() ? 1 : 0);
+      if (pairCount > D.pairs.length) pairCount = D.pairs.length;
+      var root = openRoot("dbt-select" + (pairCount >= 5 ? " five" : "") + (pairCount >= 6 ? " six" : ""));
       bg(root, D.img.bgSelect);
       root.appendChild(h("div", "dbt-shade shade"));
 
       var me = h("div", "me");
       me.appendChild(portrait("mahoru"));
       me.appendChild(h("div", "plate", "<small>あなた</small><b>真歩流</b>"));
-      me.appendChild(h("div", "myskill", '<div class="sklbl">あなたのスキル</div><div class="sk">' + skillHTML("mahoru") + "</div>"));
+      me.appendChild(h("div", "myskill", '<div class="sklbl">あなたのスキル</div><div class="sk">' + skillWithSub("mahoru") + "</div>"));
       root.appendChild(me);
 
       var grid = h("div", "grid");
@@ -320,7 +402,7 @@
 
       // 選んだ相手のスキル（能力）を、名前・発動回数つきで並べる
       function skillRow(id) {
-        return '<div class="sk">' + skillHTML(id) + "</div>";
+        return '<div class="sk">' + skillWithSub(id) + "</div>";
       }
 
       function show(i) {
@@ -394,7 +476,7 @@
       function showSkill(k) {
         ports.forEach(function (p, j) { p.classList.toggle("on", j === k); });
         panel.className = "skillpanel show" + (k === 0 ? " l" : "");
-        panel.innerHTML = skillHTML(ids[k], null, k === 0 ? "（あなた）" : "");
+        panel.innerHTML = skillWithSub(ids[k], k === 0 ? "（あなた）" : "");
       }
 
       var left = h("div", "left");
@@ -485,6 +567,11 @@
     this.logEl = h("div", "dbt-log", "");
     this.root.appendChild(this.logEl);
 
+    // 何ラウンド目か（1ラウンド制の時は空のまま）
+    this.roundEl = h("div", "dbt-round", roundText());
+    if (!this.roundEl.textContent) this.roundEl.style.display = "none";
+    this.root.appendChild(this.roundEl);
+
     var field = h("div", "dbt-field");
     this.rankLbl = h("div", "lbl", "いまの宣言");
     field.appendChild(this.rankLbl);
@@ -542,6 +629,20 @@
       var left = ch.uses > 0 ? "残り" + Math.max(0, g.uses[seat]) + "回" : "常時";
       box.appendChild(h("div", "sk" + (seat === 0 ? " me" : ""),
         skillHTML(g.ids[seat], left, seat === 0 ? "（あなた）" : "")));
+      // 二つ目の能力（快活な少女・英国の青年）
+      if (g.subId[seat] && D.chara[g.subId[seat]]) {
+        var sc = D.chara[g.subId[seat]];
+        box.appendChild(h("div", "sk borrow",
+          skillHTML(g.subId[seat], sc.uses > 0 ? "残り" + Math.max(0, g.subUses[seat]) + "回" : "常時",
+            "（二つ目の力）")));
+      }
+      // 真歩流？が借りている能力も、同じように並べる
+      if (seat === g.awakeSeat && g.borrowId) {
+        var bc = D.chara[g.borrowId];
+        box.appendChild(h("div", "sk borrow",
+          skillHTML(g.borrowId, bc.uses > 0 ? "残り" + Math.max(0, g.borrowUses) + "回" : "常時",
+            "の力（" + D.chara.mahoru_awake.name + "が使う）")));
+      }
     });
     box.appendChild(btn("とじる", "navy cancel", function () { closeRoot(ov); }));
     ov.appendChild(box);
@@ -553,37 +654,67 @@
     var nSel = Object.keys(this.selected).length;
     var m = this.mode;
     var uses = g ? g.uses[0] : 0;
-    this.bMain.innerHTML = m === "window" ? "見送る" : (m === "give" ? "渡す" : "伏せる");
+    var swaps = g ? g.abilLeft(0, "hand_swap") : 0;
+    this.bMain.innerHTML = m === "window" ? "見送る"
+      : (m === "give" ? "渡す" : (m === "swap" ? "この札で交換" : "伏せる"));
     this.bMain.classList.toggle("off",
-      !((m === "place" && nSel >= 1 && nSel <= D.rules.maxPlay) || m === "window" || (m === "give" && nSel === this.need)));
-    this.bDoubt.classList.toggle("off", m !== "window");
-    this.bAbility.innerHTML = "能力を発動する<small>残り" + Math.max(0, uses) + "</small>";
-    this.bAbility.classList.toggle("off", !(m === "window" && uses > 0));
-    this.handEl.classList.toggle("turn", m === "place" || m === "give");
+      !((m === "place" && nSel >= 1 && nSel <= D.rules.maxPlay) || m === "window" ||
+        (m === "give" && nSel === this.need) || (m === "swap" && nSel >= 1)));
+    var sealedDoubt = !!(g && g.doubtBlocked());
+    this.bDoubt.classList.toggle("off", m !== "window" || sealedDoubt);
+
+    // 自分の手番は「手札の交換」、ダウトの場面は「名指し推理」
+    if (m === "swap") {
+      this.bAbility.innerHTML = "交換をやめる<small>伏せる札を選び直す</small>";
+      this.bAbility.classList.remove("off");
+    } else if (m === "place") {
+      this.bAbility.innerHTML = "手札を交換する<small>残り" + Math.max(0, swaps) + "</small>";
+      this.bAbility.classList.toggle("off", !(swaps > 0));
+    } else {
+      this.bAbility.innerHTML = "数字を名指しする<small>残り" + Math.max(0, uses) + "</small>";
+      this.bAbility.classList.toggle("off", !(m === "window" && uses > 0) || sealedDoubt);
+    }
+    this.handEl.classList.toggle("turn", m === "place" || m === "give" || m === "swap");
   };
 
   B.render = function (g) {
     this.game = g;
     var self = this;
+    // 朱志香の力が効いている間は、手札の枚数も場の伏せ札の枚数も当てにならない
+    var hidden = g.blurred();
 
     [1, 2].forEach(function (seat) {
       var o = self.opp[seat];
       var id = g.ids[seat];
-      var hidden = (id === "jushika" || id === "koderia") && g.unreadable > 0;
-      o.count.textContent = hidden ? "？" : g.hands[seat].length;
+      // 本当の枚数ではなく、ありそうな数字を出す
+      o.count.textContent = g.shownHand(seat);
       o.box.classList.toggle("turn", g.turn === seat && g.winner < 0);
       var ch = D.chara[id];
-      o.use.textContent = ch.uses > 0 ? "能力 残り" + Math.max(0, g.uses[seat]) : "";
-      if (id === "mahoru_awake" && g.sealed > 0) o.use.textContent = "力を封じられている";
+      var parts = [];
+      if (ch.uses > 0) parts.push("能力 残り" + Math.max(0, g.uses[seat]));
+      var sub = g.subId[seat] && D.chara[g.subId[seat]];
+      if (sub && sub.uses > 0) parts.push(sub.name + " 残り" + Math.max(0, g.subUses[seat]));
+      var useText = parts.join("／");
+      if (id === "mahoru_awake") {
+        useText = "名指し 残り" + Math.max(0, g.uses[seat]);
+        if (g.borrowId) {
+          var bc = D.chara[g.borrowId];
+          useText += "／" + bc.name + "の力" + (bc.uses > 0 ? " 残り" + Math.max(0, g.borrowUses) : "");
+        }
+        if (g.sealed > 0) useText = "力を封じられている";
+      }
+      if (g.immune[seat] > 0) useText = "ダウトされない（あと" + g.immune[seat] + "回）";
+      if (hidden) useText = "枚数が読めない";
+      o.use.textContent = useText;
     });
 
     this.rankBox.innerHTML = "<span>" + RANK[g.rank] + "</span>";
     this.rankLbl.textContent = g.turn === 0 ? "あなたが出す数字" : g.name(g.turn) + "の宣言";
 
     var n = g.pile.length;
-    this.pileInfo.querySelector(".v").textContent = n;
+    this.pileInfo.querySelector(".v").textContent = hidden ? "？" : n;
     this.pileInfo.querySelector(".d").textContent = g.discard.length ? "捨て札 " + g.discard.length : "";
-    var shown = Math.min(n, 6);
+    var shown = hidden && n > 0 ? 6 : Math.min(n, 6);
     if (this.pileEl.childNodes.length !== shown) {
       this.pileEl.innerHTML = "";
       for (var i = 0; i < shown; i++) {
@@ -606,21 +737,31 @@
     var W = 1700;
     var cw = 148;
     var n = hand.length;
-    var step = n > 1 ? Math.min(92, (W - cw) / (n - 1)) : 0;
-    var total = cw + step * (n - 1);
-    var x0 = (W - total) / 2;
-    var mid = (n - 1) / 2;
-    var spread = Math.min(2.4, 30 / Math.max(1, n));
+    // 増えすぎた手札は二段に分ける（一段だと札がほとんど重なって見えなくなる）
+    var rows = n > 26 ? 2 : 1;
+    var per = Math.ceil(n / rows);
+    this.handEl.classList.toggle("two", rows === 2);
     this.handEl.innerHTML = "";
+    var pickable = self.mode === "place" || self.mode === "give" || self.mode === "swap";
+
     hand.forEach(function (c, i) {
+      var row = Math.floor(i / per);
+      var idx = i - row * per;
+      var cnt = Math.min(per, n - row * per);
+      var step = cnt > 1 ? Math.min(92, (W - cw) / (cnt - 1)) : 0;
+      var x0 = (W - (cw + step * (cnt - 1))) / 2;
+      var mid = (cnt - 1) / 2;
+      var spread = Math.min(2.4, 30 / Math.max(1, cnt));
+      var d = idx - mid;
+
       var e = cardEl(c);
-      e.style.left = x0 + i * step + "px";
-      var d = i - mid;
+      e.style.left = x0 + idx * step + "px";
       e.style.transform = "rotate(" + d * spread + "deg)";
-      e.style.bottom = -Math.abs(d) * Math.min(7, 90 / Math.max(1, n)) + "px";
-      e.style.zIndex = i + 1;
+      // 上の段ほど奥に置く
+      e.style.bottom = (rows - 1 - row) * 138 - Math.abs(d) * Math.min(7, 90 / Math.max(1, cnt)) + "px";
+      e.style.zIndex = row * 100 + idx + 1;
       if (self.selected[c.id]) e.classList.add("sel");
-      if (self.mode === "place" || self.mode === "give") {
+      if (pickable) {
         e.classList.add("pickable");
         e.addEventListener("click", function () { self.toggleCard(c.id); });
       }
@@ -629,7 +770,8 @@
   };
 
   B.toggleCard = function (id) {
-    var limit = this.mode === "give" ? this.need : D.rules.maxPlay;
+    var limit = this.mode === "give" ? this.need
+      : (this.mode === "swap" ? this.game.hands[0].length : D.rules.maxPlay);
     if (this.selected[id]) delete this.selected[id];
     else {
       if (limit === 1) this.selected = {};
@@ -641,6 +783,7 @@
   };
 
   B.onMain = function () {
+    if (this.mode === "swap") { this.askSwapTarget(); return; }
     var r = this.resolver;
     if (!r) return;
     if (this.mode === "place" || this.mode === "give") {
@@ -658,6 +801,9 @@
 
   B.onAbility = function () {
     var self = this;
+    // 自分の手番なら「手札の交換」、ダウトの場面なら「名指し推理」
+    if (this.mode === "place") { this.enterSwap(); return; }
+    if (this.mode === "swap") { this.leaveSwap(); return; }
     if (this.mode !== "window") return;
     var g = this.game;
     var declared = g.last.rank;
@@ -669,7 +815,7 @@
       (function (r) {
         var k = btn(RANK[r], "navy key" + (r === declared ? " off" : ""), function () {
           closeRoot(ov);
-          self.finishInput({ type: "ability", guess: r });
+          self.finishInput({ type: "guess", guess: r });
         });
         keys.appendChild(k);
       })(r);
@@ -678,6 +824,56 @@
     box.appendChild(btn("やめる", "navy cancel", function () { closeRoot(ov); }));
     ov.appendChild(box);
     this.root.appendChild(ov);
+  };
+
+  // 交換に出す札を選ぶ状態に入る（伏せる手番はそのまま続いている）
+  B.enterSwap = function () {
+    this.mode = "swap";
+    this.selected = {};
+    this.guide.textContent = "交換に出す札を選ぶ（相手も同じ枚数を持っている必要があります）";
+    this.renderHand(this.game);
+    this.setButtons();
+  };
+
+  B.leaveSwap = function () {
+    this.mode = "place";
+    this.selected = {};
+    this.guide.textContent = this.placeGuide || "";
+    this.renderHand(this.game);
+    this.setButtons();
+  };
+
+  // 誰と交換するか。枚数が読めない相手でも選べるようにして、足りなければ空振りにする
+  B.askSwapTarget = function () {
+    var self = this;
+    var g = this.game;
+    var ids = Object.keys(this.selected);
+    var cnt = ids.length;
+    if (!cnt) return;
+    var ov = h("div", "dbt-overlay dbt-pad dbt-swap");
+    var box = h("div", "box");
+    box.appendChild(h("div", "q", cnt + "枚を、誰と交換する？"));
+    var row = h("div", "targets");
+    [1, 2].forEach(function (seat) {
+      var blur = g.blurred();
+      var enough = blur || g.hands[seat].length >= cnt;
+      var note = blur ? "手札 " + g.shownHand(seat) + "枚（読めない）"
+        : (enough ? "手札 " + g.hands[seat].length + "枚" : "枚数が足りない");
+      var b = btn(g.name(seat) + "<small>" + note + "</small>", "navy" + (enough ? "" : " off"), function () {
+        closeRoot(ov);
+        self.doSwap(ids, seat);
+      });
+      row.appendChild(b);
+    });
+    box.appendChild(row);
+    box.appendChild(btn("やめる", "navy cancel", function () { closeRoot(ov); }));
+    ov.appendChild(box);
+    this.root.appendChild(ov);
+  };
+
+  B.doSwap = async function (ids, seat) {
+    await this.game.playerSwap(ids, seat);
+    this.leaveSwap();
   };
 
   B.finishInput = function (v) {
@@ -694,6 +890,7 @@
     var self = this;
     this.mode = mode;
     this.selected = {};
+    if (mode === "place") this.placeGuide = guide;
     this.guide.textContent = guide;
     this.renderHand(this.game);
     this.setButtons();
@@ -796,7 +993,11 @@
       },
       playerDoubt: function (g) {
         ui.game = g;
-        return ui.waitInput("window", g.name(g.last.seat) + "の〈" + RANK[g.last.rank] + "〉×" + g.last.cards.length + "枚　嘘だと思ったらダウト");
+        var head = g.name(g.last.seat) + "の〈" + RANK[g.last.rank] + "〉×" +
+          g.shownPlay(g.last.cards.length, g.last.seat) + "枚　";
+        var why = g.noDoubtPlayer > 0 ? "この一巡、あなたはダウトを言えない"
+          : (g.immune[g.last.seat] > 0 ? "この伏せ札には、ダウトを言えない" : "嘘だと思ったらダウト");
+        return ui.waitInput("window", head + why);
       },
       pickGive: function (g, n, placer) {
         ui.game = g;
@@ -886,10 +1087,11 @@
         ov.appendChild(res);
         ui.root.appendChild(ov);
         await sleep(450 + info.cards.length * 120);
-        v.textContent = info.isLie ? "嘘！" : "本当";
+        v.textContent = info.isLie ? "嘘！" : (info.suitPass ? "同じ絵柄！" : "本当");
         v.className = "verdict " + (info.isLie ? "lie" : "true");
         var loser = info.isLie ? info.placer : info.doubter;
-        res.textContent = info.noTake ? "零度警部は札を引き取らない" :
+        res.textContent = info.noTake ? g.name(info.doubter) + "は札を引き取らない" :
+          (info.suitPass ? "絵柄が揃っているので〈" + RANK[info.rank] + "〉として通る。" : "") +
           g.name(loser) + "が場の札を引き取る";
         await new Promise(function (resolve) {
           var done = false;
@@ -905,7 +1107,7 @@
   defineTag("doubt_battle", { pair: "0" }, async function (pm) {
     var idx = pairIndexOf(pm);
     var ui = new BattleUI(idx);
-    var game = new E.DoubtGame({ data: D, pairIndex: idx, io: ui.makeIO() });
+    var game = new E.DoubtGame({ data: D, pairIndex: idx, io: ui.makeIO(), level: getLevel() });
     ui.game = game;
     window.__doubtGame = game; // 調整・確認用
     var result;
@@ -931,25 +1133,30 @@
     var pr = D.pairs[pairIndexOf(pm)];
     var fv = f();
     var win = !!fv.doubt_win;
-    var gain = fv.doubt_gain || 0;
-    var before = fv.doubt_total || 0;
-    var after = before + gain;
-    var added = Math.floor(after / D.rules.lifeEvery) - Math.floor(before / D.rules.lifeEvery);
-    fv.doubt_total = after;
-    if (fv.doubt_lives == null) fv.doubt_lives = D.rules.baseContinue;
-    fv.doubt_lives += added;
+    var lv = levelInfo();
+    var base = fv.doubt_gain || 0;
+    var gain = Math.round(base * lv.score);
+    var sc = addScore(fv, gain);
+    var after = sc.after;
+    var added = sc.added;
+    // このステージのラウンドで稼いだ分（ハイアンドローの賭け金になる）
+    fv.doubt_round_gain = (fv.doubt_round_gain || 0) + gain;
     var toNext = D.rules.lifeEvery - (after % D.rules.lifeEvery);
+    var rt = roundText();
 
     return new Promise(function (resolve) {
       var root = openRoot("dbt-result" + (win ? "" : " lose"));
       bg(root, win ? D.img.bgWin : D.img.bgLose);
       root.appendChild(h("div", "dbt-shade shade " + (win ? "win" : "lose")));
-      root.appendChild(h("div", "stage", "―― " + pr.label + "・決着 ――"));
+      root.appendChild(h("div", "stage", "―― " + pr.label + "・決着 ――" + (rt ? "　" + rt : "")));
       root.appendChild(h("div", "big", win ? "勝利" : "敗北"));
       root.appendChild(h("div", "catch", win ? "嘘を、ぜんぶ剥がした" : "嘘に、呑まれた"));
       root.appendChild(h("div", "panel p1",
         '<div class="k">この対戦</div><div class="v">' + gain.toLocaleString() + "<small>点</small></div>" +
-        '<div class="d">' + (win ? "相手の残り札 " + fv.doubt_opp_left + "枚 × " + D.rules.scorePerCard : "勝利時のみ加算") + "</div>"));
+        '<div class="d">' + (win
+          ? "相手の残り札 " + fv.doubt_opp_left + "枚 × " + D.rules.scorePerCard +
+            (lv.score !== 1 ? "　" + lv.name + " ×" + lv.score : "")
+          : "勝利時のみ加算") + "</div>"));
       root.appendChild(h("div", "panel p2",
         '<div class="k">通算</div><div class="v">' + after.toLocaleString() + "<small>点</small></div>" +
         '<div class="d">次の残機まで あと' + toNext.toLocaleString() + "点</div>"));
@@ -959,6 +1166,235 @@
         '<div class="k">残機</div><div class="lives">' + lives + "</div>" +
         '<div class="d">' + (added > 0 ? "残機が" + added + "つ増えた（＋" + added + "）" : "コンティニューできる回数") + "</div>"));
       root.appendChild(btn(win ? "次へ" : "次へ", "next", function () {
+        closeRoot(root);
+        resolve();
+      }));
+    });
+  });
+
+  // ---------------------------------------------------------------- ラウンド
+  //   設定画面で決めた数を先に勝った方が、その卓の勝ち。
+  //   卓に着く前と、コンティニューでやり直す前に呼んで数え直す。
+
+  defineTag("doubt_round_init", {}, function () {
+    var fv = f();
+    fv.doubt_rounds = getRounds();
+    fv.doubt_round = 1;
+    fv.doubt_win_count = 0;
+    fv.doubt_lose_count = 0;
+    fv.doubt_round_gain = 0;
+  });
+
+  // ---------------------------------------------------------------- 隠しの二人の解放
+
+  defineTag("doubt_unlock_hidden", {}, function () {
+    var already = isHiddenCleared();
+    try {
+      TYRANO.kag.variable.sf.doubt_hidden_cleared = 1;
+      TYRANO.kag.saveSystemVariable();
+    } catch (e) { console.error("[doubt] 解放フラグの保存に失敗しました", e); }
+    if (already) return;
+
+    var pr = D.pairs[D.pairs.length - 1];
+    return new Promise(function (resolve) {
+      var root = openRoot("dbt-unlock");
+      root.appendChild(h("div", "hd", "解放"));
+      var ports = h("div", "ports");
+      ports.appendChild(portrait(pr.a));
+      ports.appendChild(portrait(pr.b));
+      root.appendChild(ports);
+      root.appendChild(h("div", "t",
+        D.chara[pr.a].name + " と " + D.chara[pr.b].name));
+      root.appendChild(h("div", "s", "シンプルプレイで、この二人と戦えるようになった"));
+      root.appendChild(btn("つぎへ", "navy back", function () {
+        closeRoot(root);
+        resolve();
+      }));
+    });
+  });
+
+  // ---------------------------------------------------------------- 余興（ハイアンドロー）
+  //   ラウンドを一度も落とさずに勝ち抜いた時だけ挟む。挑むかどうかは任意。
+  //   当てれば、そのステージで稼いだ点が2倍。外せば半分。
+  //   （通算スコアのうち、増減するのは賭けた分だけ）
+
+  function drawRank() { return 1 + Math.floor(Math.random() * 13); }
+
+  function hiloCard(r, faceDown) {
+    if (faceDown) {
+      var b = h("div", "dbt-card back");
+      b.style.backgroundImage = "url('" + D.img.cardBack + "')";
+      return b;
+    }
+    return cardEl({ id: "hl" + r + "_" + Math.random(), r: r, s: Math.floor(Math.random() * 4) });
+  }
+
+  defineTag("doubt_highlow", {}, function () {
+    var fv = f();
+    var bet = fv.doubt_round_gain || 0;
+    if (bet <= 0) return;   // 賭けるものが無ければ、そのまま次へ
+
+    return new Promise(function (resolve) {
+      var root = openRoot("dbt-highlow");
+      bg(root, D.img.bgSelect);
+      root.appendChild(h("div", "dbt-shade shade"));
+      root.appendChild(h("div", "hd", "館主の余興"));
+      root.appendChild(h("div", "sub", "ハイアンドロー"));
+      var info = h("div", "bet",
+        '<span class="k">賭ける点</span><span class="v">' + bet.toLocaleString() + "</span>" +
+        '<span class="d">当たれば2倍（＋' + bet.toLocaleString() + "）／外せば半分（－" + (bet - Math.floor(bet / 2)).toLocaleString() + "）</span>");
+      root.appendChild(info);
+
+      var table = h("div", "table");
+      root.appendChild(table);
+      var msg = h("div", "msg", "この札より、次の札は大きいか小さいか。");
+      root.appendChild(msg);
+      var cmds = h("div", "cmds");
+      root.appendChild(cmds);
+
+      function clear(el) { el.innerHTML = ""; }
+
+      function finish() {
+        closeRoot(root);
+        resolve();
+      }
+
+      // ---- 挑むかどうか ----
+      function ask() {
+        clear(table);
+        clear(cmds);
+        msg.textContent = "一度も落とさずに勝ち抜いた褒美だ。ひと勝負、どうかね。";
+        cmds.appendChild(btn("挑戦する<small>当たれば2倍、外せば半分</small>", "red", play));
+        cmds.appendChild(btn("やめておく<small>点はそのまま</small>", "navy", finish));
+      }
+
+      // ---- 1枚目を出して、ハイ／ローを選ばせる ----
+      function play() {
+        var first = drawRank();
+        clear(table);
+        clear(cmds);
+        table.appendChild(hiloCard(first));
+        table.appendChild(h("div", "vs", "→"));
+        var slot = h("div", "slot");
+        slot.appendChild(hiloCard(0, true));
+        table.appendChild(slot);
+        msg.textContent = "次の札は、この札より大きいか小さいか。";
+        cmds.appendChild(btn("ハイ<small>大きい</small>", "red", function () { reveal(first, "hi", slot); }));
+        cmds.appendChild(btn("ロー<small>小さい</small>", "navy", function () { reveal(first, "lo", slot); }));
+      }
+
+      // ---- 2枚目をめくる。同じ数字なら引き直し ----
+      function reveal(first, pick, slot) {
+        clear(cmds);
+        var second = drawRank();
+        while (second === first) second = drawRank();   // 引き分けは作らない
+        clear(slot);
+        slot.appendChild(hiloCard(second));
+        var hit = pick === "hi" ? second > first : second < first;
+        var delta = hit ? bet : -(bet - Math.floor(bet / 2));
+        var sc = addScore(fv, delta);
+        fv.doubt_round_gain = hit ? bet * 2 : Math.floor(bet / 2);
+        root.classList.add(hit ? "hit" : "miss");
+        msg.innerHTML = '<b class="' + (hit ? "hit" : "miss") + '">' + (hit ? "的中！" : "外れ") + "</b>" +
+          "　この戦いの点は " + bet.toLocaleString() + " → " + fv.doubt_round_gain.toLocaleString() + " 点" +
+          (sc.added > 0 ? "　（残機が" + sc.added + "つ増えた）" : "");
+        cmds.appendChild(h("div", "total", '<span class="k">通算</span><span class="v">' + sc.after.toLocaleString() + "</span>"));
+        cmds.appendChild(btn("つぎへ", "navy", finish));
+      }
+
+      ask();
+    });
+  });
+
+  // ---------------------------------------------------------------- 残機ボーナス
+  //   遊び終わった時、残った残機1つにつき rules.lifeBonus 点を通算に足す
+
+  defineTag("doubt_bonus", {}, function () {
+    var fv = f();
+    var lives = fv.doubt_lives || 0;
+    var bonus = lives * D.rules.lifeBonus;
+    if (bonus <= 0) return;
+    var sc = addScore(fv, bonus);
+
+    return new Promise(function (resolve) {
+      var root = openRoot("dbt-bonus");
+      root.appendChild(h("div", "hd", "残機ボーナス"));
+      var marks = "";
+      for (var i = 0; i < lives; i++) marks += "<i></i>";
+      root.appendChild(h("div", "lives", marks));
+      root.appendChild(h("div", "calc",
+        "残り" + lives + "機 × " + D.rules.lifeBonus.toLocaleString() + "点"));
+      root.appendChild(h("div", "plus", "＋" + bonus.toLocaleString()));
+      root.appendChild(h("div", "total",
+        '<span class="k">通算スコア</span><span class="v">' + sc.after.toLocaleString() + "</span>"));
+      root.appendChild(btn("つぎへ", "navy back", function () {
+        closeRoot(root);
+        resolve();
+      }));
+    });
+  });
+
+  // ---------------------------------------------------------------- 設定
+  //   ラウンド数はシステム変数に持たせるので、ゲームを閉じても残る
+
+  defineTag("doubt_settings", {}, function () {
+    return new Promise(function (resolve) {
+      var root = openRoot("dbt-settings");
+      bg(root, D.img.bgTitle);
+      root.appendChild(h("div", "dbt-shade shade"));
+      root.appendChild(h("div", "hd", "設定"));
+
+      // ---- 難易度 ----
+      var lvNow = getLevel();
+      var lvBox = h("div", "item level");
+      lvBox.appendChild(h("div", "k", "難易度"));
+      lvBox.appendChild(h("div", "d",
+        "相手の読みの鋭さと、得点の倍率が変わります。<br>" +
+        "「やさしい」は今までと同じ読み方です。"));
+      var lvOpts = h("div", "opts");
+      var lvCells = [];
+      function chooseLevel(v) {
+        lvNow = v;
+        setLevel(v);
+        lvCells.forEach(function (c, i) { c.classList.toggle("on", i === v); });
+      }
+      D.rules.levels.forEach(function (lv, i) {
+        var c = btn(lv.name + "<small>得点 ×" + lv.score + "<br>" + lv.note + "</small>", "navy cell wide",
+          function () { chooseLevel(i); });
+        lvCells.push(c);
+        lvOpts.appendChild(c);
+      });
+      lvBox.appendChild(lvOpts);
+      root.appendChild(lvBox);
+      chooseLevel(lvNow);
+
+      // ---- ラウンド数 ----
+      var cur = getRounds();
+      var box = h("div", "item rounds");
+      box.appendChild(h("div", "k", "アーケードプレイのラウンド数"));
+      box.appendChild(h("div", "d",
+        "一つの卓で先に決めた数だけ勝てば、次の卓へ進めます。" +
+        "相手が先にその数だけ勝つと敗北です。<br>" +
+        "一度も落とさずに勝ち抜くと、余興のハイアンドローに挑めます。"));
+      var opts = h("div", "opts");
+      var cells = [];
+      function choose(v) {
+        cur = v;
+        setRounds(v);
+        cells.forEach(function (c, i) { c.classList.toggle("on", i + 1 === v); });
+      }
+      for (var i = 1; i <= D.rules.roundMax; i++) {
+        (function (v) {
+          var c = btn(v + "<small>" + (v === 1 ? "1勝で突破" : v + "先取") + "</small>", "navy cell", function () { choose(v); });
+          cells.push(c);
+          opts.appendChild(c);
+        })(i);
+      }
+      box.appendChild(opts);
+      root.appendChild(box);
+      choose(cur);
+
+      root.appendChild(btn("とじる", "navy back", function () {
         closeRoot(root);
         resolve();
       }));
@@ -984,6 +1420,7 @@
       root.appendChild(btn("つづける<small>同じ相手に、もう一度</small>", "red yes", function () {
         fv.doubt_lives--;
         fv.doubt_continue = true;
+        fv.doubt_used_continue = true;   // 隠しの二人の出現条件に使う
         closeRoot(root);
         resolve();
       }));
@@ -1015,8 +1452,6 @@
   // ---------------------------------------------------------------- ランキング
   //   sf（システム変数）に保存するので、ゲームを閉じても残る
   //   1件 = { n: 名前（最大5文字）, s: 通算スコア }
-
-  function sysVar() { return TYRANO.kag.variable.sf; }
 
   function rankingList() {
     var v = sysVar().doubt_ranking;

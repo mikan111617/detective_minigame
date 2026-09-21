@@ -118,9 +118,11 @@
 ; 画像を追加したら復帰させること。
 ;[chara_face name="chroe" face="smile"  storage="chara/chroe/smile.png"]
 
-;アーサー
-@chara_new name="arther" jname="青年" storage="chara/chroe/normal.png"
-@chara_new name="yuduki" jname="女性" storage="chara/chroe/normal.png"
+;隠しの二人（名前は出さず、呼び名だけで通す）
+@chara_new name="arther" jname="英国の青年" storage="chara/arther/normal.png"
+[chara_face name="arther" face="normal"  storage="chara/arther/normal.png"]
+@chara_new name="yuduki" jname="快活な少女" storage="chara/yuduki/normal.png"
+[chara_face name="yuduki" face="normal"  storage="chara/yuduki/normal.png"]
 @chara_new name="maicro" jname="舞黒邦夢" storage="chara/maicro/normal.png"
 [chara_face name="maicro" face="normal"  storage="chara/maicro/normal.png"]
 [chara_face name="maicro" face="dot"  storage="chara/maicro/dot.png"]
