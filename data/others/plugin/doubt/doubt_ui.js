@@ -250,9 +250,9 @@
   function getMaxPlay() {
     var v = 0;
     try { v = parseInt(sysVar().doubt_max_play, 10); } catch (e) {}
-    var min = g.maxPlayMin || 1;
-    var max = g.maxPlayMax || g.maxPlay;
-    if (!(v >= min && v <= max)) v = g.maxPlay;
+    var min = D.rules.maxPlayMin || 1;
+    var max = D.rules.maxPlayMax || D.rules.maxPlay;
+    if (!(v >= min && v <= max)) v = D.rules.maxPlay;
     return v;
   }
 
@@ -825,7 +825,7 @@
 
   B.toggleCard = function (id) {
     var limit = this.mode === "give" ? this.need
-      : (this.mode === "swap" ? this.game.hands[0].length : g.maxPlay);
+      : (this.mode === "swap" ? this.game.hands[0].length : this.game.maxPlay);
     if (this.selected[id]) delete this.selected[id];
     else {
       if (limit === 1) this.selected = {};
