@@ -13,6 +13,16 @@
 [eval exp="f.doubt_used_continue = false"]
 [call storage="doubt_story.ks" target="*prologue"]
 
+;--------------------------------------------------
+; デバッグ：タイトルの「デバッグ」から、好きな卓に直接入る。
+;   f.doubt_stage / f.doubt_total / f.doubt_lives / f.doubt_debug_story は
+;   doubt_debug が用意している。
+;--------------------------------------------------
+*arcade_debug
+[eval exp="f.doubt_used_continue = false"]
+[jump target="*arcade_stage" cond="f.doubt_debug_story"]
+[jump target="*arcade_round_start"]
+
 *arcade_stage
 [call storage="doubt_story.ks" target="&'*stage' + f.doubt_stage"]
 
@@ -105,6 +115,6 @@
 @playbgm storage="card.mp3" cond="f.doubt_pair!=4"
 [doubt_vs pair="&f.doubt_pair"]
 [doubt_battle pair="&f.doubt_pair"]
-[doubt_result pair="&f.doubt_pair"]
+; フリー対戦は結果画面を出さず、決着の表示だけで相手選びに戻る
 @playbgm storage="title.mp3"
 [jump target="*simple_select"]

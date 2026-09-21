@@ -41,6 +41,7 @@
     this.jokerStock = opt.data.rules.jokers;
     this.handSwapUsed = false;   // 「全員の手札を入れ替え」は1戦に一度だけ
     this.noDoubtPlayer = 0;      // プレイヤーだけダウトを言えない残り手番（快活な少女）
+    this.resigned = false;       // 降参した（フリー対戦だけ）
     this.addedCards = 0;         // 後から卓に混ぜた札の枚数（英国の青年）
     this.copies = {};            // 数字ごとの札の総数。既定は4枚
     this.fakeOffset = {};        // 手札の枚数をごまかす下駄（朱志香）
@@ -269,6 +270,7 @@
     var win = this.winner === 0;
     return {
       win: win,
+      resigned: this.resigned,
       winner: this.winner,
       oppLeft: left,
       gain: win ? left * this.data.rules.scorePerCard : 0,
@@ -305,6 +307,7 @@
     var cards;
     if (seat === 0) {
       var ids = await this.io.playerPlace(this);
+      if (this.resigned) return;
       cards = this.hands[0].filter(function (c) { return ids.indexOf(c.id) >= 0; });
     } else {
       await this.io.wait(this, 380);
@@ -331,6 +334,7 @@
     if (seat !== 0) this.aiReactPlace(seat, cards);
 
     await this.doubtPhase(seat, cards);
+    if (this.resigned) return;
     if (this.immune[seat] > 0) this.immune[seat]--;
     this.io.update(this);
 
@@ -351,6 +355,16 @@
     this.io.update(this);
   };
 
+  /*
+   * 降参。入力を待っている最中に呼ばれるので、待ちを解いた側（画面）が
+   * 入力を返し、step がこの印を見て打ち切る。
+   * 勝ちは、手札がより少ない相手に渡す（時間切れと同じ決め方）。
+   */
+  P.resign = function () {
+    this.resigned = true;
+    this.winner = this.hands[1].length <= this.hands[2].length ? 1 : 2;
+  };
+
   P.checkWinner = function (placer) {
     if (this.hands[0].length === 0) { this.winner = 0; return true; }
     if (placer > 0 && this.hands[placer].length === 0) { this.winner = placer; return true; }
@@ -360,15 +374,21 @@
 
   // ---------------------------------------------------------------- ダウト
 
-  // ダウトを言えない状況か（プレイヤー側の画面で使う）
+  /*
+   * ダウトを言えない状況か（プレイヤー側の画面で使う）。
+   * ただし、上がりの一手だけは何があっても疑える。
+   * これが無いと「封じて残り札を投げ捨てて終わり」を誰も止められない。
+   */
   P.doubtBlocked = function () {
+    if (!this.last) return false;
+    if (this.hands[this.last.seat].length === 0) return false;
     if (this.noDoubtPlayer > 0) return true;
-    return !!(this.last && this.immune[this.last.seat] > 0);
+    return this.immune[this.last.seat] > 0;
   };
 
   P.doubtPhase = async function (placer, cards) {
-    // 叡留久の取引：この席の伏せ札には、誰もダウトを言えない
-    if (this.immune[placer] > 0) {
+    // 叡留久の取引：この席の伏せ札には、誰もダウトを言えない（上がりの一手は別）
+    if (this.immune[placer] > 0 && this.hands[placer].length > 0) {
       this.io.log(this, this.name(placer) + "の伏せ札には、ダウトを言えない（残り" + this.immune[placer] + "回）");
       if (placer !== 0) await this.io.playerDoubt(this);
       else await this.io.wait(this, 200);
@@ -388,8 +408,8 @@
       await this.io.wait(this, 200);
     } else {
       var pact = await this.io.playerDoubt(this);
-      // 封じられている一巡は、何を返されてもダウトは成立しない
-      if (pact.type !== "pass" && this.noDoubtPlayer === 0) {
+      // 封じられている間は、何を返されてもダウトは成立しない（上がりの一手は別）
+      if (pact.type !== "pass" && !this.doubtBlocked()) {
         await this.resolve(0, placer, pact);
         return;
       }
@@ -533,6 +553,7 @@
       var gv;
       if (doubter === 0) {
         var ids = await this.io.pickGive(this, n, placer);
+        if (this.resigned) return;
         gv = this.hands[0].filter(function (c) { return ids.indexOf(c.id) >= 0; });
       } else {
         gv = this.worstCards(this.hands[doubter], n);
@@ -619,8 +640,13 @@
     var have = hand.filter(function (c) { return c.r === r; });
     var max = this.data.rules.maxPlay;
 
-    // 疑われない間は、出せるだけ投げ捨てる
-    if ((this.noDoubtPlayer > 0 || this.immune[seat] > 0) && hand.length > 0) {
+    /*
+     * 疑われない間は、出せるだけ投げ捨てる。
+     * ダウト封じは仕掛けた本人のための一巡なので、相方は便乗しない
+     * （二人とも投げ捨てると、一度の封じで卓が決まってしまう）。
+     */
+    var safeNow = this.immune[seat] > 0 || (this.noDoubtPlayer > 0 && this.hasAbil(seat, "yuduki"));
+    if (safeNow && hand.length > 0) {
       var dump = have.slice(0, max);
       if (dump.length < max) dump = dump.concat(this.worstCards(hand, max - dump.length, dump));
       return dump;
@@ -771,12 +797,17 @@
 
     if (target !== 0) {
       this.dropCutin(seat);
+      /*
+       * 自分たちで作った「プレイヤーが疑えない一巡」の間は、相方を撃たない。
+       * ここで撃つと、せっかく投げ捨てた札を味方に抱えさせてしまう。
+       */
+      if (this.noDoubtPlayer > 0) return "none";
       if (certain) return "doubt";
       var md = this.pair.mateDoubt != null ? this.pair.mateDoubt : this.data.rules.mateDoubt;
       var q = (ch.doubt + (k - 1) * 0.1 + known * 0.06) * md * this.level.blind;
-      if (this.level.odds) {
+      if (this.level.odds > 0) {
         var mo = this.lieOdds(seat, target, r, k, known);
-        if (mo > 0.6) q += 0.6 * (mo - 0.6) / 0.4;
+        if (mo > 0.6) q += this.level.odds * 0.67 * (mo - 0.6) / 0.4;
       }
       if (this.hands[target].length === 0) q = 0.6;
       return this.rng() < q ? "doubt" : "none";
@@ -792,14 +823,15 @@
      * やさしい＝当てずっぽうのまま。むずかしい＝ほとんど見込みで判断する。
      */
     var p = (ch.doubt + (k - 1) * 0.12 + known * 0.07) * this.level.blind;
-    if (this.level.odds) {
+    if (this.level.odds > 0) {
       /*
        * 外すと場の札をまるごと抱える。場が大きいほど、踏み込むのに必要な
        * 見込みも上がる。下限に届かない時は、見込みでは疑わない。
+       * level.odds は「見込みをどれだけ重く見るか」の重み。
        */
       var odds = this.lieOdds(seat, target, r, k, known);
       var needed = 0.45 + Math.min(0.3, this.pile.length * 0.012);
-      if (odds > needed) p += 0.9 * (odds - needed) / (1 - needed);
+      if (odds > needed) p += this.level.odds * (odds - needed) / (1 - needed);
     }
     if (this.hands[0].length === 0) p = 0.85;
     else if (this.hands[0].length <= 2) p += 0.2;
@@ -950,6 +982,7 @@
       "〈" + RANK[give[0].r] + "〉を" + n + "枚渡す。代わりに好きな札を" + n + "枚もらいたい");
 
     var ids = await this.io.pickGive(this, n, seat);
+    if (this.resigned) return;
     var back = this.hands[0].filter(function (c) { return ids.indexOf(c.id) >= 0; });
     this.removeFromHand(seat, give);
     this.removeFromHand(0, back);

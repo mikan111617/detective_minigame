@@ -78,15 +78,17 @@
        *   blind  … 当てずっぽうのダウトの強さ（1 が今までの挙動）
        *   bluff  … 相手が自分から嘘を混ぜる癖の強さ（小さいほど隙を見せない）
        *   memory … 公開された札の在処を全員が覚える
-       *   odds   … 「その数字を何枚持っていそうか」の見込みで疑う
+       *   odds   … 「その数字を何枚持っていそうか」の見込みをどれだけ重く見るか（0で使わない）
        *   catch  … 真歩流？の嘘センサーの上乗せ（他のキャラだけ賢くならないように）
        */
       levels: [
-        { key: "easy",   name: "やさしい", note: "相手は当てずっぽうに疑う",       score: 0.8, blind: 1,    bluff: 1,    memory: false, odds: false, catch: 0 },
-        { key: "normal", name: "ふつう",   note: "相手は公開された札を覚えている", score: 1,   blind: 0.55, bluff: 0.7,  memory: true,  odds: false, catch: 0.12 },
-        { key: "hard",   name: "むずかしい", note: "相手は隙を見せず、見込みで疑う", score: 1.2, blind: 0.2,  bluff: 0.3,  memory: true,  odds: true,  catch: 0.28 },
+        { key: "easy",   name: "やさしい", note: "相手は隙が多く、読みも浅い",     score: 0.8, blind: 0.6, bluff: 2,   memory: true, odds: 0,   catch: 0 },
+        { key: "normal", name: "ふつう",   note: "相手は公開された札を覚えている", score: 1,   blind: 0.4, bluff: 1,   memory: true, odds: 0.5, catch: 0.12 },
+        { key: "hard",   name: "むずかしい", note: "相手は隙を見せず、見込みで疑う", score: 1.2, blind: 0.2, bluff: 0.3, memory: true, odds: 0.9, catch: 0.28 },
       ],
       levelDefault: 0,
+      // タイトルに「デバッグ」ボタンを出す。配布する時は false にする
+      debugMenu: true,
       hiddenScore: 40000, // この点に届いていれば、コンティニューしていても隠し戦に進める
       artherDeck: 10,     // 英国の青年が卓に混ぜる札の枚数
       roundMax: 3,      // 設定画面で選べるラウンド数の上限
@@ -138,7 +140,7 @@
         uses: -1 },
       koderia: { name: "小出里亜", color: "#9fb0d4", doubt: 0.08, tell: 0.18, bluff: 0.15,
         ability: "成立するはずのダウトを無効にする",
-        uses: 3 },
+        uses: 2 },
       mahoru_awake: { name: "真歩流？", color: "#7a3fd8", doubt: 0.3, tell: 0.3, bluff: 0.1,
         ability: "……ものすごく強い。嘘を見抜き、伏せ札の数字を名指ししてくる。そのうえ、誰かの力を借りている",
         uses: 2, catchRate: 0.55, guessRate: 0.7 },

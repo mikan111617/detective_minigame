@@ -82,14 +82,14 @@
 
 /* ===== 相手選択 ===== */
 .dbt-select .shade { background: linear-gradient(90deg, rgba(40,10,6,.55) 0%, rgba(11,17,34,.25) 50%, rgba(11,17,34,.7) 100%); }
-.dbt-select .me { position: absolute; left: 46px; top: 140px; width: 400px; }
-.dbt-select .me .dbt-portrait { width: 400px; height: 480px; box-shadow: 0 0 0 3px #e8b54a; }
-.dbt-select .myskill { margin-top: 16px; }
-.dbt-select .myskill .sklbl { border-top: 1px solid rgba(232,181,74,.45); padding-top: 10px; font-size: 20px; letter-spacing: .3em; color: #e8b54a; text-align: center; }
+.dbt-select .me { position: absolute; left: 46px; top: 96px; width: 400px; }
+.dbt-select .me .dbt-portrait { width: 400px; height: 400px; box-shadow: 0 0 0 3px #e8b54a; }
+.dbt-select .myskill { margin-top: 10px; }
+.dbt-select .myskill .sklbl { border-top: 1px solid rgba(232,181,74,.45); padding-top: 8px; font-size: 18px; letter-spacing: .3em; color: #e8b54a; text-align: center; }
 .dbt-select .myskill .sk { text-align: left; }
-.dbt-select .me .plate { margin-top: 26px; background: #f6efe0; color: #1b2a4a; box-shadow: 0 0 0 3px #d8352a; text-align: center; padding: 10px 0 14px; }
-.dbt-select .me .plate small { display: block; color: #d8352a; font-size: 22px; letter-spacing: .3em; }
-.dbt-select .me .plate b { font-family: "Kiwi Maru", serif; font-weight: 500; font-size: 58px; letter-spacing: .12em; }
+.dbt-select .me .plate { margin-top: 14px; background: #f6efe0; color: #1b2a4a; box-shadow: 0 0 0 3px #d8352a; text-align: center; padding: 8px 0 10px; }
+.dbt-select .me .plate small { display: block; color: #d8352a; font-size: 20px; letter-spacing: .3em; }
+.dbt-select .me .plate b { font-family: "Kiwi Maru", serif; font-weight: 500; font-size: 44px; letter-spacing: .12em; }
 .dbt-select .grid { position: absolute; left: 490px; top: 300px; display: flex; gap: 12px; padding: 14px; background: rgba(11,17,34,.72); box-shadow: 0 0 0 2px #c08a1e; }
 .dbt-select .col { width: 180px; cursor: pointer; padding: 6px; }
 .dbt-select .col .dbt-portrait { width: 168px; height: 200px; margin-bottom: 8px; }
@@ -101,23 +101,23 @@
 .dbt-select.five .col .dbt-portrait { width: 138px; height: 168px; }
 .dbt-select.five .col .nm { font-size: 22px; }
 .dbt-select.five .col .lb { font-size: 22px; letter-spacing: .12em; }
-.dbt-select .preview { position: absolute; right: 50px; top: 110px; width: 560px; height: 468px; }
+.dbt-select .preview { position: absolute; right: 50px; top: 76px; width: 560px; height: 342px; }
 /* 左右の立ち絵は同じ大きさ・同じ高さに揃える（枠の色だけ変える） */
 .dbt-select .preview .p1,
-.dbt-select .preview .p2 { position: absolute; top: 0; width: 262px; height: 452px; }
+.dbt-select .preview .p2 { position: absolute; top: 0; width: 262px; height: 330px; }
 .dbt-select .preview .p1 { left: 0; box-shadow: 0 0 0 3px #f5a3b8; }
 .dbt-select .preview .p2 { right: 0; box-shadow: 0 0 0 3px #e8b54a; }
-.dbt-select .pairplate { position: absolute; right: 50px; top: 598px; width: 560px; background: #1b2a4a; box-shadow: 0 0 0 3px #e8b54a; text-align: center; padding: 12px 0 18px; }
-.dbt-select .pairplate small { display: block; color: #e8b54a; font-size: 24px; letter-spacing: .3em; }
-.dbt-select .pairplate b { font-family: "Kiwi Maru", serif; font-weight: 500; font-size: 46px; letter-spacing: .1em; }
+.dbt-select .pairplate { position: absolute; right: 50px; top: 432px; width: 560px; background: #1b2a4a; box-shadow: 0 0 0 3px #e8b54a; text-align: center; padding: 10px 0 14px; }
+.dbt-select .pairplate small { display: block; color: #e8b54a; font-size: 21px; letter-spacing: .3em; }
+.dbt-select .pairplate b { font-family: "Kiwi Maru", serif; font-weight: 500; font-size: 38px; letter-spacing: .1em; }
 /* 選んだ相手のスキル（能力）の内容 */
-.dbt-select .skills { margin-top: 12px; padding: 0 22px; text-align: left; }
-.dbt-select .sklbl { border-top: 1px solid rgba(232,181,74,.45); padding-top: 10px; font-size: 20px; letter-spacing: .3em; color: #e8b54a; text-align: center; }
-.dbt-select .sk { margin-top: 10px; background: rgba(11,17,34,.55); box-shadow: 0 0 0 2px rgba(232,181,74,.3); padding: 8px 12px 10px; }
+.dbt-select .skills { margin-top: 10px; padding: 0 20px; text-align: left; }
+.dbt-select .sklbl { border-top: 1px solid rgba(232,181,74,.45); padding-top: 8px; font-size: 18px; letter-spacing: .3em; color: #e8b54a; text-align: center; }
+.dbt-select .sk { margin-top: 7px; background: rgba(11,17,34,.55); box-shadow: 0 0 0 2px rgba(232,181,74,.3); padding: 6px 9px 7px; }
 .dbt-select .sk .skhd { display: flex; align-items: baseline; justify-content: space-between; }
-.dbt-select .sk .who { font-family: "Kiwi Maru", serif; font-size: 28px; letter-spacing: .08em; }
-.dbt-select .sk .use { font-size: 19px; letter-spacing: .1em; color: #e8b54a; }
-.dbt-select .sk .ab { margin-top: 4px; font-size: 22px; line-height: 1.4; color: #f6efe0; }
+.dbt-select .sk .who { font-family: "Kiwi Maru", serif; font-size: 21px; letter-spacing: .04em; }
+.dbt-select .sk .use { font-size: 16px; letter-spacing: .08em; color: #e8b54a; white-space: nowrap; }
+.dbt-select .sk .ab { margin-top: 3px; font-size: 17px; line-height: 1.35; color: #f6efe0; }
 .dbt-select .cmds { position: absolute; left: 560px; top: 830px; display: flex; gap: 40px; }
 .dbt-select .cmds .red { width: 420px; padding: 24px 0; font-size: 46px; }
 .dbt-select .cmds .navy { width: 240px; padding: 24px 0; font-size: 40px; }
@@ -151,17 +151,18 @@
 @keyframes dbtPop { from { transform: scale(0); } to { transform: scale(1); } }
 .dbt-vs .left .dbt-portrait, .dbt-vs .right .dbt-portrait { cursor: pointer; }
 .dbt-vs .left .dbt-portrait.on, .dbt-vs .right .dbt-portrait.on { box-shadow: inset 0 0 0 5px #e8b54a; }
+/* 幅は「VSの印（左810〜右1110）に掛からない」ことを基準に決めている */
 .dbt-vs .skillpanel {
-  position: absolute; right: 40px; bottom: 258px; width: 880px; z-index: 5;
-  background: rgba(11,17,34,.94); box-shadow: 0 0 0 3px #e8b54a; padding: 16px 26px 20px;
+  position: absolute; right: 40px; bottom: 246px; width: 760px; z-index: 5;
+  background: rgba(11,17,34,.94); box-shadow: 0 0 0 3px #e8b54a; padding: 14px 22px 18px;
   opacity: 0; transform: translateY(14px); transition: opacity .18s ease, transform .18s ease; pointer-events: none;
 }
 .dbt-vs .skillpanel.show { opacity: 1; transform: none; }
 .dbt-vs .skillpanel.l { left: 40px; right: auto; }
 .dbt-vs .skillpanel .skhd { display: flex; align-items: baseline; justify-content: space-between; }
-.dbt-vs .skillpanel .who { font-family: "Kiwi Maru", serif; font-size: 44px; letter-spacing: .08em; }
-.dbt-vs .skillpanel .use { font-size: 24px; letter-spacing: .1em; color: #e8b54a; }
-.dbt-vs .skillpanel .ab { margin-top: 10px; font-size: 30px; line-height: 1.45; }
+.dbt-vs .skillpanel .who { font-family: "Kiwi Maru", serif; font-size: 38px; letter-spacing: .06em; }
+.dbt-vs .skillpanel .use { font-size: 22px; letter-spacing: .1em; color: #e8b54a; white-space: nowrap; }
+.dbt-vs .skillpanel .ab { margin-top: 8px; font-size: 26px; line-height: 1.4; }
 .dbt-vs .skhint { position: absolute; right: 44px; bottom: 30px; padding: 7px 20px; background: rgba(11,17,34,.82); box-shadow: 0 0 0 2px rgba(232,181,74,.45); font-size: 24px; letter-spacing: .12em; color: #f6efe0; }
 /* 勝負ボタンは名前の帯より下に置く。
    帯の右側の名前は右寄せで中央近くまで伸びるので、横に並べると重なってしまう */
@@ -229,6 +230,9 @@
 .dbt-cmd .dbt-btn { min-width: 360px; padding: 22px 36px; font-size: 36px; }
 .dbt-cmd .dbt-btn small { display: inline; font-size: 22px; margin-left: 10px; }
 .dbt-cmd .dbt-btn.info { min-width: 200px; }
+/* 降参は押し間違えたくないので、控えめな色で幅も狭くする */
+.dbt-cmd .dbt-btn.resign { min-width: 170px; background: rgba(11,17,34,.85); box-shadow: 0 0 0 2px #9fb0d4, 6px 6px 0 0 #0b1122; color: #9fb0d4; }
+.dbt-cmd .dbt-btn.resign:hover { background: #24396b; color: #f6efe0; }
 .dbt-guide { position: absolute; left: 0; right: 0; bottom: 156px; text-align: center; font-size: 24px; letter-spacing: .12em; color: #ffdca8; text-shadow: 0 2px 6px #000; pointer-events: none; z-index: 4; }
 
 .dbt-fly { position: absolute; width: 96px; height: 136px; background-size: cover; background-color: #4b2a6e; box-shadow: 0 0 0 2px #c08a1e; z-index: 20; transition: left .38s ease-in, top .38s ease-in, transform .38s; pointer-events: none; }
@@ -415,18 +419,20 @@
 
 /* ===== スキル一覧（対戦中） ===== */
 .dbt-skills { pointer-events: auto; }
-.dbt-skills .box { width: 1240px; text-align: left; }
-.dbt-skills .q { text-align: center; }
-.dbt-skills .sk { margin-bottom: 18px; background: rgba(11,17,34,.6); box-shadow: 0 0 0 2px rgba(232,181,74,.45); padding: 14px 22px 16px; }
+/* 能力が6つ並ぶ卓（隠し戦）でも 1080px に収まる大きさ。
+   それでも溢れる場合に備えて、上下を切らずにたどれるようにしてある */
+.dbt-skills .box { width: 1240px; text-align: left; padding: 22px 40px 24px; max-height: 1040px; overflow-y: auto; }
+.dbt-skills .q { text-align: center; font-size: 32px; margin-bottom: 16px; }
+.dbt-skills .sk { margin-bottom: 12px; background: rgba(11,17,34,.6); box-shadow: 0 0 0 2px rgba(232,181,74,.45); padding: 10px 18px 12px; }
 .dbt-skills .sk.me { box-shadow: 0 0 0 3px #d8352a; }
-.dbt-skills .skhd { display: flex; align-items: baseline; justify-content: space-between; }
-.dbt-skills .who { font-family: "Kiwi Maru", serif; font-size: 38px; letter-spacing: .08em; }
-.dbt-skills .use { font-size: 22px; letter-spacing: .1em; color: #e8b54a; }
-.dbt-skills .ab { margin-top: 8px; font-size: 28px; line-height: 1.45; }
-.dbt-skills .cancel { display: block; width: 300px; margin: 16px auto 0; }
+.dbt-skills .skhd { display: flex; align-items: baseline; justify-content: space-between; gap: 20px; }
+.dbt-skills .who { font-family: "Kiwi Maru", serif; font-size: 30px; letter-spacing: .06em; }
+.dbt-skills .use { font-size: 19px; letter-spacing: .08em; color: #e8b54a; white-space: nowrap; }
+.dbt-skills .ab { margin-top: 5px; font-size: 22px; line-height: 1.4; }
+.dbt-skills .cancel { display: block; width: 280px; margin: 10px auto 0; padding: 10px 0; font-size: 30px; }
 
 /* 真歩流？が借りている能力は、一段下げて見せる */
-.dbt-skills .sk.borrow { margin-left: 52px; box-shadow: 0 0 0 2px #7a3fd8; background: rgba(43,20,74,.6); }
+.dbt-skills .sk.borrow { margin-left: 44px; box-shadow: 0 0 0 2px #7a3fd8; background: rgba(43,20,74,.6); }
 
 /* ===== ラウンド表示（対戦画面）===== */
 .dbt-round {
@@ -510,8 +516,10 @@
 .dbt-unlock .s { position: absolute; left: 0; right: 0; top: 780px; text-align: center; font-size: 32px; letter-spacing: .2em; color: #d8b26a; }
 .dbt-unlock .back { position: absolute; left: 0; right: 0; margin: 0 auto; bottom: 100px; width: 400px; padding: 20px 0 16px; font-size: 42px; }
 
-/* 二つ目の能力は、一段下げて続ける */
-.subsk { margin-top: 10px; padding-left: 22px; border-left: 3px solid rgba(232,181,74,.5); }
+/* 二つ目の能力。一段目と同じ枠で続ける（見た目が変わると別物に見えるため） */
+.subsk { margin-top: 10px; background: rgba(11,17,34,.55); box-shadow: 0 0 0 2px rgba(232,181,74,.3); }
+.dbt-select .sk .subsk { margin-top: 7px; padding: 6px 9px 7px; }
+.dbt-vs .skillpanel .subsk { margin-top: 12px; padding: 10px 16px 12px; }
 
 /* 手札が増えすぎた時の二段表示 */
 .dbt-hand.two { height: 440px; }
@@ -522,3 +530,36 @@
 .dbt-swap .targets { display: flex; justify-content: center; gap: 60px; }
 .dbt-swap .targets .dbt-btn { width: 360px; padding: 26px 0 20px; font-size: 46px; }
 .dbt-swap .targets .dbt-btn small { font-size: 24px; margin-top: 10px; }
+
+/* ===== デバッグ：好きな卓から始める ===== */
+.dbt-debug .shade { background: linear-gradient(180deg, rgba(11,17,34,.92) 0%, rgba(11,17,34,.8) 50%, rgba(11,17,34,.95) 100%); }
+.dbt-debug .hd { position: absolute; left: 0; right: 0; top: 34px; text-align: center; font-family: "Kiwi Maru", serif; font-size: 62px; letter-spacing: .3em; color: #e8b54a; text-shadow: 4px 4px 0 #7f1810; }
+.dbt-debug .sub { position: absolute; left: 0; right: 0; top: 116px; text-align: center; font-size: 24px; letter-spacing: .2em; color: #d8b26a; }
+.dbt-debug .row { position: relative; margin: 0 auto; width: 1680px; display: flex; align-items: center; gap: 24px; padding: 10px 0; }
+.dbt-debug .row:first-of-type { margin-top: 170px; }
+.dbt-debug .row .k { width: 260px; flex: none; text-align: right; font-family: "Kiwi Maru", serif; font-size: 34px; letter-spacing: .1em; }
+.dbt-debug .row .k small { display: block; font-family: "Zen Maru Gothic", sans-serif; font-size: 19px; color: #d8b26a; letter-spacing: .04em; }
+.dbt-debug .opts { display: flex; gap: 14px; flex-wrap: wrap; }
+.dbt-debug .cell { padding: 10px 18px 8px; font-family: "Kiwi Maru", serif; font-size: 28px; letter-spacing: .06em; line-height: 1.15; }
+.dbt-debug .cell small { font-family: "Zen Maru Gothic", sans-serif; font-size: 17px; margin-top: 4px; letter-spacing: 0; }
+.dbt-debug .cell.on { background: #d8352a; box-shadow: 0 0 0 3px #e8b54a, 6px 6px 0 0 #7f1810; }
+.dbt-debug .cmds { position: absolute; left: 0; right: 0; bottom: 46px; display: flex; justify-content: center; gap: 50px; }
+.dbt-debug .cmds .dbt-btn { width: 420px; padding: 18px 0 14px; font-size: 40px; }
+.dbt-debug .cmds .navy { width: 260px; }
+
+/* ===== 物語を飛ばすボタン（本文の上に小さく置く） ===== */
+.dbt-skipbtn {
+  position: absolute; right: 28px; top: 22px; z-index: 50001;
+  width: 200px; padding: 10px 0 8px; font-size: 30px; line-height: 1.1;
+  font-family: "Kiwi Maru", serif; color: #f6efe0; letter-spacing: .12em;
+  background: #1b2a4a; box-shadow: 0 0 0 3px #e8b54a, 6px 6px 0 0 #0b1122;
+  text-align: center; cursor: pointer; opacity: .88;
+}
+.dbt-skipbtn:hover { background: #24396b; opacity: 1; }
+.dbt-skipbtn small { display: block; font-family: "Zen Maru Gothic", sans-serif; font-size: 17px; letter-spacing: .06em; margin-top: 3px; }
+
+/* ===== 降参の確認（フリー対戦だけ） ===== */
+.dbt-resign .box { width: 820px; }
+.dbt-resign .d { margin: -14px 0 26px; font-size: 26px; color: #d8b26a; }
+.dbt-resign .targets { display: flex; justify-content: center; gap: 50px; }
+.dbt-resign .targets .dbt-btn { width: 320px; padding: 20px 0 16px; font-size: 40px; }

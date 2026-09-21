@@ -8,9 +8,13 @@
 [deffont size="38" color="0xf6efe0" face="Zen Maru Gothic"]
 [resetfont]
 [layopt layer="message0" visible="true"]
+; 物語を飛ばすボタンを出す（押すとスキップに入り、*finish の [skipstop] で止まる）
+[doubt_skip show="true"]
 [return]
 
 *finish
+[doubt_skip show="false"]
+[skipstop]
 [cm]
 [layopt layer="message0" visible="false"]
 [freeimage layer="base" time="300"]
@@ -401,7 +405,7 @@
 @charapos name="yuduki" num=1 face="normal"
 @charapos name="arther" num=2 face="normal"
 
-@message_chara name="mahoru" num=0 face="surprised"
+@message_chara name="mahoru" num=0 face="normal"
 
 #mahoru
 ……あなたたちは？[p]
@@ -436,9 +440,9 @@
 #arther
 一つだけ言っておくと。彼女は手加減という言葉を知らないからな。[p]
 
-それは相手も同じ。[p]
+そして相手にも同じものを求める。[p]
 
-全力菖蒲じゃないと嫌がるんだ。[p]
+全力勝負じゃないと嫌がるんだ。[p]
 
 #yuduki
 当たり前でしょ。手加減されて勝っても、嬉しくないもん。[p]
@@ -483,8 +487,6 @@
 
 #???
 相変わらず強気だな。まあ、それがいいところだが。[p]
-
-@message_chara name="mahoru" num=0 face="thinking"
 
 #mahoru
 ……今の声、誰？[p]
@@ -660,5 +662,7 @@
 
 @chara_hide_all
 @reset_message_chara
+[doubt_skip show="false"]
+[skipstop]
 
 @jump storage="system/ending_credit.ks"

@@ -48,3 +48,9 @@
 *settings
 [doubt_settings]
 [jump target="*start"]
+
+; タイトルの「デバッグ」ボタンから。好きな卓から始める
+*debug
+[doubt_debug]
+[jump target="*start" cond="!f.doubt_debug_go"]
+[jump storage="doubt_main.ks" target="*arcade_debug"]

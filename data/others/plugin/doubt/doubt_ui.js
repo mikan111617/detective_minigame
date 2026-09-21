@@ -11,7 +11,9 @@
  * [doubt_unlock_hidden]    隠しの二人をフリー対戦に加える（sf.doubt_hidden_cleared）
  * [doubt_highlow]          余興のハイアンドロー（挑むかどうかは任意）
  * [doubt_bonus]            残機ボーナスを通算に足す
- * [doubt_settings]         設定画面（ラウンド数）→ sf.doubt_rounds
+ * [doubt_settings]         設定画面（難易度・ラウンド数）→ sf.doubt_level / sf.doubt_rounds
+ * [doubt_debug]            デバッグ：好きな卓から始める → f.doubt_debug_go ほか
+ * [doubt_skip show="true"]  物語を飛ばすボタンの出し入れ（doubt_story.ks の *setup / *finish）
  * [doubt_continue]         コンティニュー    → f.doubt_continue = true / false
  * [doubt_gameover]         ゲームオーバー
  * [doubt_clear]            全戦突破
@@ -374,6 +376,12 @@
       closeRoot(root);
       TYRANO.kag.ftag.startTag("jump", { storage: "title.ks", target: "*settings" });
     }));
+    if (D.rules.debugMenu) {
+      extra.appendChild(btn("デバッグ", "navy", function () {
+        closeRoot(root);
+        TYRANO.kag.ftag.startTag("jump", { storage: "title.ks", target: "*debug" });
+      }));
+    }
     root.appendChild(extra);
   });
 
@@ -595,10 +603,17 @@
     this.bDoubt = btn("ダウトを宣言する", "navy", function () { self.onDoubt(); });
     this.bAbility = btn("能力を発動する", "pink", function () { self.onAbility(); });
     this.bSkill = btn("スキル", "navy info", function () { self.openSkills(); });
+    // 降参はフリー対戦だけ。アーケードは残機とコンティニューで区切りがつく
+    this.canResign = f().doubt_mode === "simple";
     cmd.appendChild(this.bMain);
     cmd.appendChild(this.bDoubt);
     cmd.appendChild(this.bAbility);
     cmd.appendChild(this.bSkill);
+    // 降参はフリー対戦の時だけ、スキルの隣に並べる
+    if (this.canResign) {
+      this.bResign = btn("降参", "navy resign", function () { self.askResign(); });
+      cmd.appendChild(this.bResign);
+    }
     this.root.appendChild(cmd);
 
     this.cutinShown = {};   // この対戦でカットインを出し切ったキャラ
@@ -649,6 +664,27 @@
     this.root.appendChild(ov);
   };
 
+  // 降参するか確かめる。入力待ちの最中だけ押せる
+  B.askResign = function () {
+    var self = this;
+    if (this.mode === "idle" || !this.resolver) return;
+    var ov = h("div", "dbt-overlay dbt-pad dbt-resign");
+    var box = h("div", "box");
+    box.appendChild(h("div", "q", "降参しますか"));
+    box.appendChild(h("div", "d", "この対戦は負けになり、相手選びに戻ります"));
+    var row = h("div", "targets");
+    row.appendChild(btn("降参する", "red", function () {
+      closeRoot(ov);
+      self.game.resign();
+      // 待っている入力を解いて、エンジンに打ち切らせる
+      self.finishInput(self.mode === "window" ? { type: "pass" } : []);
+    }));
+    row.appendChild(btn("やめる", "navy", function () { closeRoot(ov); }));
+    box.appendChild(row);
+    ov.appendChild(box);
+    this.root.appendChild(ov);
+  };
+
   B.setButtons = function () {
     var g = this.game;
     var nSel = Object.keys(this.selected).length;
@@ -675,6 +711,7 @@
       this.bAbility.classList.toggle("off", !(m === "window" && uses > 0) || sealedDoubt);
     }
     this.handEl.classList.toggle("turn", m === "place" || m === "give" || m === "swap");
+    if (this.bResign) this.bResign.classList.toggle("off", m === "idle");
   };
 
   B.render = function (g) {
@@ -894,7 +931,13 @@
     this.guide.textContent = guide;
     this.renderHand(this.game);
     this.setButtons();
-    return new Promise(function (resolve) { self.resolver = resolve; });
+    return new Promise(function (resolve) {
+      self.resolver = resolve;
+      // 降参した後にまた入力を求められたら、待たせずにそのまま返す
+      if (self.game && self.game.resigned) {
+        setTimeout(function () { self.finishInput(mode === "window" ? { type: "pass" } : []); }, 0);
+      }
+    });
   };
 
   /*
@@ -995,8 +1038,17 @@
         ui.game = g;
         var head = g.name(g.last.seat) + "の〈" + RANK[g.last.rank] + "〉×" +
           g.shownPlay(g.last.cards.length, g.last.seat) + "枚　";
-        var why = g.noDoubtPlayer > 0 ? "この一巡、あなたはダウトを言えない"
-          : (g.immune[g.last.seat] > 0 ? "この伏せ札には、ダウトを言えない" : "嘘だと思ったらダウト");
+        // ダウトが封じられていても、上がりの一手だけは疑える。気づけるように書いておく
+        var blocked = g.doubtBlocked();
+        var sealed = g.noDoubtPlayer > 0 || g.immune[g.last.seat] > 0;
+        var why;
+        if (blocked) {
+          why = g.noDoubtPlayer > 0 ? "この一巡、あなたはダウトを言えない" : "この伏せ札には、ダウトを言えない";
+        } else if (sealed) {
+          why = "封じられていても、上がりの一手だけは疑える！";
+        } else {
+          why = "嘘だと思ったらダウト";
+        }
         return ui.waitInput("window", head + why);
       },
       pickGive: function (g, n, placer) {
@@ -1122,7 +1174,7 @@
     fv.doubt_opp_left = result.oppLeft;
     var ov = h("div", "dbt-overlay dbt-notice");
     ov.appendChild(h("div", "box",
-      '<div class="t">' + (result.win ? "上がり！" : game.name(result.winner) + "の上がり") + "</div>"));
+      '<div class="t">' + (result.resigned ? "降参" : (result.win ? "上がり！" : game.name(result.winner) + "の上がり")) + "</div>"));
     await ui.overlayWait(ov, 1800);
     ui.close();
   });
@@ -1183,6 +1235,103 @@
     fv.doubt_win_count = 0;
     fv.doubt_lose_count = 0;
     fv.doubt_round_gain = 0;
+  });
+
+  // ---------------------------------------------------------------- 物語のスキップ
+  //   doubt_story.ks の *setup で出し、*finish で消す。
+  //   押すとティラノ本体のスキップに入り、*finish の [skipstop] で自然に止まる。
+  //   画面全面は覆わないので、本文のクリック送りはそのまま使える。
+
+  defineTag("doubt_skip", { show: "true" }, function (pm) {
+    var old = document.querySelector(".dbt-skipbtn");
+    if (old && old.parentNode) old.parentNode.removeChild(old);
+    if (pm.show === "false") return;
+
+    var base = document.querySelector(".tyrano_base") || document.body;
+    var b = h("div", "dbt-skipbtn dbt-btn navy", "スキップ<small>物語を飛ばす</small>");
+    b.addEventListener("click", function (ev) {
+      ev.stopPropagation();
+      if (b.parentNode) b.parentNode.removeChild(b);
+      try {
+        // 文字を出している最中は skipstart が弾かれるので、本体と同じ手順で入る
+        if (TYRANO.kag.stat.is_adding_text) TYRANO.kag.setSkip(true, {});
+        else TYRANO.kag.ftag.startTag("skipstart", {});
+      } catch (e) { console.error("[doubt] スキップに入れませんでした", e); }
+    });
+    base.appendChild(b);
+  });
+
+  // ---------------------------------------------------------------- デバッグ
+  //   アーケードの好きな卓から始める。通算スコアと残機も決められるので、
+  //   隠し戦の出現条件やコンティニューまわりの確認にも使える。
+  //   タイトルのボタンは rules.debugMenu で消せる。
+
+  defineTag("doubt_debug", {}, function () {
+    return new Promise(function (resolve) {
+      var root = openRoot("dbt-debug");
+      bg(root, D.img.bgSelect);
+      root.appendChild(h("div", "dbt-shade shade"));
+      root.appendChild(h("div", "hd", "デバッグ"));
+      root.appendChild(h("div", "sub", "アーケードプレイを、好きなところから始めます"));
+
+      var pick = { stage: 0, story: 1, total: 0, lives: 1 };
+      var rows = [];
+
+      function row(label, note, items, key) {
+        var box = h("div", "row");
+        box.appendChild(h("div", "k", label + (note ? '<small>' + note + "</small>" : "")));
+        var opts = h("div", "opts");
+        var cells = [];
+        items.forEach(function (it) {
+          var b = btn(it.t, "navy cell", function () { pick[key] = it.v; sync(); });
+          b._v = it.v;
+          cells.push(b);
+          opts.appendChild(b);
+        });
+        box.appendChild(opts);
+        box._sync = function () {
+          cells.forEach(function (c) { c.classList.toggle("on", c._v === pick[key]); });
+        };
+        rows.push(box);
+        root.appendChild(box);
+      }
+
+      function sync() { rows.forEach(function (r) { r._sync(); }); }
+
+      row("卓", "ここから始める", D.pairs.map(function (pr, i) {
+        return { t: pr.label + "<small>" + D.chara[pr.a].name + "×" + D.chara[pr.b].name + "</small>", v: i };
+      }), "stage");
+      row("入り方", "", [
+        { t: "物語から", v: 1 },
+        { t: "対戦から<small>会話を飛ばす</small>", v: 0 },
+      ], "story");
+      row("通算スコア", "隠し戦の条件は " + D.rules.hiddenScore.toLocaleString() + "点", [
+        { t: "0", v: 0 },
+        { t: "20,000", v: 20000 },
+        { t: (D.rules.hiddenScore).toLocaleString(), v: D.rules.hiddenScore },
+      ], "total");
+      row("残機", "", [{ t: "1", v: 1 }, { t: "3", v: 3 }, { t: "5", v: 5 }], "lives");
+      sync();
+
+      function finish(go) {
+        var fv = f();
+        fv.doubt_debug_go = go;
+        if (go) {
+          fv.doubt_mode = "arcade";
+          fv.doubt_stage = pick.stage;
+          fv.doubt_total = pick.total;
+          fv.doubt_lives = pick.lives;
+          fv.doubt_debug_story = !!pick.story;
+        }
+        closeRoot(root);
+        resolve();
+      }
+
+      var cmds = h("div", "cmds");
+      cmds.appendChild(btn("ここから始める", "red", function () { finish(true); }));
+      cmds.appendChild(btn("もどる", "navy", function () { finish(false); }));
+      root.appendChild(cmds);
+    });
   });
 
   // ---------------------------------------------------------------- 隠しの二人の解放
@@ -1440,7 +1589,7 @@
       bg(root, D.img.bgGameover);
       root.appendChild(h("div", "flood"));
       root.appendChild(h("div", "go", "GAME OVER"));
-      root.appendChild(h("div", "t", "今日ははお開き"));
+      root.appendChild(h("div", "t", "今日はお開き"));
       root.appendChild(h("div", "q", "「今日はここまで。<br>また今度おいで、お客人」"));
       root.appendChild(btn("タイトルへ", "navy back", function () {
         closeRoot(root);
