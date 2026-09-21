@@ -840,16 +840,37 @@
       if (certain) return "doubt";
       var md = this.pair.mateDoubt != null ? this.pair.mateDoubt : this.data.rules.mateDoubt;
       var q = (ch.doubt + (k - 1) * 0.1 + known * 0.06) * md * this.level.blind;
-      if (this.level.odds > 0) {
-        var mo = this.lieOdds(seat, target, r, k, known);
-        if (mo > 0.6) q += this.level.odds * 0.67 * (mo - 0.6) / 0.4;
+      var mo = this.lieOdds(seat, target, r, k, known);
+      if (this.level.odds > 0 && mo > 0.6) {
+        q += this.level.odds * 0.67 * (mo - 0.6) / 0.4;
       }
+
+      // 相方へのダウトは全体に弱めだが、性格の方向だけは同じにする。
+      if (ch.doubtStyle === "logic" && (mo > 0 || known + k >= this.copiesOf(r))) q += 0.06;
+      if (ch.doubtStyle === "enjoy" && mo < 0.25 && known === 0) q = Math.max(q, 0.03 + (k - 1) * 0.04);
+      if (ch.doubtStyle === "cautious" && known === 0 && mo < 0.4) q *= 0.2;
+      if (ch.doubtStyle === "memory" && memo > 0) q += Math.min(0.1, memo * 0.025);
+      if (ch.doubtStyle === "evidence" && known === 0 && mo < 0.45) q *= 0.2;
+      if (ch.doubtStyle === "perfect_memory" && known === 0) q *= 0.55;
+      if (ch.doubtStyle === "risk") {
+        if (this.pile.length <= 4) q += 0.05;
+        else if (this.pile.length >= 12) q *= 0.55;
+      }
+      if (ch.doubtStyle === "aggressive" && this.hands[target].length <= 4) q += 0.05;
+      if (ch.doubtStyle === "defensive") q *= 0.45;
+      if (ch.doubtStyle === "manipulate") q *= 0.62;
+
       if (this.hands[target].length === 0) q = 0.6;
+      q = Math.max(0, Math.min(0.9, q));
       return this.rng() < q ? "doubt" : "none";
     }
 
     if (certain) {
-      if (this.hasAbil(seat, "reido") && this.abilLeft(seat, "reido") > 0 && this.hands[seat].length >= 6 && this.rng() < 0.3) return "ability";
+      // 零度警部は証拠が揃った時ほど、能力で確実に暴きに行く
+      if (this.hasAbil(seat, "reido") && this.abilLeft(seat, "reido") > 0 && this.hands[seat].length >= 6) {
+        var forceRate = ch.doubtStyle === "evidence" ? 0.6 : 0.3;
+        if (this.rng() < forceRate) return "ability";
+      }
       return "doubt";
     }
 
@@ -898,6 +919,61 @@
       var funP = 0.07 + Math.max(0, k - 1) * 0.08;
       p = Math.max(p, funP);
     }
+
+    // 和人：慎重型。曖昧な状況ではほぼ踏み込まず、根拠が見える時だけ動く。
+    if (ch.doubtStyle === "cautious") {
+      if (known === 0 && personalityOdds < 0.4) p *= 0.18;
+      else p *= 0.75;
+    }
+
+    // メアリー：記憶型。最初に覚えた他人の札を強く信じる。
+    // maryMemo は更新されないため、序盤は鋭く、札が動くほど読み違える余地が生まれる。
+    if (ch.doubtStyle === "memory") {
+      if (memo > 0) p += Math.min(0.2, memo * 0.045 + personalityOdds * 0.08);
+      else p *= 0.8;
+    }
+
+    // 零度警部：証拠型。怪しさが弱い時は静か、見込みが高い時だけ急に踏み込む。
+    if (ch.doubtStyle === "evidence") {
+      if (known === 0 && personalityOdds < 0.45) {
+        p *= 0.18;
+      } else {
+        p += 0.06 + personalityOdds * 0.12 + Math.min(0.08, known * 0.025);
+      }
+    }
+
+    // 珠璃：完全記憶型。覚えている同数字が根拠にあるほど強気。
+    // 決定的な記憶は上の certain 判定ですでに100%ダウトになる。
+    if (ch.doubtStyle === "perfect_memory") {
+      if (known > 0) p += Math.min(0.14, known * 0.045);
+      else p *= 0.55;
+    }
+
+    // 叡留久：リスク計算型。失敗時に抱える場札が少なければ大胆、多ければ慎重。
+    if (ch.doubtStyle === "risk") {
+      if (this.pile.length <= 4) p += 0.13;
+      else if (this.pile.length <= 8) p += 0.06;
+      else if (this.pile.length >= 16) p *= 0.35;
+      else if (this.pile.length >= 10) p *= 0.65;
+    }
+
+    // 朱志香：攻撃型。プレイヤーの上がりが近いほど、逃がさないために踏み込む。
+    if (ch.doubtStyle === "aggressive") {
+      if (this.hands[0].length <= 5) p += 0.12;
+      if (this.hands[0].length <= 2) p += 0.06;
+    }
+
+    // 小出里亜：防御型。確定情報以外では、自分から仕掛ける頻度を抑える。
+    if (ch.doubtStyle === "defensive") {
+      p *= 0.45;
+    }
+
+    // 英国の青年：駆け引き型。盤面操作が主役なので、曖昧なダウトには乗りにくい。
+    if (ch.doubtStyle === "manipulate") {
+      p *= 0.62;
+      if (personalityOdds > 0.6) p += 0.05;
+    }
+
     if (this.hands[0].length === 0) p = 0.85;
     else if (this.hands[0].length <= 2) p += 0.2;
     p -= Math.min(0.1, this.pile.length * 0.008);
@@ -906,9 +982,12 @@
     var free = this.hasAbil(seat, "free_doubt") && this.abilLeft(seat, "free_doubt") > 0;
     if (free) p += 0.25;
 
-    if (this.hasAbil(seat, "reido") && this.abilLeft(seat, "reido") > 0 && this.hands[seat].length >= 7 && this.pile.length >= 5 && this.rng() < 0.3) {
-      return "ability";
+    if (this.hasAbil(seat, "reido") && this.abilLeft(seat, "reido") > 0 &&
+        this.hands[seat].length >= 7 && this.pile.length >= 5) {
+      var enoughEvidence = ch.doubtStyle !== "evidence" || personalityOdds >= 0.6 || known >= 2;
+      if (enoughEvidence && this.rng() < (ch.doubtStyle === "evidence" ? 0.45 : 0.3)) return "ability";
     }
+    p = Math.max(0, Math.min(0.95, p));
     if (this.rng() >= p) return "none";
     return free ? "free" : "doubt";
   };

@@ -127,27 +127,35 @@
         ability: "伏せた札がすべて同じ絵柄なら、宣言した数字として通る（ダウトされた時だけ消費）",
         uses: 3 },
       kazuto: { name: "和人", color: "#4f7fd8", doubt: 0.28, tell: 0.5, bluff: 0.05,
+        doubtStyle: "cautious", // 慎重型：明確な根拠がない限り踏み込まない
         ability: "ダウトされても、回収する札が半分になる",
         uses: -1 },
       mary: { name: "メアリー", color: "#c77dd8", doubt: 0.16, tell: 0.4, bluff: 0.1,
+        doubtStyle: "memory", // 記憶型：序盤の記憶を強く信じる。札が動くほど読み違えることもある
         ability: "対戦が始まった時点の、自分以外の手札を覚えている（その後の出入りまでは分からない）",
         uses: -1, sub: "mary_deal", subUses: 1 },
       reido: { name: "零度警部", color: "#6fa8c9", doubt: 0.16, tell: 0.35, bluff: 0.1,
+        doubtStyle: "evidence", // 証拠型：怪しいだけでは動かず、根拠が濃い時に踏み込む
         ability: "手札を3枚渡す代わりに、伏せ札を強制的に暴く。外れても札を引き取らない",
         uses: 1 },
       juri: { name: "珠璃", color: "#e8b54a", doubt: 0.1, tell: 0.25, bluff: 0.12,
+        doubtStyle: "perfect_memory", // 完全記憶型：覚えている札を根拠にする。根拠がない時は静か
         ability: "一度手にした札は、場に出た後も把握し続ける",
         uses: -1 },
       eruku: { name: "叡留久", color: "#3fae7a", doubt: 0.1, tell: 0.25, bluff: 0.15,
+        doubtStyle: "risk", // リスク計算型：場札が少ない時は大胆、多い時は慎重
         ability: "相手と自分の手札を丸ごと入れ替える",
         uses: 1, sub: "eruku_deal", subUses: 1 },
       jushika: { name: "朱志香", color: "#b0413e", doubt: 0.08, tell: 0.2, bluff: 0.15,
+        doubtStyle: "aggressive", // 攻撃型：相手が上がりに近づくほど強気に踏み込む
         ability: "自分か小出里亜がダウトを外すと、しばらく二人の手札の枚数がでたらめになり、伏せた枚数も分からなくなる",
         uses: -1 },
       koderia: { name: "小出里亜", color: "#9fb0d4", doubt: 0.08, tell: 0.18, bluff: 0.15,
+        doubtStyle: "defensive", // 防御型：自分から無理に疑わず、確実な時だけ動く
         ability: "成立するはずのダウトを無効にする",
         uses: 2 },
       mahoru_awake: { name: "真歩流？", color: "#7a3fd8", doubt: 0.3, tell: 0.3, bluff: 0.1,
+        doubtStyle: "supersense", // 超感覚型：通常情報だけでは読めない嘘まで感知する
         ability: "……ものすごく強い。嘘を見抜き、伏せ札の数字を名指ししてくる。そのうえ、誰かの力を借りている",
         uses: 2, catchRate: 0.55, guessRate: 0.7 },
       maicro: { name: "舞黒邦夢", color: "#c08a1e", doubt: 0.25, tell: 0.15, bluff: 0.15,
@@ -160,11 +168,13 @@
        * sub / subUses は「二つ目の能力」。sub には chara のidを書く。
        */
       yuduki: { name: "快活な少女", color: "#e86a9a", doubt: 0.32, tell: 0.12, bluff: 0.22,
+        doubtStyle: "intuition", // 勘型：鋭いが、本当の札にも踏み込んで外すことがある
         ability: "勘で嘘を見抜く。さらに一巡のあいだ、あなたにダウトを言わせない",
         uses: 2, sub: "free_doubt", subUses: 3,
         // 真歩流？と違って粗い勘。本当の札にも踏み込むので、空振りの方で釣り合う
         catchRate: 0.4, falseRate: 0.05 },
       arther: { name: "英国の青年", color: "#5f8fd0", doubt: 0.28, tell: 0.08, bluff: 0.2,
+        doubtStyle: "manipulate", // 駆け引き型：ダウトより盤面・手札操作を重視する
         ability: "取引。同じ数字の札をまとめて渡し、代わりに好きな札を同じ枚数もらう",
         uses: 2, sub: "arther_deck", subUses: 1 },
       /*
