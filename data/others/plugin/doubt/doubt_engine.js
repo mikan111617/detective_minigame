@@ -858,15 +858,45 @@
      * やさしい＝当てずっぽうのまま。むずかしい＝ほとんど見込みで判断する。
      */
     var p = (ch.doubt + (k - 1) * 0.12 + known * 0.07) * this.level.blind;
+
+    // 難易度の見込み計算とは別に、キャラクターの「疑い方の癖」にも使う。
+    // ここでは実際の伏せ札の中身は見ず、CPUから見えている情報だけで計算する。
+    var personalityOdds = this.lieOdds(seat, target, r, k, known);
+
     if (this.level.odds > 0) {
       /*
        * 外すと場の札をまるごと抱える。場が大きいほど、踏み込むのに必要な
        * 見込みも上がる。下限に届かない時は、見込みでは疑わない。
        * level.odds は「見込みをどれだけ重く見るか」の重み。
        */
-      var odds = this.lieOdds(seat, target, r, k, known);
+      var odds = personalityOdds;
       var needed = 0.45 + Math.min(0.3, this.pile.length * 0.012);
       if (odds > needed) p += this.level.odds * (odds - needed) / (1 - needed);
+    }
+
+    /*
+     * 愛理：理論型。
+     * 「確定ではないが、論理的には怪しい」と考えられる時に踏み込みやすい。
+     *   ・見えない札の分布から少しでも不足が見込まれる
+     *   ・自分が知っている札＋宣言枚数で、その数字を使い切る宣言になっている
+     * 完全な当てずっぽうは増やさず、薄い根拠を拾う方向の個性。
+     */
+    if (ch.doubtStyle === "logic") {
+      var tightCount = known + k >= this.copiesOf(r);
+      if (personalityOdds > 0 || tightCount) {
+        p += 0.12 + Math.min(0.18, personalityOdds * 0.2 + (tightCount ? 0.06 : 0));
+      }
+    }
+
+    /*
+     * 舞黒邦夢：エンジョイ型。
+     * 根拠が薄い時は「面白そうだから」でランダムに踏み込む。
+     * ただし大量に捨てる宣言ほど怪しく見えて、遊びのダウト率も上がる。
+     * 1/2/3/4枚なら、おおむね 7% / 15% / 23% / 31% が最低ライン。
+     */
+    if (ch.doubtStyle === "enjoy" && personalityOdds < 0.25 && known === 0) {
+      var funP = 0.07 + Math.max(0, k - 1) * 0.08;
+      p = Math.max(p, funP);
     }
     if (this.hands[0].length === 0) p = 0.85;
     else if (this.hands[0].length <= 2) p += 0.2;
@@ -925,7 +955,7 @@
       }
     }
 
-    // 英国の青年：もう一組の札を卓に混ぜる（1戦に一度だけ）
+    // 英国の青年：もう一組の札から、自分以外の二人へ3枚ずつ配る（1戦に一度だけ）
     if (this.hasAbil(seat, "arther_deck") && this.abilLeft(seat, "arther_deck") > 0) {
       var minHand = Math.min(this.hands[0].length, this.hands[1].length, this.hands[2].length);
       if (minHand <= 6 && this.hands[seat].length > minHand) {
@@ -942,8 +972,8 @@
     }
 
     /*
-     * メアリー：新しい札を10枚入れて、自分以外の二人に5枚ずつ配る。
-     * 相手の上がりが近くなってきた時に、まとめて押し戻す。
+     * メアリー：新しい札を6枚入れて、自分以外の二人に3枚ずつ配る。
+     * 相手の上がりが近くなってきた時に、二人を押し戻す。
      */
     if (this.hasAbil(seat, "mary_deal") && this.abilLeft(seat, "mary_deal") > 0) {
       var others = [0, 1, 2].filter(function (t) { return t !== seat; });
@@ -1032,7 +1062,7 @@
   };
 
   /*
-   * 新しい札を10枚入れて、指定の二人に5枚ずつ配る（メアリー）。
+   * 新しい札を、自分以外の二人に3枚ずつ配る（メアリー）。
    * 英国の青年とは別の一組なので、札のidの頭文字を分けてある。
    */
   P.inviteDeck = async function (seat, others) {
@@ -1041,21 +1071,23 @@
       for (var r = 1; r <= 13; r++) extra.push({ id: "e" + su + "_" + r, r: r, s: su });
     }
     this.shuffle(extra);
-    var take = extra.slice(0, 10);
+    var each = this.data.rules.extraDealEach || 3;
+    var take = extra.slice(0, each * 2);
     for (var i = 0; i < take.length; i++) {
-      var to = others[i < 5 ? 0 : 1];
+      var to = others[i < each ? 0 : 1];
       this.copies[take[i].r] = this.copiesOf(take[i].r) + 1;
       this.addToHand(to, [take[i]]);
     }
     for (var k = 0; k < 3; k++) this.sortHand(k);
     this.addedCards += take.length;
-    this.io.log(this, this.name(seat) + "の招待：" + this.name(others[0]) + "と" + this.name(others[1]) + "に5枚ずつ配られた");
-    await this.io.notice(this, "香りの招待", "新しい札が10枚入り、あなたたちに5枚ずつ配られた");
+    this.io.log(this, this.name(seat) + "の招待：" + this.name(others[0]) + "と" + this.name(others[1]) + "に" + each + "枚ずつ配られた");
+    await this.io.notice(this, "香りの招待",
+      "新しい札が" + take.length + "枚入り、自分以外の二人に" + each + "枚ずつ配られた");
     this.io.update(this);
   };
 
   /*
-   * もう一組の札から10枚を卓に混ぜて、無作為に配る。
+   * もう一組の札から、自分以外の二人へ3枚ずつ新しい札を配る（英国の青年）。
    * 同じ札が二枚まで増えるので、同じ数字は最大8枚になる。
    */
   P.mixDeck = async function (seat) {
@@ -1064,20 +1096,20 @@
       for (var r = 1; r <= 13; r++) extra.push({ id: "d" + su + "_" + r, r: r, s: su });
     }
     this.shuffle(extra);
-    var take = extra.slice(0, this.data.rules.artherDeck);
-    var to = [0, 0, 0];
+    var each = this.data.rules.extraDealEach || 3;
+    var take = extra.slice(0, each * 2);
+    var others = [0, 1, 2].filter(function (t) { return t !== seat; });
     for (var i = 0; i < take.length; i++) {
-      var t = Math.floor(this.rng() * 3);
+      var to = others[i < each ? 0 : 1];
       this.copies[take[i].r] = this.copiesOf(take[i].r) + 1;
-      this.addToHand(t, [take[i]]);
-      to[t]++;
+      this.addToHand(to, [take[i]]);
     }
     for (var k = 0; k < 3; k++) this.sortHand(k);
     this.addedCards += take.length;
-    this.io.log(this, "卓に" + take.length + "枚が混ざった（あなた" + to[0] + "枚／" +
-      this.name(1) + to[1] + "枚／" + this.name(2) + to[2] + "枚）");
+    this.io.log(this, this.name(seat) + "のもう一組の札：" +
+      this.name(others[0]) + "と" + this.name(others[1]) + "に" + each + "枚ずつ配られた");
     await this.io.notice(this, "もう一組の札",
-      take.length + "枚が卓に混ざった。同じ数字が4枚を超えることがある");
+      "新しい札が" + take.length + "枚入り、自分以外の二人に" + each + "枚ずつ配られた");
     this.io.update(this);
   };
 

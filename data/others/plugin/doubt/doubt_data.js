@@ -93,7 +93,7 @@
       // タイトルに「デバッグ」ボタンを出す。配布する時は false にする
       debugMenu: true,
       hiddenScore: 40000, // この点に届いていれば、コンティニューしていても隠し戦に進める
-      artherDeck: 10,     // 英国の青年が卓に混ぜる札の枚数
+      extraDealEach: 3,  // メアリー／英国の青年が、自分以外の各プレイヤーに配る新規札の枚数
       roundMax: 3,      // 設定画面で選べるラウンド数の上限
       roundDefault: 1,  // 設定していない時のラウンド数
       maxPlay: 4,       // 一度に出せる札の上限の既定値
@@ -123,6 +123,7 @@
         ability: "ダウトの時に相手の出した数字を言い当てると、自分の手札から好きな2枚を相手に渡せる（1ゲーム2回まで）",
         uses: 2, sub: "hand_swap", subUses: 2 },
       airi: { name: "愛理", color: "#f5a3b8", doubt: 0.3, tell: 0.6, bluff: 0.05,
+        doubtStyle: "logic", // 理論型：確定でなくても、論理的に怪しさが出た場面は検討して踏み込む
         ability: "伏せた札がすべて同じ絵柄なら、宣言した数字として通る（ダウトされた時だけ消費）",
         uses: 3 },
       kazuto: { name: "和人", color: "#4f7fd8", doubt: 0.28, tell: 0.5, bluff: 0.05,
@@ -150,6 +151,7 @@
         ability: "……ものすごく強い。嘘を見抜き、伏せ札の数字を名指ししてくる。そのうえ、誰かの力を借りている",
         uses: 2, catchRate: 0.55, guessRate: 0.7 },
       maicro: { name: "舞黒邦夢", color: "#c08a1e", doubt: 0.25, tell: 0.15, bluff: 0.15,
+        doubtStyle: "enjoy", // エンジョイ型：根拠が薄い時ほど遊びで踏み込み、枚数が多いほど疑いやすい
         ability: "館主のもてなし。場がかき乱される（ときどき味方の足を引っぱる）",
         uses: -1 },
 
@@ -173,7 +175,7 @@
         ability: "自分の手番に、好きな枚数を選んで相手の同じ枚数と交換する（相手にその枚数が必要）",
         uses: 2 },
       mary_deal: { name: "香りの招待", color: "#c77dd8", doubt: 0, tell: 0, bluff: 0,
-        ability: "一度だけ、新しい札を10枚入れて、自分以外の二人に5枚ずつ配る",
+        ability: "一度だけ、新しい札を6枚入れて、自分以外の二人に3枚ずつ配る",
         uses: 1 },
       eruku_deal: { name: "危ない取引", color: "#3fae7a", doubt: 0, tell: 0, bluff: 0,
         ability: "一度だけ、場の伏せ札の半分を引き取る代わりに、三巡のあいだダウトされない",
@@ -182,7 +184,7 @@
         ability: "ダウトを外しても、場の札を引き取らない（外した時だけ消費する）",
         uses: 3 },
       arther_deck: { name: "もう一組の札", color: "#5f8fd0", doubt: 0, tell: 0, bluff: 0,
-        ability: "一度だけ、もう一組の札から10枚を卓に混ぜる（同じ数字が最大8枚になる）",
+        ability: "一度だけ、もう一組の札から6枚を引き、自分以外の二人に3枚ずつ配る（同じ数字が最大8枚になる）",
         uses: 1 },
     },
 
