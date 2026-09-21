@@ -76,9 +76,66 @@
 .dbt-title .modes { position: absolute; left: 0; right: 0; bottom: 150px; display: flex; justify-content: center; gap: 60px; }
 .dbt-title .modes .dbt-btn { width: 540px; padding: 34px 0 26px; font-size: 52px; }
 .dbt-title .modes .dbt-btn small { font-size: 22px; margin-top: 10px; }
-.dbt-title .extra { position: absolute; left: 0; right: 0; bottom: 52px; display: flex; justify-content: center; }
+.dbt-title .extra { position: absolute; left: 0; right: 0; bottom: 52px; display: flex; justify-content: center; gap: 24px; }
 .dbt-title .extra .dbt-btn { width: 360px; padding: 14px 0 12px; font-size: 32px; }
 .dbt-title .hint { position: absolute; left: 0; right: 0; bottom: 70px; text-align: center; font-size: 24px; letter-spacing: .3em; color: #f6efe0; opacity: .85; }
+
+/* ===== 遊び方 ===== */
+.dbt-help .shade { background: linear-gradient(180deg, rgba(11,17,34,.94) 0%, rgba(11,17,34,.78) 48%, rgba(11,17,34,.95) 100%); }
+.dbt-help .hd {
+  position: absolute; left: 0; right: 0; top: 38px; text-align: center;
+  font-family: "Kiwi Maru", serif; font-size: 74px; letter-spacing: .28em;
+  color: #e8b54a; text-shadow: 5px 5px 0 #7f1810;
+}
+.dbt-help .lead {
+  position: absolute; left: 0; right: 0; top: 138px; text-align: center;
+  font-size: 27px; letter-spacing: .12em; color: #f6efe0;
+}
+.dbt-help .rules {
+  position: absolute; left: 180px; right: 180px; top: 205px;
+  display: grid; grid-template-columns: 1fr 1fr; gap: 20px 24px;
+}
+.dbt-help .rule {
+  position: relative; min-height: 210px; padding: 24px 28px 24px 104px;
+  background: rgba(11,17,34,.82); box-shadow: 0 0 0 2px rgba(232,181,74,.72);
+}
+.dbt-help .rule .no {
+  position: absolute; left: 24px; top: 24px; width: 58px; height: 58px;
+  display: flex; align-items: center; justify-content: center;
+  font-family: "Bellefair", serif; font-size: 48px; line-height: 1;
+  color: #0b1122; background: #e8b54a; box-shadow: 5px 5px 0 #7f1810;
+}
+.dbt-help .rule .rt {
+  font-family: "Kiwi Maru", serif; font-size: 32px; letter-spacing: .08em; color: #ffdca8;
+}
+.dbt-help .rule .rd {
+  margin-top: 12px; font-size: 21px; line-height: 1.65; color: #f6efe0;
+}
+.dbt-help .rule .rd b { color: #f5a3b8; font-weight: 500; }
+.dbt-help .tip {
+  position: absolute; left: 180px; right: 180px; top: 680px;
+  padding: 18px 28px 20px; background: rgba(75,42,110,.72);
+  box-shadow: 0 0 0 3px #e8b54a;
+}
+.dbt-help .tip .tk {
+  font-family: "Kiwi Maru", serif; font-size: 27px; letter-spacing: .12em; color: #ffdca8;
+}
+.dbt-help .tip .td { margin-top: 7px; font-size: 21px; line-height: 1.5; }
+.dbt-help .tip small { display: block; margin-top: 3px; font-size: 16px; color: #d8b26a; }
+.dbt-help .skillnote {
+  position: absolute; left: 180px; right: 180px; top: 827px;
+  display: flex; align-items: center; gap: 28px; padding: 15px 28px;
+  background: rgba(27,42,74,.88); box-shadow: 0 0 0 2px rgba(232,181,74,.52);
+}
+.dbt-help .skillnote .sk {
+  flex: none; font-family: "Kiwi Maru", serif; font-size: 25px; letter-spacing: .12em; color: #e8b54a;
+}
+.dbt-help .skillnote .sd { font-size: 20px; line-height: 1.45; }
+.dbt-help .skillnote b { color: #f5a3b8; font-weight: 500; }
+.dbt-help .back {
+  position: absolute; left: 0; right: 0; margin: 0 auto; bottom: 34px;
+  width: 360px; padding: 14px 0 11px; font-size: 34px;
+}
 
 /* ===== 相手選択 ===== */
 .dbt-select .shade { background: linear-gradient(90deg, rgba(40,10,6,.55) 0%, rgba(11,17,34,.25) 50%, rgba(11,17,34,.7) 100%); }

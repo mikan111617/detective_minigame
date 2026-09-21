@@ -11,7 +11,8 @@
  * [doubt_unlock_hidden]    隠しの二人をフリー対戦に加える（sf.doubt_hidden_cleared）
  * [doubt_highlow]          余興のハイアンドロー（挑むかどうかは任意）
  * [doubt_bonus]            残機ボーナスを通算に足す
- * [doubt_settings]         設定画面（難易度・ラウンド数）→ sf.doubt_level / sf.doubt_rounds
+ * [doubt_settings]         設定画面（難易度・ラウンド数・出札上限）
+ * [doubt_help]             遊び方
  * [doubt_debug]            デバッグ：好きな卓から始める → f.doubt_debug_go ほか
  * [doubt_skip show="true"]  物語を飛ばすボタンの出し入れ（doubt_story.ks の *setup / *finish）
  * [doubt_continue]         コンティニュー    → f.doubt_continue = true / false
@@ -393,13 +394,71 @@
       closeRoot(root);
       TYRANO.kag.ftag.startTag("jump", { storage: "title.ks", target: "*settings" });
     }));
-    if (D.rules.debugMenu) {
-      extra.appendChild(btn("デバッグ", "navy", function () {
-        closeRoot(root);
-        TYRANO.kag.ftag.startTag("jump", { storage: "title.ks", target: "*debug" });
-      }));
-    }
+    extra.appendChild(btn("遊び方", "navy", function () {
+      closeRoot(root);
+      TYRANO.kag.ftag.startTag("jump", { storage: "title.ks", target: "*help" });
+    }));
     root.appendChild(extra);
+  });
+
+  // ---------------------------------------------------------------- 遊び方
+
+  defineTag("doubt_help", {}, function () {
+    return new Promise(function (resolve) {
+      var root = openRoot("dbt-help");
+      bg(root, D.img.bgTitle);
+      root.appendChild(h("div", "dbt-shade shade"));
+      root.appendChild(h("div", "hd", "遊び方"));
+      root.appendChild(h("div", "lead",
+        "嘘を混ぜて札を減らし、相手の嘘を見抜くカードゲームです。"));
+
+      var rules = h("div", "rules");
+
+      function rule(no, title, desc) {
+        var box = h("div", "rule");
+        box.appendChild(h("div", "no", no));
+        box.appendChild(h("div", "rt", title));
+        box.appendChild(h("div", "rd", desc));
+        rules.appendChild(box);
+      }
+
+      rule("1", "札を伏せる",
+        "中央に表示された数字として、手札から札を伏せます。<br>" +
+        "違う数字の札を混ぜて、<b>嘘をついても構いません。</b><br>" +
+        "一度に出せる枚数は設定で1〜4枚に変更できます。");
+
+      rule("2", "嘘だと思ったらダウト",
+        "相手の宣言が怪しいと思ったら、<b>「ダウトを宣言する」</b>。<br>" +
+        "自信がなければ見送ることもできます。");
+
+      rule("3", "ダウトの結果",
+        "<b>嘘だった場合：</b>札を伏せた側が、場の札をすべて引き取ります。<br>" +
+        "<b>本当だった場合：</b>ダウトした側が、場の札をすべて引き取ります。");
+
+      rule("4", "先に手札をなくせば勝ち",
+        "最初に自分の手札を0枚にした人が勝利です。<br>" +
+        "嘘を通すか、相手の嘘を見抜くか。読み合いが勝負を分けます。");
+
+      root.appendChild(rules);
+
+      var tip = h("div", "tip");
+      tip.appendChild(h("div", "tk", "読み合いのヒント"));
+      tip.appendChild(h("div", "td",
+        "同じ数字の札は通常4枚です。自分が持っている枚数や、ダウトで公開された札を手掛かりにすると、" +
+        "相手の宣言が成立するかを推理できます。<small>※特殊能力によって札の枚数や情報が変化することがあります。</small>"));
+      root.appendChild(tip);
+
+      var skill = h("div", "skillnote");
+      skill.appendChild(h("div", "sk", "特殊能力"));
+      skill.appendChild(h("div", "sd",
+        "登場人物はそれぞれ固有の能力を持っています。対戦中の<b>「スキル」</b>からいつでも確認できます。"));
+      root.appendChild(skill);
+
+      root.appendChild(btn("タイトルへ戻る", "navy back", function () {
+        closeRoot(root);
+        resolve();
+      }));
+    });
   });
 
   // ---------------------------------------------------------------- 相手選択

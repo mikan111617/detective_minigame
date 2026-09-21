@@ -49,7 +49,13 @@
 [doubt_settings]
 [jump target="*start"]
 
-; タイトルの「デバッグ」ボタンから。好きな卓から始める
+; タイトルの「遊び方」ボタンから
+*help
+[doubt_help]
+[jump target="*start"]
+
+; 開発用デバッグ。タイトルにはボタンを出さない
+
 *debug
 [doubt_debug]
 [jump target="*start" cond="!f.doubt_debug_go"]
