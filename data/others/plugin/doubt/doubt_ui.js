@@ -102,8 +102,84 @@
     return b;
   }
 
-  function pick(arr) {
-    return arr[Math.floor(Math.random() * arr.length)];
+  // ---------------------------------------------------------------- ボイス
+  //   data/voice/{キャラid}/{セリフの種類}_{番号}.mp3 を鳴らす。
+  //   再生はキャラクターごとに分けてある。
+  //     ・同じキャラが次のセリフを言うと、そのキャラの前のセリフは止まる
+  //     ・他のキャラのセリフでは止まらない（掛け合いはそのまま重なって鳴る）
+  //   順番待ちはしない。ゲームの進行にそのまま乗せるので、
+  //   言うべき場面でセリフが飛ばされることがない。
+  //   まだ録っていないセリフは voiceNG に覚えておき、二度と取りに行かない。
+  //   （収録済みのキャラだけが喋り、それ以外は今まで通り無音で進む）
+
+  var voiceNG = {};    // 鳴らせなかった音声のURL
+  var voiceNow = {};   // キャラid -> そのキャラがいま鳴らしている音声（1人1本）
+
+  // 本体の「効果音」ボリューム設定（0〜100）に合わせる
+  function seVolume() {
+    try {
+      var v = TYRANO.kag.variable.sf._system_config_se_volume;
+      if (v == null) v = TYRANO.kag.config.defaultSeVolume;
+      v = parseFloat(v);
+      return isNaN(v) ? 1 : Math.max(0, Math.min(1, v / 100));
+    } catch (e) {
+      return 1;
+    }
+  }
+
+  // そのキャラが鳴らしている声だけを止める
+  function stopVoiceOf(id) {
+    var a = voiceNow[id];
+    if (!a) return;
+    delete voiceNow[id];
+    try { a.pause(); } catch (e) {}
+  }
+
+  // 全員ぶん止める（対戦を閉じる時など）
+  function stopAllVoice() {
+    Object.keys(voiceNow).forEach(stopVoiceOf);
+  }
+
+  // lines[cat] の index 番目のセリフに対応する音声を鳴らす
+  function playVoice(id, cat, index) {
+    var V = D.voice;
+    if (!V || !V.on || !id || index == null) return;
+    var src = V.path(id, cat, index);
+    var url = absUrl(src);
+    if (voiceNG[url]) return;
+    var vol = seVolume() * (V.volume != null ? V.volume : 1);
+    if (!(vol > 0)) return;
+
+    var a = new Audio();
+    a.volume = Math.max(0, Math.min(1, vol));
+    a.addEventListener("error", function () {
+      voiceNG[url] = true;                        // 置いていないファイル。次からは触らない
+      if (voiceNow[id] === a) delete voiceNow[id];
+    });
+    a.addEventListener("ended", function () {
+      if (voiceNow[id] === a) delete voiceNow[id];
+    });
+
+    a.src = src;
+    stopVoiceOf(id);        // 止めるのは、このキャラの前のセリフだけ
+    voiceNow[id] = a;
+    // 鳴らせなくても、対戦の進行は止めない
+    try {
+      var pr = a.play();
+      if (pr && pr.catch) pr.catch(function () {
+        if (voiceNow[id] === a) delete voiceNow[id];
+      });
+    } catch (e) {
+      if (voiceNow[id] === a) delete voiceNow[id];
+    }
+  }
+
+  // セリフをランダムに1つ選ぶ（文章と、ボイスを引くための番号を返す）
+  function pickLine(id, cat) {
+    var lines = D.lines[id] && D.lines[id][cat];
+    if (!lines || !lines.length) return null;
+    var i = Math.floor(Math.random() * lines.length);
+    return { text: lines[i], index: i };
   }
 
   // スキル1件分の表示（名前・発動回数・効果）
@@ -145,6 +221,52 @@
     tag.kag = TYRANO.kag;
   }
 
+  // ---------------------------------------------------------------- 注意書き
+  //   タイトルより前に、一度だけ出す（title.ks から呼ぶ）。
+  //   「今回の起動で出したか」の判定は title.ks 側の tf でしている。
+  //   クリックかキーで閉じられる。触らなければ time ミリ秒で先へ進む。
+  //
+  //   閉じる時に readyAudio() を呼ぶのが大事。
+  //   ブラウザは「利用者が何か操作するまで音を鳴らさない」ので、それまで
+  //   [playbgm] は waitClick() でシナリオを止めて待ってしまう。この画面の
+  //   クリックが最初の操作なので、ここで音声を解禁しておけば、後ろの
+  //   [playbgm] が止まらずに済む。
+
+  defineTag("doubt_caution", { time: "5000" }, function (pm) {
+    return new Promise(function (resolve) {
+      var root = openRoot("dbt-caution");
+      bg(root, D.img.bgCaution);
+      root.appendChild(h("div", "hint", "クリックで進む"));
+
+      var done = false;
+      var timer = setTimeout(end, parseInt(pm.time, 10) || 5000);
+
+      function end() {
+        if (done) return;
+        done = true;
+        clearTimeout(timer);
+        document.removeEventListener("keydown", onKey, true);
+        // 利用者の操作のうちに音声を解禁しておく（この後の [playbgm] を止めないため）
+        try { TYRANO.kag.readyAudio(); } catch (e) {}
+        root.classList.add("out");
+        setTimeout(function () { closeRoot(root); resolve(); }, 420);
+      }
+
+      // この画面のクリックとキーは、本体側に渡さない。
+      // 渡すと本体が「次へ進む」と解釈して、シナリオが余計に進んでしまう。
+      root.addEventListener("click", function (ev) {
+        ev.stopPropagation();
+        end();
+      });
+      function onKey(ev) {
+        ev.stopPropagation();
+        if (ev.preventDefault) ev.preventDefault();
+        end();
+      }
+      document.addEventListener("keydown", onKey, true);
+    });
+  });
+
   // ---------------------------------------------------------------- タイトル
 
   // title.ks から呼ぶ。画面を出したらすぐ制御を返し、title.ks 側の [s] で待つ。
@@ -154,8 +276,8 @@
     bg(root, D.img.bgTitle);
     root.appendChild(h("div", "dbt-shade shade"));
     root.appendChild(h("div", "head",
-      '<div class="kicker">―― 八人の容疑者・一晩の嘘くらべ ――</div>' +
-      "<h1>舞黒館の惨劇</h1>" +
+      '<div class="kicker">―― 相手の目を誤魔化す嘘つきの祭典 ――</div>' +
+      "<h1>舞黒館の<em>惨劇</em></h1>" +
       '<div class="sub">「探偵少女はダウトで勝ちの目を見るか」</div>'));
     var modes = h("div", "modes");
     function go(mode, target) {
@@ -163,8 +285,8 @@
       closeRoot(root);
       TYRANO.kag.ftag.startTag("jump", { storage: "title.ks", target: target });
     }
-    modes.appendChild(btn("アーケードプレイ<small>五戦通し・館主まで</small>", "purple", function () { go("arcade", "*arcade_start"); }));
-    modes.appendChild(btn("シンプルプレイ<small>一戦だけ・相手を選ぶ</small>", "navy", function () { go("simple", "*simple_start"); }));
+    modes.appendChild(btn("アーケードプレイ<small>全5戦</small>", "purple", function () { go("arcade", "*arcade_start"); }));
+    modes.appendChild(btn("シンプルプレイ<small>フリー対戦</small>", "navy", function () { go("simple", "*simple_start"); }));
     root.appendChild(modes);
     var extra = h("div", "extra");
     extra.appendChild(btn("ランキング", "navy", function () {
@@ -355,6 +477,11 @@
       box.addEventListener("click", function () { self.openSkills(); });
     });
 
+    // 主人公（真歩流）の吹き出し。立ち絵は出さないので、手札の上に出す
+    var myBub = h("div", "dbt-bubble s0");
+    this.root.appendChild(myBub);
+    this.bubble[0] = myBub;
+
     this.logEl = h("div", "dbt-log", "");
     this.root.appendChild(this.logEl);
 
@@ -398,7 +525,10 @@
 
   var B = BattleUI.prototype;
 
-  B.close = function () { closeRoot(this.root); };
+  B.close = function () {
+    stopAllVoice();
+    closeRoot(this.root);
+  };
 
   // この対戦に出ている3人のスキルを並べて見せる
   B.openSkills = function () {
@@ -570,21 +700,44 @@
     return new Promise(function (resolve) { self.resolver = resolve; });
   };
 
+  /*
+   * セリフを1つ言わせる（吹き出し＋ボイス）。
+   * 待たせないので、ゲームの進行とずれない。ボイスはキャラごとに分かれていて、
+   * 同じキャラが次を言った時だけ前のセリフが止まる。
+   */
   B.say = function (g, seat, cat) {
     var id = g.ids[seat];
-    var lines = D.lines[id] && D.lines[id][cat];
-    if (!lines || !lines.length) return;
-    var bub = this.bubble[seat];
-    bub.textContent = pick(lines);
-    var shaken = cat === "place_shaken" || cat === "caught" || cat === "doubt_miss";
+    var ln = pickLine(id, cat);
+    if (!ln) return;
+    playVoice(id, cat, ln.index);
+    this.showSay({ seat: seat, cat: cat, text: ln.text });
+  };
+
+  // 吹き出しは出さず、声だけ鳴らす（カットインの最中など）。
+  // 鳴らしたセリフの文章を返すので、呼んだ側が画面にも出せる。
+  B.sayVoice = function (g, seat, cat) {
+    var id = g.ids[seat];
+    var ln = pickLine(id, cat);
+    if (!ln) return null;
+    playVoice(id, cat, ln.index);
+    return ln.text;
+  };
+
+  // 吹き出しを出す（text が null のセリフは声だけ）
+  B.showSay = function (item) {
+    if (item.text == null) return;
+    var bub = this.bubble[item.seat];
+    if (!bub) return;
+    bub.textContent = item.text;
+    var shaken = item.cat === "place_shaken" || item.cat === "caught" || item.cat === "doubt_miss";
     bub.classList.toggle("shaken", shaken);
     bub.classList.add("show");
-    setFace(this.portraits[seat], shaken ? "shaken" : null);
+    setFace(this.portraits[item.seat], shaken ? "shaken" : null);
     clearTimeout(bub._t);
     var self = this;
     bub._t = setTimeout(function () {
       bub.classList.remove("show");
-      setFace(self.portraits[seat], null);
+      setFace(self.portraits[item.seat], null);
     }, 2200);
   };
 
@@ -658,6 +811,9 @@
       cutin: function (g, seat, text) {
         var id = g.ids[seat];
         var ch = D.chara[id];
+        // スキル発動のセリフ。声を鳴らしつつ、文章はカットインにも出す
+        var line = ui.sayVoice(g, seat, "ability");
+        var lineHTML = line ? '<div class="ln">「' + line + '」</div>' : "";
         var repeat = !!ui.cutinShown[id];
         ui.cutinShown[id] = true;
 
@@ -673,7 +829,7 @@
             mini.appendChild(mart);
             mini.classList.add("has-art");
           }
-          var mtxt = h("div", "txt", '<div class="nm">' + ch.name + '</div><div class="ef">' + text + "</div>");
+          var mtxt = h("div", "txt", '<div class="nm">' + ch.name + '</div><div class="ef">' + text + "</div>" + lineHTML);
           mtxt.style.borderColor = ch.color;
           mini.appendChild(mtxt);
           return ui.overlayWait(mini, 1100);
@@ -702,7 +858,7 @@
         band.appendChild(h("div", "lines"));
         ov.appendChild(band);
 
-        var txt = h("div", "txt", '<div class="nm">' + ch.name + '</div><div class="ef">' + text + "</div>");
+        var txt = h("div", "txt", '<div class="nm">' + ch.name + '</div><div class="ef">' + text + "</div>" + lineHTML);
         txt.style.borderColor = ch.color;
         ov.appendChild(txt);
         return ui.overlayWait(ov, 2000);
@@ -786,10 +942,8 @@
 
     return new Promise(function (resolve) {
       var root = openRoot("dbt-result" + (win ? "" : " lose"));
-      if (win) {
-        bg(root, D.img.bgWin);
-        root.appendChild(h("div", "dbt-shade shade win"));
-      }
+      bg(root, win ? D.img.bgWin : D.img.bgLose);
+      root.appendChild(h("div", "dbt-shade shade " + (win ? "win" : "lose")));
       root.appendChild(h("div", "stage", "―― " + pr.label + "・決着 ――"));
       root.appendChild(h("div", "big", win ? "勝利" : "敗北"));
       root.appendChild(h("div", "catch", win ? "嘘を、ぜんぶ剥がした" : "嘘に、呑まれた"));
@@ -833,7 +987,7 @@
         closeRoot(root);
         resolve();
       }));
-      root.appendChild(btn("あきらめる<small>今夜の勝負は、ここでお開き</small>", "no", function () {
+      root.appendChild(btn("あきらめる<small>今日の勝負は、ここでお開き</small>", "no", function () {
         fv.doubt_continue = false;
         closeRoot(root);
         resolve();
@@ -849,8 +1003,8 @@
       bg(root, D.img.bgGameover);
       root.appendChild(h("div", "flood"));
       root.appendChild(h("div", "go", "GAME OVER"));
-      root.appendChild(h("div", "t", "今夜はお開き"));
-      root.appendChild(h("div", "q", "「今夜はここまで。<br>また今度おいで、お客人」"));
+      root.appendChild(h("div", "t", "今日ははお開き"));
+      root.appendChild(h("div", "q", "「今日はここまで。<br>また今度おいで、お客人」"));
       root.appendChild(btn("タイトルへ", "navy back", function () {
         closeRoot(root);
         resolve();

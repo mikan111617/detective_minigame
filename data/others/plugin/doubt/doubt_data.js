@@ -8,13 +8,17 @@
   var STAND = "./data/fgimage/standing/";
   // スキル発動カットインの一枚絵の場所（1672×941 / 16:9）
   var CUTIN = "./data/image/cutin/";
+  // ボイスの場所（キャラidごとのフォルダに分ける）
+  var VOICE = "./data/voice/";
 
   var DATA = {
     img: {
+      bgCaution: "./data/bgimage/caution.png",
       bgTitle: IMG + "bg/bg-title.png",
       bgSelect: IMG + "bg/bg-select.png",
       bgTable: IMG + "bg/bg-table.png",
       bgWin: IMG + "bg/win-01.png",
+      bgLose: IMG + "bg/lose.png",
       bgContinue: IMG + "bg/continue.png",
       bgGameover: IMG + "bg/gameover.png",
       cardBack: IMG + "card/card-back.png",
@@ -29,11 +33,39 @@
       },
     },
 
+    /*
+     * ボイス
+     *   下の lines に書いたセリフ 1つ 1つに、音声ファイルを対応させる。
+     *   置き場所： data/voice/{キャラid}/{セリフの種類}_{番号}.mp3
+     *   番号は lines の配列の並び順（0 から数える）。
+     *     例）lines.airi.place_calm[0]「はい、どうぞ♪」
+     *         → data/voice/airi/place_calm_0.mp3
+     *         　 lines.airi.place_calm[1]「ちゃんと本当だよ？」
+     *         → data/voice/airi/place_calm_1.mp3
+     *   ファイルが置かれていないセリフは、何も鳴らさずそのまま進む。
+     *   （収録済みのキャラだけ先に確かめられるようにしてある）
+     */
+    voice: {
+      on: true,       // false にすると、ボイスを一切鳴らさない
+      ext: ".wav",
+      volume: 1.0,    // 0〜1。ゲーム本体の効果音ボリュームにも掛かる
+      // 声はキャラクターごとに分けて鳴らす。
+      //   ・同じキャラが次のセリフを言うと、そのキャラの前のセリフは止まる
+      //   ・他のキャラのセリフでは止まらない（掛け合いは重なって鳴る）
+      //   ・順番待ちはしないので、ゲームの進行からセリフがずれない
+      path: function (id, cat, index) {
+        return VOICE + (DATA.voiceFile[id] || id) + "/" + cat + "_" + index + DATA.voice.ext;
+      },
+    },
+
     // 立ち絵のファイル名が id と違う場合の対応表（今は全員 id と同名）
     charaFile: {},
 
     // カットイン画像のファイル名が id と違う場合の対応表
     cutinFile: {},
+
+    // ボイスのフォルダ名が id と違う場合の対応表（今は全員 id と同名）
+    voiceFile: {},
 
     rules: {
       scorePerCard: 100,
@@ -84,7 +116,7 @@
         uses: -1 },
       koderia: { name: "小出里亜", color: "#9fb0d4", doubt: 0.08, tell: 0.18, bluff: 0.15,
         ability: "成立するはずのダウトを無効にする",
-        uses: 1 },
+        uses: 3 },
       mahoru_awake: { name: "真歩流？", color: "#7a3fd8", doubt: 0.3, tell: 0.3, bluff: 0.1,
         ability: "……ものすごく強い",
         uses: -1, catchRate: 0.55 },
@@ -112,16 +144,25 @@
      * partner       : 相方が札を回収した時
      * doubt         : ダウトを宣言した時
      * doubt_miss    : ダウトが外れて札を回収した時
+     * ability       : スキルを発動した時（カットインと一緒に出る）
      */
     lines: {
+      // 主人公。ふだんは黙っているが、ダウトとスキルの時だけ声を出す
+      //   doubt   : ダウトを宣言した時
+      //   ability : スキル（名指し推理）を発動した時
+      mahoru: {
+        doubt: ["ダウト！", "その嘘、見えてる。", "そこまでだよ。"],
+        ability: ["その数字、言い当てる。", "……もう、読めた。"],
+      },
       airi: {
         place_calm: ["はい、どうぞ♪", "ちゃんと本当だよ？"],
         place_shaken: ["え、えっと……本当だよ？", "そ、そんなに見ないで……"],
         caught: ["うそぉ、なんで分かったの！？"],
         safe: ["ほらね、本当だったでしょ♪"],
         partner: ["和人さん、しっかりー！"],
-        doubt: ["お姉ちゃん、それダウト！"],
+        doubt: ["読めたよ、それダウト！"],
         doubt_miss: ["あれぇ……本当だった……"],
+        ability: ["お姉ちゃん、これ交換ね♪", "いらない子は、あげちゃう！"],
       },
       kazuto: {
         place_calm: ["……問題ない。", "次。"],
@@ -131,61 +172,68 @@
         partner: ["愛理、顔に出すぎだ。"],
         doubt: ["その札、ダウトだ。"],
         doubt_miss: ["……誤診か。"],
+        ability: ["処置は済んでいる。", "半分だけ引き取る。", "出血は止めてある。", "この程度、後遺症も残らん。"],
       },
       mary: {
         place_calm: ["ふふ、いい香りでしょう？", "どうぞ、召し上がれ。"],
         place_shaken: ["あら……少し香りが強すぎたかしら。"],
         caught: ["まあ、野暮な人。"],
         safe: ["嘘の香りはしなかったでしょう？"],
-        partner: ["警部さん、らしくないわね。"],
-        doubt: ["その香り、ダウトよ。"],
-        doubt_miss: ["あら、外れ。"],
+        partner: ["警部さん、らしくないですね。"],
+        doubt: ["その香り、ダウトですよ。"],
+        doubt_miss: ["あら、外れですか。"],
+        ability: ["最初の香り、覚えているのよ。", "ふふ、あなたの手も匂うわ。"],
       },
       reido: {
         place_calm: ["異常なし。", "次です。"],
         place_shaken: ["……咳払いです。気にしないでください。"],
         caught: ["証拠は押さえられたか。"],
-        safe: ["冤罪だな。"],
+        safe: ["冤罪案件です。"],
         partner: ["メアリーさん、事情聴取の時間です。"],
         doubt: ["ダウト。署まで来てもらおう。"],
         doubt_miss: ["……捜査のやり直しだ。"],
+        ability: ["令状だ。その札、検めさせてもらう。", "強制捜査に切り替える。"],
       },
       juri: {
         place_calm: ["全部、把握してるから。", "はい、次。"],
-        place_shaken: ["……今の、撮ってないよね？"],
+        place_shaken: ["……今の、撮ってないわよね？"],
         caught: ["この件、拡散しないでね。"],
         safe: ["ほら、ちゃんと事実でしょ。"],
-        partner: ["叡留久さん、それは損切りしなよ。"],
+        partner: ["叡留久、それは損切りしたほうがいいわよ。"],
         doubt: ["その札、覚えてる。ダウト。"],
-        doubt_miss: ["……記録と違う。"],
+        doubt_miss: ["あら、……記録と違う。"],
+        ability: ["その札、記録済みだから。", "一度見たものは、忘れないの。"],
       },
       eruku: {
         place_calm: ["いい取引だ。", "投資は分散が基本だよ。"],
         place_shaken: ["……今のは、少々リスキーだったかな。"],
         caught: ["損失は計上しておこう。"],
         safe: ["監査は通ったね。"],
-        partner: ["珠璃さん、リカバリーしよう。"],
+        partner: ["珠璃、ここからリカバリーしよう。"],
         doubt: ["その数字、粉飾だね。ダウト。"],
         doubt_miss: ["見込み違いか。"],
+        ability: ["資産を、丸ごと入れ替えよう。", "これも分散投資のうちだよ。"],
       },
       jushika: {
-        place_calm: ["……どうぞ。", "……。"],
+        place_calm: ["……どうぞ。", "さあ、ここからですよ。"],
         place_shaken: ["……っ。なんでもありません。"],
-        place_hidden: ["…………。"],
+        place_hidden: ["手の内は隠させていただきます。"],
         caught: ["……不覚ですね。"],
-        safe: ["……本当です。"],
-        partner: ["小出里亜さん……！"],
+        safe: ["……残念ながら、真実です。"],
+        partner: ["小出里亜さん……まだ、いけますよね！"],
         doubt: ["……ダウト、です。"],
         doubt_miss: ["……申し訳ありません。"],
+        ability: ["……数えるのは、おやめください。", "……もう、見えません。"],
       },
       koderia: {
-        place_calm: ["はい、どうぞ。", "ふふ、次はあなたの番ですね。"],
+        place_calm: ["はい、どうぞ。", "ふふ、次は真歩流様の番ですね。"],
         place_shaken: ["あら……困りましたね。"],
         caught: ["見抜かれてしまいましたね。"],
         safe: ["疑うのは悲しいですよ。"],
         partner: ["朱志香さま、大丈夫ですよ。"],
         doubt: ["それは、ダウトですね。"],
         doubt_miss: ["あら、ごめんなさい。"],
+        ability: ["そのダウトは、なかったことに。", "ふふ、通しませんよ。"],
       },
       mahoru_awake: {
         place_calm: ["……。", "見えてるよ、全部。"],
@@ -195,6 +243,7 @@
         partner: ["……。"],
         doubt: ["それ、嘘。"],
         doubt_miss: ["……今のはわざと。"],
+        ability: ["……遊びは、ここまで。", "その手は、通らないよ。"],
       },
       maicro: {
         place_calm: ["さあさあ、遠慮なく。", "今宵のもてなしはまだまだ！"],
@@ -204,6 +253,7 @@
         partner: ["もう一人の君、楽しんでいるかね？"],
         doubt: ["おや、それはダウトだ！"],
         doubt_miss: ["これは失敬！"],
+        ability: ["さあ、館主のもてなしだ！", "余興の時間といこうか！", "はっはっは、席を乱させてもらう！", "退屈しのぎに、一手加えよう！"],
       },
     },
   };

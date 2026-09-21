@@ -16,7 +16,9 @@
 [call storage="doubt_story.ks" target="&'*stage' + f.doubt_stage"]
 
 *arcade_battle
-@playbgm storage="card.mp3"
+; 最終戦だけ専用のBGM
+@playbgm storage="boss_battle.mp3" cond="f.doubt_stage==4"
+@playbgm storage="card.mp3" cond="f.doubt_stage!=4"
 [doubt_vs pair="&f.doubt_stage"]
 [doubt_battle pair="&f.doubt_stage"]
 [doubt_result pair="&f.doubt_stage"]
@@ -28,6 +30,7 @@
 *arcade_lose
 [doubt_continue]
 [jump target="*arcade_battle" cond="f.doubt_continue"]
+@playbgm storage="game_over.mp3"
 [doubt_gameover]
 @playbgm storage="title.mp3"
 [jump target="*arcade_ranking"]
@@ -62,7 +65,9 @@
 [jump target="*title" cond="f.doubt_pair < 0"]
 
 *simple_battle
-@playbgm storage="card.mp3"
+; 最終戦のペアを選んだ時だけ専用のBGM
+@playbgm storage="boss_battle.mp3" cond="f.doubt_pair==4"
+@playbgm storage="card.mp3" cond="f.doubt_pair!=4"
 [doubt_vs pair="&f.doubt_pair"]
 [doubt_battle pair="&f.doubt_pair"]
 [doubt_result pair="&f.doubt_pair"]

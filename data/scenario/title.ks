@@ -17,10 +17,19 @@
 [layopt layer="message0" visible="false"]
 [freeimage layer="base"]
 [hidemenubutton]
-@playbgm storage="title.mp3"
+
+; 起動してから一度だけ、タイトルより前に注意書きを出す。
+; tf はセーブに含まれず、開き直すと消えるので「今回の起動で出したか」の目印になる。
+; タイトルへ戻ってきた時は tf が立ったままなので、二度目は出ない。
+; この画面のクリックで音声が解禁され、下の [playbgm] が待たずに済む。
+[doubt_caution time="5000" cond="!tf.doubt_caution_done"]
+[eval exp="tf.doubt_caution_done = true"]
 
 ;==== タイトル画面（アーケードプレイ／シンプルプレイ）====
+; BGM はタイトルを描いた後に鳴らす。
+; 万一まだ音声が解禁されていなくても、[playbgm] が待つ間に画面が真っ暗にならない。
 [doubt_title]
+@playbgm storage="title.mp3"
 [s]
 
 ;==== ここから先はボタンの飛び先 ====

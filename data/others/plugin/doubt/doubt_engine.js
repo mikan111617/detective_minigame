@@ -257,7 +257,7 @@
       this.pendingCutin = null;
       await this.io.cutin(this, pc.seat, pc.text);
     }
-    if (doubter !== 0) this.io.say(this, doubter, "doubt");
+    this.io.say(this, doubter, "doubt");
     this.io.log(this, this.name(doubter) + "：ダウト！");
 
     // 小出里亜：ダウト無効

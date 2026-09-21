@@ -81,6 +81,10 @@
 
 確か、愛理と一緒に調査をしていて、資料室にいたはずだけど。[p]
 
+それに、この体……。[p]
+
+愛理と同じナイスバディに……。[p]
+
 #???
 ようこそ、お客人。今宵は館の者が総出で、君をもてなそう。[p]
 
@@ -179,12 +183,13 @@
 ;--------------------------------------------------
 *stage0
 [call target="*setup"]
-@playbgm storage="talk.mp3"
 @charapos name="airi" num=1 face="normal"
 @charapos name="kazuto" num=2 face="normal"
 
 #
 最初の卓では、愛理と和人が待っていた。[p]
+
+@message_chara name="mahoru" num=0 face="normal"
 
 #mahoru
 愛理！[p]
@@ -198,8 +203,6 @@
 
 #kazuto
 やれやれ、そういうわけだからな、加減はしない。[p]
-
-@message_chara name="mahoru" num=0 face="normal"
 
 #mahoru
 和人まで……。[p]
