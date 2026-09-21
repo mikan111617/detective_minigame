@@ -246,6 +246,23 @@
     } catch (e) { console.error("[doubt] 設定の保存に失敗しました", e); }
   }
 
+  // 一度に出せる札の上限。システム変数に保存する。
+  function getMaxPlay() {
+    var v = 0;
+    try { v = parseInt(sysVar().doubt_max_play, 10); } catch (e) {}
+    var min = g.maxPlayMin || 1;
+    var max = g.maxPlayMax || g.maxPlay;
+    if (!(v >= min && v <= max)) v = g.maxPlay;
+    return v;
+  }
+
+  function setMaxPlay(v) {
+    try {
+      TYRANO.kag.variable.sf.doubt_max_play = v;
+      TYRANO.kag.saveSystemVariable();
+    } catch (e) { console.error("[doubt] 出札上限の保存に失敗しました", e); }
+  }
+
   // 今のラウンド状況の一行（1ラウンド制の時は何も出さない）
   function roundText() {
     var fv = f();
@@ -694,7 +711,7 @@
     this.bMain.innerHTML = m === "window" ? "見送る"
       : (m === "give" ? "渡す" : (m === "swap" ? "この札で交換" : "伏せる"));
     this.bMain.classList.toggle("off",
-      !((m === "place" && nSel >= 1 && nSel <= D.rules.maxPlay) || m === "window" ||
+      !((m === "place" && nSel >= 1 && nSel <= g.maxPlay) || m === "window" ||
         (m === "give" && nSel === this.need) || (m === "swap" && nSel >= 1)));
     var sealedDoubt = !!(g && g.doubtBlocked());
     this.bDoubt.classList.toggle("off", m !== "window" || sealedDoubt);
@@ -808,7 +825,7 @@
 
   B.toggleCard = function (id) {
     var limit = this.mode === "give" ? this.need
-      : (this.mode === "swap" ? this.game.hands[0].length : D.rules.maxPlay);
+      : (this.mode === "swap" ? this.game.hands[0].length : g.maxPlay);
     if (this.selected[id]) delete this.selected[id];
     else {
       if (limit === 1) this.selected = {};
@@ -1032,7 +1049,7 @@
       },
       playerPlace: function (g) {
         ui.game = g;
-        return ui.waitInput("place", "〈" + RANK[g.rank] + "〉として伏せる札を選ぶ（1〜" + D.rules.maxPlay + "枚・嘘でもよい）");
+        return ui.waitInput("place", "〈" + RANK[g.rank] + "〉として伏せる札を選ぶ（1〜" + g.maxPlay + "枚・嘘でもよい）");
       },
       playerDoubt: function (g) {
         ui.game = g;
@@ -1159,7 +1176,9 @@
   defineTag("doubt_battle", { pair: "0" }, async function (pm) {
     var idx = pairIndexOf(pm);
     var ui = new BattleUI(idx);
-    var game = new E.DoubtGame({ data: D, pairIndex: idx, io: ui.makeIO(), level: getLevel() });
+    var game = new E.DoubtGame({
+      data: D, pairIndex: idx, io: ui.makeIO(), level: getLevel(), maxPlay: getMaxPlay()
+    });
     ui.game = game;
     window.__doubtGame = game; // 調整・確認用
     var result;
@@ -1172,6 +1191,10 @@
     fv.doubt_win = result.win;
     fv.doubt_gain = result.gain;
     fv.doubt_opp_left = result.oppLeft;
+    fv.doubt_stat_attempts = result.stats ? result.stats.doubtAttempts : 0;
+    fv.doubt_stat_success = result.stats ? result.stats.doubtSuccess : 0;
+    fv.doubt_stat_bluff = result.stats ? result.stats.bluffSuccess : 0;
+    fv.doubt_stat_guess = result.stats ? result.stats.guessSuccess : 0;
     var ov = h("div", "dbt-overlay dbt-notice");
     ov.appendChild(h("div", "box",
       '<div class="t">' + (result.resigned ? "降参" : (result.win ? "上がり！" : game.name(result.winner) + "の上がり")) + "</div>"));
@@ -1187,7 +1210,17 @@
     var win = !!fv.doubt_win;
     var lv = levelInfo();
     var base = fv.doubt_gain || 0;
-    var gain = Math.round(base * lv.score);
+    var winGain = Math.round(base * lv.score);
+
+    var attempts = fv.doubt_stat_attempts || 0;
+    var success = fv.doubt_stat_success || 0;
+    var bluffSuccess = fv.doubt_stat_bluff || 0;
+    var guessSuccess = fv.doubt_stat_guess || 0;
+    var accuracy = attempts > 0 ? success / attempts : 0;
+    var accuracyBonus = attempts >= D.rules.accuracyBonusMinDoubts &&
+      accuracy >= D.rules.accuracyBonusRate ? D.rules.accuracyBonusScore : 0;
+
+    var gain = winGain + accuracyBonus;
     var sc = addScore(fv, gain);
     var after = sc.after;
     var added = sc.added;
@@ -1195,6 +1228,7 @@
     fv.doubt_round_gain = (fv.doubt_round_gain || 0) + gain;
     var toNext = D.rules.lifeEvery - (after % D.rules.lifeEvery);
     var rt = roundText();
+    var accuracyText = attempts > 0 ? Math.round(accuracy * 100) + "%" : "—";
 
     return new Promise(function (resolve) {
       var root = openRoot("dbt-result" + (win ? "" : " lose"));
@@ -1203,21 +1237,36 @@
       root.appendChild(h("div", "stage", "―― " + pr.label + "・決着 ――" + (rt ? "　" + rt : "")));
       root.appendChild(h("div", "big", win ? "勝利" : "敗北"));
       root.appendChild(h("div", "catch", win ? "嘘を、ぜんぶ剥がした" : "嘘に、呑まれた"));
+
+      var scoreDetail = win
+        ? "相手の残り札 " + fv.doubt_opp_left + "枚 × " + D.rules.scorePerCard +
+          (lv.score !== 1 ? "　" + lv.name + " ×" + lv.score : "")
+        : "勝利時のみ加算";
+      if (accuracyBonus > 0) {
+        scoreDetail += '<br><b class="bonus">読み切りボーナス ＋' + accuracyBonus.toLocaleString() + "点</b>";
+      }
       root.appendChild(h("div", "panel p1",
         '<div class="k">この対戦</div><div class="v">' + gain.toLocaleString() + "<small>点</small></div>" +
-        '<div class="d">' + (win
-          ? "相手の残り札 " + fv.doubt_opp_left + "枚 × " + D.rules.scorePerCard +
-            (lv.score !== 1 ? "　" + lv.name + " ×" + lv.score : "")
-          : "勝利時のみ加算") + "</div>"));
+        '<div class="d">' + scoreDetail + "</div>"));
+
       root.appendChild(h("div", "panel p2",
         '<div class="k">通算</div><div class="v">' + after.toLocaleString() + "<small>点</small></div>" +
         '<div class="d">次の残機まで あと' + toNext.toLocaleString() + "点</div>"));
+
       var lives = "";
       for (var i = 0; i < fv.doubt_lives; i++) lives += "<i" + (i >= fv.doubt_lives - added ? ' class="new"' : "") + "></i>";
       root.appendChild(h("div", "panel p3",
         '<div class="k">残機</div><div class="lives">' + lives + "</div>" +
         '<div class="d">' + (added > 0 ? "残機が" + added + "つ増えた（＋" + added + "）" : "コンティニューできる回数") + "</div>"));
-      root.appendChild(btn(win ? "次へ" : "次へ", "next", function () {
+
+      root.appendChild(h("div", "panel pstats",
+        '<div class="k">戦績</div><div class="stats">' +
+          '<div class="stat"><span>ダウト成功率</span><b>' + accuracyText + '</b><small>' + success + " / " + attempts + "</small></div>" +
+          '<div class="stat"><span>嘘の成功</span><b>' + bluffSuccess + '</b><small>回</small></div>' +
+          '<div class="stat"><span>名指し成功</span><b>' + guessSuccess + '</b><small>回</small></div>' +
+        "</div>"));
+
+      root.appendChild(btn("次へ", "next", function () {
         closeRoot(root);
         resolve();
       }));
@@ -1499,7 +1548,7 @@
       lvBox.appendChild(h("div", "k", "難易度"));
       lvBox.appendChild(h("div", "d",
         "相手の読みの鋭さと、得点の倍率が変わります。<br>" +
-        "「やさしい」は今までと同じ読み方です。"));
+        "やさしいほど慎重に、むずかしいほど公開情報と見込みを重く見て判断します。"));
       var lvOpts = h("div", "opts");
       var lvCells = [];
       function chooseLevel(v) {
@@ -1523,8 +1572,7 @@
       box.appendChild(h("div", "k", "アーケードプレイのラウンド数"));
       box.appendChild(h("div", "d",
         "一つの卓で先に決めた数だけ勝てば、次の卓へ進めます。" +
-        "相手が先にその数だけ勝つと敗北です。<br>" +
-        "一度も落とさずに勝ち抜くと、余興のハイアンドローに挑めます。"));
+        "相手が先にその数だけ勝つと敗北です。"));
       var opts = h("div", "opts");
       var cells = [];
       function choose(v) {
@@ -1534,7 +1582,8 @@
       }
       for (var i = 1; i <= D.rules.roundMax; i++) {
         (function (v) {
-          var c = btn(v + "<small>" + (v === 1 ? "1勝で突破" : v + "先取") + "</small>", "navy cell", function () { choose(v); });
+          var c = btn(v + "<small>" + (v === 1 ? "1勝で突破" : v + "先取") + "</small>", "navy cell",
+            function () { choose(v); });
           cells.push(c);
           opts.appendChild(c);
         })(i);
@@ -1542,6 +1591,34 @@
       box.appendChild(opts);
       root.appendChild(box);
       choose(cur);
+
+      // ---- カスタムルール：一度に出せる札 ----
+      var maxNow = getMaxPlay();
+      var mpBox = h("div", "item maxplay");
+      mpBox.appendChild(h("div", "k", "一度に出せる札の上限"));
+      mpBox.appendChild(h("div", "d",
+        "1回の手番で伏せられる札の最大枚数を変更します。既定は4枚です。"));
+      var mpOpts = h("div", "opts");
+      var mpCells = [];
+      function chooseMaxPlay(v) {
+        maxNow = v;
+        setMaxPlay(v);
+        mpCells.forEach(function (c) { c.classList.toggle("on", c._v === v); });
+      }
+      var mpMin = D.rules.maxPlayMin || 1;
+      var mpMax = D.rules.maxPlayMax || D.rules.maxPlay;
+      for (var n = mpMin; n <= mpMax; n++) {
+        (function (v) {
+          var c = btn(v + "<small>最大" + v + "枚</small>", "navy cell compact",
+            function () { chooseMaxPlay(v); });
+          c._v = v;
+          mpCells.push(c);
+          mpOpts.appendChild(c);
+        })(n);
+      }
+      mpBox.appendChild(mpOpts);
+      root.appendChild(mpBox);
+      chooseMaxPlay(maxNow);
 
       root.appendChild(btn("とじる", "navy back", function () {
         closeRoot(root);

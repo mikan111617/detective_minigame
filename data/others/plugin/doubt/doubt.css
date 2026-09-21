@@ -329,22 +329,29 @@
 .dbt-result .shade.win { background: linear-gradient(90deg, rgba(0,0,0,.55), rgba(0,0,0,0) 45%, rgba(0,0,0,0) 60%, rgba(0,0,0,.55)); }
 .dbt-result .shade.lose { background: linear-gradient(90deg, rgba(4,8,20,.72), rgba(4,8,20,.2) 45%, rgba(4,8,20,.2) 60%, rgba(4,8,20,.72)); }
 .dbt-result.lose { background: radial-gradient(ellipse at 50% 40%, #24396b, #0b1122 70%); }
-.dbt-result .stage { position: absolute; left: 0; right: 0; top: 70px; text-align: center; color: #e8b54a; font-size: 32px; letter-spacing: .4em; }
-.dbt-result .big { position: absolute; left: 140px; top: 170px; font-family: "Kiwi Maru", serif; font-size: 230px; letter-spacing: .15em; line-height: 1; color: #f4e3b4; text-shadow: 0 0 40px rgba(232,181,74,.35); }
+.dbt-result .stage { position: absolute; left: 0; right: 0; top: 50px; text-align: center; color: #e8b54a; font-size: 30px; letter-spacing: .36em; }
+.dbt-result .big { position: absolute; left: 120px; top: 142px; font-family: "Kiwi Maru", serif; font-size: 205px; letter-spacing: .15em; line-height: 1; color: #f4e3b4; text-shadow: 0 0 40px rgba(232,181,74,.35); }
 .dbt-result.lose .big { color: #9fb0d4; text-shadow: none; }
-.dbt-result .catch { position: absolute; left: 146px; top: 420px; font-size: 32px; letter-spacing: .3em; color: #e8b54a; }
-.dbt-result .panel { position: absolute; background: rgba(0,0,0,.6); box-shadow: 0 0 0 2px #c08a1e; padding: 28px 36px; }
-.dbt-result .panel .k { font-size: 26px; letter-spacing: .2em; color: #e8b54a; }
-.dbt-result .panel .v { font-family: "Bellefair", serif; font-size: 100px; line-height: 1.1; }
-.dbt-result .panel .v small { font-family: "Zen Maru Gothic", sans-serif; font-size: 30px; color: #e8b54a; margin-left: 10px; }
-.dbt-result .panel .d { font-size: 24px; color: #d8b26a; }
-.dbt-result .p1 { left: 140px; top: 520px; width: 470px; }
-.dbt-result .p2 { left: 140px; top: 760px; width: 470px; }
-.dbt-result .p3 { right: 140px; top: 520px; width: 520px; }
-.dbt-result .lives { display: flex; gap: 12px; margin: 16px 0 10px; }
-.dbt-result .lives i { width: 40px; height: 48px; background: #e8b54a; display: block; }
+.dbt-result .catch { position: absolute; left: 126px; top: 365px; font-size: 30px; letter-spacing: .28em; color: #e8b54a; }
+.dbt-result .panel { position: absolute; background: rgba(0,0,0,.64); box-shadow: 0 0 0 2px #c08a1e; padding: 22px 30px; }
+.dbt-result .panel .k { font-size: 24px; letter-spacing: .2em; color: #e8b54a; }
+.dbt-result .panel .v { font-family: "Bellefair", serif; font-size: 84px; line-height: 1.05; }
+.dbt-result .panel .v small { font-family: "Zen Maru Gothic", sans-serif; font-size: 26px; color: #e8b54a; margin-left: 10px; }
+.dbt-result .panel .d { font-size: 21px; line-height: 1.5; color: #d8b26a; }
+.dbt-result .panel .bonus { color: #ffdca8; font-weight: normal; }
+.dbt-result .p1 { left: 120px; top: 470px; width: 500px; }
+.dbt-result .p2 { left: 120px; top: 735px; width: 500px; }
+.dbt-result .p3 { right: 120px; top: 470px; width: 540px; }
+.dbt-result .lives { display: flex; gap: 10px; margin: 12px 0 8px; }
+.dbt-result .lives i { width: 34px; height: 42px; background: #e8b54a; display: block; }
 .dbt-result .lives i.new { background: #f6efe0; box-shadow: 0 0 20px #f6efe0; }
-.dbt-result .next { position: absolute; right: 140px; top: 760px; width: 520px; padding: 26px 0; font-size: 48px; background: rgba(0,0,0,.5); box-shadow: 0 0 0 3px #e8b54a; }
+.dbt-result .pstats { right: 120px; top: 655px; width: 540px; padding: 20px 24px 22px; }
+.dbt-result .stats { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin-top: 14px; }
+.dbt-result .stat { text-align: center; padding: 10px 6px; background: rgba(27,42,74,.7); box-shadow: inset 0 0 0 1px rgba(232,181,74,.28); }
+.dbt-result .stat span { display: block; min-height: 48px; font-size: 18px; line-height: 1.35; color: #d8b26a; }
+.dbt-result .stat b { display: block; margin-top: 4px; font-family: "Bellefair", serif; font-size: 48px; line-height: 1; font-weight: normal; color: #f6efe0; }
+.dbt-result .stat small { display: block; margin-top: 5px; font-size: 17px; color: #e8b54a; }
+.dbt-result .next { position: absolute; right: 120px; top: 900px; width: 540px; padding: 20px 0; font-size: 42px; background: rgba(0,0,0,.5); box-shadow: 0 0 0 3px #e8b54a; }
 .dbt-result .next:hover { background: rgba(232,181,74,.25); }
 
 /* ===== コンティニュー ===== */
@@ -442,21 +449,21 @@
 
 /* ===== 設定 ===== */
 .dbt-settings .shade { background: linear-gradient(180deg, rgba(11,17,34,.9) 0%, rgba(11,17,34,.74) 50%, rgba(11,17,34,.94) 100%); }
-.dbt-settings .hd { position: absolute; left: 0; right: 0; top: 80px; text-align: center; font-family: "Kiwi Maru", serif; font-size: 110px; letter-spacing: .3em; color: #e8b54a; text-shadow: 6px 6px 0 #7f1810; }
-.dbt-settings .item { position: absolute; left: 260px; width: 1400px; background: rgba(11,17,34,.82); box-shadow: 0 0 0 3px #e8b54a; padding: 26px 60px 32px; }
-.dbt-settings .item.level { top: 230px; }
-.dbt-settings .item.rounds { top: 640px; }
-.dbt-settings .item .k { font-family: "Kiwi Maru", serif; font-size: 40px; letter-spacing: .12em; color: #f6efe0; }
-.dbt-settings .item .d { margin-top: 10px; font-size: 24px; line-height: 1.5; color: #d8b26a; }
-.dbt-settings .opts { display: flex; justify-content: center; gap: 40px; margin-top: 24px; }
-.dbt-settings .cell { width: 300px; padding: 16px 0 12px; font-family: "Bellefair", serif; font-size: 68px; line-height: 1; }
-.dbt-settings .cell small { font-family: "Zen Maru Gothic", sans-serif; font-size: 22px; margin-top: 8px; line-height: 1.35; }
-/* 難易度は名前が長いので、横幅を取って文字を小さくする */
-.dbt-settings .cell.wide { width: 380px; font-family: "Kiwi Maru", serif; font-size: 40px; letter-spacing: .06em; }
-.dbt-settings .cell.wide small { font-size: 20px; }
-.dbt-settings .cell.on { background: #d8352a; box-shadow: 0 0 0 3px #e8b54a, 8px 8px 0 0 #7f1810; }
-.dbt-settings .back { position: absolute; left: 0; right: 0; margin: 0 auto; bottom: 40px; width: 380px; padding: 16px 0 12px; font-size: 38px; }
-.dbt-settings .hd { top: 60px; font-size: 84px; }
+.dbt-settings .hd { position: absolute; left: 0; right: 0; top: 28px; text-align: center; font-family: "Kiwi Maru", serif; font-size: 68px; letter-spacing: .3em; color: #e8b54a; text-shadow: 5px 5px 0 #7f1810; }
+.dbt-settings .item { position: absolute; left: 240px; width: 1440px; background: rgba(11,17,34,.84); box-shadow: 0 0 0 3px #e8b54a; padding: 18px 50px 20px; }
+.dbt-settings .item.level { top: 130px; }
+.dbt-settings .item.rounds { top: 445px; }
+.dbt-settings .item.maxplay { top: 690px; }
+.dbt-settings .item .k { font-family: "Kiwi Maru", serif; font-size: 32px; letter-spacing: .12em; color: #f6efe0; }
+.dbt-settings .item .d { margin-top: 7px; font-size: 20px; line-height: 1.4; color: #d8b26a; }
+.dbt-settings .opts { display: flex; justify-content: center; gap: 24px; margin-top: 14px; }
+.dbt-settings .cell { width: 260px; padding: 12px 0 9px; font-family: "Bellefair", serif; font-size: 52px; line-height: 1; }
+.dbt-settings .cell small { font-family: "Zen Maru Gothic", sans-serif; font-size: 18px; margin-top: 6px; line-height: 1.3; }
+.dbt-settings .cell.wide { width: 360px; font-family: "Kiwi Maru", serif; font-size: 34px; letter-spacing: .04em; }
+.dbt-settings .cell.wide small { font-size: 17px; }
+.dbt-settings .cell.compact { width: 220px; font-size: 50px; }
+.dbt-settings .cell.on { background: #d8352a; box-shadow: 0 0 0 3px #e8b54a, 7px 7px 0 0 #7f1810; }
+.dbt-settings .back { position: absolute; left: 0; right: 0; margin: 0 auto; bottom: 18px; width: 340px; padding: 12px 0 10px; font-size: 34px; }
 
 /* ===== 余興：ハイアンドロー ===== */
 .dbt-highlow .shade { background: linear-gradient(180deg, rgba(11,17,34,.88) 0%, rgba(11,17,34,.6) 45%, rgba(11,17,34,.92) 100%); }

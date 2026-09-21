@@ -72,6 +72,9 @@
       lifeEvery: 10000,
       lifeBonus: 5000,  // 遊び終わった時、残機1つにつきこの点を通算に足す
       baseContinue: 1,
+      accuracyBonusMinDoubts: 10, // 1対戦でこの回数以上ダウトすると精度ボーナスの判定対象
+      accuracyBonusRate: 0.8,     // ダウト成功率80%以上
+      accuracyBonusScore: 2000,   // 条件達成時の追加点
       /*
        * 難易度。設定画面で選ぶ。
        *   score  … 得点の倍率
@@ -82,9 +85,9 @@
        *   catch  … 真歩流？の嘘センサーの上乗せ（他のキャラだけ賢くならないように）
        */
       levels: [
-        { key: "easy",   name: "やさしい", note: "相手は隙が多く、読みも浅い",     score: 0.8, blind: 0.6, bluff: 2,   memory: true, odds: 0,   catch: 0 },
-        { key: "normal", name: "ふつう",   note: "相手は公開された札を覚えている", score: 1,   blind: 0.4, bluff: 1,   memory: true, odds: 0.5, catch: 0.12 },
-        { key: "hard",   name: "むずかしい", note: "相手は隙を見せず、見込みで疑う", score: 1.2, blind: 0.2, bluff: 0.3, memory: true, odds: 0.9, catch: 0.28 },
+        { key: "easy",   name: "やさしい", note: "自分の手札を頼りに、慎重に疑う",       score: 0.8, blind: 0.12, bluff: 2,   memory: false, odds: 0,   catch: 0 },
+        { key: "normal", name: "ふつう",   note: "公開された札も覚えて読み合う",         score: 1,   blind: 0.18, bluff: 1,   memory: true,  odds: 0.5, catch: 0.12 },
+        { key: "hard",   name: "むずかしい", note: "見込みまで計算し、根拠を重く見る",   score: 1.2, blind: 0.05, bluff: 0.3, memory: true,  odds: 0.9, catch: 0.28 },
       ],
       levelDefault: 0,
       // タイトルに「デバッグ」ボタンを出す。配布する時は false にする
@@ -93,7 +96,9 @@
       artherDeck: 10,     // 英国の青年が卓に混ぜる札の枚数
       roundMax: 3,      // 設定画面で選べるラウンド数の上限
       roundDefault: 1,  // 設定していない時のラウンド数
-      maxPlay: 4,
+      maxPlay: 4,       // 一度に出せる札の上限の既定値
+      maxPlayMin: 1,
+      maxPlayMax: 4,
       jokers: 2, // 舞黒邦夢が山札から出すジョーカーの枚数
       maicroQuiet: 5, // 誰かの手札がこの枚数以下の間は、舞黒邦夢のもてなしが起きない
       safetyLimit: 240, // この手数に達したら時間切れ（手札が最も少ない者の勝ち）

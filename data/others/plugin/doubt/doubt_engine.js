@@ -42,6 +42,9 @@
     this.handSwapUsed = false;   // 「全員の手札を入れ替え」は1戦に一度だけ
     this.noDoubtPlayer = 0;      // プレイヤーだけダウトを言えない残り手番（快活な少女）
     this.resigned = false;       // 降参した（フリー対戦だけ）
+    // 1対戦ごとのプレイヤー戦績。結果画面と精度ボーナスに使う
+    this.stats = { doubtAttempts: 0, doubtSuccess: 0, bluffSuccess: 0, guessSuccess: 0 };
+    this.playerLieCaught = false;
     this.addedCards = 0;         // 後から卓に混ぜた札の枚数（英国の青年）
     this.copies = {};            // 数字ごとの札の総数。既定は4枚
     this.fakeOffset = {};        // 手札の枚数をごまかす下駄（朱志香）
@@ -50,6 +53,13 @@
     // 難易度。卓の全員の読みの強さが変わる
     var levels = opt.data.rules.levels;
     this.level = levels[opt.level != null ? opt.level : opt.data.rules.levelDefault] || levels[0];
+
+    // カスタムルール：一度に出せる札の上限
+    var mp = parseInt(opt.maxPlay, 10);
+    var mpMin = opt.data.rules.maxPlayMin || 1;
+    var mpMax = opt.data.rules.maxPlayMax || opt.data.rules.maxPlay;
+    if (!(mp >= mpMin && mp <= mpMax)) mp = opt.data.rules.maxPlay;
+    this.maxPlay = mp;
 
     /*
      * 公開された札の記憶。ダウトで表になった札は卓の全員が見ているので、
@@ -275,6 +285,12 @@
       oppLeft: left,
       gain: win ? left * this.data.rules.scorePerCard : 0,
       steps: this.steps,
+      stats: {
+        doubtAttempts: this.stats.doubtAttempts,
+        doubtSuccess: this.stats.doubtSuccess,
+        bluffSuccess: this.stats.bluffSuccess,
+        guessSuccess: this.stats.guessSuccess,
+      },
     };
   };
 
@@ -333,7 +349,11 @@
 
     if (seat !== 0) this.aiReactPlace(seat, cards);
 
+    // プレイヤーが嘘を通せた回数を数える。正しいダウトで捕まった時だけ失敗。
+    var playerLie = seat === 0 && cards.some(function (c) { return c.r !== this.rank; }, this);
+    if (playerLie) this.playerLieCaught = false;
     await this.doubtPhase(seat, cards);
+    if (playerLie && !this.playerLieCaught) this.stats.bluffSuccess++;
     if (this.resigned) return;
     if (this.immune[seat] > 0) this.immune[seat]--;
     this.io.update(this);
@@ -460,6 +480,17 @@
       await this.io.cutin(this, doubter, "〈" + RANK[guess] + "〉だと名指しする");
     }
 
+    // プレイヤーのダウト戦績。名指しもダウト1回として数える。
+    // 愛理の能力で「本当」として通った場合は成功扱いにしない。
+    if (doubter === 0) {
+      this.stats.doubtAttempts++;
+      if (isLie) this.stats.doubtSuccess++;
+      if (act.type === "guess" && isLie && guess &&
+          cards.some(function (c) { return c.r === guess; })) {
+        this.stats.guessSuccess++;
+      }
+    }
+
     if (this.pendingCutin) {
       var pc = this.pendingCutin;
       this.pendingCutin = null;
@@ -479,6 +510,10 @@
         return;
       }
     }
+
+    // プレイヤーの嘘が正しいダウトで捕まった。
+    // 小出里亜に無効化された場合はここまで来ないので「嘘成功」として残る。
+    if (placer === 0 && isLie) this.playerLieCaught = true;
 
     /*
      * 空振りを恐れない：ダウトを外した時だけ効く。
@@ -638,7 +673,7 @@
     var hand = this.hands[seat];
     var r = this.rank;
     var have = hand.filter(function (c) { return c.r === r; });
-    var max = this.data.rules.maxPlay;
+    var max = this.maxPlay;
 
     /*
      * 疑われない間は、出せるだけ投げ捨てる。
@@ -879,7 +914,7 @@
     if (this.hasAbil(seat, "yuduki") && this.abilLeft(seat, "yuduki") > 0 && this.noDoubtPlayer === 0) {
       var mustLie = !this.hands[seat].some(function (c) { return c.r === self.rank; });
       // 手札が出せる枚数まで減っていれば、そのまま上がれる。それ以外は嘘を通す時に切る
-      var finisher = this.hands[seat].length <= this.data.rules.maxPlay;
+      var finisher = this.hands[seat].length <= this.maxPlay;
       if (finisher || (mustLie && this.hands[seat].length >= 6 && this.rng() < 0.4)) {
         this.spendAbilId(seat, "yuduki");
         await this.io.cutin(this, seat, this.data.chara.yuduki.ability);
@@ -972,7 +1007,7 @@
     }
     if (!best) return;
 
-    var n = Math.min(best.length, this.data.rules.maxPlay, this.hands[0].length);
+    var n = Math.min(best.length, this.maxPlay, this.hands[0].length);
     if (n < 2) return;
     var give = best.slice(0, n);
 
