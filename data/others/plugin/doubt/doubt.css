@@ -78,6 +78,12 @@
 .dbt-title .modes .dbt-btn small { font-size: 22px; margin-top: 10px; }
 .dbt-title .extra { position: absolute; left: 0; right: 0; bottom: 52px; display: flex; justify-content: center; gap: 24px; }
 .dbt-title .extra .dbt-btn { width: 360px; padding: 14px 0 12px; font-size: 32px; }
+.dbt-title .debugbtn {
+  position: absolute; left: 0; right: 0; bottom: 8px; margin: 0 auto;
+  width: 180px; padding: 6px 0 5px; font-size: 18px;
+  opacity: .62; box-shadow: 0 0 0 2px rgba(232,181,74,.65), 4px 4px 0 0 #0b1122;
+}
+.dbt-title .debugbtn:hover { opacity: 1; }
 .dbt-title .hint { position: absolute; left: 0; right: 0; bottom: 70px; text-align: center; font-size: 24px; letter-spacing: .3em; color: #f6efe0; opacity: .85; }
 
 /* ===== 遊び方 ===== */

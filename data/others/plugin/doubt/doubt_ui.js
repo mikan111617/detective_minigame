@@ -399,6 +399,14 @@
       TYRANO.kag.ftag.startTag("jump", { storage: "title.ks", target: "*help" });
     }));
     root.appendChild(extra);
+
+    // 開発用デバッグは、通常メニューと分けて画面最下部に小さく置く
+    if (D.rules.debugMenu) {
+      root.appendChild(btn("デバッグ", "navy debugbtn", function () {
+        closeRoot(root);
+        TYRANO.kag.ftag.startTag("jump", { storage: "title.ks", target: "*debug" });
+      }));
+    }
   });
 
   // ---------------------------------------------------------------- 遊び方
