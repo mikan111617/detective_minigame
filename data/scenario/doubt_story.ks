@@ -23,6 +23,8 @@
 ;--------------------------------------------------
 *prologue
 @stopbgm
+; 冒頭の資料室シーンから物語スキップを使えるようにする
+[doubt_skip show="true"]
 @bg storage="reference_room.png"
 @charapos name="airi" num=0 face="smile"
 @message_chara name="mahoru" face="smile"
