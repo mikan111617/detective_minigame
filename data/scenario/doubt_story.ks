@@ -770,11 +770,8 @@
 なんか一つにつながっているみたいで……。[p]
 
 #
-
-@mask
 @chara_hide_all
 @reset_message_chara
-@mask_off
 [doubt_skip show="false"]
 [skipstop]
 
