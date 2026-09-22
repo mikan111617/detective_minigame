@@ -12,6 +12,8 @@
 [eval exp="f.doubt_total = 0; f.doubt_lives = 1; f.doubt_stage = 0"]
 [eval exp="f.doubt_used_continue = false"]
 [call storage="doubt_story.ks" target="*prologue"]
+; 通常アーケードは必ず最初のステージ会話へ。下のデバッグ入口へ流れ込ませない
+[jump target="*arcade_stage"]
 
 ;--------------------------------------------------
 ; デバッグ：タイトルの「デバッグ」から、好きな卓に直接入る。
