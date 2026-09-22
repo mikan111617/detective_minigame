@@ -739,6 +739,16 @@
     return e;
   }
 
+  // 公開手札は、ゲーム内部の配列順ではなく数字の昇順で見せる。
+  // 元配列は変更しないので、CPUの判断や手札管理には影響しない。
+  function sortedCardsForDisplay(cards) {
+    return cards.slice().sort(function (a, b) {
+      var ar = a.r === 0 ? 14 : a.r;
+      var br = b.r === 0 ? 14 : b.r;
+      return ar - br || a.s - b.s;
+    });
+  }
+
   function BattleUI(pairIndex) {
     var self = this;
     this.pair = D.pairs[pairIndex];
@@ -1104,7 +1114,7 @@
       var sec = h("div", "handsec " + (cls || ""));
       sec.appendChild(h("div", "label", label));
       var gr = h("div", "cardgrid");
-      cards.forEach(function (c) {
+      sortedCardsForDisplay(cards).forEach(function (c) {
         var e = miniCardEl(c);
         if (selected && selected[c.id]) e.classList.add("sel");
         if (demanded && demanded[c.id]) e.classList.add("demand");
@@ -1329,7 +1339,7 @@
             var sec = h("div", "handsec");
             sec.appendChild(h("div", "label", label));
             var gr = h("div", "cardgrid");
-            cards.forEach(function (c) {
+            sortedCardsForDisplay(cards).forEach(function (c) {
               var e = miniCardEl(c);
               if (selected && selected[c.id]) e.classList.add("sel");
               if (onPick) {
