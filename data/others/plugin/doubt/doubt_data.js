@@ -125,7 +125,7 @@
       airi: { name: "愛理", reading: "あいり", color: "#f5a3b8", doubt: 0.3, tell: 0.6, bluff: 0.05,
         doubtStyle: "logic", // 理論型：確定でなくても、論理的に怪しさが出た場面は検討して踏み込む
         ability: "伏せた札がすべて同じ絵柄なら、宣言した数字として通る（ダウトされた時だけ消費）",
-        uses: 3 },
+        uses: 2 },
       kazuto: { name: "和人", reading: "かずと", color: "#4f7fd8", doubt: 0.28, tell: 0.5, bluff: 0.05,
         doubtStyle: "cautious", // 慎重型：明確な根拠がない限り踏み込まない
         ability: "ダウトされても、回収する札が半分になる",
@@ -136,8 +136,8 @@
         uses: -1, sub: "mary_deal", subUses: 1 },
       reido: { name: "零度警部", reading: "れいど", color: "#6fa8c9", doubt: 0.16, tell: 0.35, bluff: 0.1,
         doubtStyle: "evidence", // 証拠型：怪しいだけでは動かず、根拠が濃い時に踏み込む
-        ability: "手札を3枚渡す代わりに、伏せ札を強制的に暴く。外れても札を引き取らない",
-        uses: 1 },
+        ability: "手札を3枚渡し、伏せ札を強制的に暴く。外れても札を引き取らない",
+        uses: 2 },
       juri: { name: "珠璃", reading: "じゅり", color: "#e8b54a", doubt: 0.1, tell: 0.25, bluff: 0.12,
         doubtStyle: "perfect_memory", // 完全記憶型：覚えている札を根拠にする。根拠がない時は静か
         ability: "一度手にした札は、場に出た後も把握し続ける",
