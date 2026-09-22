@@ -1125,7 +1125,8 @@
     await this.io.notice(this, "取引",
       "〈" + RANK[give[0].r] + "〉を" + n + "枚渡す。代わりに好きな札を" + n + "枚もらいたい");
 
-    var ids = await this.io.pickGive(this, n, seat);
+    // 交換相手が何の数字を差し出すのか、選択が終わるまでUIに表示する
+    var ids = await this.io.pickGive(this, n, seat, give[0].r);
     if (this.resigned) return;
     var back = this.hands[0].filter(function (c) { return ids.indexOf(c.id) >= 0; });
     this.removeFromHand(seat, give);

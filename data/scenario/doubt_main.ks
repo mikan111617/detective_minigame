@@ -48,6 +48,8 @@
 ; このラウンドを落とした。相手が先に取り切ったら敗北
 *arcade_round_lose
 [eval exp="f.doubt_lose_count++"]
+; 隠し戦は本編クリア後の追加勝負。負けても本編クリアは取り消さない
+[jump target="*arcade_hidden_lose" cond="f.doubt_stage == 5 && f.doubt_lose_count >= f.doubt_rounds"]
 [jump target="*arcade_lose" cond="f.doubt_lose_count >= f.doubt_rounds"]
 [eval exp="f.doubt_round++"]
 [jump target="*arcade_battle"]
@@ -55,12 +57,21 @@
 ; 一度もラウンドを落とさずに勝ち抜いた時だけ、余興のハイアンドローに挑める
 *arcade_stage_clear
 [doubt_highlow cond="f.doubt_lose_count == 0"]
-; 隠しの二人を倒したら、シンプルプレイに加える
-[doubt_unlock_hidden cond="f.doubt_stage == 5"]
+; 隠し戦に勝った時だけ、専用会話と解放を挟んで通常エンディングへ
+[jump target="*arcade_hidden_win" cond="f.doubt_stage == 5"]
 [eval exp="f.doubt_stage++"]
 [jump target="*arcade_hidden_gate" cond="f.doubt_stage == 5"]
 [jump target="*arcade_clear" cond="f.doubt_stage > 5"]
 [jump target="*arcade_stage"]
+
+*arcade_hidden_win
+[call storage="doubt_story.ks" target="*hidden_win"]
+[doubt_unlock_hidden]
+[jump target="*arcade_clear"]
+
+*arcade_hidden_lose
+; 隠し戦はボーナス戦なので、敗北しても通常エンディングへ進む
+[jump target="*arcade_clear"]
 
 ; 隠し戦の出現条件
 ;   ラスボス戦までに一度もコンティニューしていない、または通算が規定点に届いている
