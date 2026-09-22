@@ -1061,6 +1061,7 @@
   B.enterSwap = function () {
     this.mode = "swap";
     this.selected = {};
+    this.guide.classList.remove("trade-fixed");
     this.guide.textContent = "交換に出す札を選ぶ（相手も同じ枚数を持っている必要があります）";
     this.renderHand(this.game);
     this.setButtons();
@@ -1112,6 +1113,7 @@
     this.resolver = null;
     this.mode = "idle";
     this.guide.textContent = "";
+    this.guide.classList.remove("trade-fixed");
     this.setButtons();
     this.renderHand(this.game);
     if (r) r(v);
@@ -1123,6 +1125,7 @@
     this.selected = {};
     if (mode === "place") this.placeGuide = guide;
     this.guide.textContent = guide;
+    this.guide.classList.toggle("trade-fixed", mode === "give");
     this.renderHand(this.game);
     this.setButtons();
     return new Promise(function (resolve) {
@@ -1249,7 +1252,7 @@
         ui.game = g;
         ui.need = n;
         var offered = offerRank != null
-          ? "〈" + RANK[offerRank] + "〉" + n + "枚との交換　"
+          ? "〈" + RANK[offerRank] + "〉" + n + "枚との交換\n"
           : "";
         return ui.waitInput("give",
           offered + g.name(placer) + "に渡す札を" + n + "枚選ぶ");
