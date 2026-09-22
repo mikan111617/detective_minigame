@@ -132,7 +132,7 @@
         uses: -1 },
       mary: { name: "メアリー", reading: "", color: "#c77dd8", doubt: 0.16, tell: 0.4, bluff: 0.1,
         doubtStyle: "memory", // 記憶型：序盤の記憶を強く信じる。札が動くほど読み違えることもある
-        ability: "対戦が始まった時点の、自分以外の手札を覚えている（その後の出入りまでは分からない）",
+        ability: "対戦開始時の他人の手札を覚え、記録より多い枚数の宣言を怪しむ（その後の出入りまでは分からない）",
         uses: -1, sub: "mary_deal", subUses: 1 },
       reido: { name: "零度警部", reading: "れいど", color: "#6fa8c9", doubt: 0.16, tell: 0.35, bluff: 0.1,
         doubtStyle: "evidence", // 証拠型：怪しいだけでは動かず、根拠が濃い時に踏み込む

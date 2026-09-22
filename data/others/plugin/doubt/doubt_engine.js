@@ -827,18 +827,27 @@
     known = Math.max(known, this.hands[seat].filter(function (c) { return c.r === r; }).length + pub);
 
     // メアリー：配り終えた時点の他人の手札を覚えている。
-    // 「出し手以外が持っていたはず」の同じ数字を数えて、嘘を見抜く材料にする。
-    // 記憶は更新されないので、札が動くほど当てにならなくなる
-    // （古い記憶のまま踏み込んで、空振りすることもある）。
+    // memo は「出し手以外が持っていたはず」の同じ数字。
+    // memoTarget は「出し手が持っていたはず」の同じ数字。
+    // 後から公開情報で所在を把握した札は、古い初期記憶ではなく memory 側を優先する。
     var memo = 0;
+    var memoTarget = 0;
     if (this.hasAbil(seat, "mary")) {
       var mine = mineIds;
       for (var cid in this.maryMemo) {
         if (!this.maryMemo.hasOwnProperty(cid)) continue;
-        if (memory[cid]) continue;                      // 動いたのを本人が把握している札は、そちらを使う
-        if (this.maryMemo[cid] === target) continue;   // 出し手の手にあったはずの札は数えない
+        if (memory[cid]) continue;                      // より新しい所在を本人が把握している
         if (mine[cid]) continue;                        // 自分の手札は known 側で数えている
-        if (parseInt(cid.split("_")[1], 10) === r) memo++;
+        if (parseInt(cid.split("_")[1], 10) !== r) continue;
+        if (this.maryMemo[cid] === target) memoTarget++;
+        else memo++;
+      }
+
+      // 公開情報などで「今も出し手が持っている」と分かっている同数字も加える。
+      for (var mid in memory) {
+        if (!memory.hasOwnProperty(mid)) continue;
+        var ms = memory[mid];
+        if (ms.r === r && ms.w === target && !playedNow[mid]) memoTarget++;
       }
     }
 
@@ -989,11 +998,19 @@
       else p *= 0.75;
     }
 
-    // メアリー：記憶型。最初に覚えた他人の札を強く信じる。
-    // maryMemo は更新されないため、序盤は鋭く、札が動くほど読み違える余地が生まれる。
+    // メアリー：記憶型。記録している枚数と、相手の宣言枚数を照合する。
+    // 記録内の枚数なら「持っている根拠がある」ので疑いを弱め、
+    // 記録より多く出したら、その超過枚数ぶん怪しいと判断する。
     if (ch.doubtStyle === "memory") {
+      if (memoTarget > 0 && k <= memoTarget) {
+        p *= 0.25;
+      } else if (k > memoTarget) {
+        var excess = k - memoTarget;
+        p += Math.min(0.28, 0.1 + excess * 0.06);
+      }
+      // 出し手以外が同じ数字を持っていた記憶も、従来どおり疑う根拠にする。
       if (memo > 0) p += Math.min(0.2, memo * 0.045 + personalityOdds * 0.08);
-      else p *= 0.8;
+      else if (!(memoTarget > 0 && k <= memoTarget)) p *= 0.8;
     }
 
     // 零度警部：証拠型。怪しさが弱い時は静か、見込みが高い時だけ急に踏み込む。
