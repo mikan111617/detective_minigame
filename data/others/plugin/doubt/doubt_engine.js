@@ -645,53 +645,94 @@
     // 名指し成功
     if (guess && isLie && cards.some(function (c) { return c.r === guess; }) && this.hands[doubter].length > 0) {
       var n = Math.min(2, this.hands[doubter].length);
-      await this.io.notice(this, "名推理", (doubter === 0 ? "好きな札を" : this.name(doubter) + "が札を") + n + "枚、" + this.name(placer) + "に渡す");
-      var gv;
       if (doubter === 0) {
-        var ids = await this.io.pickGive(this, n, placer);
+        // 真歩流：成功報酬は「相手1人の手札を見る＋自分の好きな札を2枚まで捨てる」。
+        var reward = await this.io.guessReward(this, n);
         if (this.resigned) return;
-        gv = this.hands[0].filter(function (c) { return ids.indexOf(c.id) >= 0; });
+        var ids = reward && reward.ids ? reward.ids : [];
+        var drop = this.hands[0].filter(function (c) { return ids.indexOf(c.id) >= 0; }).slice(0, n);
+        if (drop.length === n) {
+          this.removeFromHand(0, drop);
+          Array.prototype.push.apply(this.discard, drop);
+          // 捨てた札は公開情報。既に覚えていたCPUにも「場から外れた」と分かる。
+          this.moveSeenPile(drop, -1);
+          this.markSeen(drop, -1);
+          this.io.log(this, "名推理成功：" + this.name(reward.target) + "の手札を確認し、手札" + n + "枚を捨てた");
+          this.io.update(this);
+        }
       } else {
-        gv = this.worstCards(this.hands[doubter], n);
+        // 真歩流？（CPU）の名指し成功は従来どおり、不要札を相手へ押しつける。
+        var gv = this.worstCards(this.hands[doubter], n);
+        this.removeFromHand(doubter, gv);
+        this.addToHand(placer, gv);
+        this.rememberHiddenTransfer(doubter, placer, gv);
+        this.sortHand(placer);
+        this.io.log(this, this.name(doubter) + "が" + gv.length + "枚を" + this.name(placer) + "に渡した");
+        this.io.update(this);
       }
-      this.removeFromHand(doubter, gv);
-      this.addToHand(placer, gv);
-      // 名指し成功で渡した札も、当事者だけは移動先まで覚える
-      this.rememberHiddenTransfer(doubter, placer, gv);
-      this.sortHand(placer);
-      this.io.log(this, this.name(doubter) + "が" + gv.length + "枚を" + this.name(placer) + "に渡した");
-      this.io.update(this);
     } else if (guess) {
       this.io.log(this, "名指しは外れた");
     }
   };
 
   /*
-   * 真歩流：自分の手番に、好きな枚数を選んで相手の同じ枚数と交換する。
-   * 相手が同じ枚数を持っていなければ成立せず、回数も減らない。
-   * 相手から来る札は選べない（無作為）。
+   * 真歩流：相手1人と手札を互いに全公開し、同じ枚数を指定して強制交換する。
+   * 公開された内容を記憶するのは交換当事者のCPUだけ。もう一人には中身が見えない。
    */
-  P.playerSwap = async function (cardIds, target) {
-    var mine = this.hands[0].filter(function (c) { return cardIds.indexOf(c.id) >= 0; });
-    var n = mine.length;
-    if (n === 0 || this.abilLeft(0, "hand_swap") <= 0) return false;
-    if (this.hands[target].length < n) {
-      await this.io.notice(this, "交換できない", this.name(target) + "の手札は" + n + "枚に足りない");
-      return false;
-    }
+  P.beginPlayerExchange = async function (target) {
+    if (!(target === 1 || target === 2)) return 0;
+    if (this.abilLeft(0, "hand_swap") <= 0) return 0;
+    var max = Math.min(this.hands[0].length, this.hands[target].length);
+    if (max <= 0) return 0;
     this.spendAbilId(0, "hand_swap");
     await this.io.cutin(this, 0, this.data.chara.hand_swap.ability);
-    var theirs = this.pickRandom(this.hands[target], n);
+    // 対象CPUだけが、公開時点の両者の全手札を把握する。
+    this.rememberFor(target, this.hands[0], 0);
+    this.rememberFor(target, this.hands[target], target);
+    return max;
+  };
+
+  // 交換相手が要求する札。次に使いやすい数字と、すでに持つ同数字を優先する。
+  P.playerExchangeDemand = function (target, n) {
+    var self = this;
+    var counts = {};
+    this.hands[target].forEach(function (c) { counts[c.r] = (counts[c.r] || 0) + 1; });
+    return this.hands[0].slice().sort(function (a, b) {
+      var da = self.turnsUntilForSeat(target, a.r);
+      var db = self.turnsUntilForSeat(target, b.r);
+      if (da !== db) return da - db;
+      var ca = counts[a.r] || 0, cb = counts[b.r] || 0;
+      if (ca !== cb) return cb - ca;
+      return a.r - b.r || a.s - b.s;
+    }).slice(0, n);
+  };
+
+  P.finishPlayerExchange = function (target, takeIds, giveIds) {
+    if (!(target === 1 || target === 2)) return false;
+    var theirs = this.hands[target].filter(function (c) { return takeIds.indexOf(c.id) >= 0; });
+    var mine = this.hands[0].filter(function (c) { return giveIds.indexOf(c.id) >= 0; });
+    var n = theirs.length;
+    if (n <= 0 || mine.length !== n || takeIds.length !== n || giveIds.length !== n) return false;
+
     this.removeFromHand(0, mine);
     this.removeFromHand(target, theirs);
     this.addToHand(0, theirs);
     this.addToHand(target, mine);
-    // 交換相手のCPUは、自分が渡した札と受け取った札の両方を把握する。
-    // もう一人のCPUには中身が見えない。
-    this.rememberHiddenTransfer(0, target, mine);
-    this.rememberHiddenTransfer(target, 0, theirs);
     this.sortHand(target);
-    this.io.log(this, "あなたが" + n + "枚を" + this.name(target) + "と交換した");
+
+    // 第三者にはどの札を交換したか見えないため、両者についての所在記憶をいったん失う。
+    var third = target === 1 ? 2 : 1;
+    var mem = this.memoryOf(third);
+    for (var cid in mem) {
+      if (!mem.hasOwnProperty(cid)) continue;
+      if (mem[cid].w === 0 || mem[cid].w === target) delete mem[cid];
+    }
+
+    // 当事者は全公開＋交換内容を見ているので、交換後の両手札を正確に把握する。
+    this.rememberFor(target, this.hands[0], 0);
+    this.rememberFor(target, this.hands[target], target);
+
+    this.io.log(this, this.name(target) + "と手札を" + n + "枚ずつ交換した");
     this.io.update(this);
     return true;
   };
@@ -721,6 +762,16 @@
       if (((this.rank - 1 + 3 * k) % 13) + 1 === x) return k;
     }
     return 13;
+  };
+
+  // 現在の手番から見て、指定した席に数字 x が回ってくるまでの実手番数。
+  P.turnsUntilForSeat = function (seat, x) {
+    if (x === 0) return 99;
+    for (var d = 1; d <= 39; d++) {
+      if ((this.turn + d) % 3 !== seat) continue;
+      if (((this.rank - 1 + d) % 13) + 1 === x) return d;
+    }
+    return 99;
   };
 
   P.worstCards = function (hand, n, exclude) {

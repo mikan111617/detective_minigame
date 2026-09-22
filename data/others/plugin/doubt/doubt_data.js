@@ -120,7 +120,7 @@
      */
     chara: {
       mahoru: { name: "真歩流", reading: "まほる", color: "#d8352a", doubt: 0, tell: 0, bluff: 0,
-        ability: "ダウトの時に相手の出した数字を言い当てると、自分の手札から好きな2枚を相手に渡せる（1ゲーム2回まで）",
+        ability: "ダウトで伏せ札の本当の数字まで言い当てると、相手1人の手札を確認し、自分の好きな2枚を捨てられる（1ゲーム2回まで）",
         uses: 2, sub: "hand_swap", subUses: 2 },
       airi: { name: "愛理", reading: "あいり", color: "#f5a3b8", doubt: 0.3, tell: 0.6, bluff: 0.05,
         doubtStyle: "logic", // 理論型：確定でなくても、論理的に怪しさが出た場面は検討して踏み込む
@@ -182,7 +182,7 @@
        * 回数は sub を持つ側の subUses で数えるので、ここの uses は表示のためだけ。
        */
       hand_swap: { name: "手札の交換", color: "#d8352a", doubt: 0, tell: 0, bluff: 0,
-        ability: "自分の手番に、好きな枚数を選んで相手の同じ枚数と交換する（相手にその枚数が必要）",
+        ability: "自分の手番に相手1人と手札を全公開し、互いに同じ枚数を指定して強制交換する。枚数は自分と相手の手札枚数まで（公開内容は当事者だけが知る）",
         uses: 2 },
       mary_deal: { name: "香りの招待", color: "#c77dd8", doubt: 0, tell: 0, bluff: 0,
         ability: "一度だけ、数字が重複しない新しい札6枚を、自分以外の二人に3枚ずつ配る（1種類につき1枚だけ増える）",

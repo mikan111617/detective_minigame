@@ -731,6 +731,14 @@
     return e;
   }
 
+  function miniCardEl(c) {
+    var red = c.s === 1 || c.s === 2;
+    var label = c.r === 0 ? "JOKER" : RANK[c.r] + '<span>' + SUIT[c.s] + "</span>";
+    var e = h("div", "dbt-mini-card" + (red ? " red" : ""), label);
+    e.dataset.id = c.id;
+    return e;
+  }
+
   function BattleUI(pairIndex) {
     var self = this;
     this.pair = D.pairs[pairIndex];
@@ -885,26 +893,22 @@
     var m = this.mode;
     var uses = g ? g.uses[0] : 0;
     var swaps = g ? g.abilLeft(0, "hand_swap") : 0;
-    this.bMain.innerHTML = m === "window" ? "見送る"
-      : (m === "give" ? "渡す" : (m === "swap" ? "この札で交換" : "伏せる"));
+    this.bMain.innerHTML = m === "window" ? "見送る" : (m === "give" ? "渡す" : "伏せる");
     this.bMain.classList.toggle("off",
       !((m === "place" && nSel >= 1 && nSel <= g.maxPlay) || m === "window" ||
-        (m === "give" && nSel === this.need) || (m === "swap" && nSel >= 1)));
+        (m === "give" && nSel === this.need)));
     var sealedDoubt = !!(g && g.doubtBlocked());
     this.bDoubt.classList.toggle("off", m !== "window" || sealedDoubt);
 
     // 自分の手番は「手札の交換」、ダウトの場面は「名指し推理」
-    if (m === "swap") {
-      this.bAbility.innerHTML = "交換をやめる<small>伏せる札を選び直す</small>";
-      this.bAbility.classList.remove("off");
-    } else if (m === "place") {
+    if (m === "place") {
       this.bAbility.innerHTML = "手札を交換する<small>残り" + Math.max(0, swaps) + "</small>";
       this.bAbility.classList.toggle("off", !(swaps > 0));
     } else {
       this.bAbility.innerHTML = "数字を名指しする<small>残り" + Math.max(0, uses) + "</small>";
       this.bAbility.classList.toggle("off", !(m === "window" && uses > 0) || sealedDoubt);
     }
-    this.handEl.classList.toggle("turn", m === "place" || m === "give" || m === "swap");
+    this.handEl.classList.toggle("turn", m === "place" || m === "give");
     if (this.bResign) this.bResign.classList.toggle("off", m === "idle");
   };
 
@@ -973,7 +977,7 @@
     var per = Math.ceil(n / rows);
     this.handEl.classList.toggle("two", rows === 2);
     this.handEl.innerHTML = "";
-    var pickable = self.mode === "place" || self.mode === "give" || self.mode === "swap";
+    var pickable = self.mode === "place" || self.mode === "give";
 
     hand.forEach(function (c, i) {
       var row = Math.floor(i / per);
@@ -1001,8 +1005,7 @@
   };
 
   B.toggleCard = function (id) {
-    var limit = this.mode === "give" ? this.need
-      : (this.mode === "swap" ? this.game.hands[0].length : this.game.maxPlay);
+    var limit = this.mode === "give" ? this.need : this.game.maxPlay;
     if (this.selected[id]) delete this.selected[id];
     else {
       if (limit === 1) this.selected = {};
@@ -1014,7 +1017,6 @@
   };
 
   B.onMain = function () {
-    if (this.mode === "swap") { this.askSwapTarget(); return; }
     var r = this.resolver;
     if (!r) return;
     if (this.mode === "place" || this.mode === "give") {
@@ -1033,8 +1035,7 @@
   B.onAbility = function () {
     var self = this;
     // 自分の手番なら「手札の交換」、ダウトの場面なら「名指し推理」
-    if (this.mode === "place") { this.enterSwap(); return; }
-    if (this.mode === "swap") { this.leaveSwap(); return; }
+    if (this.mode === "place") { this.askSwapTarget(); return; }
     if (this.mode !== "window") return;
     var g = this.game;
     var declared = g.last.rank;
@@ -1057,43 +1058,20 @@
     this.root.appendChild(ov);
   };
 
-  // 交換に出す札を選ぶ状態に入る（伏せる手番はそのまま続いている）
-  B.enterSwap = function () {
-    this.mode = "swap";
-    this.selected = {};
-    this.guide.classList.remove("trade-fixed");
-    this.guide.textContent = "交換に出す札を選ぶ（相手も同じ枚数を持っている必要があります）";
-    this.renderHand(this.game);
-    this.setButtons();
-  };
-
-  B.leaveSwap = function () {
-    this.mode = "place";
-    this.selected = {};
-    this.guide.textContent = this.placeGuide || "";
-    this.renderHand(this.game);
-    this.setButtons();
-  };
-
-  // 誰と交換するか。枚数が読めない相手でも選べるようにして、足りなければ空振りにする
+  // 交換相手を選ぶ。この段階ではまだ手札を公開せず、キャンセルできる。
   B.askSwapTarget = function () {
     var self = this;
     var g = this.game;
-    var ids = Object.keys(this.selected);
-    var cnt = ids.length;
-    if (!cnt) return;
+    if (g.abilLeft(0, "hand_swap") <= 0) return;
     var ov = h("div", "dbt-overlay dbt-pad dbt-swap");
     var box = h("div", "box");
-    box.appendChild(h("div", "q", cnt + "枚を、誰と交換する？"));
+    box.appendChild(h("div", "q", "誰と手札を公開して交換する？"));
     var row = h("div", "targets");
     [1, 2].forEach(function (seat) {
-      var blur = g.blurred();
-      var enough = blur || g.hands[seat].length >= cnt;
-      var note = blur ? "手札 " + g.shownHand(seat) + "枚（読めない）"
-        : (enough ? "手札 " + g.hands[seat].length + "枚" : "枚数が足りない");
-      var b = btn(g.name(seat) + "<small>" + note + "</small>", "navy" + (enough ? "" : " off"), function () {
+      var b = btn(g.name(seat) + "<small>手札を互いに全公開</small>", "navy", async function () {
         closeRoot(ov);
-        self.doSwap(ids, seat);
+        var max = await g.beginPlayerExchange(seat);
+        if (max > 0) self.openExchange(seat, max);
       });
       row.appendChild(b);
     });
@@ -1103,9 +1081,86 @@
     this.root.appendChild(ov);
   };
 
-  B.doSwap = async function (ids, seat) {
-    await this.game.playerSwap(ids, seat);
-    this.leaveSwap();
+  // 全公開後は能力を消費済み。交換枚数と、欲しい相手の札を選んで必ず交換する。
+  B.openExchange = function (seat, max) {
+    var self = this;
+    var g = this.game;
+    var ov = h("div", "dbt-overlay dbt-exchange");
+    var box = h("div", "box");
+    ov.appendChild(box);
+    this.root.appendChild(ov);
+    var count = 1;
+
+    function title(t, sub) {
+      box.innerHTML = "";
+      box.appendChild(h("div", "q", t));
+      if (sub) box.appendChild(h("div", "sub", sub));
+    }
+    function grid(label, cards, cls, onPick, selected, demanded) {
+      var sec = h("div", "handsec " + (cls || ""));
+      sec.appendChild(h("div", "label", label));
+      var gr = h("div", "cardgrid");
+      cards.forEach(function (c) {
+        var e = miniCardEl(c);
+        if (selected && selected[c.id]) e.classList.add("sel");
+        if (demanded && demanded[c.id]) e.classList.add("demand");
+        if (onPick) {
+          e.classList.add("pickable");
+          e.addEventListener("click", function () { onPick(c.id); });
+        }
+        gr.appendChild(e);
+      });
+      sec.appendChild(gr);
+      box.appendChild(sec);
+    }
+
+    function chooseCount() {
+      title(g.name(seat) + "と手札を全公開", "交換する枚数を決める（最大" + max + "枚）");
+      grid("あなたの手札", g.hands[0], "mine");
+      grid(g.name(seat) + "の手札", g.hands[seat], "theirs");
+      var ctr = h("div", "countrow");
+      var num = h("div", "num", String(count));
+      ctr.appendChild(btn("−", "navy small", function () { if (count > 1) { count--; num.textContent = count; } }));
+      ctr.appendChild(num);
+      ctr.appendChild(btn("＋", "navy small", function () { if (count < max) { count++; num.textContent = count; } }));
+      box.appendChild(ctr);
+      box.appendChild(btn("この枚数で交換する", "red confirm", chooseCards));
+    }
+
+    function chooseCards() {
+      var demand = g.playerExchangeDemand(seat, count);
+      var demandMap = {};
+      demand.forEach(function (c) { demandMap[c.id] = true; });
+      var selected = {};
+      function render() {
+        title(g.name(seat) + "と" + count + "枚ずつ交換", "赤枠＝相手が要求するあなたの札。欲しい相手の札を" + count + "枚選ぶ");
+        grid("相手が要求するあなたの札", g.hands[0], "mine", null, null, demandMap);
+        grid(g.name(seat) + "から欲しい札", g.hands[seat], "theirs", function (id) {
+          if (selected[id]) delete selected[id];
+          else {
+            if (Object.keys(selected).length >= count) return;
+            selected[id] = true;
+          }
+          render();
+        }, selected);
+        var n = Object.keys(selected).length;
+        var ok = btn("交換を確定する（" + n + "/" + count + "）", "red confirm" + (n === count ? "" : " off"), function () {
+          if (Object.keys(selected).length !== count) return;
+          var takeIds = Object.keys(selected);
+          var giveIds = demand.map(function (c) { return c.id; });
+          if (g.finishPlayerExchange(seat, takeIds, giveIds)) {
+            closeRoot(ov);
+            self.render(g);
+            self.guide.textContent = self.placeGuide || "";
+          }
+        });
+        box.appendChild(ok);
+        box.appendChild(btn("枚数を選び直す", "navy back", chooseCount));
+      }
+      render();
+    }
+
+    chooseCount();
   };
 
   B.finishInput = function (v) {
@@ -1256,6 +1311,70 @@
           : "";
         return ui.waitInput("give",
           offered + g.name(placer) + "に渡す札を" + n + "枚選ぶ");
+      },
+      // 真歩流の名指し成功報酬。相手1人の手札を確認してから、自分の札を捨てる。
+      guessReward: function (g, n) {
+        return new Promise(function (resolve) {
+          var ov = h("div", "dbt-overlay dbt-exchange dbt-inspect");
+          var box = h("div", "box");
+          ov.appendChild(box);
+          ui.root.appendChild(ov);
+
+          function miniGrid(label, cards, onPick, selected) {
+            var sec = h("div", "handsec");
+            sec.appendChild(h("div", "label", label));
+            var gr = h("div", "cardgrid");
+            cards.forEach(function (c) {
+              var e = miniCardEl(c);
+              if (selected && selected[c.id]) e.classList.add("sel");
+              if (onPick) {
+                e.classList.add("pickable");
+                e.addEventListener("click", function () { onPick(c.id); });
+              }
+              gr.appendChild(e);
+            });
+            sec.appendChild(gr);
+            box.appendChild(sec);
+          }
+
+          function chooseTarget() {
+            box.innerHTML = "";
+            box.appendChild(h("div", "q", "名推理成功"));
+            box.appendChild(h("div", "sub", "手札を確認する相手を1人選ぶ"));
+            var row = h("div", "targets");
+            [1, 2].forEach(function (seat) {
+              row.appendChild(btn(g.name(seat) + "<small>手札を確認</small>", "navy", function () { inspect(seat); }));
+            });
+            box.appendChild(row);
+          }
+
+          function inspect(target) {
+            var selected = {};
+            function render() {
+              box.innerHTML = "";
+              box.appendChild(h("div", "q", g.name(target) + "の手札"));
+              box.appendChild(h("div", "sub", "確認したうえで、自分の手札から" + n + "枚を捨てる"));
+              miniGrid(g.name(target) + "の手札", g.hands[target]);
+              miniGrid("捨てる自分の札", g.hands[0], function (id) {
+                if (selected[id]) delete selected[id];
+                else {
+                  if (Object.keys(selected).length >= n) return;
+                  selected[id] = true;
+                }
+                render();
+              }, selected);
+              var cnt = Object.keys(selected).length;
+              box.appendChild(btn("この札を捨てる（" + cnt + "/" + n + "）", "red confirm" + (cnt === n ? "" : " off"), function () {
+                if (Object.keys(selected).length !== n) return;
+                closeRoot(ov);
+                resolve({ target: target, ids: Object.keys(selected) });
+              }));
+            }
+            render();
+          }
+
+          chooseTarget();
+        });
       },
       // スキル発動カットイン
       //   data/image/cutin/{キャラid}.png があれば一枚絵を全面に出す

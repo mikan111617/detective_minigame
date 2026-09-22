@@ -707,3 +707,35 @@
 .dbt-resign .d { margin: -14px 0 26px; font-size: 26px; color: #d8b26a; }
 .dbt-resign .targets { display: flex; justify-content: center; gap: 50px; }
 .dbt-resign .targets .dbt-btn { width: 320px; padding: 20px 0 16px; font-size: 40px; }
+
+
+/* ===== 真歩流：全公開交換／名指し成功 ===== */
+.dbt-exchange { background: rgba(6,10,20,.84); overflow: auto; padding: 34px 0; box-sizing: border-box; }
+.dbt-exchange .box {
+  width: 1560px; max-height: 980px; overflow: auto; box-sizing: border-box;
+  background: #16233f; box-shadow: 0 0 0 4px #e8b54a; padding: 28px 38px 34px; text-align: center;
+}
+.dbt-exchange .q { font-family: "Kiwi Maru", serif; font-size: 42px; letter-spacing: .1em; color: #f6efe0; }
+.dbt-exchange .sub { margin: 8px 0 20px; font-size: 24px; color: #ffdca8; }
+.dbt-exchange .handsec { margin: 18px 0 22px; padding: 14px 18px 18px; background: rgba(11,17,34,.68); box-shadow: inset 0 0 0 2px rgba(232,181,74,.3); }
+.dbt-exchange .handsec .label { margin-bottom: 12px; font-size: 24px; color: #e8b54a; letter-spacing: .12em; }
+.dbt-exchange .cardgrid { display: flex; flex-wrap: wrap; justify-content: center; gap: 10px; }
+.dbt-mini-card {
+  width: 72px; height: 100px; box-sizing: border-box; padding-top: 18px;
+  background: #f6efe0; color: #182033; border-radius: 7px; box-shadow: 0 0 0 2px #c08a1e, 2px 4px 8px rgba(0,0,0,.45);
+  font-family: "Bellefair", serif; font-size: 38px; line-height: 1; cursor: default; user-select: none;
+}
+.dbt-mini-card span { display: block; margin-top: 7px; font-size: 28px; }
+.dbt-mini-card.red { color: #b3262e; }
+.dbt-mini-card.pickable { cursor: pointer; }
+.dbt-mini-card.pickable:hover { transform: translateY(-5px); box-shadow: 0 0 0 3px #e8b54a, 0 8px 14px rgba(0,0,0,.5); }
+.dbt-mini-card.sel { box-shadow: 0 0 0 5px #d8352a, 0 0 0 8px #e8b54a; transform: translateY(-7px); }
+.dbt-mini-card.demand { box-shadow: 0 0 0 5px #d8352a, 0 0 18px rgba(216,53,42,.75); }
+.dbt-exchange .countrow { display: flex; align-items: center; justify-content: center; gap: 24px; margin: 18px 0; }
+.dbt-exchange .countrow .num { min-width: 110px; font-family: "Bellefair", serif; font-size: 72px; color: #e8b54a; }
+.dbt-exchange .countrow .small { min-width: 100px; padding: 10px 0; font-size: 42px; }
+.dbt-exchange .confirm { display: inline-block; min-width: 520px; margin-top: 12px; padding: 16px 28px; font-size: 34px; }
+.dbt-exchange .back { display: inline-block; margin: 14px 0 0 24px; padding: 12px 28px; font-size: 26px; }
+.dbt-exchange .targets { display: flex; justify-content: center; gap: 50px; margin-top: 28px; }
+.dbt-exchange .targets .dbt-btn { width: 360px; padding: 22px 0 18px; font-size: 38px; }
+.dbt-exchange .targets .dbt-btn small { font-size: 20px; margin-top: 7px; }
