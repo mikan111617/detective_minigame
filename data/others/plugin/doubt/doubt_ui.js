@@ -1245,10 +1245,14 @@
         }
         return ui.waitInput("window", head + why);
       },
-      pickGive: function (g, n, placer) {
+      pickGive: function (g, n, placer, offerRank) {
         ui.game = g;
         ui.need = n;
-        return ui.waitInput("give", g.name(placer) + "に渡す札を" + n + "枚選ぶ");
+        var offered = offerRank != null
+          ? "〈" + RANK[offerRank] + "〉" + n + "枚との交換　"
+          : "";
+        return ui.waitInput("give",
+          offered + g.name(placer) + "に渡す札を" + n + "枚選ぶ");
       },
       // スキル発動カットイン
       //   data/image/cutin/{キャラid}.png があれば一枚絵を全面に出す
