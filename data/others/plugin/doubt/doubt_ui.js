@@ -423,9 +423,17 @@
       // sub能力用のダミーデータはここには出さない。
       var charIds = [
         "mahoru", "airi", "kazuto", "mary", "reido", "juri",
-        "eruku", "jushika", "koderia", "mahoru_awake", "maicro",
-        "yuduki", "arther"
+        "eruku", "jushika", "koderia"
       ];
+
+      // ラスボスと隠しキャラは、実際にフリーゲームへ解放された後だけ紹介に追加する。
+      if (isCleared()) {
+        charIds.push("mahoru_awake", "maicro");
+      }
+      if (isHiddenCleared()) {
+        charIds.push("yuduki", "arther");
+      }
+
       var charPage = 0;
       var perPage = 6;
 
