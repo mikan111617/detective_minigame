@@ -155,9 +155,9 @@
         ability: "成立するはずのダウトを無効にする",
         uses: 2 },
       mahoru_awake: { name: "真歩流？", reading: "まほる？", color: "#7a3fd8", doubt: 0.3, tell: 0.3, bluff: 0.1,
-        doubtStyle: "supersense", // 超感覚型：通常情報だけでは読めない嘘まで感知する
-        ability: "……ものすごく強い。嘘を見抜き、伏せ札の数字を名指ししてくる。そのうえ、誰かの力を借りている",
-        uses: 2, catchRate: 0.55, guessRate: 0.7 },
+        doubtStyle: "supersense", // 超感覚型：力を封じられていない限り、嘘を必ず見抜く
+        ability: "……ものすごく強い。力を封じられていない限り嘘を必ず見抜き、伏せ札の数字を名指ししてくる。そのうえ、誰かの力を借りている",
+        uses: 2, catchRate: 1, guessRate: 0.7 },
       maicro: { name: "舞黒邦夢", reading: "まいくろほうむ", color: "#c08a1e", doubt: 0.25, tell: 0.15, bluff: 0.15,
         doubtStyle: "enjoy", // エンジョイ型：根拠が薄い時ほど遊びで踏み込み、枚数が多いほど疑いやすい
         ability: "館主のもてなし。場がかき乱される（ときどき味方の足を引っぱる）",
