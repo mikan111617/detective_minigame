@@ -77,7 +77,8 @@
 @playbgm storage="game_over.mp3"
 [doubt_gameover]
 @playbgm storage="title.mp3"
-[jump target="*arcade_ranking"]
+; ゲームオーバー時は残機ボーナスを付けず、その時点のスコアでランキングへ
+[jump target="*arcade_ranking_no_bonus"]
 
 *arcade_clear
 [call storage="doubt_story.ks" target="*clear"]
@@ -91,9 +92,12 @@
 [doubt_clear]
 [jump target="*arcade_ranking"]
 
-; 残機ボーナスを足してから、5位以内なら名前を入れて登録しタイトルへ
+; クリア時だけ残機ボーナスを足す
 *arcade_ranking
 [doubt_bonus]
+
+; ゲームオーバー時はここへ直接来るので、残機ボーナスは発生しない
+*arcade_ranking_no_bonus
 [doubt_ranking register="true"]
 [jump target="*title"]
 
