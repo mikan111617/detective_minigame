@@ -466,6 +466,63 @@
 [return]
 
 ;--------------------------------------------------
+; 隠し戦に勝利した時だけ入る会話
+*hidden_win
+[call target="*setup"]
+
+@stopbgm
+@playbgm storage="talk.mp3"
+
+@message_chara name="mahoru" num=0 face="normal"
+@charapos name="yuduki" num=1 face="normal"
+@charapos name="arther" num=2 face="normal"
+
+#yuduki
+……負けた。[p]
+
+#mahoru
+勝った……のよね？[p]
+
+#yuduki
+うん。完敗！[p]
+
+でも、すっごく楽しかった！[p]
+
+#arther
+ここまで勝ち残っただけはある。[p]
+
+最後まで、こちらの嘘を読むのをやめなかった。[p]
+
+#mahoru
+あなたたちも、とんでもなく強かったわよ。[p]
+
+#yuduki
+だから面白かったんじゃない。[p]
+
+次は絶対に負けないから。[p]
+
+#arther
+次があるらしい。[p]
+
+#yuduki
+もちろん！　一回勝ったくらいで終わりなんてつまらないでしょ？[p]
+
+#mahoru
+ふふ……望むところよ。[p]
+
+#arther
+では、その時まで。[p]
+
+#yuduki
+また遊ぼうね、真歩流！[p]
+
+@chara_hide_all
+@reset_message_chara
+
+[call target="*finish"]
+[return]
+
+;--------------------------------------------------
 ; 出現条件を満たさなかった時。誰かがいたことだけを残して終わる
 *no_hidden
 [call target="*setup"]
