@@ -1070,6 +1070,10 @@
     [1, 2].forEach(function (seat) {
       var b = btn(g.name(seat) + "<small>手札を互いに全公開</small>", "navy", async function () {
         closeRoot(ov);
+        // 交換で手札が動くので、伏せるために選んでいた札はいったん解除する。
+        self.selected = {};
+        self.renderHand(g);
+        self.setButtons();
         var max = await g.beginPlayerExchange(seat);
         if (max > 0) self.openExchange(seat, max);
       });
@@ -1150,6 +1154,7 @@
           var giveIds = demand.map(function (c) { return c.id; });
           if (g.finishPlayerExchange(seat, takeIds, giveIds)) {
             closeRoot(ov);
+            self.selected = {};
             self.render(g);
             self.guide.textContent = self.placeGuide || "";
           }
