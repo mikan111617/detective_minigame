@@ -62,12 +62,13 @@
     this.maxPlay = mp;
 
     /*
-     * 公開された札の記憶。ダウトで表になった札は卓の全員が見ているので、
-     * その後どこへ行ったかも追える。{ 札id: { w: 場所, r: 数字 } }
+     * CPUごとの記憶。seen[1] と seen[2] は完全に別。
+     * 公開された札は Normal/Hard なら二人とも覚えるが、
+     * 能力などで本人だけが知った札は、そのCPUの記憶だけに入る。
+     * { 札id: { w: 場所, r: 数字 } }
      *   w … 0〜2 = その席の手札／"pile" = 場の伏せ札／-1 = 場から外れた
-     * 難易度が「やさしい」の時は使わない。
      */
-    this.seen = {};
+    this.seen = [{}, {}, {}];
 
     // 二つ目の能力（sub / subUses）。真歩流？の借り物とは別枠で数える
     this.subId = this.ids.map(function (id) { return opt.data.chara[id].sub || null; });
@@ -126,27 +127,85 @@
   // 数字ごとの札の総数。英国の青年が混ぜた分だけ増える（既定は4枚）
   P.copiesOf = function (r) { return this.copies[r] || 4; };
 
-  // ---------------------------------------------------------------- 公開情報
+  // ---------------------------------------------------------------- CPUごとの記憶
 
+  P.memoryOf = function (observer) {
+    if (!this.seen[observer]) this.seen[observer] = {};
+    return this.seen[observer];
+  };
+
+  // 特定のCPUだけが知った札を、そのCPUの記憶へ入れる。
+  // これは難易度の「公開札を覚える/覚えない」とは別で、能力で自分が扱った札などに使う。
+  P.rememberFor = function (observer, cards, where) {
+    if (!(observer > 0 && observer < 3)) return;
+    var mem = this.memoryOf(observer);
+    cards.forEach(function (c) { mem[c.id] = { w: where, r: c.r }; });
+  };
+
+  // ダウトで表になった札など、卓全体に公開された情報。
+  // Easy は従来どおり公開札の履歴を使わない。
   P.markSeen = function (cards, where) {
     if (!this.level.memory) return;
-    var self = this;
-    cards.forEach(function (c) { self.seen[c.id] = { w: where, r: c.r }; });
+    this.rememberFor(1, cards, where);
+    this.rememberFor(2, cards, where);
   };
-  // 在処が分からなくなった札は忘れる（半端に覚えていると読み違える）
-  P.forgetSeen = function (cards) {
+
+  // 在処が分からなくなった札は忘れる。observer を省略すると両CPUから消す。
+  P.forgetSeen = function (cards, observer) {
+    var observers = observer != null ? [observer] : [1, 2];
     var self = this;
-    cards.forEach(function (c) { delete self.seen[c.id]; });
-  };
-  // 手札がまるごと入れ替わった時は、覚えていたこと全部が当てにならない
-  P.forgetAllSeen = function () { this.seen = {}; };
-  // 場の伏せ札が誰かの手に渡った（公開済みの札だけ追いかける）
-  P.moveSeenPile = function (cards, where) {
-    if (!this.level.memory) return;
-    var self = this;
-    cards.forEach(function (c) {
-      if (self.seen[c.id]) self.seen[c.id].w = where;
+    observers.forEach(function (obs) {
+      var mem = self.memoryOf(obs);
+      cards.forEach(function (c) { delete mem[c.id]; });
     });
+  };
+
+  P.forgetAllSeen = function (observer) {
+    if (observer != null) this.seen[observer] = {};
+    else {
+      this.seen[1] = {};
+      this.seen[2] = {};
+    }
+  };
+
+  // 場の札が誰かの手に渡った時、各CPUがすでに知っていた札だけ在処を更新する。
+  P.moveSeenPile = function (cards, where) {
+    var self = this;
+    [1, 2].forEach(function (obs) {
+      var mem = self.memoryOf(obs);
+      cards.forEach(function (c) {
+        if (mem[c.id]) mem[c.id].w = where;
+      });
+    });
+  };
+
+  // 「Aの手札がBへ」のように丸ごとの移動先が公開されている時、
+  // 各CPUがすでに覚えている札の所在だけ正しく付け替える。
+  P.remapSeenLocations = function (map) {
+    var self = this;
+    [1, 2].forEach(function (obs) {
+      var mem = self.memoryOf(obs);
+      for (var cid in mem) {
+        if (!mem.hasOwnProperty(cid)) continue;
+        var w = mem[cid].w;
+        if (Object.prototype.hasOwnProperty.call(map, w)) mem[cid].w = map[w];
+      }
+    });
+  };
+
+  // 札の中身を伏せたまま「誰から誰へ渡したか」が分かる処理。
+  // 渡したCPUと受け取ったCPUだけが札そのものを把握し、第三者はその札を追跡できない。
+  P.rememberHiddenTransfer = function (from, to, cards) {
+    for (var obs = 1; obs <= 2; obs++) {
+      if (obs === from || obs === to) this.rememberFor(obs, cards, to);
+      else this.forgetSeen(cards, obs);
+    }
+  };
+
+  // 能力で新規カードを配った時。使った本人と受取人だけが中身を覚える。
+  P.rememberDealtCards = function (actor, to, cards) {
+    if (actor > 0) this.rememberFor(actor, cards, to);
+    if (to > 0) this.rememberFor(to, cards, to);
   };
 
   /*
@@ -164,9 +223,10 @@
      */
     var inHands = this.hands[0].length + this.hands[1].length + this.hands[2].length + k;
     var hidden = inHands - this.hands[seat].length;   // 自分の手札は見えている
-    for (var cid in this.seen) {
-      if (!this.seen.hasOwnProperty(cid)) continue;
-      var w = this.seen[cid].w;
+    var memory = this.memoryOf(seat);
+    for (var cid in memory) {
+      if (!memory.hasOwnProperty(cid)) continue;
+      var w = memory[cid].w;
       if (typeof w !== "number") continue;   // 場にある札は手札の母数ではない
       if (w === seat) continue;              // 自分の手札はもう引いてある
       hidden--;
@@ -466,7 +526,8 @@
       var give = this.pickRandom(this.hands[doubter], 3);
       this.removeFromHand(doubter, give);
       this.addToHand(placer, give);
-      this.forgetSeen(give);   // どの札を渡したかは公開されない
+      // 渡した本人と受取人だけは、どの札が移動したかを覚えている
+      this.rememberHiddenTransfer(doubter, placer, give);
       this.io.log(this, this.name(doubter) + "が手札3枚を" + this.name(placer) + "に渡した");
       this.io.update(this);
       reidoForce = true;
@@ -595,7 +656,8 @@
       }
       this.removeFromHand(doubter, gv);
       this.addToHand(placer, gv);
-      this.forgetSeen(gv);     // どの札を渡したかは公開されない
+      // 名指し成功で渡した札も、当事者だけは移動先まで覚える
+      this.rememberHiddenTransfer(doubter, placer, gv);
       this.sortHand(placer);
       this.io.log(this, this.name(doubter) + "が" + gv.length + "枚を" + this.name(placer) + "に渡した");
       this.io.update(this);
@@ -624,9 +686,10 @@
     this.removeFromHand(target, theirs);
     this.addToHand(0, theirs);
     this.addToHand(target, mine);
-    // 伏せたまま入れ替わるので、覚えていた在処は当てにならない
-    this.forgetSeen(mine);
-    this.forgetSeen(theirs);
+    // 交換相手のCPUは、自分が渡した札と受け取った札の両方を把握する。
+    // もう一人のCPUには中身が見えない。
+    this.rememberHiddenTransfer(0, target, mine);
+    this.rememberHiddenTransfer(target, 0, theirs);
     this.sortHand(target);
     this.io.log(this, "あなたが" + n + "枚を" + this.name(target) + "と交換した");
     this.io.update(this);
@@ -746,22 +809,22 @@
     cards.forEach(function (c) { playedNow[c.id] = true; });
 
     /*
-     * 公開された札の記憶。出し手以外の場所にある同じ数字を数えて known に足す。
-     * 自分の手札・今伏せられた札は二重に数えない。
+     * このCPU自身が覚えている札だけを使う。
+     * Normal/Hard は公開札も覚える。Easy でも、能力で自分が直接渡した札など
+     * 「本人だけが知っている情報」はここに残る。
      */
-    if (this.level.memory) {
-      var pub = 0;
-      for (var pid in this.seen) {
-        if (!this.seen.hasOwnProperty(pid)) continue;
-        var sc = this.seen[pid];
-        if (sc.r !== r) continue;
-        if (sc.w === target) continue;    // 出し手の手にあるなら数えない
-        if (mineIds[pid]) continue;
-        if (playedNow[pid]) continue;
-        pub++;
-      }
-      known = Math.max(known, this.hands[seat].filter(function (c) { return c.r === r; }).length + pub);
+    var memory = this.memoryOf(seat);
+    var pub = 0;
+    for (var pid in memory) {
+      if (!memory.hasOwnProperty(pid)) continue;
+      var sc = memory[pid];
+      if (sc.r !== r) continue;
+      if (sc.w === target) continue;    // 出し手の手にあるなら数えない
+      if (mineIds[pid]) continue;
+      if (playedNow[pid]) continue;
+      pub++;
     }
+    known = Math.max(known, this.hands[seat].filter(function (c) { return c.r === r; }).length + pub);
 
     // メアリー：配り終えた時点の他人の手札を覚えている。
     // 「出し手以外が持っていたはず」の同じ数字を数えて、嘘を見抜く材料にする。
@@ -772,7 +835,7 @@
       var mine = mineIds;
       for (var cid in this.maryMemo) {
         if (!this.maryMemo.hasOwnProperty(cid)) continue;
-        if (this.seen[cid]) continue;                   // 動いたのを見ている札は、公開情報の方を使う
+        if (memory[cid]) continue;                      // 動いたのを本人が把握している札は、そちらを使う
         if (this.maryMemo[cid] === target) continue;   // 出し手の手にあったはずの札は数えない
         if (mine[cid]) continue;                        // 自分の手札は known 側で数えている
         if (parseInt(cid.split("_")[1], 10) === r) memo++;
@@ -1008,7 +1071,15 @@
         this.addToHand(seat, theirs);
         this.addToHand(0, mine);
         this.sortHand(seat);
-        this.forgetAllSeen();
+        // 「叡留久とプレイヤーが丸ごと交換した」こと自体は全員に分かるので、
+        // 各CPUが覚えていた札の場所を0⇔seatで付け替える。
+        var erukuMap = {};
+        erukuMap[0] = seat;
+        erukuMap[seat] = 0;
+        this.remapSeenLocations(erukuMap);
+        // 叡留久本人は、自分が渡した旧手札と、受け取った新手札を正確に覚える。
+        this.rememberFor(seat, mine, 0);
+        this.rememberFor(seat, theirs, seat);
         this.io.log(this, "叡留久が手札を丸ごと入れ替えた");
         this.io.update(this);
       }
@@ -1134,11 +1205,30 @@
     this.addToHand(0, give);
     this.addToHand(seat, back);
     this.sortHand(seat);
-    // 差し出した札は公開されるが、受け取った札は見えない
+    // 差し出した札は公開。返された札の中身は英国の青年本人だけが把握する。
     this.markSeen(give, 0);
-    this.forgetSeen(back);
+    this.rememberFor(seat, give, 0);
+    this.rememberHiddenTransfer(0, seat, back);
     this.io.log(this, this.name(seat) + "との取引：〈" + RANK[give[0].r] + "〉" + n + "枚と" + back.length + "枚を交換");
     this.io.update(this);
+  };
+
+  // 追加カードは「1種類につき1枚」だけ。同じ数字を複数枚追加しない。
+  // 既に追加済みの数字も候補から外すので、通常4枚→最大5枚まで。
+  P.makeUniqueExtraCards = function (prefix, count) {
+    var ranks = [];
+    for (var r = 1; r <= 13; r++) {
+      if (this.copiesOf(r) === 4) ranks.push(r);
+    }
+    this.shuffle(ranks);
+    if (ranks.length < count) throw new Error("not enough unique ranks for extra cards");
+    var cards = [];
+    for (var i = 0; i < count; i++) {
+      var rank = ranks[i];
+      var suit = Math.floor(this.rng() * 4);
+      cards.push({ id: prefix + suit + "_" + rank, r: rank, s: suit });
+    }
+    return cards;
   };
 
   /*
@@ -1146,17 +1236,13 @@
    * 英国の青年とは別の一組なので、札のidの頭文字を分けてある。
    */
   P.inviteDeck = async function (seat, others) {
-    var extra = [];
-    for (var su = 0; su < 4; su++) {
-      for (var r = 1; r <= 13; r++) extra.push({ id: "e" + su + "_" + r, r: r, s: su });
-    }
-    this.shuffle(extra);
     var each = this.data.rules.extraDealEach || 3;
-    var take = extra.slice(0, each * 2);
+    var take = this.makeUniqueExtraCards("e", each * 2);
     for (var i = 0; i < take.length; i++) {
       var to = others[i < each ? 0 : 1];
       this.copies[take[i].r] = this.copiesOf(take[i].r) + 1;
       this.addToHand(to, [take[i]]);
+      this.rememberDealtCards(seat, to, [take[i]]);
     }
     for (var k = 0; k < 3; k++) this.sortHand(k);
     this.addedCards += take.length;
@@ -1168,21 +1254,17 @@
 
   /*
    * もう一組の札から、自分以外の二人へ3枚ずつ新しい札を配る（英国の青年）。
-   * 同じ札が二枚まで増えるので、同じ数字は最大8枚になる。
+   * 追加される6枚はすべて別の数字で、1種類につき1枚だけ増える。
    */
   P.mixDeck = async function (seat) {
-    var extra = [];
-    for (var su = 0; su < 4; su++) {
-      for (var r = 1; r <= 13; r++) extra.push({ id: "d" + su + "_" + r, r: r, s: su });
-    }
-    this.shuffle(extra);
     var each = this.data.rules.extraDealEach || 3;
-    var take = extra.slice(0, each * 2);
+    var take = this.makeUniqueExtraCards("d", each * 2);
     var others = [0, 1, 2].filter(function (t) { return t !== seat; });
     for (var i = 0; i < take.length; i++) {
       var to = others[i < each ? 0 : 1];
       this.copies[take[i].r] = this.copiesOf(take[i].r) + 1;
       this.addToHand(to, [take[i]]);
+      this.rememberDealtCards(seat, to, [take[i]]);
     }
     for (var k = 0; k < 3; k++) this.sortHand(k);
     this.addedCards += take.length;
@@ -1215,6 +1297,9 @@
       this.sealed = 3;
       this.io.log(this, "邦夢のもてなし：真歩流？の力が一巡封じられた");
     } else if (roll === 2) {
+      // ランダム交換なので他人の札の追跡は崩れる。一度各CPUの記憶をリセットし、
+      // そのCPU自身が実際に出した札／受け取った札だけを覚え直す。
+      var personalMix = [null, null, null];
       for (var s = 0; s < 3; s++) {
         var n = Math.min(this.hands[s].length, this.pile.length);
         if (n === 0) continue;
@@ -1224,22 +1309,38 @@
         this.removeFromHand(s, out);
         this.addToHand(s, fromPile);
         Array.prototype.push.apply(this.pile, out);
+        if (s > 0) personalMix[s] = { incoming: fromPile.slice(), outgoing: out.slice() };
       }
       this.forgetAllSeen();
+      for (var mixSeat = 1; mixSeat <= 2; mixSeat++) {
+        if (!personalMix[mixSeat]) continue;
+        this.rememberFor(mixSeat, personalMix[mixSeat].incoming, mixSeat);
+        this.rememberFor(mixSeat, personalMix[mixSeat].outgoing, "pile");
+      }
       this.io.log(this, "邦夢のもてなし：手札と場の札が入れ替わった");
     } else if (roll === 3) {
       // 手札を丸ごと、別の誰かの手札と入れ替える（全員が別の手札になる）。1戦に一度だけ
       this.handSwapUsed = true;
+      // perm[元の席] = 新しい行き先。誰の手札が誰へ行ったかは全員が把握できる。
       var perm = this.rng() < 0.5 ? [1, 2, 0] : [2, 0, 1];
-      var old = this.hands.slice();
+      var old = this.hands.map(function (h) { return h.slice(); });
       this.hands = [[], [], []];
       for (var u = 0; u < 3; u++) this.addToHand(perm[u], old[u]);
-      this.forgetAllSeen();
+
+      var handMap = { 0: perm[0], 1: perm[1], 2: perm[2] };
+      this.remapSeenLocations(handMap);
+
+      // 各CPUは、自分の旧手札が誰へ渡ったかと、自分が新しく受け取った手札を把握する。
+      for (var obs = 1; obs <= 2; obs++) {
+        this.rememberFor(obs, old[obs], perm[obs]);
+        this.rememberFor(obs, this.hands[obs], obs);
+      }
       this.io.log(this, "邦夢のもてなし：全員の手札が入れ替わった");
     } else {
       this.jokerStock--;
       var joker = { id: "jk" + this.jokerStock, r: 0, s: 4 };
       this.addToHand(target, [joker]);
+      this.rememberDealtCards(seat, target, [joker]);
       this.io.log(this, "邦夢のもてなし：ジョーカーが" + this.name(target) + "の手札に");
       if (target === 0) await this.io.notice(this, "ジョーカー", "どの数字でもない札。出す時は必ず嘘になる");
     }
