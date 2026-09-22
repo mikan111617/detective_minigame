@@ -88,6 +88,7 @@
 
 /* ===== 遊び方 ===== */
 .dbt-help .shade { background: linear-gradient(180deg, rgba(11,17,34,.94) 0%, rgba(11,17,34,.78) 48%, rgba(11,17,34,.95) 100%); }
+.dbt-help .helpbody { position: absolute; inset: 0; }
 .dbt-help .hd {
   position: absolute; left: 0; right: 0; top: 38px; text-align: center;
   font-family: "Kiwi Maru", serif; font-size: 74px; letter-spacing: .28em;
@@ -97,6 +98,24 @@
   position: absolute; left: 0; right: 0; top: 138px; text-align: center;
   font-size: 27px; letter-spacing: .12em; color: #f6efe0;
 }
+.dbt-help .back {
+  position: absolute; left: 0; right: 0; margin: 0 auto; bottom: 34px;
+  width: 360px; padding: 14px 0 11px; font-size: 34px;
+}
+
+/* 遊び方の入口 */
+.dbt-help .helpchoices {
+  position: absolute; left: 0; right: 0; top: 350px;
+  display: flex; justify-content: center; gap: 70px;
+}
+.dbt-help .helpchoices .dbt-btn {
+  width: 560px; padding: 42px 18px 34px; font-size: 48px;
+}
+.dbt-help .helpchoices .dbt-btn small {
+  margin-top: 14px; font-size: 21px; letter-spacing: .08em;
+}
+
+/* ルール */
 .dbt-help .rules {
   position: absolute; left: 180px; right: 180px; top: 205px;
   display: grid; grid-template-columns: 1fr 1fr; gap: 20px 24px;
@@ -138,10 +157,57 @@
 }
 .dbt-help .skillnote .sd { font-size: 20px; line-height: 1.45; }
 .dbt-help .skillnote b { color: #f5a3b8; font-weight: 500; }
-.dbt-help .back {
-  position: absolute; left: 0; right: 0; margin: 0 auto; bottom: 34px;
-  width: 360px; padding: 14px 0 11px; font-size: 34px;
+
+/* キャラクター紹介 */
+.dbt-help .charpage .hd { top: 28px; font-size: 62px; }
+.dbt-help .pagecount {
+  position: absolute; right: 145px; top: 92px; font-family: "Bellefair", serif;
+  font-size: 30px; color: #d8b26a; letter-spacing: .12em;
 }
+.dbt-help .chargrid {
+  position: absolute; left: 120px; right: 120px; top: 135px;
+  display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px 22px;
+}
+.dbt-help .charcard {
+  position: relative; height: 350px; padding: 18px;
+  display: flex; gap: 18px; overflow: hidden;
+  background: rgba(11,17,34,.86); box-shadow: 0 0 0 2px rgba(232,181,74,.62);
+}
+.dbt-help .charcard .dbt-portrait {
+  flex: none; width: 145px; height: 190px; margin-top: 2px;
+  box-shadow: 0 0 0 2px rgba(232,181,74,.72);
+}
+.dbt-help .charcard .dbt-portrait .ph { font-size: 16px; bottom: 8px; }
+.dbt-help .charinfo { min-width: 0; flex: 1; }
+.dbt-help .charname {
+  min-height: 48px; display: flex; align-items: baseline; flex-wrap: wrap; gap: 5px;
+}
+.dbt-help .charname .name {
+  font-family: "Kiwi Maru", serif; font-size: 29px; letter-spacing: .05em;
+}
+.dbt-help .charname .reading { font-size: 17px; color: #d8b26a; letter-spacing: .04em; }
+.dbt-help .abiltitle {
+  margin-top: 3px; padding-bottom: 5px; border-bottom: 1px solid rgba(232,181,74,.4);
+  font-size: 15px; letter-spacing: .22em; color: #e8b54a;
+}
+.dbt-help .charabil { margin-top: 8px; font-size: 17px; line-height: 1.42; color: #f6efe0; }
+.dbt-help .charabil .uses {
+  display: inline-block; margin-right: 7px; padding: 1px 5px;
+  font-size: 13px; color: #0b1122; background: #e8b54a; white-space: nowrap;
+}
+.dbt-help .charabil .abilsub {
+  margin-top: 9px; padding-top: 8px; border-top: 1px solid rgba(232,181,74,.24);
+  font-size: 15px; line-height: 1.38; color: #e7ddca;
+}
+.dbt-help .charabil .abilsub b {
+  display: block; margin-bottom: 4px; color: #f5a3b8; font-weight: 500;
+}
+.dbt-help .charnav {
+  position: absolute; left: 0; right: 0; bottom: 30px;
+  display: flex; justify-content: center; gap: 34px;
+}
+.dbt-help .charnav .dbt-btn { width: 250px; padding: 12px 0 10px; font-size: 30px; }
+.dbt-help .charnav .purple { width: 320px; }
 
 /* ===== 相手選択 ===== */
 .dbt-select .shade { background: linear-gradient(90deg, rgba(40,10,6,.55) 0%, rgba(11,17,34,.25) 50%, rgba(11,17,34,.7) 100%); }
@@ -583,7 +649,7 @@
 .dbt-unlock .ports { position: absolute; left: 0; right: 0; top: 250px; display: flex; justify-content: center; gap: 60px; }
 .dbt-unlock .ports .dbt-portrait { width: 300px; height: 380px; box-shadow: 0 0 0 3px #e8b54a; }
 .dbt-unlock .t { position: absolute; left: 0; right: 0; top: 680px; text-align: center; font-family: "Kiwi Maru", serif; font-size: 62px; letter-spacing: .12em; }
-.dbt-unlock .s { position: absolute; left: 0; right: 0; top: 780px; text-align: center; font-size: 32px; letter-spacing: .2em; color: #d8b26a; }
+.dbt-unlock .s { position: absolute; left: 120px; right: 120px; top: 780px; text-align: center; font-size: 32px; letter-spacing: .12em; line-height: 1.45; color: #d8b26a; }
 .dbt-unlock .back { position: absolute; left: 0; right: 0; margin: 0 auto; bottom: 100px; width: 400px; padding: 20px 0 16px; font-size: 42px; }
 
 /* 二つ目の能力。一段目と同じ枠で続ける（見た目が変わると別物に見えるため） */

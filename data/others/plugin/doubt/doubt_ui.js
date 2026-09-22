@@ -12,7 +12,7 @@
  * [doubt_highlow]          余興のハイアンドロー（挑むかどうかは任意）
  * [doubt_bonus]            残機ボーナスを通算に足す
  * [doubt_settings]         設定画面（難易度・ラウンド数・出札上限）
- * [doubt_help]             遊び方
+ * [doubt_help]             遊び方（ルール／キャラクター紹介）
  * [doubt_debug]            デバッグ：好きな卓から始める → f.doubt_debug_go ほか
  * [doubt_skip show="true"]  物語を飛ばすボタンの出し入れ（doubt_story.ks の *setup / *finish）
  * [doubt_continue]         コンティニュー    → f.doubt_continue = true / false
@@ -416,56 +416,158 @@
       var root = openRoot("dbt-help");
       bg(root, D.img.bgTitle);
       root.appendChild(h("div", "dbt-shade shade"));
-      root.appendChild(h("div", "hd", "遊び方"));
-      root.appendChild(h("div", "lead",
-        "嘘を混ぜて札を減らし、相手の嘘を見抜くカードゲームです。"));
+      var body = h("div", "helpbody");
+      root.appendChild(body);
 
-      var rules = h("div", "rules");
+      // 紹介画面に並べる「実際に卓へ出るキャラクター」だけ。
+      // sub能力用のダミーデータはここには出さない。
+      var charIds = [
+        "mahoru", "airi", "kazuto", "mary", "reido", "juri",
+        "eruku", "jushika", "koderia", "mahoru_awake", "maicro",
+        "yuduki", "arther"
+      ];
+      var charPage = 0;
+      var perPage = 6;
 
-      function rule(no, title, desc) {
-        var box = h("div", "rule");
-        box.appendChild(h("div", "no", no));
-        box.appendChild(h("div", "rt", title));
-        box.appendChild(h("div", "rd", desc));
-        rules.appendChild(box);
-      }
+      function clearBody() { body.innerHTML = ""; }
 
-      rule("1", "札を伏せる",
-        "中央に表示された数字として、手札から札を伏せます。<br>" +
-        "違う数字の札を混ぜて、<b>嘘をついても構いません。</b><br>" +
-        "一度に出せる枚数は設定で1〜4枚に変更できます。");
-
-      rule("2", "嘘だと思ったらダウト",
-        "相手の宣言が怪しいと思ったら、<b>「ダウトを宣言する」</b>。<br>" +
-        "自信がなければ見送ることもできます。");
-
-      rule("3", "ダウトの結果",
-        "<b>嘘だった場合：</b>札を伏せた側が、場の札をすべて引き取ります。<br>" +
-        "<b>本当だった場合：</b>ダウトした側が、場の札をすべて引き取ります。");
-
-      rule("4", "先に手札をなくせば勝ち",
-        "最初に自分の手札を0枚にした人が勝利です。<br>" +
-        "嘘を通すか、相手の嘘を見抜くか。読み合いが勝負を分けます。");
-
-      root.appendChild(rules);
-
-      var tip = h("div", "tip");
-      tip.appendChild(h("div", "tk", "読み合いのヒント"));
-      tip.appendChild(h("div", "td",
-        "同じ数字の札は通常4枚です。自分が持っている枚数や、ダウトで公開された札を手掛かりにすると、" +
-        "相手の宣言が成立するかを推理できます。<small>※特殊能力によって札の枚数や情報が変化することがあります。</small>"));
-      root.appendChild(tip);
-
-      var skill = h("div", "skillnote");
-      skill.appendChild(h("div", "sk", "特殊能力"));
-      skill.appendChild(h("div", "sd",
-        "登場人物はそれぞれ固有の能力を持っています。対戦中の<b>「スキル」</b>からいつでも確認できます。"));
-      root.appendChild(skill);
-
-      root.appendChild(btn("タイトルへ戻る", "navy back", function () {
+      function finish() {
         closeRoot(root);
         resolve();
-      }));
+      }
+
+      function readingHTML(ch) {
+        return ch.reading ? '<span class="reading">（' + ch.reading + '）</span>' : "";
+      }
+
+      function useText(ch) {
+        return ch.uses > 0 ? "1ゲーム" + ch.uses + "回" : "常時";
+      }
+
+      function abilityHTML(id) {
+        var ch = D.chara[id];
+        var html = '<div class="abilmain"><span class="uses">' + useText(ch) + '</span>' + ch.ability + "</div>";
+        if (ch.sub && D.chara[ch.sub]) {
+          var sub = D.chara[ch.sub];
+          html += '<div class="abilsub"><b>' + sub.name + '</b> <span class="uses">1ゲーム' +
+            ch.subUses + "回</span>" + sub.ability + "</div>";
+        }
+        return html;
+      }
+
+      function renderMenu() {
+        clearBody();
+        body.className = "helpbody menu";
+        body.appendChild(h("div", "hd", "遊び方"));
+        body.appendChild(h("div", "lead", "見たい項目を選んでください。"));
+
+        var choices = h("div", "helpchoices");
+        choices.appendChild(btn("ルール<small>ダウトの基本的な遊び方</small>", "purple", renderRules));
+        choices.appendChild(btn("キャラクター紹介<small>名前の読み・特殊能力</small>", "navy", function () {
+          charPage = 0;
+          renderCharacters();
+        }));
+        body.appendChild(choices);
+
+        body.appendChild(btn("タイトルへ戻る", "navy back", finish));
+      }
+
+      function renderRules() {
+        clearBody();
+        body.className = "helpbody rulespage";
+        body.appendChild(h("div", "hd", "ルール"));
+        body.appendChild(h("div", "lead",
+          "嘘を混ぜて札を減らし、相手の嘘を見抜くカードゲームです。"));
+
+        var rules = h("div", "rules");
+
+        function rule(no, title, desc) {
+          var box = h("div", "rule");
+          box.appendChild(h("div", "no", no));
+          box.appendChild(h("div", "rt", title));
+          box.appendChild(h("div", "rd", desc));
+          rules.appendChild(box);
+        }
+
+        rule("1", "札を伏せる",
+          "中央に表示された数字として、手札から札を伏せます。<br>" +
+          "違う数字の札を混ぜて、<b>嘘をついても構いません。</b><br>" +
+          "一度に出せる枚数は設定で1〜4枚に変更できます。");
+
+        rule("2", "嘘だと思ったらダウト",
+          "相手の宣言が怪しいと思ったら、<b>「ダウトを宣言する」</b>。<br>" +
+          "自信がなければ見送ることもできます。");
+
+        rule("3", "ダウトの結果",
+          "<b>嘘だった場合：</b>札を伏せた側が、場の札をすべて引き取ります。<br>" +
+          "<b>本当だった場合：</b>ダウトした側が、場の札をすべて引き取ります。");
+
+        rule("4", "先に手札をなくせば勝ち",
+          "最初に自分の手札を0枚にした人が勝利です。<br>" +
+          "嘘を通すか、相手の嘘を見抜くか。読み合いが勝負を分けます。");
+
+        body.appendChild(rules);
+
+        var tip = h("div", "tip");
+        tip.appendChild(h("div", "tk", "読み合いのヒント"));
+        tip.appendChild(h("div", "td",
+          "同じ数字の札は通常4枚です。自分が持っている枚数や、ダウトで公開された札を手掛かりにすると、" +
+          "相手の宣言が成立するかを推理できます。<small>※特殊能力によって札の枚数や情報が変化することがあります。</small>"));
+        body.appendChild(tip);
+
+        var skill = h("div", "skillnote");
+        skill.appendChild(h("div", "sk", "特殊能力"));
+        skill.appendChild(h("div", "sd",
+          "登場人物はそれぞれ固有の能力を持っています。<b>キャラクター紹介</b>や、対戦中の<b>「スキル」</b>から確認できます。"));
+        body.appendChild(skill);
+
+        body.appendChild(btn("もどる", "navy back", renderMenu));
+      }
+
+      function renderCharacters() {
+        clearBody();
+        body.className = "helpbody charpage";
+        body.appendChild(h("div", "hd", "キャラクター紹介"));
+
+        var maxPage = Math.ceil(charIds.length / perPage);
+        var start = charPage * perPage;
+        var ids = charIds.slice(start, start + perPage);
+        body.appendChild(h("div", "pagecount", (charPage + 1) + " / " + maxPage));
+
+        var grid = h("div", "chargrid");
+        ids.forEach(function (id) {
+          var ch = D.chara[id];
+          var card = h("div", "charcard");
+          card.appendChild(portrait(id, "charmini"));
+
+          var info = h("div", "charinfo");
+          info.appendChild(h("div", "charname",
+            '<span class="name" style="color:' + ch.color + '">' + ch.name + "</span>" + readingHTML(ch)));
+          info.appendChild(h("div", "abiltitle", "特殊能力"));
+          info.appendChild(h("div", "charabil", abilityHTML(id)));
+          card.appendChild(info);
+          grid.appendChild(card);
+        });
+        body.appendChild(grid);
+
+        var nav = h("div", "charnav");
+        var prev = btn("前へ", "navy", function () {
+          if (charPage > 0) { charPage--; renderCharacters(); }
+        });
+        if (charPage <= 0) prev.classList.add("off");
+        nav.appendChild(prev);
+
+        nav.appendChild(btn("もどる", "purple", renderMenu));
+
+        var next = btn("次へ", "navy", function () {
+          if (charPage < maxPage - 1) { charPage++; renderCharacters(); }
+        });
+        if (charPage >= maxPage - 1) next.classList.add("off");
+        nav.appendChild(next);
+        body.appendChild(nav);
+      }
+
+      renderMenu();
     });
   });
 
@@ -1450,8 +1552,30 @@
     });
   });
 
-  // ---------------------------------------------------------------- 隠しの二人の解放
+  // ---------------------------------------------------------------- フリーゲームへのキャラクター解放
 
+  function showFreeUnlock(ids) {
+    return new Promise(function (resolve) {
+      var root = openRoot("dbt-unlock");
+      root.appendChild(h("div", "hd", "解放"));
+
+      var ports = h("div", "ports");
+      ids.forEach(function (id) { ports.appendChild(portrait(id)); });
+      root.appendChild(ports);
+
+      var names = ids.map(function (id) { return D.chara[id].name; });
+      root.appendChild(h("div", "t", names.join(" と ")));
+      root.appendChild(h("div", "s",
+        names.join(" と ") + " がフリーゲームに解放されました"));
+
+      root.appendChild(btn("つぎへ", "navy back", function () {
+        closeRoot(root);
+        resolve();
+      }));
+    });
+  }
+
+  // 隠しの二人を倒した時だけ、一度だけ解放通知を出す
   defineTag("doubt_unlock_hidden", {}, function () {
     var already = isHiddenCleared();
     try {
@@ -1461,21 +1585,7 @@
     if (already) return;
 
     var pr = D.pairs[D.pairs.length - 1];
-    return new Promise(function (resolve) {
-      var root = openRoot("dbt-unlock");
-      root.appendChild(h("div", "hd", "解放"));
-      var ports = h("div", "ports");
-      ports.appendChild(portrait(pr.a));
-      ports.appendChild(portrait(pr.b));
-      root.appendChild(ports);
-      root.appendChild(h("div", "t",
-        D.chara[pr.a].name + " と " + D.chara[pr.b].name));
-      root.appendChild(h("div", "s", "シンプルプレイで、この二人と戦えるようになった"));
-      root.appendChild(btn("つぎへ", "navy back", function () {
-        closeRoot(root);
-        resolve();
-      }));
-    });
+    return showFreeUnlock([pr.a, pr.b]);
   });
 
   // ---------------------------------------------------------------- 余興（ハイアンドロー）
@@ -1932,14 +2042,17 @@
 
   // ---------------------------------------------------------------- 全戦突破
 
-  defineTag("doubt_clear", {}, function () {
+  defineTag("doubt_clear", {}, async function () {
     var fv = f();
-    // シンプルプレイで最終戦を選べるようにする
+    var already = isCleared();
+
+    // フリーゲームで最終戦の二人を選べるようにする
     try {
       TYRANO.kag.variable.sf.doubt_cleared = 1;
       TYRANO.kag.saveSystemVariable();
     } catch (e) { console.error("[doubt] 突破フラグの保存に失敗しました", e); }
-    return new Promise(function (resolve) {
+
+    await new Promise(function (resolve) {
       var root = openRoot("dbt-clear");
       root.appendChild(h("div", "t", "全戦突破"));
       root.appendChild(h("div", "s", "通算スコア"));
@@ -1949,5 +2062,10 @@
         resolve();
       }));
     });
+
+    // 既に解放済みなら、同じ通知を繰り返さない
+    if (!already && D.pairs[4]) {
+      await showFreeUnlock([D.pairs[4].a, D.pairs[4].b]);
+    }
   });
 })();
