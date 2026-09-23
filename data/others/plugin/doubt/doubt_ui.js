@@ -369,27 +369,38 @@
   // title.ks から呼ぶ。画面を出したらすぐ制御を返し、title.ks 側の [s] で待つ。
   // ボタンを押すと title.ks のラベルへ [jump] する（system/title_ui.ks と同じ作り）。
   defineTag("doubt_title", {}, function () {
-    var root = openRoot("dbt-title");
+    var demo = !!D.rules.demoMode;
+    var root = openRoot("dbt-title" + (demo ? " demo" : ""));
     bg(root, D.img.bgTitle);
     root.appendChild(h("div", "dbt-shade shade"));
     root.appendChild(h("div", "head",
       '<div class="kicker">―― 相手の目を誤魔化す嘘つきの祭典 ――</div>' +
       "<h1>舞黒館の<em>惨劇</em></h1>" +
-      '<div class="sub">「探偵少女はダウトで勝ちの目を見るか」</div>'));
+      '<div class="sub">「探偵少女はダウトで勝ちの目を見るか」</div>' +
+      (demo ? '<div class="demo-label">体験版</div>' : "")));
     var modes = h("div", "modes");
     function go(mode, target) {
       f().doubt_mode = mode;
+      f().doubt_demo = demo;
+      f().doubt_demo_last = D.rules.demoLastStage || 0;
       closeRoot(root);
       TYRANO.kag.ftag.startTag("jump", { storage: "title.ks", target: target });
     }
-    modes.appendChild(btn("アーケードプレイ<small>全5戦</small>", "purple", function () { go("arcade", "*arcade_start"); }));
-    modes.appendChild(btn("シンプルプレイ<small>フリー対戦</small>", "navy", function () { go("simple", "*simple_start"); }));
+    modes.appendChild(btn(
+      demo ? "アーケードプレイ<small>体験版・第一戦まで</small>" : "アーケードプレイ<small>全5戦</small>",
+      "purple", function () { go("arcade", "*arcade_start"); }
+    ));
+    if (!demo) {
+      modes.appendChild(btn("シンプルプレイ<small>フリー対戦</small>", "navy", function () { go("simple", "*simple_start"); }));
+    }
     root.appendChild(modes);
     var extra = h("div", "extra");
-    extra.appendChild(btn("ランキング", "navy", function () {
-      closeRoot(root);
-      TYRANO.kag.ftag.startTag("jump", { storage: "title.ks", target: "*ranking" });
-    }));
+    if (!demo) {
+      extra.appendChild(btn("ランキング", "navy", function () {
+        closeRoot(root);
+        TYRANO.kag.ftag.startTag("jump", { storage: "title.ks", target: "*ranking" });
+      }));
+    }
     extra.appendChild(btn("設定", "navy", function () {
       closeRoot(root);
       TYRANO.kag.ftag.startTag("jump", { storage: "title.ks", target: "*settings" });
@@ -421,16 +432,15 @@
 
       // 紹介画面に並べる「実際に卓へ出るキャラクター」だけ。
       // sub能力用のダミーデータはここには出さない。
-      var charIds = [
-        "mahoru", "airi", "kazuto", "mary", "reido", "juri",
-        "eruku", "jushika", "koderia"
-      ];
+      var charIds = D.rules.demoMode
+        ? ["mahoru", "airi", "kazuto"]
+        : ["mahoru", "airi", "kazuto", "mary", "reido", "juri", "eruku", "jushika", "koderia"];
 
-      // ラスボスと隠しキャラは、実際にフリーゲームへ解放された後だけ紹介に追加する。
-      if (isCleared()) {
+      // 体験版では先の対戦相手を伏せる。製品版だけ解放済みキャラを追加する。
+      if (!D.rules.demoMode && isCleared()) {
         charIds.push("mahoru_awake", "maicro");
       }
-      if (isHiddenCleared()) {
+      if (!D.rules.demoMode && isHiddenCleared()) {
         charIds.push("yuduki", "arther");
       }
 
@@ -2187,6 +2197,24 @@
       rankingSave(list.slice(0, D.rules.rankingSize));
     }
     await rankingScreen(newIndex);
+  });
+
+  // ---------------------------------------------------------------- 体験版終了
+
+  defineTag("doubt_demo_end", {}, function () {
+    return new Promise(function (resolve) {
+      var root = openRoot("dbt-demoend");
+      bg(root, D.img.bgTitle);
+      root.appendChild(h("div", "dbt-shade shade"));
+      root.appendChild(h("div", "t", "体験版はここまで"));
+      root.appendChild(h("div", "msg",
+        "愛理と和人との第一戦を遊んでいただき、ありがとうございます。<br>" +
+        "舞黒館では、まだ別の参加者たちが待っています。"));
+      root.appendChild(btn("タイトルへ", "navy back", function () {
+        closeRoot(root);
+        resolve();
+      }));
+    });
   });
 
   // ---------------------------------------------------------------- 全戦突破

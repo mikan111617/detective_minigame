@@ -90,6 +90,9 @@
         { key: "hard",   name: "むずかしい", note: "見込みまで計算し、根拠を重く見る",   score: 1.2, blind: 0.05, bluff: 0.3, memory: true,  odds: 0.9, catch: 0.28 },
       ],
       levelDefault: 0,
+      // 体験版ビルド用。main は製品版なので false、demo ブランチだけ true にする。
+      demoMode: false,
+      demoLastStage: 0, // 体験版は第一戦（stage0）クリアまで
       // タイトルに「デバッグ」ボタンを出す。配布する時は false にする
       debugMenu: false,
       hiddenScore: 40000, // この点に届いていれば、コンティニューしていても隠し戦に進める

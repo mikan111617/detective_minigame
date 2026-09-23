@@ -739,3 +739,26 @@
 .dbt-exchange .targets { display: flex; justify-content: center; gap: 50px; margin-top: 28px; }
 .dbt-exchange .targets .dbt-btn { width: 360px; padding: 22px 0 18px; font-size: 38px; }
 .dbt-exchange .targets .dbt-btn small { font-size: 20px; margin-top: 7px; }
+
+
+/* ===== 体験版 ===== */
+.dbt-title .demo-label {
+  display: inline-block; margin-top: 12px; padding: 7px 24px 6px;
+  font-family: "Kiwi Maru", serif; font-size: 28px; letter-spacing: .22em;
+  color: #f6efe0; background: rgba(127,24,16,.9); box-shadow: 0 0 0 2px #e8b54a;
+}
+.dbt-title.demo .modes { gap: 0; }
+.dbt-demoend .shade { background: rgba(11,17,34,.72); }
+.dbt-demoend .t {
+  position: absolute; left: 0; right: 0; top: 230px; text-align: center;
+  font-family: "Kiwi Maru", serif; font-size: 112px; letter-spacing: .12em;
+  color: #f4e3b4; text-shadow: 6px 6px 0 #4b2a6e, 0 0 35px rgba(232,181,74,.35);
+}
+.dbt-demoend .msg {
+  position: absolute; left: 320px; right: 320px; top: 500px; text-align: center;
+  font-size: 34px; line-height: 1.9; letter-spacing: .08em; color: #ffdca8;
+}
+.dbt-demoend .back {
+  position: absolute; left: 0; right: 0; bottom: 130px; margin: 0 auto;
+  width: 420px; padding: 20px 0 17px; font-size: 40px;
+}

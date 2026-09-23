@@ -59,12 +59,19 @@
 ; 一度もラウンドを落とさずに勝ち抜いた時だけ、余興のハイアンドローに挑める
 *arcade_stage_clear
 [doubt_highlow cond="f.doubt_lose_count == 0"]
+; 体験版は第一戦を遊び終えたところで終了する
+[jump target="*arcade_demo_end" cond="f.doubt_demo && f.doubt_stage >= f.doubt_demo_last"]
 ; 隠し戦に勝った時だけ、専用会話と解放を挟んで通常エンディングへ
 [jump target="*arcade_hidden_win" cond="f.doubt_stage == 5"]
 [eval exp="f.doubt_stage++"]
 [jump target="*arcade_hidden_gate" cond="f.doubt_stage == 5"]
 [jump target="*arcade_clear" cond="f.doubt_stage > 5"]
 [jump target="*arcade_stage"]
+
+*arcade_demo_end
+@playbgm storage="title.mp3"
+[doubt_demo_end]
+[jump target="*title"]
 
 *arcade_hidden_win
 [call storage="doubt_story.ks" target="*hidden_win"]
