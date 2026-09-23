@@ -376,8 +376,8 @@
     root.appendChild(h("div", "head",
       '<div class="kicker">―― 相手の目を誤魔化す嘘つきの祭典 ――</div>' +
       "<h1>舞黒館の<em>惨劇</em></h1>" +
-      '<div class="sub">「探偵少女はダウトで勝ちの目を見るか」</div>' +
-      (demo ? '<div class="demo-label">体験版</div>' : "")));
+      '<div class="sub">「探偵少女はダウトで勝ちの目を見るか」</div>'));
+    if (demo) root.appendChild(h("div", "demo-ribbon", "体験版"));
     var modes = h("div", "modes");
     function go(mode, target) {
       f().doubt_mode = mode;
@@ -386,11 +386,12 @@
       closeRoot(root);
       TYRANO.kag.ftag.startTag("jump", { storage: "title.ks", target: target });
     }
-    modes.appendChild(btn(
-      demo ? "アーケードプレイ<small>体験版・第一戦まで</small>" : "アーケードプレイ<small>全5戦</small>",
-      "purple", function () { go("arcade", "*arcade_start"); }
-    ));
-    if (!demo) {
+    if (demo) {
+      modes.appendChild(btn("体験版をプレイ<small>愛理＆和人と対戦</small>", "purple", function () {
+        go("simple", "*simple_start");
+      }));
+    } else {
+      modes.appendChild(btn("アーケードプレイ<small>全5戦</small>", "purple", function () { go("arcade", "*arcade_start"); }));
       modes.appendChild(btn("シンプルプレイ<small>フリー対戦</small>", "navy", function () { go("simple", "*simple_start"); }));
     }
     root.appendChild(modes);
