@@ -91,7 +91,7 @@
       ],
       levelDefault: 0,
       // 体験版ビルド用。main は製品版なので false、demo ブランチだけ true にする。
-      demoMode: false,
+      demoMode: true,
       demoLastStage: 0, // 体験版は第一戦（stage0）クリアまで
       // タイトルに「デバッグ」ボタンを出す。配布する時は false にする
       debugMenu: false,
