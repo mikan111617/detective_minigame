@@ -742,10 +742,14 @@
 
 
 /* ===== 体験版 ===== */
-.dbt-title .demo-label {
-  display: inline-block; margin-top: 12px; padding: 7px 24px 6px;
-  font-family: "Kiwi Maru", serif; font-size: 28px; letter-spacing: .22em;
-  color: #f6efe0; background: rgba(127,24,16,.9); box-shadow: 0 0 0 2px #e8b54a;
+.dbt-title .demo-ribbon {
+  position: absolute; top: 34px; left: -58px; z-index: 20;
+  width: 240px; padding: 12px 0 10px; text-align: center;
+  transform: rotate(-45deg); transform-origin: center;
+  font-family: "Kiwi Maru", serif; font-size: 28px; letter-spacing: .18em;
+  color: #f6efe0; background: rgba(127,24,16,.95);
+  box-shadow: 0 0 0 2px #e8b54a, 0 8px 18px rgba(0,0,0,.35);
+  pointer-events: none;
 }
 .dbt-title.demo .modes { gap: 0; }
 .dbt-demoend .shade { background: rgba(11,17,34,.72); }

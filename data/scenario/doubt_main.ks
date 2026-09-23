@@ -122,23 +122,15 @@
 [jump target="*title"]
 
 ;==================================================
-; シンプルプレイ（物語を飛ばして対戦のみ）
-;   相手選択 → 対戦 → 結果 → 相手選択に戻る
-;   「もどる」でタイトルへ
+; 体験版フリー対戦
+;   愛理＆和人（pair 0）と一戦だけ遊び、終了後はタイトルへ戻る
 ;==================================================
 *simple
-[eval exp="f.doubt_total = 0; f.doubt_lives = 1"]
-
-*simple_select
-[doubt_select]
-[jump target="*title" cond="f.doubt_pair < 0"]
+[eval exp="f.doubt_total = 0; f.doubt_lives = 1; f.doubt_pair = 0"]
 
 *simple_battle
-; 最終戦のペアを選んだ時だけ専用のBGM
-@playbgm storage="boss_battle.mp3" cond="f.doubt_pair==4"
-@playbgm storage="card.mp3" cond="f.doubt_pair!=4"
-[doubt_vs pair="&f.doubt_pair"]
-[doubt_battle pair="&f.doubt_pair"]
-; フリー対戦は結果画面を出さず、決着の表示だけで相手選びに戻る
+@playbgm storage="card.mp3"
+[doubt_vs pair="0"]
+[doubt_battle pair="0"]
 @playbgm storage="title.mp3"
-[jump target="*simple_select"]
+[jump target="*title"]
