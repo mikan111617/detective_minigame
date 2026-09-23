@@ -676,14 +676,18 @@
   };
 
   /*
-   * 真歩流：相手1人と手札を互いに全公開し、同じ枚数を指定して強制交換する。
-   * 公開された内容を記憶するのは交換当事者のCPUだけ。もう一人には中身が見えない。
+   * 真歩流：相手1人と手札を互いに全公開し、自分の手札の半分（切り捨て）まで
+   * 同じ枚数を指定して交換する。公開された内容を記憶するのは交換当事者のCPUだけ。
    */
   P.beginPlayerExchange = async function (target) {
     if (!(target === 1 || target === 2)) return 0;
     if (this.abilLeft(0, "hand_swap") <= 0) return 0;
-    var max = Math.min(this.hands[0].length, this.hands[target].length);
-    if (max <= 0) return 0;
+    var ownLimit = Math.floor(this.hands[0].length / 2);
+    var max = Math.min(ownLimit, this.hands[target].length);
+    if (max <= 0) {
+      await this.io.notice(this, "交換できない", "手札が1枚の時は交換できない");
+      return 0;
+    }
     this.spendAbilId(0, "hand_swap");
     await this.io.cutin(this, 0, this.data.chara.hand_swap.ability);
     // 対象CPUだけが、公開時点の両者の全手札を把握する。
