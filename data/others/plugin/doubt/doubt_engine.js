@@ -456,13 +456,13 @@
 
   /*
    * ダウトを言えない状況か（プレイヤー側の画面で使う）。
-   * ただし、上がりの一手だけは何があっても疑える。
-   * これが無いと「封じて残り札を投げ捨てて終わり」を誰も止められない。
+   * 快活な少女のダウト封じは上がりの一手にも有効。
+   * 叡留久の免疫だけは、従来どおり上がりの一手なら疑える。
    */
   P.doubtBlocked = function () {
     if (!this.last) return false;
-    if (this.hands[this.last.seat].length === 0) return false;
     if (this.noDoubtPlayer > 0) return true;
+    if (this.hands[this.last.seat].length === 0) return false;
     return this.immune[this.last.seat] > 0;
   };
 
@@ -562,7 +562,7 @@
 
     // 小出里亜：ダウト無効
     if (isLie && doubter === 0 && this.hasAbil(placer, "koderia") && this.abilLeft(placer, "koderia") > 0) {
-      var useIt = this.pile.length >= 3 || this.hands[placer].length === 0 || this.rng() < 0.4;
+      var useIt = this.hands[placer].length <= 2 || this.pile.length >= 6;
       if (useIt) {
         this.spendAbilId(placer, "koderia");
         await this.io.cutin(this, placer, this.data.chara.koderia.ability);
@@ -599,7 +599,7 @@
 
     if (loser >= 0) {
       var take = this.pile.splice(0);
-      if (this.hasAbil(loser, "kazuto") && isLie && loser === placer) {
+      if (this.hasAbil(loser, "kazuto")) {
         this.shuffle(take);
         var half = Math.ceil(take.length / 2);
         this.addToHand(loser, take.slice(0, half));
@@ -948,9 +948,10 @@
         this.dropCutin(seat);
         return "none";
       }
-      // 名指し推理は真歩流？だけの能力（uses は他のキャラでは別の能力に使う）
+      // 名指し推理は真歩流？だけの能力。残り手札が少ない時や、
+      // プレイヤーが上がりに近い時など、勝敗に直結する局面へ温存する。
       if (id === "mahoru_awake" && this.uses[seat] > 0 && this.hands[seat].length > 0 &&
-          (this.hands[seat].length <= 4 || this.rng() < 0.5)) return "guess";
+          (this.hands[seat].length <= 4 || this.hands[0].length <= 3 || this.pile.length >= 7)) return "guess";
       // 空振りを恐れないなら、外れた時の保険をかけてから踏み込む
       if (this.hasAbil(seat, "free_doubt") && this.abilLeft(seat, "free_doubt") > 0) return "free";
       if (this.hasAbil(seat, "reido") && this.abilLeft(seat, "reido") > 0 && this.hands[seat].length >= 6) return "ability";
@@ -1118,9 +1119,12 @@
     if (free) p += 0.25;
 
     if (this.hasAbil(seat, "reido") && this.abilLeft(seat, "reido") > 0 &&
-        this.hands[seat].length >= 7 && this.pile.length >= 5) {
-      var enoughEvidence = ch.doubtStyle !== "evidence" || personalityOdds >= 0.6 || known >= 2;
-      if (enoughEvidence && this.rng() < (ch.doubtStyle === "evidence" ? 0.45 : 0.3)) return "ability";
+        this.hands[seat].length >= 3) {
+      var enoughEvidence = ch.doubtStyle !== "evidence" || personalityOdds >= 0.6 || known >= 2 || certain;
+      var closingMove = this.hands[seat].length <= 5;       // 3枚渡せば上がり／上がり目前
+      var stopPlayer = this.hands[0].length <= 3 && this.pile.length >= 3;
+      var punishBigPile = this.pile.length >= 7 && enoughEvidence;
+      if (closingMove || stopPlayer || punishBigPile) return "ability";
     }
     p = Math.max(0, Math.min(0.95, p));
     if (this.rng() >= p) return "none";
@@ -1158,16 +1162,12 @@
     }
 
     /*
-     * 快活な少女：一巡のあいだ、プレイヤーだけダウトを言えなくする。
-     * 手札が出せる枚数まで減っていれば、そのまま投げ捨てて上がれるので必ず切る。
-     * そこまででなければ、嘘をつかざるを得ない時に切る。
-     * 咎められるのは相方だけなので、投げ捨てが通りやすい。
+     * 快活な少女：残り2枚以下まで温存し、上がりを狙える局面でだけ使う。
+     * 発動中は上がりの一手もプレイヤーからダウトされない。
      */
     if (this.hasAbil(seat, "yuduki") && this.abilLeft(seat, "yuduki") > 0 && this.noDoubtPlayer === 0) {
-      var mustLie = !this.hands[seat].some(function (c) { return c.r === self.rank; });
-      // 手札が出せる枚数まで減っていれば、そのまま上がれる。それ以外は嘘を通す時に切る
-      var finisher = this.hands[seat].length <= this.maxPlay;
-      if (finisher || (mustLie && this.hands[seat].length >= 6 && this.rng() < 0.4)) {
+      var yudukiFinisher = this.hands[seat].length <= 2 && this.hands[seat].length <= this.maxPlay;
+      if (yudukiFinisher) {
         this.spendAbilId(seat, "yuduki");
         await this.io.cutin(this, seat, this.data.chara.yuduki.ability);
         this.noDoubtPlayer = 3;
@@ -1177,57 +1177,59 @@
       }
     }
 
-    // 英国の青年：もう一組の札から、自分以外の二人へ3枚ずつ配る（1戦に一度だけ）
+    // 英国の青年：追加札は、プレイヤーが上がり目前で相方がまだ決着圏外の時に使う。
     if (this.hasAbil(seat, "arther_deck") && this.abilLeft(seat, "arther_deck") > 0) {
-      var minHand = Math.min(this.hands[0].length, this.hands[1].length, this.hands[2].length);
-      if (minHand <= 6 && this.hands[seat].length > minHand) {
+      var artherMate = seat === 1 ? 2 : 1;
+      if (this.hands[0].length <= 4 && this.hands[artherMate].length > 2) {
         this.spendAbilId(seat, "arther_deck");
         await this.io.cutin(this, seat, this.data.chara.arther_deck.ability);
         await this.mixDeck(seat);
       }
     }
 
-    // 英国の青年：取引を持ちかける（毎手番ではなく、ときどき）
+    // 英国の青年：取引は「遠い数字の重複札を処分できる」時だけ検討する。
     if (this.hasAbil(seat, "arther") && this.abilLeft(seat, "arther") > 0 &&
-        this.hands[0].length >= 2 && this.rng() < 0.4) {
+        this.hands[0].length >= 5) {
       await this.tradeOffer(seat);
     }
 
     /*
-     * メアリー：新しい札を6枚入れて、自分以外の二人に3枚ずつ配る。
-     * 相手の上がりが近くなってきた時に、二人を押し戻す。
+     * メアリー：追加札はプレイヤーの上がり阻止用に温存する。
+     * 相方が残り2枚以下なら、その勝ち筋を邪魔しない。
      */
     if (this.hasAbil(seat, "mary_deal") && this.abilLeft(seat, "mary_deal") > 0) {
-      var others = [0, 1, 2].filter(function (t) { return t !== seat; });
-      var least = Math.min(this.hands[others[0]].length, this.hands[others[1]].length);
-      if (least <= 9) {
+      var maryOthers = [0, 1, 2].filter(function (t) { return t !== seat; });
+      var maryMate = maryOthers[0] === 0 ? maryOthers[1] : maryOthers[0];
+      if (this.hands[0].length <= 4 && this.hands[maryMate].length > 2) {
         this.spendAbilId(seat, "mary_deal");
         await this.io.cutin(this, seat, this.data.chara.mary_deal.ability);
-        await this.inviteDeck(seat, others);
+        await this.inviteDeck(seat, maryOthers);
       }
     }
 
     /*
-     * 叡留久：場の伏せ札の半分を引き取る代わりに、三巡のあいだ疑われない。
-     * 引き取る札が少なく、捨てたい札が多い時に切る。
+     * 叡留久：場札を引き取っても、三巡の保護中に手札を捨て切れる見込みがある時だけ使う。
      */
-    // 場の札が4枚以上ないと「引き取る代わりに」が成り立たないので、下限を置く
     if (this.hasAbil(seat, "eruku_deal") && this.abilLeft(seat, "eruku_deal") > 0 &&
-        this.immune[seat] === 0 && this.pile.length >= 4 && this.pile.length <= 12 &&
-        this.hands[seat].length >= 6) {
-      this.spendAbilId(seat, "eruku_deal");
-      await this.io.cutin(this, seat, this.data.chara.eruku_deal.ability);
-      var half = Math.floor(this.pile.length / 2);
-      if (half > 0) {
-        var got = this.pile.splice(0, half);
-        this.addToHand(seat, got);
-        this.moveSeenPile(got, seat);
-        this.sortHand(seat);
+        this.immune[seat] === 0 && this.pile.length >= 4 && this.pile.length <= 12) {
+      var erukuCost = Math.floor(this.pile.length / 2);
+      var erukuAfter = this.hands[seat].length + erukuCost;
+      var erukuCanClose = erukuAfter <= this.maxPlay * 3;
+      if (erukuCanClose) {
+        this.spendAbilId(seat, "eruku_deal");
+        await this.io.cutin(this, seat, this.data.chara.eruku_deal.ability);
+        var half = Math.floor(this.pile.length / 2);
+        if (half > 0) {
+          var got = this.pile.splice(0, half);
+          this.addToHand(seat, got);
+          this.moveSeenPile(got, seat);
+          this.sortHand(seat);
+        }
+        this.immune[seat] = 3;
+        this.io.log(this, this.name(seat) + "が場の札" + half + "枚を引き取り、三巡のあいだ疑われない");
+        await this.io.notice(this, "危ない取引", this.name(seat) + "の伏せ札は、三巡のあいだダウトできない");
+        this.io.update(this);
       }
-      this.immune[seat] = 3;
-      this.io.log(this, this.name(seat) + "が場の札" + half + "枚を引き取り、三巡のあいだ疑われない");
-      await this.io.notice(this, "危ない取引", this.name(seat) + "の伏せ札は、三巡のあいだダウトできない");
-      this.io.update(this);
     }
 
     // 誰かの手札が少なくなったら、決着をつけさせるためにもてなしは控える
@@ -1249,15 +1251,17 @@
       if (c.r === 0) return;                       // ジョーカーは取引に出さない
       (byRank[c.r] = byRank[c.r] || []).push(c);
     });
-    // 重なっている中でも、順番が回ってくるのがいちばん遠い数字を手放す
+    // 重なっている中でも、自分の次の手番から遠い数字だけを取引材料にする。
     var best = null, bestFar = -1;
     for (var r in byRank) {
       if (!byRank.hasOwnProperty(r)) continue;
       if (byRank[r].length < 2) continue;
-      var far = this.turnsUntil(byRank[r][0].r) * 10 + byRank[r].length;
+      var dist = this.turnsUntilForSeat(seat, byRank[r][0].r);
+      var far = dist * 10 + byRank[r].length;
       if (far > bestFar) { bestFar = far; best = byRank[r]; }
     }
     if (!best) return;
+    if (this.turnsUntilForSeat(seat, best[0].r) < 9) return;
 
     var n = Math.min(best.length, this.maxPlay, this.hands[0].length);
     if (n < 2) return;
