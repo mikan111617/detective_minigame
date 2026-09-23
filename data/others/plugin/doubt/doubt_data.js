@@ -128,7 +128,7 @@
         uses: 2 },
       kazuto: { name: "和人", reading: "かずと", color: "#4f7fd8", doubt: 0.28, tell: 0.5, bluff: 0.05,
         doubtStyle: "cautious", // 慎重型：明確な根拠がない限り踏み込まない
-        ability: "ダウトされても、回収する札が半分になる",
+        ability: "ダウトで札を回収する時は、嘘を見抜かれた時もダウトを外した時も半分だけ回収する",
         uses: -1 },
       mary: { name: "メアリー", reading: "", color: "#c77dd8", doubt: 0.16, tell: 0.4, bluff: 0.1,
         doubtStyle: "memory", // 記憶型：序盤の記憶を強く信じる。札が動くほど読み違えることもある
