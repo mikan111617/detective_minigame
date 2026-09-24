@@ -23,6 +23,9 @@
 ; タイトルへ戻ってきた時は tf が立ったままなので、二度目は出ない。
 ; この画面のクリックで音声が解禁され、下の [playbgm] が待たずに済む。
 [doubt_caution time="5000" cond="!tf.doubt_caution_done"]
+; 注意書きに続けてオープニングムービー（煉瓦書架 PRESENTS → 嵐の舞黒館 → タイトルロゴ）。
+; 注意書きと同じく、起動して最初の一回だけ。クリックで飛ばせる。
+[doubt_opening cond="!tf.doubt_caution_done"]
 [eval exp="tf.doubt_caution_done = true"]
 
 ;==== タイトル画面（アーケードプレイ／シンプルプレイ）====
@@ -35,6 +38,10 @@
 ;==== ここから先はボタンの飛び先 ====
 *arcade_start
 [jump storage="doubt_main.ks" target="*arcade"]
+
+; 中断データから再開する時（f は [doubt_title] が中断した試合の直前に戻してある）
+*arcade_resume
+[jump storage="doubt_main.ks" target="*arcade_resume"]
 
 *simple_start
 [jump storage="doubt_main.ks" target="*simple"]

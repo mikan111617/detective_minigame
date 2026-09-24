@@ -4,4 +4,5 @@
 [loadjs storage="plugin/doubt/doubt_data.js"]
 [loadjs storage="plugin/doubt/doubt_engine.js"]
 [loadjs storage="plugin/doubt/doubt_ui.js"]
+[loadjs storage="plugin/doubt/doubt_opening.js"]
 [return]

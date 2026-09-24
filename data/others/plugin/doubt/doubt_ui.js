@@ -293,6 +293,33 @@
     try { return TYRANO.kag.variable.sf.doubt_hidden_cleared == 1; } catch (e) { return false; }
   }
 
+  // ---------------------------------------------------------------- 中断データ
+  //   アーケードの対戦中に「中断」すると、その試合が始まる直前の f を
+  //   sf.doubt_suspend に残す（システム変数なので、ゲームを閉じても残る）。
+  //   { f: 試合直前の f の写し, at: 中断した時刻 }
+  //   再開しても、しなくても、タイトルで答えた時点で消す。
+
+  function getSuspend() {
+    try {
+      var s = sysVar().doubt_suspend;
+      return s && s.f ? s : null;
+    } catch (e) { return null; }
+  }
+
+  function setSuspend(data) {
+    try {
+      sysVar().doubt_suspend = data || null;
+      TYRANO.kag.saveSystemVariable();
+    } catch (e) { console.error("[doubt] 中断データの保存に失敗しました", e); }
+  }
+
+  // f を写しの中身に置き換える。f そのものは差し替えず、中身だけ入れ替える
+  function restoreF(snap) {
+    var fv = f();
+    Object.keys(fv).forEach(function (k) { delete fv[k]; });
+    Object.keys(snap).forEach(function (k) { fv[k] = snap[k]; });
+  }
+
   function pairIndexOf(pm) {
     var n = parseInt(pm.pair, 10);
     return isNaN(n) ? 0 : n;
@@ -386,9 +413,40 @@
       closeRoot(root);
       TYRANO.kag.ftag.startTag("jump", { storage: "title.ks", target: target });
     }
+
+    // アーケードプレイ：中断データがあれば、再開するか聞く。
+    // どちらを選んでも中断データはここで消す（再開しない時は、そのまま最初から）。
+    // 体験版と製品版で作った中断データは取り違えないよう、同じ版のものだけ扱う。
+    function goArcade() {
+      var sus = getSuspend();
+      if (!sus || !!sus.f.doubt_demo !== demo) { go("arcade", "*arcade_start"); return; }
+      var pr = D.pairs[sus.f.doubt_stage] || {};
+      var ov = h("div", "dbt-overlay dbt-pad dbt-resign");
+      var box = h("div", "box");
+      box.appendChild(h("div", "q", "中断データがあります"));
+      box.appendChild(h("div", "d",
+        (pr.label ? pr.label + "　" : "") + "通算 " + (sus.f.doubt_total || 0).toLocaleString() + "点" +
+        "<br>再開すると、中断した試合の最初から始まります" +
+        "<br><small>再開しない場合、中断データは消えます</small>"));
+      var row = h("div", "targets");
+      row.appendChild(btn("再開する", "red", function () {
+        setSuspend(null);
+        restoreF(sus.f);
+        closeRoot(root);
+        TYRANO.kag.ftag.startTag("jump", { storage: "title.ks", target: "*arcade_resume" });
+      }));
+      row.appendChild(btn("最初から", "navy", function () {
+        setSuspend(null);
+        go("arcade", "*arcade_start");
+      }));
+      box.appendChild(row);
+      ov.appendChild(box);
+      root.appendChild(ov);
+    }
+
     modes.appendChild(btn(
       demo ? "アーケードプレイ<small>体験版・第一戦まで</small>" : "アーケードプレイ<small>全5戦</small>",
-      "purple", function () { go("arcade", "*arcade_start"); }
+      "purple", goArcade
     ));
     if (!demo) {
       modes.appendChild(btn("シンプルプレイ<small>フリー対戦</small>", "navy", function () { go("simple", "*simple_start"); }));
@@ -835,7 +893,12 @@
     if (this.canResign) {
       this.bResign = btn("降参", "navy resign", function () { self.askResign(); });
       cmd.appendChild(this.bResign);
+    } else if (f().doubt_mode === "arcade") {
+      // アーケードでは、同じ場所に「中断」を出す（押せる時の決まりも降参と同じ）
+      this.bResign = btn("中断", "navy resign", function () { self.askSuspend(); });
+      cmd.appendChild(this.bResign);
     }
+    this.suspended = false;
     this.root.appendChild(cmd);
 
     this.cutinShown = {};   // この対戦でカットインを出し切ったキャラ
@@ -899,6 +962,29 @@
       closeRoot(ov);
       self.game.resign();
       // 待っている入力を解いて、エンジンに打ち切らせる
+      self.finishInput(self.mode === "window" ? { type: "pass" } : []);
+    }));
+    row.appendChild(btn("やめる", "navy", function () { closeRoot(ov); }));
+    box.appendChild(row);
+    ov.appendChild(box);
+    this.root.appendChild(ov);
+  };
+
+  // 中断するか確かめる（アーケードだけ）。入力待ちの最中だけ押せる。
+  // 中断すると対戦を打ち切り、[doubt_battle] が中断データを残してタイトルへ戻す。
+  B.askSuspend = function () {
+    var self = this;
+    if (this.mode === "idle" || !this.resolver) return;
+    var ov = h("div", "dbt-overlay dbt-pad dbt-resign");
+    var box = h("div", "box");
+    box.appendChild(h("div", "q", "中断しますか"));
+    box.appendChild(h("div", "d", "タイトルに戻ります。<br>アーケードプレイを選ぶと、この試合の最初から再開できます"));
+    var row = h("div", "targets");
+    row.appendChild(btn("中断する", "red", function () {
+      closeRoot(ov);
+      self.suspended = true;
+      // 打ち切り方は降参と同じ。勝敗は数えず、結果画面も出さない
+      self.game.resign();
       self.finishInput(self.mode === "window" ? { type: "pass" } : []);
     }));
     row.appendChild(btn("やめる", "navy", function () { closeRoot(ov); }));
@@ -1503,6 +1589,12 @@
 
   defineTag("doubt_battle", { pair: "0" }, async function (pm) {
     var idx = pairIndexOf(pm);
+    // 中断した時に戻す、この試合が始まる直前の f（アーケードだけ）
+    f().doubt_suspended = false;
+    var snap = null;
+    if (f().doubt_mode === "arcade") {
+      try { snap = JSON.parse(JSON.stringify(f())); } catch (e) { console.error("[doubt] 中断用の写しを取れませんでした", e); }
+    }
     var ui = new BattleUI(idx);
     var game = new E.DoubtGame({
       data: D, pairIndex: idx, io: ui.makeIO(), level: getLevel(), maxPlay: getMaxPlay()
@@ -1516,6 +1608,17 @@
       await sleep(600);
     }
     var fv = f();
+    // 中断：試合前の f を残してタイトルへ（doubt_main.ks の *arcade_suspend）。
+    // この試合の勝ち負けやスコアは f に書かない
+    if (ui.suspended) {
+      if (snap) setSuspend({ f: snap, at: Date.now() });
+      fv.doubt_suspended = true;
+      var sov = h("div", "dbt-overlay dbt-notice");
+      sov.appendChild(h("div", "box", '<div class="t">中断</div>'));
+      await ui.overlayWait(sov, 1200);
+      ui.close();
+      return;
+    }
     fv.doubt_win = result.win;
     fv.doubt_gain = result.gain;
     fv.doubt_opp_left = result.oppLeft;
