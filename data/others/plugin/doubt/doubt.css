@@ -55,16 +55,17 @@
 @keyframes dbtBlink { 0%, 100% { opacity: .25; } 50% { opacity: .85; } }
 @keyframes dbtFadeOut { from { opacity: 1; } to { opacity: 0; } }
 
-/* ===== タイトル ===== */
+/* ===== タイトル =====
+   ロゴ（.head）はオープニングの最後（.op-head）でも同じ見た目で使う */
 .dbt-title .shade { background: linear-gradient(180deg, rgba(11,17,34,.75) 0%, rgba(11,17,34,.15) 45%, rgba(11,17,34,.85) 100%); }
-.dbt-title .head { position: absolute; left: 0; right: 0; top: 64px; text-align: center; }
-.dbt-title .kicker { font-size: 26px; letter-spacing: .4em; color: #ffdca8; }
-.dbt-title h1 {
+.dbt-title .head, .dbt-opening .op-head { position: absolute; left: 0; right: 0; top: 64px; text-align: center; }
+.dbt-title .kicker, .dbt-opening .op-head .kicker { font-size: 26px; letter-spacing: .4em; color: #ffdca8; }
+.dbt-title h1, .dbt-opening .op-head h1 {
   margin: 12px 0 0; font-family: "Kiwi Maru", serif; font-weight: 500; font-size: 150px; letter-spacing: .08em;
   color: #f6efe0; text-shadow: 6px 6px 0 #4b2a6e, 0 0 40px rgba(232,181,74,.35);
 }
 /* 「惨劇」だけ赤く見せる。まわりにクリーム色の縁をつけて、暗い背景に沈まないようにする */
-.dbt-title h1 em {
+.dbt-title h1 em, .dbt-opening .op-head h1 em {
   font-style: normal; color: #d8352a;
   text-shadow:
     -3px -3px 0 #f6efe0,  3px -3px 0 #f6efe0, -3px  3px 0 #f6efe0,  3px  3px 0 #f6efe0,
@@ -72,7 +73,7 @@
      9px  9px 0 #4b2a6e,
        0    0 46px rgba(216,53,42,.55);
 }
-.dbt-title .sub { margin-top: 6px; font-family: "Kiwi Maru", serif; font-size: 40px; color: #e8b54a; letter-spacing: .12em; }
+.dbt-title .sub, .dbt-opening .op-head .sub { margin-top: 6px; font-family: "Kiwi Maru", serif; font-size: 40px; color: #e8b54a; letter-spacing: .12em; }
 .dbt-title .modes { position: absolute; left: 0; right: 0; bottom: 150px; display: flex; justify-content: center; gap: 60px; }
 .dbt-title .modes .dbt-btn { width: 540px; padding: 34px 0 26px; font-size: 52px; }
 .dbt-title .modes .dbt-btn small { font-size: 22px; margin-top: 10px; }
@@ -784,7 +785,7 @@
 }
 .dbt-opening .op-titlebg::after {
   content: ""; position: absolute; inset: 0;
-  background: linear-gradient(180deg, rgba(11,17,34,.55) 0%, rgba(11,17,34,.1) 45%, rgba(11,17,34,.8) 100%);
+  background: linear-gradient(180deg, rgba(11,17,34,.75) 0%, rgba(11,17,34,.15) 45%, rgba(11,17,34,.85) 100%);  /* .dbt-title .shade と同じ */
 }
 .dbt-opening .op-flash { position: absolute; inset: 0; pointer-events: none; background: #e2f0ff; opacity: 0; }
 
@@ -804,29 +805,10 @@
   text-shadow: 0 3px 0 #2a120a, 0 0 18px rgba(255,190,110,.45);
 }
 
-.dbt-opening .op-titlewrap { position: absolute; left: 0; right: 0; top: 118px; text-align: center; opacity: 0; }
-.dbt-opening .op-title, .dbt-opening .op-sub { position: relative; display: inline-block; font-family: "Kiwi Maru", serif; font-weight: 500; }
-.dbt-opening .op-title { font-size: 168px; letter-spacing: .08em; line-height: 1.15; transform-origin: 50% 50%; }
-.dbt-opening .op-sub { display: block; width: max-content; margin: 8px auto 0; font-size: 50px; letter-spacing: .1em; opacity: 0; }
-.dbt-opening .op-title .back, .dbt-opening .op-sub .back {
-  color: #160b03; -webkit-text-stroke: 26px #160b03; paint-order: stroke fill;
-  text-shadow: 10px 10px 0 rgba(0,0,0,.72);
-}
-.dbt-opening .op-sub .back { -webkit-text-stroke-width: 12px; text-shadow: 5px 5px 0 rgba(0,0,0,.72); }
-.dbt-opening .op-title .front, .dbt-opening .op-sub .front {
-  position: absolute; left: 0; top: 0; color: transparent;
-  -webkit-background-clip: text; background-clip: text;
-  background-image:
-    linear-gradient(105deg, rgba(255,255,255,0) 42%, rgba(255,255,255,.9) 50%, rgba(255,255,255,0) 58%),
-    linear-gradient(180deg, #6d360c 0%, #d8952a 22%, #f7d046 40%, #fff6c2 50%, #f7d046 60%, #b9741a 80%, #5e2d09 100%);
-  background-size: 300% 100%, 100% 100%;
-  background-position: 120% 0, 0 0;
-  background-repeat: no-repeat;
-}
-.dbt-opening .op-sub .front {
-  background-image: linear-gradient(180deg, #f6efe0 0%, #e8c98a 55%, #b77d35 100%);
-  background-size: 100% 100%;
-}
+/* ロゴの見た目はタイトル画面と共通（上の「タイトル」を参照）。ここは動きのための指定だけ */
+.dbt-opening .op-head { opacity: 0; }
+.dbt-opening .op-head h1 { transform-origin: 50% 50%; }
+.dbt-opening .op-head .kicker, .dbt-opening .op-head .sub { opacity: 0; }
 .dbt-opening .op-press {
   position: absolute; left: 0; right: 0; bottom: 190px; text-align: center; opacity: 0;
   font-family: "Bellefair", "Times New Roman", serif; font-size: 56px; letter-spacing: .3em; color: #fff3cf;
