@@ -393,6 +393,32 @@
 
   // ---------------------------------------------------------------- タイトル
 
+  /*
+   * タイトルのボタンから title.ks のラベルへ飛ぶ。
+   *   title.ks は [doubt_title] → [playbgm] → [s] の順なので、タイトルが出てから
+   *   title.mp3 の読み込みが終わるまでの間は、まだ [s] に着いていない。
+   *   その間に [jump] すると、[playbgm] の続きと飛び先の二本が同時に進んでしまう。
+   *   そこで [s] に着く（is_strong_stop が立つ）のを待ってから飛ぶ。
+   *   音声がまだ解禁されていない時の [playbgm] は、本体の画面のクリックを待っている。
+   *   ボタンのクリックは本体に渡さないので、その待ちをここで代わりに解いておく。
+   */
+  function jumpFromTitle(target) {
+    var kag = TYRANO.kag;
+    if (!kag.stat.is_strong_stop) {
+      try { $(".tyrano_base").trigger("click.bgm"); } catch (e) {}
+    }
+    var waited = 0;
+    (function tryJump() {
+      // 万一 [s] に着かなくても、画面が止まったままにならないよう 5 秒で飛ぶ
+      if (kag.stat.is_strong_stop || waited >= 5000) {
+        kag.ftag.startTag("jump", { storage: "title.ks", target: target });
+        return;
+      }
+      waited += 30;
+      setTimeout(tryJump, 30);
+    })();
+  }
+
   // title.ks から呼ぶ。画面を出したらすぐ制御を返し、title.ks 側の [s] で待つ。
   // ボタンを押すと title.ks のラベルへ [jump] する（system/title_ui.ks と同じ作り）。
   defineTag("doubt_title", {}, function () {
@@ -411,7 +437,7 @@
       f().doubt_demo = demo;
       f().doubt_demo_last = D.rules.demoLastStage || 0;
       closeRoot(root);
-      TYRANO.kag.ftag.startTag("jump", { storage: "title.ks", target: target });
+      jumpFromTitle(target);
     }
 
     // アーケードプレイ：中断データがあれば、再開するか聞く。
@@ -433,7 +459,7 @@
         setSuspend(null);
         restoreF(sus.f);
         closeRoot(root);
-        TYRANO.kag.ftag.startTag("jump", { storage: "title.ks", target: "*arcade_resume" });
+        jumpFromTitle("*arcade_resume");
       }));
       row.appendChild(btn("最初から", "navy", function () {
         setSuspend(null);
@@ -457,16 +483,16 @@
     if (!demo) {
       extra.appendChild(btn("ランキング", "navy", function () {
         closeRoot(root);
-        TYRANO.kag.ftag.startTag("jump", { storage: "title.ks", target: "*ranking" });
+        jumpFromTitle("*ranking");
       }));
     }
     extra.appendChild(btn("設定", "navy", function () {
       closeRoot(root);
-      TYRANO.kag.ftag.startTag("jump", { storage: "title.ks", target: "*settings" });
+      jumpFromTitle("*settings");
     }));
     extra.appendChild(btn("遊び方", "navy", function () {
       closeRoot(root);
-      TYRANO.kag.ftag.startTag("jump", { storage: "title.ks", target: "*help" });
+      jumpFromTitle("*help");
     }));
     root.appendChild(extra);
 
@@ -474,7 +500,7 @@
     if (D.rules.debugMenu) {
       root.appendChild(btn("デバッグ", "navy debugbtn", function () {
         closeRoot(root);
-        TYRANO.kag.ftag.startTag("jump", { storage: "title.ks", target: "*debug" });
+        jumpFromTitle("*debug");
       }));
     }
   });
