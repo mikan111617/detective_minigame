@@ -38,6 +38,8 @@
 @playbgm storage="card.mp3" cond="f.doubt_stage<4"
 [doubt_vs pair="&f.doubt_stage"]
 [doubt_battle pair="&f.doubt_stage"]
+; 対戦中に「中断」した。中断データは [doubt_battle] が保存済みなので、タイトルへ戻る
+[jump target="*arcade_suspend" cond="f.doubt_suspended"]
 [doubt_result pair="&f.doubt_stage"]
 [jump target="*arcade_round_lose" cond="!f.doubt_win"]
 
@@ -67,6 +69,22 @@
 [jump target="*arcade_hidden_gate" cond="f.doubt_stage == 5"]
 [jump target="*arcade_clear" cond="f.doubt_stage > 5"]
 [jump target="*arcade_stage"]
+
+;--------------------------------------------------
+; 中断と再開
+;   中断：対戦中の「中断」から。その試合が始まる直前の f を sf.doubt_suspend に
+;         残してタイトルへ戻る（[doubt_battle] が保存する）。
+;   再開：タイトルでアーケードプレイを選んだ時に、中断データがあれば
+;         [doubt_title] が再開するか聞く。再開する時は f を戻してここへ来るので、
+;         中断した試合の最初（相手表示）からやり直す。
+;--------------------------------------------------
+*arcade_suspend
+[eval exp="f.doubt_suspended = false"]
+[jump target="*title"]
+
+*arcade_resume
+[eval exp="f.doubt_suspended = false"]
+[jump target="*arcade_battle"]
 
 *arcade_demo_end
 @playbgm storage="title.mp3"
