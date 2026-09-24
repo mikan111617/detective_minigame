@@ -5,8 +5,10 @@
  *
  *   1. 煉瓦書架 PRESENTS … 煉瓦と本の背表紙が一段ずつ積み上がって壁になり、
  *                           その前にロゴが降りてきて光が走る
- *   2. タイトルロゴ落下   … タイトル画面の背景が暗く浮かび、金属質の
- *                           「舞黒館の惨劇」が落ちてきて閃光とともに着地
+ *   2. タイトルロゴ落下   … タイトル画面の背景が暗く浮かび、タイトル画面と同じ
+ *                           「舞黒館の惨劇」のロゴが落ちてきて閃光とともに着地。
+ *                           着地後は背景がタイトル画面と同じ明るさに戻り、
+ *                           ロゴの位置もタイトル画面とそろえてあるので、そのままつながる
  *
  *   クリック／キーで、途中ならタイトルロゴの完成形まで飛ばし、
  *   完成後ならムービーを閉じる。触らなければ T.end で自然に閉じる。
@@ -152,15 +154,15 @@
       pub.appendChild(presents);
       stage.appendChild(pub);
 
-      // タイトル
-      var titleWrap = h("div", "op-titlewrap");
-      var title = h("div", "op-title",
-        '<span class="back">舞黒館の惨劇</span><span class="front">舞黒館の惨劇</span>');
-      var titleFront = title.querySelector(".front");
-      var sub = h("div", "op-sub",
-        '<span class="back">探偵少女はダウトで勝ちの目を見るか</span><span class="front">探偵少女はダウトで勝ちの目を見るか</span>');
-      titleWrap.appendChild(title);
-      titleWrap.appendChild(sub);
+      // タイトル。見た目は doubt.css のタイトル画面のロゴ（.dbt-title .head）と共通。
+      // 文言を変える時は doubt_ui.js の [doubt_title] もそろえる
+      var titleWrap = h("div", "op-head",
+        '<div class="kicker">―― 相手の目を誤魔化す嘘つきの祭典 ――</div>' +
+        "<h1>舞黒館の<em>惨劇</em></h1>" +
+        '<div class="sub">「探偵少女はダウトで勝ちの目を見るか」</div>');
+      var kicker = titleWrap.querySelector(".kicker");
+      var title = titleWrap.querySelector("h1");
+      var sub = titleWrap.querySelector(".sub");
       stage.appendChild(titleWrap);
       var press = h("div", "op-press", "PRESS START");
       stage.appendChild(press);
@@ -320,10 +322,11 @@
         var pubA = 1 - clamp((t - T.logoOut) / 0.45, 0, 1);
         if (pubA > 0.01) drawWall(pubA);
 
-        // タイトルの背景。着地の閃光の時だけ明るくなる
+        // タイトルの背景。暗く浮かび、着地の閃光のあとタイトル画面と同じ明るさに戻る
         var sceneA = clamp((t - T.scene) / 0.6, 0, 1);
+        var lit = lerp(0.42, 1, ease(clamp((t - T.land) / 1.2, 0, 1)));
         titleBg.style.opacity = sceneA;
-        titleBg.style.filter = "brightness(" + (0.42 + flash * 0.5) + ")";
+        titleBg.style.filter = "brightness(" + (lit + flash * 0.5) + ")";
         titleBg.style.transform = "scale(" + lerp(1.08, 1, ease(sceneA)) + ")";
 
         // 煉瓦書架ロゴ
@@ -350,9 +353,7 @@
           var subA = clamp((t - T.sub) / 0.45, 0, 1);
           sub.style.opacity = subA;
           sub.style.transform = "scale(" + lerp(1.5, 1, ease(subA)) + ")";
-          // 着地のあと、金の面に光が一度走る
-          var tp = clamp((t - T.land - 0.25) / 1.0, 0, 1);
-          titleFront.style.backgroundPosition = lerp(120, -20, tp) + "% 0, 0 0";
+          kicker.style.opacity = subA;
         } else {
           titleWrap.style.opacity = 0;
         }
