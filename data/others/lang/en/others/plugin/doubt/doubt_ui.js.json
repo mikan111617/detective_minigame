@@ -98,8 +98,8 @@
     ],
     [
       478,
-      "      modes.appendChild(btn(\"シンプルプレイ<small>フリー対戦</small>\", \"navy\", function () { go(\"simple\", \"*simple_start\"); }));",
-      "      modes.appendChild(btn(\"Free Play<small>Choose your opponents</small>\", \"navy\", function () { go(\"simple\", \"*simple_start\"); }));"
+      "      modes.appendChild(btn(\"シンプルプレイ<small>フリー対戦</small>\", \"teal\", function () { go(\"simple\", \"*simple_start\"); }));",
+      "      modes.appendChild(btn(\"Free Play<small>Choose your opponents</small>\", \"teal\", function () { go(\"simple\", \"*simple_start\"); }));"
     ],
     [
       483,
