@@ -26,10 +26,40 @@
   var RANK = E.RANK;
   var SUIT = E.SUIT;
 
+  // A loaded save owns a new execution generation. Old async tags must never
+  // advance its scenario or write their battle results into its variables.
+  var lifecycle = window.__doubtLifecycle || (window.__doubtLifecycle = { generation: 0 });
+  var cancelled = { doubtCancelled: true };
+  function invalidateSession() {
+    lifecycle.generation++;
+    if (lifecycle.battle) {
+      var old = lifecycle.battle;
+      lifecycle.battle = null;
+      old.game.resign();
+      old.finishInput(old.mode === "window" ? { type: "pass" } : []);
+      old.close();
+    }
+    stopAllVoice();
+    document.querySelectorAll(".dbt-root, .dbt-skipbtn").forEach(closeRoot);
+    window.__doubtGame = null;
+  }
+  lifecycle.invalidate = invalidateSession;
+  if (!lifecycle.loadHookInstalled) {
+    var originalLoad = TYRANO.kag.menu.loadGameData;
+    TYRANO.kag.menu.loadGameData = function () {
+      lifecycle.invalidate();
+      return originalLoad.apply(this, arguments);
+    };
+    lifecycle.loadHookInstalled = true;
+  }
+
   // ---------------------------------------------------------------- 共通
 
   function sleep(ms) {
-    return new Promise(function (r) { setTimeout(r, ms); });
+    var generation = lifecycle.generation;
+    return new Promise(function (r) { setTimeout(r, ms); }).then(function () {
+      if (generation !== lifecycle.generation) throw cancelled;
+    });
   }
 
   function h(tag, cls, html) {
@@ -48,6 +78,7 @@
   function openRoot(cls) {
     var base = document.querySelector(".tyrano_base") || document.body;
     var root = h("div", "dbt-root dbt-fadein " + (cls || ""));
+    if (window.I18N && window.I18N.isEN()) root.classList.add("dbt-en");
     base.appendChild(root);
     return root;
   }
@@ -333,11 +364,14 @@
       pm: pm || {},
       start: function (p) {
         var kag = this.kag;
+        var generation = lifecycle.generation;
+        var stat = kag.stat;
+        function current() { return generation === lifecycle.generation && stat === kag.stat; }
         kag.layer.hideEventLayer();
         Promise.resolve()
-          .then(function () { return fn(p); })
-          .catch(function (e) { console.error("[doubt] " + name, e); window.__doubtError = String(e && e.stack || e); })
-          .then(function () { kag.ftag.nextOrder(); });
+          .then(function () { if (current()) return fn(p); })
+          .catch(function (e) { if (!current() || e === cancelled) return; console.error("[doubt] " + name, e); window.__doubtError = String(e && e.stack || e); })
+          .then(function () { if (current()) kag.ftag.nextOrder(); });
       },
     };
     tyrano.plugin.kag.tag[name] = tag;
@@ -407,8 +441,10 @@
     if (!kag.stat.is_strong_stop) {
       try { $(".tyrano_base").trigger("click.bgm"); } catch (e) {}
     }
+    var generation = lifecycle.generation;
     var waited = 0;
     (function tryJump() {
+      if (generation !== lifecycle.generation) return;
       // 万一 [s] に着かなくても、画面が止まったままにならないよう 5 秒で飛ぶ
       if (kag.stat.is_strong_stop || waited >= 5000) {
         kag.ftag.startTag("jump", { storage: "title.ks", target: target });
@@ -948,6 +984,7 @@
   var B = BattleUI.prototype;
 
   B.close = function () {
+    if (lifecycle.battle === this) lifecycle.battle = null;
     stopAllVoice();
     closeRoot(this.root);
   };
@@ -1630,11 +1667,28 @@
     if (f().doubt_mode === "arcade") {
       try { snap = JSON.parse(JSON.stringify(f())); } catch (e) { console.error("[doubt] 中断用の写しを取れませんでした", e); }
     }
+    var generation = lifecycle.generation;
+    var battleStat = TYRANO.kag.stat;
+    function checkCurrent() {
+      if (generation !== lifecycle.generation || battleStat !== TYRANO.kag.stat) throw cancelled;
+    }
     var ui = new BattleUI(idx);
+    var io = ui.makeIO();
+    Object.keys(io).forEach(function (key) {
+      var original = io[key];
+      if (typeof original !== "function") return;
+      io[key] = function () {
+        checkCurrent();
+        var value = original.apply(this, arguments);
+        if (value && typeof value.then === "function") return value.then(function (result) { checkCurrent(); return result; });
+        return value;
+      };
+    });
     var game = new E.DoubtGame({
-      data: D, pairIndex: idx, io: ui.makeIO(), level: getLevel(), maxPlay: getMaxPlay()
+      data: D, pairIndex: idx, io: io, level: getLevel(), maxPlay: getMaxPlay()
     });
     ui.game = game;
+    lifecycle.battle = ui;
     window.__doubtGame = game; // 調整・確認用
     var result;
     try {
@@ -1642,6 +1696,7 @@
     } finally {
       await sleep(600);
     }
+    checkCurrent();
     var fv = f();
     // 中断：試合前の f を残してタイトルへ（doubt_main.ks の *arcade_suspend）。
     // この試合の勝ち負けやスコアは f に書かない
@@ -1651,6 +1706,7 @@
       var sov = h("div", "dbt-overlay dbt-notice");
       sov.appendChild(h("div", "box", '<div class="t">中断</div>'));
       await ui.overlayWait(sov, 1200);
+      checkCurrent();
       ui.close();
       return;
     }
@@ -1665,6 +1721,7 @@
     ov.appendChild(h("div", "box",
       '<div class="t">' + (result.resigned ? "降参" : (result.win ? "上がり！" : game.name(result.winner) + "の上がり")) + "</div>"));
     await ui.overlayWait(ov, 1800);
+    checkCurrent();
     ui.close();
   });
 

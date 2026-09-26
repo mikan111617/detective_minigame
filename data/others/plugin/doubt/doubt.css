@@ -822,3 +822,39 @@
   font-family: "Bellefair", "Kiwi Maru", serif; font-size: 30px; letter-spacing: .14em; color: #b9c4d2;
   text-shadow: 3px 3px 0 rgba(0,0,0,.7);
 }
+
+/* English VS screen: bounded columns, with dedicated space for match labels. */
+.dbt-vs.dbt-en .copy { width:840px; box-sizing:border-box; white-space:normal; overflow-wrap:break-word; font-size:56px; line-height:1.2; letter-spacing:.025em; }
+.dbt-vs.dbt-en .copy.l { left:60px; right:60px; }
+.dbt-vs.dbt-en .copy.r { left:60px; right:60px; text-align:right; }
+.dbt-vs.dbt-en .band .n { top:0; height:112px; display:flex; align-items:center; font-size:44px; line-height:1.15; letter-spacing:.025em; overflow-wrap:break-word; box-sizing:border-box; }
+.dbt-vs.dbt-en .band .n.l { left:200px; width:650px; }
+.dbt-vs.dbt-en .band .n.r { left:1000px; right:auto; width:670px; justify-content:center; text-align:center; }
+.dbt-vs.dbt-en .tagbox { font-size:24px; letter-spacing:.06em; box-sizing:border-box; }
+.dbt-vs.dbt-en .tagbox.r { right:40px; width:180px; text-align:center; }
+.dbt-vs.dbt-en .go { left:770px; width:380px; padding:14px 20px; font-size:36px; letter-spacing:.045em; white-space:normal; box-sizing:border-box; }
+.dbt-vs.dbt-en .skhint { right:40px; width:560px; box-sizing:border-box; font-size:20px; line-height:1.35; letter-spacing:.025em; text-align:center; }
+.dbt-vs.dbt-en .skillpanel .skhd { gap:8px 20px; flex-wrap:wrap; }
+.dbt-vs.dbt-en .skillpanel .who { font-size:34px; letter-spacing:.025em; }
+.dbt-vs.dbt-en .skillpanel .ab { overflow-wrap:break-word; }
+
+.dbt-vs.dbt-en .copy { padding-bottom:12px; }
+.dbt-vs.dbt-en .tagbox.r { top:0; height:112px; display:flex; align-items:center; justify-content:center; line-height:1.15; }
+
+/* English labels must wrap inside their controls, including nested battle dialogs. */
+.dbt-root.dbt-en .dbt-btn { white-space:normal; overflow-wrap:break-word; min-width:0; letter-spacing:.025em; line-height:1.3; }
+.dbt-root.dbt-en .dbt-btn small { white-space:normal; overflow-wrap:break-word; letter-spacing:.015em; line-height:1.4; }
+.dbt-en .dbt-pad .box { max-width:1740px; max-height:980px; overflow:auto; }
+.dbt-en .dbt-pad .q, .dbt-en .dbt-exchange .q { letter-spacing:.025em; line-height:1.35; overflow-wrap:break-word; }
+.dbt-en .dbt-swap .box { width:1080px; }
+.dbt-en .dbt-swap .targets { gap:36px; align-items:stretch; }
+.dbt-en .dbt-swap .targets .dbt-btn { flex:1 1 0; width:auto; padding:24px 22px; font-size:38px; }
+.dbt-en .dbt-swap .targets .dbt-btn small { margin-top:14px; font-size:24px; }
+.dbt-select.dbt-en .cmds { left:480px; right:auto; width:780px; gap:30px; align-items:stretch; }
+.dbt-select.dbt-en .cmds .red { width:550px; flex:0 0 550px; font-size:32px; padding:22px 18px; }
+.dbt-select.dbt-en .cmds .navy { width:200px; flex:0 0 200px; font-size:32px; padding:22px 16px; }
+.dbt-en .dbt-exchange .targets { align-items:stretch; }
+.dbt-en .dbt-exchange .targets .dbt-btn { width:420px; padding:22px; font-size:34px; }
+.dbt-en .dbt-exchange .confirm { max-width:900px; font-size:32px; }
+.dbt-en .dbt-exchange .back { max-width:480px; font-size:26px; }
+.dbt-en .dbt-resign .targets .dbt-btn { padding:20px; font-size:34px; }
