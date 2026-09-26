@@ -9,7 +9,11 @@
   // スキル発動カットインの一枚絵の場所（1672×941 / 16:9）
   var CUTIN = "./data/image/cutin/";
   // ボイスの場所（キャラidごとのフォルダに分ける）
-  var VOICE = "./data/voice/";
+  function voiceBase() {
+    return (window.I18N && window.I18N.isEN && window.I18N.isEN())
+      ? "./data/voice_en/"
+      : "./data/voice/";
+  }
 
   var DATA = {
     img: {
@@ -54,7 +58,7 @@
       //   ・他のキャラのセリフでは止まらない（掛け合いは重なって鳴る）
       //   ・順番待ちはしないので、ゲームの進行からセリフがずれない
       path: function (id, cat, index) {
-        return VOICE + (DATA.voiceFile[id] || id) + "/" + cat + "_" + index + DATA.voice.ext;
+        return voiceBase() + (DATA.voiceFile[id] || id) + "/" + cat + "_" + index + DATA.voice.ext;
       },
     },
 
