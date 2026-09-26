@@ -122,29 +122,19 @@
       "      root.appendChild(btn(\"Debug\", \"navy debugbtn\", function () {"
     ],
     [
-      554,
-      "      function useText(ch) {",
-      "        return ch.uses > 0 ? \"Up to \" + ch.uses + \" per game\" : \"Always\";"
-    ],
-    [
       555,
       "        return ch.uses > 0 ? \"1ゲーム\" + ch.uses + \"回\" : \"常時\";",
       "        return ch.uses > 0 ? \"Up to \" + ch.uses + \" per game\" : \"Always\";"
     ],
     [
-      562,
-      "          var sub = D.chara[ch.sub];",
-      "          html += '<div class=\"abilsub\"><b>' + sub.name + '</b> <span class=\"uses\">Up to ' +"
-    ],
-    [
       563,
       "          html += '<div class=\"abilsub\"><b>' + sub.name + '</b> <span class=\"uses\">1ゲーム' +",
-      "            ch.subUses + \" per game</span>\" + sub.ability + \"</div>\";"
+      "          html += '<div class=\"abilsub\"><b>' + sub.name + '</b> <span class=\"uses\">Up to ' +"
     ],
     [
       564,
       "            ch.subUses + \"回</span>\" + sub.ability + \"</div>\";",
-      "            ch.subUses + \"</span>\" + sub.ability + \"</div>\";"
+      "            ch.subUses + \" per game</span>\" + sub.ability + \"</div>\";"
     ],
     [
       572,
