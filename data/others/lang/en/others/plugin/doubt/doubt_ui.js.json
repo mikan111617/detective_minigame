@@ -19,12 +19,12 @@
     [
       272,
       "    return \"第\" + (fv.doubt_round || 1) + \"ラウンド　\" + need + \"先取　\" +",
-      "    return \"第\" + (fv.doubt_round || 1) + \"ラウンド　\" + need + \" wins　\" +"
+      "    return \"Round \" + (fv.doubt_round || 1) + \"　First to \" + need + \" wins　\" +"
     ],
     [
       273,
       "      \"あなた \" + (fv.doubt_win_count || 0) + \" － \" + (fv.doubt_lose_count || 0) + \" 相手\";",
-      "      \"You \" + (fv.doubt_win_count || 0) + \" － \" + (fv.doubt_lose_count || 0) + \" 相手\";"
+      "      \"You \" + (fv.doubt_win_count || 0) + \" - \" + (fv.doubt_lose_count || 0) + \" Opponents\";"
     ],
     [
       281,
@@ -122,9 +122,24 @@
       "      root.appendChild(btn(\"Debug\", \"navy debugbtn\", function () {"
     ],
     [
+      554,
+      "      function useText(ch) {",
+      "        return ch.uses > 0 ? \"Up to \" + ch.uses + \" per game\" : \"Always\";"
+    ],
+    [
       555,
       "        return ch.uses > 0 ? \"1ゲーム\" + ch.uses + \"回\" : \"常時\";",
       "        return ch.uses > 0 ? \"Up to \" + ch.uses + \" per game\" : \"Always\";"
+    ],
+    [
+      562,
+      "          var sub = D.chara[ch.sub];",
+      "          html += '<div class=\"abilsub\"><b>' + sub.name + '</b> <span class=\"uses\">Up to ' +"
+    ],
+    [
+      563,
+      "          html += '<div class=\"abilsub\"><b>' + sub.name + '</b> <span class=\"uses\">1ゲーム' +",
+      "            ch.subUses + \" per game</span>\" + sub.ability + \"</div>\";"
     ],
     [
       564,
@@ -155,6 +170,11 @@
       583,
       "        body.appendChild(btn(\"タイトルへ戻る\", \"navy back\", finish));",
       "        body.appendChild(btn(\"Back to Title\", \"navy back\", finish));"
+    ],
+    [
+      589,
+      "        body.appendChild(h(\"div\", \"hd\", \"ルール\"));",
+      "        body.appendChild(h(\"div\", \"hd\", \"Rules\"));"
     ],
     [
       591,
@@ -494,7 +514,7 @@
     [
       1078,
       "          useText += \"／\" + bc.name + \"の力\" + (bc.uses > 0 ? \" 残り\" + Math.max(0, g.borrowUses) : \"\");",
-      "          useText += \"／\" + bc.name + \"の力\" + (bc.uses > 0 ? \" Remaining \" + Math.max(0, g.borrowUses) : \"\");"
+      "          useText += \" / \" + bc.name + \"\\'s ability\" + (bc.uses > 0 ? \" Remaining \" + Math.max(0, g.borrowUses) : \"\");"
     ],
     [
       1080,
@@ -569,7 +589,7 @@
     [
       1281,
       "        title(g.name(seat) + \"と\" + count + \"枚ずつ交換\", \"赤枠＝相手が要求するあなたの札。欲しい相手の札を\" + count + \"枚選ぶ\");",
-      "        title(g.name(seat) + \"と\" + count + \" cards each\", \"Red outline = cards your opponent wants. Choose \" + count + \" cards you want in return\");"
+      "        title(g.name(seat) + \" — exchange \" + count + \" cards each\", \"Red outline = cards your opponent wants. Choose \" + count + \" cards you want in return\");"
     ],
     [
       1282,
@@ -579,7 +599,7 @@
     [
       1283,
       "        grid(g.name(seat) + \"から欲しい札\", g.hands[seat], \"theirs\", function (id) {",
-      "        grid(g.name(seat) + \"Cards You Want from \", g.hands[seat], \"theirs\", function (id) {"
+      "        grid(\"Cards You Want from \" + g.name(seat), g.hands[seat], \"theirs\", function (id) {"
     ],
     [
       1292,
@@ -594,7 +614,17 @@
     [
       1433,
       "        return ui.waitInput(\"place\", \"〈\" + RANK[g.rank] + \"〉として伏せる札を選ぶ（1〜\" + g.maxPlay + \"枚・嘘でもよい）\");",
-      "        return ui.waitInput(\"place\", \"〈\" + RANK[g.rank] + \"〉 — choose cards to play (1–\" + g.maxPlay + \"; bluffing allowed)\");"
+      "        return ui.waitInput(\"place\", \"〈\" + RANK[g.rank] + \"〉 — choose 1–\" + g.maxPlay + \" cards to play (bluffing allowed)\");"
+    ],
+    [
+      1437,
+      "        var head = g.name(g.last.seat) + \"の〈\" + RANK[g.last.rank] + \"〉×\" +",
+      "        var head = g.name(g.last.seat) + \"\\'s 〈\" + RANK[g.last.rank] + \"〉 × \" +"
+    ],
+    [
+      1438,
+      "          g.shownPlay(g.last.cards.length, g.last.seat) + \"枚　\";",
+      "          g.shownPlay(g.last.cards.length, g.last.seat) + \"　\";"
     ],
     [
       1444,
@@ -614,12 +644,12 @@
     [
       1456,
       "          ? \"〈\" + RANK[offerRank] + \"〉\" + n + \"枚との交換\\n\"",
-      "          ? \"〈\" + RANK[offerRank] + \"〉\" + n + \"枚 in exchange\\n\""
+      "          ? \"Exchange for \" + n + \" × 〈\" + RANK[offerRank] + \"〉\\n\""
     ],
     [
       1459,
       "          offered + g.name(placer) + \"に渡す札を\" + n + \"枚選ぶ\");",
-      "          offered + g.name(placer) + \" — choose \" + n + \" cards you want in return\");"
+      "          offered + \"Choose \" + n + \" cards to give \" + g.name(placer));"
     ],
     [
       1488,
@@ -664,7 +694,7 @@
     [
       1593,
       "          g.name(info.doubter) + \"のダウト　―　\" + g.name(info.placer) + \"の〈\" + RANK[info.rank] + \"〉\"));",
-      "          g.name(info.doubter) + \" called Doubt — \" + g.name(info.placer) + \"の〈\" + RANK[info.rank] + \"〉\"));"
+      "          g.name(info.doubter) + \" called Doubt — \" + g.name(info.placer) + \"\\'s 〈\" + RANK[info.rank] + \"〉\"));"
     ],
     [
       1608,
@@ -754,7 +784,7 @@
     [
       1726,
       "        '<div class=\"d\">' + (added > 0 ? \"残機が\" + added + \"つ増えた（＋\" + added + \"）\" : \"コンティニューできる回数\") + \"</div>\"));",
-      "        '<div class=\"d\">' + (added > 0 ? \"Livesが\" + added + \" gained (+ \" + added + \"）\" : \"Number of continues available\") + \"</div>\"));"
+      "        '<div class=\"d\">' + (added > 0 ? \"Lives +\" + added + \" (+\" + added + \")\" : \"Number of continues available\") + \"</div>\"));"
     ],
     [
       1729,
@@ -800,6 +830,11 @@
       1816,
       "      row(\"卓\", \"ここから始める\", D.pairs.map(function (pr, i) {",
       "      row(\"Table\", \"Start Here\", D.pairs.map(function (pr, i) {"
+    ],
+    [
+      1819,
+      "      row(\"入り方\", \"\", [",
+      "      row(\"Starting Point\", \"\", ["
     ],
     [
       1820,
@@ -1019,7 +1054,7 @@
     [
       2086,
       "          var c = btn(v + \"<small>最大\" + v + \"枚</small>\", \"navy cell compact\",",
-      "          var c = btn(v + \"<small>Max \" + v + \"枚</small>\", \"navy cell compact\","
+      "          var c = btn(v + \"<small>Max \" + v + \" cards</small>\", \"navy cell compact\","
     ],
     [
       2097,
@@ -1055,6 +1090,11 @@
       2144,
       "      root.appendChild(h(\"div\", \"q\", \"「今日はここまで。<br>また今度おいで、お客人」\"));",
       "      root.appendChild(h(\"div\", \"q\", \"“That's enough for today.<br>Come again, honored guest.”\"));"
+    ],
+    [
+      2145,
+      "      root.appendChild(btn(\"タイトルへ\", \"navy back\", function () {",
+      "      root.appendChild(btn(\"Back to Title\", \"navy back\", function () {"
     ],
     [
       2169,
@@ -1117,6 +1157,11 @@
       "          '<span class=\"nm\">' + (r ? r.n : \"-----\") + \"</span>\" +"
     ],
     [
+      2321,
+      "      root.appendChild(btn(\"タイトルへ\", \"navy back\", function () {",
+      "      root.appendChild(btn(\"Back to Title\", \"navy back\", function () {"
+    ],
+    [
       2352,
       "      root.appendChild(h(\"div\", \"t\", \"体験版はここまで\"));",
       "      root.appendChild(h(\"div\", \"t\", \"End of Demo\"));"
@@ -1130,6 +1175,11 @@
       2355,
       "        \"舞黒館では、まだ別の参加者たちが待っています。\"));",
       "        \"More challengers are waiting for you at Maicro House.\"));"
+    ],
+    [
+      2356,
+      "      root.appendChild(btn(\"タイトルへ\", \"navy back\", function () {",
+      "      root.appendChild(btn(\"Back to Title\", \"navy back\", function () {"
     ],
     [
       2377,
