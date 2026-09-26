@@ -1,0 +1,37 @@
+{
+  "ja2en": {
+    "真歩流": "Mahoru",
+    "真歩流?": "Mahoru?",
+    "愛理": "Airi",
+    "和人": "Kazuto",
+    "メアリー": "Mary",
+    "零度警部": "Inspector Reido",
+    "珠璃": "Juri",
+    "叡留久": "Eruku",
+    "朱志香": "Jushika",
+    "小出里亜": "Koderia",
+    "クロエ": "Chloe",
+    "英国の青年": "Young British Man",
+    "快活な少女": "Spirited Girl",
+    "舞黒邦夢": "Houmu Maicro"
+  },
+  "en2ja": {
+    "Mahoru": "真歩流",
+    "Mahoru?": "真歩流?",
+    "Airi": "愛理",
+    "Kazuto": "和人",
+    "Mary": "メアリー",
+    "Inspector Reido": "零度警部",
+    "Juri": "珠璃",
+    "Eruku": "叡留久",
+    "Jushika": "朱志香",
+    "Koderia": "小出里亜",
+    "Chloe": "クロエ",
+    "Young British Man": "英国の青年",
+    "Spirited Girl": "快活な少女",
+    "Houmu Maicro": "舞黒邦夢"
+  },
+  "byKeyJa2en": {},
+  "byKeyEn2ja": {},
+  "scoped": {}
+}
