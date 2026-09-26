@@ -2289,7 +2289,12 @@
       }
       document.addEventListener("keydown", onKey);
 
-      setTab(0);
+      if (window.I18N && window.I18N.isEN && window.I18N.isEN()) {
+        tKana.style.display = "none";
+        setTab(1);
+      } else {
+        setTab(0);
+      }
       drawSlots();
     });
   }
