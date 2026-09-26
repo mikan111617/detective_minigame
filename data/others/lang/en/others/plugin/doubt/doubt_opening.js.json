@@ -1,0 +1,30 @@
+{
+  "src": "data/others/plugin/doubt/doubt_opening.js",
+  "lines": [
+    [
+      146,
+      "      logo.alt = \"煉瓦書架\";",
+      "      logo.alt = \"Renga Shoka\";"
+    ],
+    [
+      160,
+      "        '<div class=\"kicker\">―― 相手の目を誤魔化す嘘つきの祭典 ――</div>' +",
+      "        '<div class=\"kicker\">— A Festival of Lies and Deception —</div>' +"
+    ],
+    [
+      161,
+      "        \"<h1>舞黒館の<em>惨劇</em></h1>\" +",
+      "        \"<h1>The <em>Tragedy</em> at Maicro House</h1>\" +"
+    ],
+    [
+      162,
+      "        '<div class=\"sub\">「探偵少女はダウトで勝ちの目を見るか」</div>');",
+      "        '<div class=\"sub\">Will the Detective Girl Find a Winning Hand at Doubt?</div>');"
+    ],
+    [
+      169,
+      "      var copy = h(\"div\", \"op-copy\", \"© \" + new Date().getFullYear() + \" 煉瓦書架\");",
+      "      var copy = h(\"div\", \"op-copy\", \"© \" + new Date().getFullYear() + \" Renga Shoka\");"
+    ]
+  ]
+}

@@ -1,0 +1,235 @@
+{
+  "src": "data/others/plugin/doubt/doubt_engine.js",
+  "lines": [
+    [
+      95,
+      "    if (seat === 0) return \"あなた\";",
+      "    if (seat === 0) return \"You\";"
+    ],
+    [
+      366,
+      "        await this.io.cutin(this, seat, bc.name + \"の力を借りる ―― \" + bc.ability);",
+      "        await this.io.cutin(this, seat, bc.name + \" borrows the ability — \" + bc.ability);"
+    ],
+    [
+      371,
+      "        if (sc) await this.io.cutin(this, seat, \"もう一つの力 ―― \" + sc.ability);",
+      "        if (sc) await this.io.cutin(this, seat, \"Second ability — \" + sc.ability);"
+    ],
+    [
+      405,
+      "    this.io.log(this, this.name(seat) + \"：〈\" + RANK[this.rank] + \"〉が\" + this.shownPlay(cards.length, seat) + \"枚\");",
+      "    this.io.log(this, this.name(seat) + \": 〈\" + RANK[this.rank] + \"〉 × \" + this.shownPlay(cards.length, seat) + \" cards\");"
+    ],
+    [
+      425,
+      "      await this.io.notice(this, \"時間切れ\", \"手札が最も少ない者の勝ち\");",
+      "      await this.io.notice(this, \"TIME OUT\", \"The player with the fewest cards wins.\");"
+    ],
+    [
+      472,
+      "      this.io.log(this, this.name(placer) + \"の伏せ札には、ダウトを言えない（残り\" + this.immune[placer] + \"回）\");",
+      "      this.io.log(this, this.name(placer) + \"\\'s face-down cards cannot be challenged (remaining \" + this.immune[placer] + \")\");"
+    ],
+    [
+      531,
+      "      this.io.log(this, this.name(doubter) + \"が手札3枚を\" + this.name(placer) + \"に渡した\");",
+      "      this.io.log(this, this.name(doubter) + \" gives 3 cards to \" + this.name(placer) + \"\");"
+    ],
+    [
+      541,
+      "      await this.io.cutin(this, doubter, \"〈\" + RANK[guess] + \"〉だと名指しする\");",
+      "      await this.io.cutin(this, doubter, \"Names the hidden rank as 〈\" + RANK[guess] + \"〉\");"
+    ],
+    [
+      561,
+      "    this.io.log(this, this.name(doubter) + \"：ダウト！\");",
+      "    this.io.log(this, this.name(doubter) + \": Doubt!\");"
+    ],
+    [
+      569,
+      "        this.io.log(this, this.name(placer) + \"がダウトを無効にした\");",
+      "        this.io.log(this, this.name(placer) + \" nullifies the Doubt call\");"
+    ],
+    [
+      570,
+      "        await this.io.notice(this, \"ダウト無効\", \"伏せ札はそのまま場に残る\");",
+      "        await this.io.notice(this, \"Doubt Nullified\", \"The face-down cards remain in the pile.\");"
+    ],
+    [
+      610,
+      "        this.io.log(this, this.name(loser) + \"は\" + half + \"枚だけ回収（\" + (take.length - half) + \"枚は場から除外）\");",
+      "        this.io.log(this, this.name(loser) + \" takes only \" + half + \" cards (\" + (take.length - half) + \" cards are removed from play)\");"
+    ],
+    [
+      614,
+      "        this.io.log(this, this.name(loser) + \"が場の札\" + take.length + \"枚を回収\");",
+      "        this.io.log(this, this.name(loser) + \" takes \" + take.length + \" cards from the pile\");"
+    ],
+    [
+      637,
+      "          await this.io.notice(this, \"けむに巻かれた\", \"二人の手札の枚数と、伏せた枚数が読めない\");",
+      "          await this.io.notice(this, \"Obscured\", \"Their hand counts and number of cards played are hidden.\");"
+    ],
+    [
+      641,
+      "      this.io.log(this, this.name(doubter) + \"の読み違い。札は場に残る\");",
+      "      this.io.log(this, this.name(doubter) + \" misreads the play. The cards remain in the pile.\");"
+    ],
+    [
+      642,
+      "      await this.io.notice(this, \"本当だった\", this.name(doubter) + \"は札を引き取らない\");",
+      "      await this.io.notice(this, \"It Was True\", this.name(doubter) + \" takes no cards.\");"
+    ],
+    [
+      660,
+      "          this.io.log(this, \"名推理成功：\" + this.name(reward.target) + \"の手札を確認し、手札\" + n + \"枚を捨てた\");",
+      "          this.io.log(this, \"Brilliant deduction: \" + this.name(reward.target) + \"\\'s hand inspected; discards \" + n + \" cards\");"
+    ],
+    [
+      670,
+      "        this.io.log(this, this.name(doubter) + \"が\" + gv.length + \"枚を\" + this.name(placer) + \"に渡した\");",
+      "        this.io.log(this, this.name(doubter) + \" gives \" + gv.length + \" cards to \" + this.name(placer));"
+    ],
+    [
+      674,
+      "      this.io.log(this, \"名指しは外れた\");",
+      "      this.io.log(this, \"The rank guess was wrong.\");"
+    ],
+    [
+      688,
+      "      await this.io.notice(this, \"交換できない\", \"手札が1枚の時は交換できない\");",
+      "      await this.io.notice(this, \"Cannot Exchange\", \"You cannot exchange with only 1 card in hand.\");"
+    ],
+    [
+      739,
+      "    this.io.log(this, this.name(target) + \"と手札を\" + n + \"枚ずつ交換した\");",
+      "    this.io.log(this, this.name(target) + \" exchanges \" + n + \" cards each\");"
+    ],
+    [
+      925,
+      "          this.pendingCutin = { seat: seat, text: \"覚えている札から、嘘を見抜いた\" };",
+      "          this.pendingCutin = { seat: seat, text: \"Saw through the lie using remembered cards\" };"
+    ],
+    [
+      1159,
+      "        this.io.log(this, \"叡留久が手札を丸ごと入れ替えた\");",
+      "        this.io.log(this, \"Eruku swaps entire hands\");"
+    ],
+    [
+      1174,
+      "        this.io.log(this, this.name(seat) + \"：この一巡、あなたはダウトを言えない\");",
+      "        this.io.log(this, this.name(seat) + \": You cannot call Doubt this round\");"
+    ],
+    [
+      1175,
+      "        await this.io.notice(this, \"ダウト封じ\", \"一巡のあいだ、あなたは疑えない\");",
+      "        await this.io.notice(this, \"Doubt Sealed\", \"You cannot call Doubt for one full round.\");"
+    ],
+    [
+      1229,
+      "        this.io.log(this, this.name(seat) + \"が場の札\" + half + \"枚を引き取り、三巡のあいだ疑われない\");",
+      "        this.io.log(this, this.name(seat) + \" takes \" + half + \" cards from the pile and cannot be challenged for three turns\");"
+    ],
+    [
+      1230,
+      "        await this.io.notice(this, \"危ない取引\", this.name(seat) + \"の伏せ札は、三巡のあいだダウトできない\");",
+      "        await this.io.notice(this, \"Risky Deal\", this.name(seat) + \"\\'s face-down cards cannot be challenged for three turns.\");"
+    ],
+    [
+      1272,
+      "    await this.io.notice(this, \"取引\",",
+      "    await this.io.notice(this, \"Trade\","
+    ],
+    [
+      1273,
+      "      \"〈\" + RANK[give[0].r] + \"〉を\" + n + \"枚渡す。代わりに好きな札を\" + n + \"枚もらいたい\");",
+      "      \"Offers \" + n + \" × 〈\" + RANK[give[0].r] + \"〉. Choose \" + n + \" cards to give in return.\");"
+    ],
+    [
+      1288,
+      "    this.io.log(this, this.name(seat) + \"との取引：〈\" + RANK[give[0].r] + \"〉\" + n + \"枚と\" + back.length + \"枚を交換\");",
+      "    this.io.log(this, this.name(seat) + \" trades: 〈\" + RANK[give[0].r] + \"〉\" + n + \" × \" + back.length + \" cards exchanged\");"
+    ],
+    [
+      1325,
+      "    this.io.log(this, this.name(seat) + \"の招待：\" + this.name(others[0]) + \"と\" + this.name(others[1]) + \"に\" + each + \"枚ずつ配られた\");",
+      "    this.io.log(this, this.name(seat) + \"\\'s invitation: \" + this.name(others[0]) + \" and \" + this.name(others[1]) + \" receive \" + each + \" cards each\");"
+    ],
+    [
+      1326,
+      "    await this.io.notice(this, \"香りの招待\",",
+      "    await this.io.notice(this, \"Fragrant Invitation\","
+    ],
+    [
+      1327,
+      "      \"新しい札が\" + take.length + \"枚入り、自分以外の二人に\" + each + \"枚ずつ配られた\");",
+      "      \"Adds \" + take.length + \" new cards; the other two players receive \" + each + \" each.\");"
+    ],
+    [
+      1347,
+      "    this.io.log(this, this.name(seat) + \"のもう一組の札：\" +",
+      "    this.io.log(this, this.name(seat) + \"\\'s second deck: \" +"
+    ],
+    [
+      1348,
+      "      this.name(others[0]) + \"と\" + this.name(others[1]) + \"に\" + each + \"枚ずつ配られた\");",
+      "      this.name(others[0]) + \" and \" + this.name(others[1]) + \" receive \" + each + \" cards each\");"
+    ],
+    [
+      1349,
+      "    await this.io.notice(this, \"もう一組の札\",",
+      "    await this.io.notice(this, \"Second Deck\","
+    ],
+    [
+      1350,
+      "      \"新しい札が\" + take.length + \"枚入り、自分以外の二人に\" + each + \"枚ずつ配られた\");",
+      "      \"Adds \" + take.length + \" new cards; the other two players receive \" + each + \" each.\");"
+    ],
+    [
+      1365,
+      "      \"うっかり、真歩流？の力を一巡だけ封じてしまう\",",
+      "      \"Accidentally seal Mahoru?\\'s power for one round\","
+    ],
+    [
+      1366,
+      "      \"全員が、手札の枚数分だけ場の伏せ札と入れ替え\",",
+      "      \"Everyone swaps cards with the face-down pile equal to their hand size\","
+    ],
+    [
+      1367,
+      "      \"全員の手札を、丸ごと誰かと入れ替え\",",
+      "      \"Everyone swaps their entire hand with someone else\","
+    ],
+    [
+      1368,
+      "      \"山札からジョーカーを出して、\" + this.name(target) + \"に渡す\",",
+      "      \"Draw a Joker from the deck and give it to \" + this.name(target) + \"\","
+    ],
+    [
+      1374,
+      "      this.io.log(this, \"邦夢のもてなし：真歩流？の力が一巡封じられた\");",
+      "      this.io.log(this, \"Houmu\\'s Hospitality: Mahoru?\\'s power is sealed for one round\");"
+    ],
+    [
+      1396,
+      "      this.io.log(this, \"邦夢のもてなし：手札と場の札が入れ替わった\");",
+      "      this.io.log(this, \"Houmu\\'s Hospitality: hands and pile cards are swapped\");"
+    ],
+    [
+      1414,
+      "      this.io.log(this, \"邦夢のもてなし：全員の手札が入れ替わった\");",
+      "      this.io.log(this, \"Houmu\\'s Hospitality: everyone\\'s hands are swapped\");"
+    ],
+    [
+      1420,
+      "      this.io.log(this, \"邦夢のもてなし：ジョーカーが\" + this.name(target) + \"の手札に\");",
+      "      this.io.log(this, \"Houmu\\'s Hospitality: Joker added to \" + this.name(target) + \"\\'s hand\");"
+    ],
+    [
+      1421,
+      "      if (target === 0) await this.io.notice(this, \"ジョーカー\", \"どの数字でもない札。出す時は必ず嘘になる\");",
+      "      if (target === 0) await this.io.notice(this, \"Joker\", \"A card with no rank. Playing it is always a lie.\");"
+    ]
+  ]
+}

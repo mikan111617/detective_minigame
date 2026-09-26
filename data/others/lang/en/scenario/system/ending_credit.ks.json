@@ -1,0 +1,90 @@
+{
+  "src": "data/scenario/system/ending_credit.ks",
+  "lines": [
+    [
+      33,
+      "        { name: \"舞黒館の惨劇 探偵少女はダウトで勝ちの目を見るか\" },",
+      "        { name: \"The Tragedy at Maicro House: Will the Detective Girl Find a Winning Hand at Doubt?\" },"
+    ],
+    [
+      34,
+      "        { role: \"制作\", name: \"プロジェクト：舞黒館\" },",
+      "        { role: \"Production\", name: \"Project Maicro House\" },"
+    ],
+    [
+      35,
+      "        { role: \"シナリオ\", name: \"ひんやりミカン\" },",
+      "        { role: \"Scenario\", name: \"Hinyari Mikan\" },"
+    ],
+    [
+      36,
+      "        { role: \"UI画像\", name: \"空想曲線<br>ゲームUIセット vol.23 (02 ダーク)\" },",
+      "        { role: \"UI Assets\", name: \"Kusou Kyokusen<br>Game UI Set vol.23 (02 Dark)\" },"
+    ],
+    [
+      37,
+      "        { role: \"背景\", name: \"舞黒館\" },",
+      "        { role: \"Backgrounds\", name: \"Maicro House\" },"
+    ],
+    [
+      38,
+      "        { role: \"キャラクター\", name: \"\" },",
+      "        { role: \"Characters\", name: \"\" },"
+    ],
+    [
+      39,
+      "        { role: \"\", name: \"真白　真歩流\" },",
+      "        { role: \"\", name: \"Mahoru Mashiro\" },"
+    ],
+    [
+      40,
+      "        { role: \"\", name: \"真白　愛理\" },",
+      "        { role: \"\", name: \"Airi Mashiro\" },"
+    ],
+    [
+      41,
+      "        { role: \"\", name: \"徐音　和人\" },",
+      "        { role: \"\", name: \"Kazuto Joon\" },"
+    ],
+    [
+      42,
+      "        { role: \"\", name: \"メアリー・キング\" },",
+      "        { role: \"\", name: \"Mary King\" },"
+    ],
+    [
+      43,
+      "        { role: \"\", name: \"富礼知　朱志香\" },",
+      "        { role: \"\", name: \"Jushika Furechi\" },"
+    ],
+    [
+      44,
+      "        { role: \"\", name: \"灰音　小出里亜\" },",
+      "        { role: \"\", name: \"Koderia Haine\" },"
+    ],
+    [
+      45,
+      "        { role: \"\", name: \"穂在呂　叡留久\" },",
+      "        { role: \"\", name: \"Eruku Hoaro\" },"
+    ],
+    [
+      46,
+      "        { role: \"\", name: \"穂在呂　珠璃\" },",
+      "        { role: \"\", name: \"Juri Hoaro\" },"
+    ],
+    [
+      47,
+      "        { role: \"\", name: \"零度　警部\" },",
+      "        { role: \"\", name: \"Inspector Reido\" },"
+    ],
+    [
+      48,
+      "        { role: \"\", name: \"舞黒　邦夢\" },",
+      "        { role: \"\", name: \"Houmu Maicro\" },"
+    ],
+    [
+      51,
+      "        { name: \"プレイしてくださった<br>すべての方へ\" }",
+      "        { name: \"To everyone who played<br>Thank you\" }"
+    ]
+  ]
+}

@@ -1,0 +1,15 @@
+{
+  "lang": "en",
+  "files": [
+    "scenario/first.ks",
+    "scenario/title.ks",
+    "scenario/doubt_story.ks",
+    "scenario/system/chara.ks",
+    "scenario/system/ending_credit.ks",
+    "others/plugin/doubt/doubt_data.js",
+    "others/plugin/doubt/doubt_engine.js",
+    "others/plugin/doubt/doubt_ui.js",
+    "others/plugin/doubt/doubt_opening.js"
+  ],
+  "ui": {}
+}

@@ -9,11 +9,17 @@
   // スキル発動カットインの一枚絵の場所（1672×941 / 16:9）
   var CUTIN = "./data/image/cutin/";
   // ボイスの場所（キャラidごとのフォルダに分ける）
-  var VOICE = "./data/voice/";
+  function voiceBase() {
+    return (window.I18N && window.I18N.isEN && window.I18N.isEN())
+      ? "./data/voice_en/"
+      : "./data/voice/";
+  }
 
   var DATA = {
     img: {
-      bgCaution: "./data/bgimage/caution.png",
+      bgCaution: (window.I18N && window.I18N.isEN && window.I18N.isEN())
+        ? "./data/bgimage/caution_en.png"
+        : "./data/bgimage/caution.png",
       bgTitle: IMG + "bg/bg-title.png",
       bgSelect: IMG + "bg/bg-select.png",
       bgTable: IMG + "bg/bg-table.png",
@@ -54,7 +60,7 @@
       //   ・他のキャラのセリフでは止まらない（掛け合いは重なって鳴る）
       //   ・順番待ちはしないので、ゲームの進行からセリフがずれない
       path: function (id, cat, index) {
-        return VOICE + (DATA.voiceFile[id] || id) + "/" + cat + "_" + index + DATA.voice.ext;
+        return voiceBase() + (DATA.voiceFile[id] || id) + "/" + cat + "_" + index + DATA.voice.ext;
       },
     },
 
