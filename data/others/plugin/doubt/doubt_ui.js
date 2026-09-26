@@ -493,6 +493,15 @@
       closeRoot(root);
       jumpFromTitle("*help");
     }));
+    extra.appendChild(btn("LANGUAGE<small>日本語 / English</small>", "navy", function () {
+      var next = (window.I18N && window.I18N.isEN && window.I18N.isEN()) ? "ja" : "en";
+      if (window.I18N && window.I18N.setLang) {
+        window.I18N.setLang(next, function () { window.location.reload(); });
+      } else {
+        try { window.localStorage.setItem("maiguro_lang", next); } catch (e) {}
+        window.location.reload();
+      }
+    }));
     root.appendChild(extra);
 
     // 開発用デバッグは、通常メニューと分けて画面最下部に小さく置く
