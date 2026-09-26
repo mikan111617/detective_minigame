@@ -475,7 +475,7 @@
       "purple", goArcade
     ));
     if (!demo) {
-      modes.appendChild(btn("シンプルプレイ<small>フリー対戦</small>", "navy", function () { go("simple", "*simple_start"); }));
+      modes.appendChild(btn("シンプルプレイ<small>フリー対戦</small>", "teal", function () { go("simple", "*simple_start"); }));
     }
     root.appendChild(modes);
     var extra = h("div", "extra");
