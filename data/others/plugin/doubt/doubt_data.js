@@ -17,7 +17,9 @@
 
   var DATA = {
     img: {
-      bgCaution: "./data/bgimage/caution.png",
+      bgCaution: (window.I18N && window.I18N.isEN && window.I18N.isEN())
+        ? "./data/bgimage/caution_en.png"
+        : "./data/bgimage/caution.png",
       bgTitle: IMG + "bg/bg-title.png",
       bgSelect: IMG + "bg/bg-select.png",
       bgTable: IMG + "bg/bg-table.png",
