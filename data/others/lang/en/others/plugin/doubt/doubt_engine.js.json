@@ -89,7 +89,7 @@
     [
       670,
       "        this.io.log(this, this.name(doubter) + \"が\" + gv.length + \"枚を\" + this.name(placer) + \"に渡した\");",
-      "        this.io.log(this, this.name(doubter) + \"が\" + gv.length + \" cards to \" + this.name(placer) + \"\");"
+      "        this.io.log(this, this.name(doubter) + \" gives \" + gv.length + \" cards to \" + this.name(placer));"
     ],
     [
       674,
@@ -144,7 +144,7 @@
     [
       1273,
       "      \"〈\" + RANK[give[0].r] + \"〉を\" + n + \"枚渡す。代わりに好きな札を\" + n + \"枚もらいたい\");",
-      "      \"〈\" + RANK[give[0].r] + \"〉を\" + n + \" cards. In return, choose \" + n + \" cards to receive.\");"
+      "      \"Offers \" + n + \" × 〈\" + RANK[give[0].r] + \"〉. Choose \" + n + \" cards to give in return.\");"
     ],
     [
       1288,
