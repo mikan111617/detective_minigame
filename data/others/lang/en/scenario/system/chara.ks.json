@@ -1,0 +1,75 @@
+{
+  "src": "data/scenario/system/chara.ks",
+  "lines": [
+    [
+      4,
+      "[chara_new name=\"mahoru\" jname=\"真歩流\" storage=\"chara/mahoru/normal.png\" width=\"600\"]",
+      "[chara_new name=\"mahoru\" jname=\"Mahoru\" storage=\"chara/mahoru/normal.png\" width=\"600\"]"
+    ],
+    [
+      22,
+      "[chara_new name=\"mahoru_awake\" jname=\"真歩流?\" storage=\"chara/mahoru_awake/normal.png\" width=\"600\"]",
+      "[chara_new name=\"mahoru_awake\" jname=\"Mahoru?\" storage=\"chara/mahoru_awake/normal.png\" width=\"600\"]"
+    ],
+    [
+      26,
+      "[chara_new name=\"airi\" jname=\"愛理\" storage=\"chara/airi/normal.png\" width=\"600\"]",
+      "[chara_new name=\"airi\" jname=\"Airi\" storage=\"chara/airi/normal.png\" width=\"600\"]"
+    ],
+    [
+      38,
+      "[chara_new name=\"kazuto\" jname=\"和人\" storage=\"chara/kazuto/normal.png\" width=\"600\"]",
+      "[chara_new name=\"kazuto\" jname=\"Kazuto\" storage=\"chara/kazuto/normal.png\" width=\"600\"]"
+    ],
+    [
+      51,
+      "[chara_new name=\"jushika\" jname=\"朱志香\" storage=\"chara/jushika/normal.png\" width=\"600\"]",
+      "[chara_new name=\"jushika\" jname=\"Jushika\" storage=\"chara/jushika/normal.png\" width=\"600\"]"
+    ],
+    [
+      63,
+      "[chara_new name=\"koderia\" jname=\"小出里亜\" storage=\"chara/koderia/normal.png\" width=\"600\"]",
+      "[chara_new name=\"koderia\" jname=\"Koderia\" storage=\"chara/koderia/normal.png\" width=\"600\"]"
+    ],
+    [
+      73,
+      "[chara_new name=\"juri\" jname=\"珠璃\" storage=\"chara/juri/normal.png\" width=\"600\"]",
+      "[chara_new name=\"juri\" jname=\"Juri\" storage=\"chara/juri/normal.png\" width=\"600\"]"
+    ],
+    [
+      84,
+      "[chara_new name=\"eruku\" jname=\"叡留久\" storage=\"chara/eruku/normal.png\" width=\"600\"]",
+      "[chara_new name=\"eruku\" jname=\"Eruku\" storage=\"chara/eruku/normal.png\" width=\"600\"]"
+    ],
+    [
+      93,
+      "[chara_new name=\"mary\" jname=\"メアリー\" storage=\"chara/mary/normal.png\" width=\"600\"]",
+      "[chara_new name=\"mary\" jname=\"Mary\" storage=\"chara/mary/normal.png\" width=\"600\"]"
+    ],
+    [
+      105,
+      "[chara_new name=\"reido\" jname=\"零度警部\" storage=\"chara/reido/normal.png\" width=\"600\"]",
+      "[chara_new name=\"reido\" jname=\"Inspector Reido\" storage=\"chara/reido/normal.png\" width=\"600\"]"
+    ],
+    [
+      115,
+      "[chara_new name=\"chroe\" jname=\"クロエ\" storage=\"chara/chroe/normal.png\" width=\"600\"]",
+      "[chara_new name=\"chroe\" jname=\"Chloe\" storage=\"chara/chroe/normal.png\" width=\"600\"]"
+    ],
+    [
+      122,
+      "@chara_new name=\"arther\" jname=\"英国の青年\" storage=\"chara/arther/normal.png\"",
+      "@chara_new name=\"arther\" jname=\"Young British Man\" storage=\"chara/arther/normal.png\""
+    ],
+    [
+      124,
+      "@chara_new name=\"yuduki\" jname=\"快活な少女\" storage=\"chara/yuduki/normal.png\"",
+      "@chara_new name=\"yuduki\" jname=\"Spirited Girl\" storage=\"chara/yuduki/normal.png\""
+    ],
+    [
+      126,
+      "@chara_new name=\"maicro\" jname=\"舞黒邦夢\" storage=\"chara/maicro/normal.png\"",
+      "@chara_new name=\"maicro\" jname=\"Houmu Maicro\" storage=\"chara/maicro/normal.png\""
+    ]
+  ]
+}

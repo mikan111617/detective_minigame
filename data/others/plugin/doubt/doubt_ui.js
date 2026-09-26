@@ -475,7 +475,7 @@
       "purple", goArcade
     ));
     if (!demo) {
-      modes.appendChild(btn("シンプルプレイ<small>フリー対戦</small>", "navy", function () { go("simple", "*simple_start"); }));
+      modes.appendChild(btn("シンプルプレイ<small>フリー対戦</small>", "teal", function () { go("simple", "*simple_start"); }));
     }
     root.appendChild(modes);
     var extra = h("div", "extra");
@@ -492,6 +492,15 @@
     extra.appendChild(btn("遊び方", "navy", function () {
       closeRoot(root);
       jumpFromTitle("*help");
+    }));
+    extra.appendChild(btn("LANGUAGE<small>日本語 / English</small>", "navy", function () {
+      var next = (window.I18N && window.I18N.isEN && window.I18N.isEN()) ? "ja" : "en";
+      if (window.I18N && window.I18N.setLang) {
+        window.I18N.setLang(next, function () { window.location.reload(); });
+      } else {
+        try { window.localStorage.setItem("maiguro_lang", next); } catch (e) {}
+        window.location.reload();
+      }
     }));
     root.appendChild(extra);
 
@@ -2280,7 +2289,12 @@
       }
       document.addEventListener("keydown", onKey);
 
-      setTab(0);
+      if (window.I18N && window.I18N.isEN && window.I18N.isEN()) {
+        tKana.style.display = "none";
+        setTab(1);
+      } else {
+        setTab(0);
+      }
       drawSlots();
     });
   }

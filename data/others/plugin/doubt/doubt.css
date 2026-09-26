@@ -25,6 +25,9 @@
 .dbt-btn.red:hover { background: #f0533f; }
 .dbt-btn.navy { background: #1b2a4a; box-shadow: 0 0 0 3px #e8b54a, 8px 8px 0 0 #0b1122; }
 .dbt-btn.navy:hover { background: #24396b; }
+/* シンプルプレイ専用。アーケードの紫・補助ボタンの紺と一目で区別できる青緑。 */
+.dbt-btn.teal { background: #176a72; box-shadow: 0 0 0 3px #e8b54a, 8px 8px 0 0 #09363c; }
+.dbt-btn.teal:hover { background: #21828b; }
 .dbt-btn.pink { background: #f5a3b8; color: #3a1f52; box-shadow: 0 0 0 3px #e8b54a, 8px 8px 0 0 #7f3a52; }
 .dbt-btn.pink:hover { background: #ffc0cf; }
 .dbt-btn.purple { background: #4b2a6e; box-shadow: 0 0 0 3px #e8b54a, 8px 8px 0 0 #1f0f33; }
@@ -74,10 +77,10 @@
        0    0 46px rgba(216,53,42,.55);
 }
 .dbt-title .sub, .dbt-opening .op-head .sub { margin-top: 6px; font-family: "Kiwi Maru", serif; font-size: 40px; color: #e8b54a; letter-spacing: .12em; }
-.dbt-title .modes { position: absolute; left: 0; right: 0; bottom: 150px; display: flex; justify-content: center; gap: 60px; }
+.dbt-title .modes { position: absolute; left: 0; right: 0; bottom: 195px; display: flex; justify-content: center; gap: 60px; }
 .dbt-title .modes .dbt-btn { width: 540px; padding: 34px 0 26px; font-size: 52px; }
 .dbt-title .modes .dbt-btn small { font-size: 22px; margin-top: 10px; }
-.dbt-title .extra { position: absolute; left: 0; right: 0; bottom: 52px; display: flex; justify-content: center; gap: 24px; }
+.dbt-title .extra { position: absolute; left: 0; right: 0; bottom: 48px; display: flex; justify-content: center; align-items: stretch; gap: 24px; }
 .dbt-title .extra .dbt-btn { width: 360px; padding: 14px 0 12px; font-size: 32px; }
 .dbt-title .debugbtn {
   position: absolute; left: 0; right: 0; bottom: 8px; margin: 0 auto;

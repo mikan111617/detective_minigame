@@ -1,0 +1,1090 @@
+{
+  "src": "data/scenario/doubt_story.ks",
+  "lines": [
+    [
+      33,
+      "ここにお父さんの手掛かりがあるといいんだけどなあ。[p]",
+      "I hope we can find a clue about Dad in here.[p]"
+    ],
+    [
+      36,
+      "私、真白真歩流(ましろまほる)と妹の愛理(あいり)は父親の手掛かりを探すために、舞黒館の宿泊イベントに参加していた。[p]",
+      "My name is Mahoru Mashiro. My younger sister Airi and I had joined an overnight event at Maicro House in search of clues about our father.[p]"
+    ],
+    [
+      38,
+      "今は夕食まで館内を調べているところなのだ。[p]",
+      "For now, we were searching the mansion until dinner.[p]"
+    ],
+    [
+      41,
+      "きっとあるよ。[p]",
+      "I'm sure there is.[p]"
+    ],
+    [
+      43,
+      "私はこっちを見るから、お姉ちゃんはこのあたりを探して。[p]",
+      "I'll check over here, Sis. You look around this area.[p]"
+    ],
+    [
+      46,
+      "うん、わかった。[p]",
+      "Okay, got it.[p]"
+    ],
+    [
+      51,
+      "じゃあ、早速このあたりを……。[p]",
+      "All right, let's start around here...[p]"
+    ],
+    [
+      53,
+      "うん？[p]",
+      "Hm?[p]"
+    ],
+    [
+      55,
+      "何だろう、ここの本全部繋がっているみたい。[p]",
+      "What's this? It feels like all these books are connected.[p]"
+    ],
+    [
+      58,
+      "どうかしたの、お姉ちゃん？[p]",
+      "What's wrong, Sis?[p]"
+    ],
+    [
+      61,
+      "なんか本がつながっているみたいで……。[p]",
+      "It looks like these books are connected somehow...[p]"
+    ],
+    [
+      66,
+      "どれどれ？[p]",
+      "Let me see.[p]"
+    ],
+    [
+      69,
+      "ここ。[p]",
+      "Here.[p]"
+    ],
+    [
+      72,
+      "がシャン。[p]",
+      "CLUNK.[p]"
+    ],
+    [
+      75,
+      "あ……。[p]",
+      "Ah...[p]"
+    ],
+    [
+      78,
+      "愛理に返事をしたときに、本棚の本を押し込んでしまった。[p]",
+      "As I answered Airi, I accidentally pushed one of the books into the shelf.[p]"
+    ],
+    [
+      80,
+      "瞬間、本棚が傾き、そのまま本棚と一緒に私と愛理は落下していった。[p]",
+      "The shelf suddenly tipped, and Airi and I fell along with it.[p]"
+    ],
+    [
+      91,
+      "うん……。ここは、一体どこなの？[p]",
+      "Ugh... Where am I?[p]"
+    ],
+    [
+      93,
+      "確か、愛理と一緒に調査をしていて、資料室にいたはずだけど。[p]",
+      "I was searching the reference room with Airi... I know I was.[p]"
+    ],
+    [
+      95,
+      "それに、この体……。[p]",
+      "And this body...[p]"
+    ],
+    [
+      97,
+      "愛理と同じナイスバディに……。[p]",
+      "I've got curves like Airi now...[p]"
+    ],
+    [
+      100,
+      "ようこそ、お客人。今宵は館の者が総出で、君をもてなそう。[p]",
+      "Welcome, honored guest. Tonight, everyone in this house shall see to your entertainment.[p]"
+    ],
+    [
+      105,
+      "え……？　誰？[p]",
+      "Huh...? Who are you?[p]"
+    ],
+    [
+      108,
+      "私は舞黒邦夢。館の主だ。[p]",
+      "I am Houmu Maicro, master of this house.[p]"
+    ],
+    [
+      111,
+      "舞黒邦夢……。[p]",
+      "Houmu Maicro...[p]"
+    ],
+    [
+      113,
+      "あなたは既に故人のはずじゃ……。どうして、ここにいるの？[p]",
+      "But you're supposed to be dead... How are you here?[p]"
+    ],
+    [
+      116,
+      "さあてね。[p]",
+      "Who can say?[p]"
+    ],
+    [
+      118,
+      "まあ、一時の白昼夢のようなものさ。[p]",
+      "Think of it as a fleeting daydream.[p]"
+    ],
+    [
+      121,
+      "白昼夢……。[p]",
+      "A daydream...[p]"
+    ],
+    [
+      123,
+      "いや、そんなことはいいの。[p]",
+      "No, never mind that.[p]"
+    ],
+    [
+      125,
+      "愛理は……、金髪の女の子はいなかった？[p]",
+      "Airi... Have you seen a blonde girl?[p]"
+    ],
+    [
+      128,
+      "そうか、彼女は君の妹だったか。[p]",
+      "I see. So she is your sister.[p]"
+    ],
+    [
+      130,
+      "残念だが、彼女は、この館に取り込まれた。[p]",
+      "I'm afraid this house has taken her in.[p]"
+    ],
+    [
+      133,
+      "取り込まれた？[p]",
+      "Taken her in?[p]"
+    ],
+    [
+      135,
+      "どういう意味？[p]",
+      "What does that mean?[p]"
+    ],
+    [
+      138,
+      "彼女は敗北したのさ。[p]",
+      "She lost.[p]"
+    ],
+    [
+      140,
+      "この舞黒空間でね。[p]",
+      "Here, in the Maicro Space.[p]"
+    ],
+    [
+      143,
+      "何を意味不明なことを……。[p]",
+      "What are you even talking about...?[p]"
+    ],
+    [
+      145,
+      "妹を返して、さもないと……。[p]",
+      "Give my sister back, or else...[p]"
+    ],
+    [
+      148,
+      "ふふふ、勿論良いともさ。[p]",
+      "Heh heh. Of course I will.[p]"
+    ],
+    [
+      150,
+      "君が最後まで勝ち残れば、妹は帰ってくる。[p]",
+      "If you keep winning until the very end, your sister will return.[p]"
+    ],
+    [
+      153,
+      "勝つ？[p]",
+      "Winning?[p]"
+    ],
+    [
+      156,
+      "簡単なゲームさ。[p]",
+      "A simple game.[p]"
+    ],
+    [
+      159,
+      "ダウトを知っているだろう？[p]",
+      "You know how to play Doubt, don't you?[p]"
+    ],
+    [
+      162,
+      "君にはダウトで勝負をしてもらう。[p]",
+      "You will compete in games of Doubt.[p]"
+    ],
+    [
+      165,
+      "嘘を見抜き先に上がることができれば君の勝ち。見抜けなければ負けだ。[p]",
+      "See through the lies and empty your hand first, and you win. Fail to do so, and you lose.[p]"
+    ],
+    [
+      168,
+      "勝負は3人のバトルロワイアル。[p]",
+      "Each match is a three-player free-for-all.[p]"
+    ],
+    [
+      171,
+      "誰かが先に上がれば、君の負けだ。[p]",
+      "If anyone else goes out first, you lose.[p]"
+    ],
+    [
+      174,
+      "いいわ。愛理を助けるためにも絶対に負けられないわ。[p]",
+      "Fine. I can't afford to lose if I want to save Airi.[p]"
+    ],
+    [
+      176,
+      "それに、探偵に嘘くらべを挑むなんて、いい度胸ね。[p]",
+      "And challenging a detective to a contest of lies? You've got nerve.[p]"
+    ],
+    [
+      179,
+      "やってやろうじゃないの！[p]",
+      "Bring it on![p]"
+    ],
+    [
+      182,
+      "ふふ、いい心意気だ。[p]",
+      "Heh. That's the spirit.[p]"
+    ],
+    [
+      184,
+      "それでは、始めようか。[p]",
+      "Then let us begin.[p]"
+    ],
+    [
+      186,
+      "さあ、最初の君の相手は愛しの妹、愛理だ。[p]",
+      "Your first opponent is your beloved little sister, Airi.[p]"
+    ],
+    [
+      201,
+      "最初の卓では、愛理と和人が待っていた。[p]",
+      "Airi and Kazuto were waiting at the first table.[p]"
+    ],
+    [
+      206,
+      "愛理！[p]",
+      "Airi![p]"
+    ],
+    [
+      208,
+      "良かった無事だったのね。[p]",
+      "Thank goodness you're all right.[p]"
+    ],
+    [
+      211,
+      "お姉ちゃん、手加減しないからね！[p]",
+      "I'm not going easy on you, Sis![p]"
+    ],
+    [
+      213,
+      "悪いけど、圧倒しちゃうんだから。[p]",
+      "Sorry, but I'm going to crush you![p]"
+    ],
+    [
+      216,
+      "やれやれ、そういうわけだからな、加減はしない。[p]",
+      "Good grief. You heard her. I won't hold back either.[p]"
+    ],
+    [
+      219,
+      "和人まで……。[p]",
+      "Kazuto too...[p]"
+    ],
+    [
+      222,
+      "二人とも、本当に正気を失っているのね。[p]",
+      "So you really have both lost your minds.[p]"
+    ],
+    [
+      224,
+      "いいわ。勝って二人の正気を取り戻させる。[p]",
+      "Fine. I'll beat you both and bring you back to your senses.[p]"
+    ],
+    [
+      236,
+      "二つ目の卓。甘い香りと、鋭い視線。[p]",
+      "The second table. A sweet fragrance and a piercing gaze.[p]"
+    ],
+    [
+      242,
+      "ああ、いいわ。[p]",
+      "Ahh, wonderful.[p]"
+    ],
+    [
+      244,
+      "この至高の香りが、私の心を落ち着かせてくれるの。[p]",
+      "This exquisite fragrance puts my heart at ease.[p]"
+    ],
+    [
+      249,
+      "メアリーさん、正気を取り戻して下さい。[p]",
+      "Mary, please come to your senses.[p]"
+    ],
+    [
+      252,
+      "私は正気よ。[p]",
+      "I am perfectly sane.[p]"
+    ],
+    [
+      254,
+      "世界を私の香りで染め上げるのが、私の夢。[p]",
+      "My dream is to steep the whole world in my fragrance.[p]"
+    ],
+    [
+      256,
+      "ふふふ、私の香りに酔いしれなさい。[p]",
+      "Hee hee. Let yourself become intoxicated by my scent.[p]"
+    ],
+    [
+      259,
+      "取り調べの時間です。[p]",
+      "Time for questioning.[p]"
+    ],
+    [
+      261,
+      "う、やっぱりお酒など……。[p]",
+      "Ugh... I knew I shouldn't have had alcohol...[p]"
+    ],
+    [
+      264,
+      "誰だっけこの人……。[p]",
+      "Who was this guy again...?[p]"
+    ],
+    [
+      276,
+      "三つ目の卓では、珠璃と叡留久が札を揃えていた。[p]",
+      "At the third table, Juri and Eruku were arranging their cards.[p]"
+    ],
+    [
+      282,
+      "さて、いい取引をしようか。[p]",
+      "Now then, shall we make a good deal?[p]"
+    ],
+    [
+      284,
+      "最も勝つのは僕たちだけどね。[p]",
+      "Though naturally, we'll be the ones who win.[p]"
+    ],
+    [
+      287,
+      "ふふ、そうね。[p]",
+      "Hee hee, naturally.[p]"
+    ],
+    [
+      289,
+      "このエレガント夫婦の前には、誰も勝てないわ。[p]",
+      "No one can defeat this elegant power couple.[p]"
+    ],
+    [
+      291,
+      "真歩流さん、残念だけどあなたの命運は尽きたわ。[p]",
+      "Sorry, Mahoru, but your luck has run out.[p]"
+    ],
+    [
+      296,
+      "何という圧倒的な勝ち組オーラなの……。[p]",
+      "That overwhelming aura of people who have life completely figured out...[p]"
+    ],
+    [
+      298,
+      "このプレッシャーに耐えなければ……。[p]",
+      "I can't let the pressure get to me...[p]"
+    ],
+    [
+      301,
+      "ところで叡留久、さっきスマホがなっていたようだけど。[p]",
+      "By the way, Eruku, I thought I heard your phone a moment ago.[p]"
+    ],
+    [
+      304,
+      "ああ、仕事仲間からの連絡だよ。[p]",
+      "Yes, a message from a colleague.[p]"
+    ],
+    [
+      307,
+      "なら、いいわ。[p]",
+      "Then that's fine.[p]"
+    ],
+    [
+      310,
+      "ああ、問題ないだろう？[p]",
+      "Of course. No problem, right?[p]"
+    ],
+    [
+      315,
+      "何のことかわからないけれど、いざ勝負！[p]",
+      "I have no idea what that was about, but let's play![p]"
+    ],
+    [
+      331,
+      "四つ目の卓。朱志香は、小出里亜の隣から一歩も動かない。[p]",
+      "At the fourth table, Jushika refused to move even a step away from Koderia.[p]"
+    ],
+    [
+      334,
+      "あら、真白様、まだ勝ち残っていたんですね。[p]",
+      "Oh, Miss Mashiro. You've survived this long.[p]"
+    ],
+    [
+      336,
+      "ふふ、お手柔らかにお願いしますね。[p]",
+      "Hee hee. Do go easy on us.[p]"
+    ],
+    [
+      339,
+      "……真歩流さん。[p]",
+      "...Mahoru.[p]"
+    ],
+    [
+      341,
+      "私達の前では、嘘は通用しませんよ。[p]",
+      "Lies will not work against us.[p]"
+    ],
+    [
+      343,
+      "一瞬でけりをつけましょう。[p]",
+      "Let us settle this in an instant.[p]"
+    ],
+    [
+      348,
+      "なんて迫力なの……。[p]",
+      "What presence...[p]"
+    ],
+    [
+      350,
+      "この圧倒的オーラに負けちゃいけない。[p]",
+      "I can't let that overwhelming aura beat me.[p]"
+    ],
+    [
+      353,
+      "さあ、私達の手のひらで踊っていただきましょう。[p]",
+      "Now then, allow us to make you dance in the palms of our hands.[p]"
+    ],
+    [
+      356,
+      "逃れられますかね。私達から。[p]",
+      "I wonder if you can escape us.[p]"
+    ],
+    [
+      359,
+      "この二人、何か企んでいるわね……。[p]",
+      "These two are definitely plotting something...[p]"
+    ],
+    [
+      362,
+      "でも、負けないわ。[p]",
+      "But I won't lose.[p]"
+    ],
+    [
+      365,
+      "ふふ、真白様。[p]",
+      "Hee hee, Miss Mashiro.[p]"
+    ],
+    [
+      367,
+      "やめてと言っても、私達は止まりませんよ。[p]",
+      "Even if you beg us to stop, we won't.[p]"
+    ],
+    [
+      380,
+      "最後の卓。そこに座っていたのは――[p]",
+      "The final table. Sitting there was—[p]"
+    ],
+    [
+      388,
+      "……待って。どうして私が、もう一人いるの！？[p]",
+      "...Wait. Why is there another me!?[p]"
+    ],
+    [
+      391,
+      "驚いたかね。今宵最後のもてなしだ。[p]",
+      "Surprised? This is my final entertainment for the evening.[p]"
+    ],
+    [
+      394,
+      "あなた如きじゃ、相手にならないけど、せっかくだから、私が相手をしてあげるわ。[p]",
+      "You're hardly worth my time, but since we're here, I'll humor you.[p]"
+    ],
+    [
+      396,
+      "あなたに愛理は救えない。[p]",
+      "You can't save Airi.[p]"
+    ],
+    [
+      399,
+      "……あなたは、私の分身……。[p]",
+      "...You're another version of me...[p]"
+    ],
+    [
+      402,
+      "何を言っているの？[p]",
+      "What are you talking about?[p]"
+    ],
+    [
+      404,
+      "私が本当の真白真歩流よ……。[p]",
+      "I'm the real Mahoru Mashiro...[p]"
+    ],
+    [
+      407,
+      "ふふ、そうだね。[p]",
+      "Heh. Indeed.[p]"
+    ],
+    [
+      409,
+      "君こそが本物。[p]",
+      "You are the genuine one.[p]"
+    ],
+    [
+      412,
+      "違う！！[p]",
+      "No!![p]"
+    ],
+    [
+      414,
+      "私が本物よ！！[p]",
+      "I'm the real one!![p]"
+    ],
+    [
+      417,
+      "いいわ、決着をつけましょう。[p]",
+      "Fine. Let's settle this.[p]"
+    ],
+    [
+      419,
+      "どちらが本物か、嘘を見抜いた方が勝ちよ。[p]",
+      "Whoever sees through the other's lies wins—and proves which of us is real.[p]"
+    ],
+    [
+      422,
+      "この一戦に全てをかけるわ。[p]",
+      "I'm putting everything on this match.[p]"
+    ],
+    [
+      428,
+      "もう一人の真歩流は、何も言わずに微笑んだ。ものすごく、強い。それだけは分かった。[p]",
+      "The other Mahoru only smiled in silence. She was terrifyingly strong. That much, I knew.[p]"
+    ],
+    [
+      439,
+      "最後の卓を片付けた時、まだ誰かが座っていることに気づいた。[p]",
+      "After clearing the final table, I noticed that someone was still sitting there.[p]"
+    ],
+    [
+      447,
+      "……あなたたちは？[p]",
+      "...Who are you two?[p]"
+    ],
+    [
+      450,
+      "やっと来た！　ずっと待ってたんだから。[p]",
+      "Finally! I've been waiting forever![p]"
+    ],
+    [
+      453,
+      "失礼、招かれた客ではありません。勝手に混ざっているだけなんだ。[p]",
+      "Pardon us. We weren't invited. We simply let ourselves in.[p]"
+    ],
+    [
+      456,
+      "勝手に……？[p]",
+      "You just... let yourselves in?[p]"
+    ],
+    [
+      459,
+      "だって、面白そうな勝負をしてるじゃない。[p]",
+      "Come on, you were having such an interesting match.[p]"
+    ],
+    [
+      461,
+      "私も混ぜてってお願いしたんだけど、舞黒さんに断られちゃって。[p]",
+      "I asked Mr. Maicro to let me join, but he turned me down.[p]"
+    ],
+    [
+      463,
+      "君たちの出番はここじゃないってさ。[p]",
+      "He said, “This isn't your turn.”[p]"
+    ],
+    [
+      466,
+      "それで、勝ち残った方を待っていた次第なんだ。[p]",
+      "So we decided to wait for whoever made it through.[p]"
+    ],
+    [
+      468,
+      "最も来るかどうかはわからなかったけどね。[p]",
+      "Though we weren't sure anyone would.[p]"
+    ],
+    [
+      471,
+      "私、もう終わったつもりだったんだけど……。[p]",
+      "I thought I was done already...[p]"
+    ],
+    [
+      474,
+      "そう言わないで。ここまで来た人と戦ってみたかったの。[p]",
+      "Don't say that. I wanted to fight whoever could make it this far.[p]"
+    ],
+    [
+      476,
+      "ねえ、お願い私と戦って！[p]",
+      "Come on, please play me![p]"
+    ],
+    [
+      479,
+      "一つだけ言っておくと。彼女は手加減という言葉を知らないからな。[p]",
+      "One warning: she doesn't know the meaning of “holding back.”[p]"
+    ],
+    [
+      481,
+      "そして相手にも同じものを求める。[p]",
+      "And she expects the same from her opponent.[p]"
+    ],
+    [
+      483,
+      "全力勝負じゃないと嫌がるんだ。[p]",
+      "She won't accept anything less than a full-power match.[p]"
+    ],
+    [
+      486,
+      "当たり前でしょ。手加減されて勝っても、嬉しくないもん。[p]",
+      "Of course not. Winning because someone went easy on me wouldn't make me happy.[p]"
+    ],
+    [
+      489,
+      "……そういうの、嫌いじゃないわ。[p]",
+      "...I don't hate that attitude.[p]"
+    ],
+    [
+      492,
+      "いいわ。最後に、もう一勝負。[p]",
+      "All right. One last match.[p]"
+    ],
+    [
+      495,
+      "やった！　じゃあ、始めましょ。[p]",
+      "Yes! Then let's start![p]"
+    ],
+    [
+      498,
+      "では、公正に。……そのうえで、遠慮なく。[p]",
+      "Then let us play fairly... and without restraint.[p]"
+    ],
+    [
+      519,
+      "……負けた。[p]",
+      "...I lost.[p]"
+    ],
+    [
+      522,
+      "勝った……のよね？[p]",
+      "I won... right?[p]"
+    ],
+    [
+      525,
+      "うん。完敗！[p]",
+      "Yep. Totally crushed![p]"
+    ],
+    [
+      527,
+      "でも、すっごく楽しかった！[p]",
+      "But that was so much fun![p]"
+    ],
+    [
+      530,
+      "ここまで勝ち残っただけはある。[p]",
+      "You've earned your place here.[p]"
+    ],
+    [
+      532,
+      "最後まで、こちらの嘘を読むのをやめなかった。[p]",
+      "You never stopped reading our lies, right to the end.[p]"
+    ],
+    [
+      535,
+      "あなたたちも、とんでもなく強かったわよ。[p]",
+      "You two were unbelievably strong yourselves.[p]"
+    ],
+    [
+      538,
+      "だから面白かったんじゃない。[p]",
+      "That's what made it fun![p]"
+    ],
+    [
+      540,
+      "次は絶対に負けないから。[p]",
+      "I definitely won't lose next time.[p]"
+    ],
+    [
+      543,
+      "次か……。[p]",
+      "Next time...[p]"
+    ],
+    [
+      545,
+      "君は次を信じているのか？[p]",
+      "You believe there will be a next time?[p]"
+    ],
+    [
+      548,
+      "もちろん！　一回勝ったくらいで終わりなんてつまらないでしょ？[p]",
+      "Of course! Ending after just one win would be boring, wouldn't it?[p]"
+    ],
+    [
+      551,
+      "ふふ……望むところよ。[p]",
+      "Heh... Bring it on.[p]"
+    ],
+    [
+      554,
+      "では、その時まで。[p]",
+      "Then, until that day.[p]"
+    ],
+    [
+      557,
+      "また遊ぼうね、真歩流！[p]",
+      "Let's play again, Mahoru![p]"
+    ],
+    [
+      562,
+      "何だろう。[p]",
+      "What is this feeling?[p]"
+    ],
+    [
+      564,
+      "初めて会った気がしないのは……。[p]",
+      "Why does it feel like I've met them before...?[p]"
+    ],
+    [
+      577,
+      "最後の卓を片付けた時、卓の隅に、誰かが座っていた跡があった。[p]",
+      "After clearing the final table, I noticed traces that someone had been sitting at the edge.[p]"
+    ],
+    [
+      580,
+      "札は伏せられたまま、二人分。[p]",
+      "Two sets of cards had been left face down.[p]"
+    ],
+    [
+      583,
+      "なんだ、私も遊べると思ったのになあ。[p]",
+      "Aw, I thought I'd get to play too.[p]"
+    ],
+    [
+      586,
+      "どうやら、時間が足りなかったみたいだな。[p]",
+      "Looks like there wasn't enough time.[p]"
+    ],
+    [
+      589,
+      "次に来たら、戦えるといいな。私が圧勝して見せるわ！[p]",
+      "Maybe we can fight next time. I'll wipe the floor with her![p]"
+    ],
+    [
+      592,
+      "相変わらず強気だな。まあ、それがいいところだが。[p]",
+      "Bold as ever. Though that's one of your better qualities.[p]"
+    ],
+    [
+      595,
+      "……今の声、誰？[p]",
+      "...Whose voices were those?[p]"
+    ],
+    [
+      598,
+      "振り返っても、そこには誰もいなかった。[p]",
+      "I turned around, but no one was there.[p]"
+    ],
+    [
+      615,
+      "か、勝ったの……。[p]",
+      "I... I won...[p]"
+    ],
+    [
+      621,
+      "見事だ。[p]",
+      "Splendid.[p]"
+    ],
+    [
+      623,
+      "いい読みをしている。[p]",
+      "Your reads are impressive.[p]"
+    ],
+    [
+      629,
+      "あなたは凄く強かった。[p]",
+      "You were incredibly strong.[p]"
+    ],
+    [
+      631,
+      "何度も勝てないかもって思った。[p]",
+      "More than once, I thought I might not be able to beat you.[p]"
+    ],
+    [
+      634,
+      "何故……。[p]",
+      "Why...?[p]"
+    ],
+    [
+      636,
+      "何故、あなたはそこまで戦えるの？[p]",
+      "Why can you keep fighting like that?[p]"
+    ],
+    [
+      639,
+      "え？[p]",
+      "Huh?[p]"
+    ],
+    [
+      642,
+      "私はあなたよりも強い。[p]",
+      "I'm stronger than you.[p]"
+    ],
+    [
+      644,
+      "なのに、どうして、私を乗り越えられるの？[p]",
+      "So how did you manage to overcome me?[p]"
+    ],
+    [
+      647,
+      "あなたにもわかっているでしょう？[p]",
+      "You already know the answer, don't you?[p]"
+    ],
+    [
+      653,
+      "愛理の為よ。[p]",
+      "For Airi.[p]"
+    ],
+    [
+      655,
+      "大切な家族の為なら、どんな困難も乗り越えられるわ。[p]",
+      "For the family I love, I can overcome anything.[p]"
+    ],
+    [
+      658,
+      "ああ……。[p]",
+      "Ah...[p]"
+    ],
+    [
+      660,
+      "そうか……。[p]",
+      "I see...[p]"
+    ],
+    [
+      662,
+      "そうだったわね。[p]",
+      "That's right...[p]"
+    ],
+    [
+      665,
+      "さて、名残惜しいが終幕だ。[p]",
+      "And now, much as I hate to end it, the curtain must fall.[p]"
+    ],
+    [
+      667,
+      "私達が敗れたことで、この舞黒空間が崩壊する。[p]",
+      "With our defeat, this Maicro Space will collapse.[p]"
+    ],
+    [
+      670,
+      "どうすればいいんですか？[p]",
+      "What should I do?[p]"
+    ],
+    [
+      673,
+      "何もせずとも、気づいたら戻っているさ。[p]",
+      "Nothing at all. Before you know it, you'll be back.[p]"
+    ],
+    [
+      676,
+      "安心したまえ、君の妹や館の客達も一緒に元の洋館へと戻っていくさ。[p]",
+      "Rest assured. Your sister and the other guests will all return to the mansion as well.[p]"
+    ],
+    [
+      679,
+      "良かった。[p]",
+      "Thank goodness.[p]"
+    ],
+    [
+      682,
+      "最後にわたしに選別をあげる。[p]",
+      "Before we part, I'll leave you with a parting gift.[p]"
+    ],
+    [
+      685,
+      "え……？[p]",
+      "Huh...?[p]"
+    ],
+    [
+      688,
+      "いつか、絶望的な状況になることがあるかもしれない。[p]",
+      "One day, you may find yourself in a truly desperate situation.[p]"
+    ],
+    [
+      690,
+      "たとえ、どんなに困難な状況でもあきらめずに、真実を追求し続けなさい。[p]",
+      "No matter how hopeless things become, never give up. Keep pursuing the truth.[p]"
+    ],
+    [
+      692,
+      "そうすれば、本当に大切な人を助けることができる。[p]",
+      "If you do, you may be able to save the person who matters most.[p]"
+    ],
+    [
+      694,
+      "その先にどんな運命が待っていたとしても。[p]",
+      "No matter what fate waits beyond that truth.[p]"
+    ],
+    [
+      697,
+      "……うん、わかった。[p]",
+      "...Okay. I understand.[p]"
+    ],
+    [
+      700,
+      "それじゃあ、またどこかで会おう。[p]",
+      "Then perhaps we'll meet again somewhere.[p]"
+    ],
+    [
+      702,
+      "さらばだ。[p]",
+      "Farewell.[p]"
+    ],
+    [
+      713,
+      "ここは……。[p]",
+      "This is...[p]"
+    ],
+    [
+      716,
+      "気が付くと私は資料室に立っていた。[p]",
+      "When I came to, I was standing in the reference room.[p]"
+    ],
+    [
+      718,
+      "崩れたはずの本棚も何事もなく、そこにあった。[p]",
+      "The bookshelf that should have collapsed stood there as if nothing had happened.[p]"
+    ],
+    [
+      721,
+      "もう、お姉ちゃん聞いているの？[p]",
+      "Come on, Sis. Are you even listening?[p]"
+    ],
+    [
+      726,
+      "ぼーっとしていないで探してよ！[p]",
+      "Stop spacing out and help me look![p]"
+    ],
+    [
+      729,
+      "愛理！！[p]",
+      "Airi!![p]"
+    ],
+    [
+      731,
+      "元に戻ったのね。[p]",
+      "You're back to normal.[p]"
+    ],
+    [
+      734,
+      "何言っているのお姉ちゃん。[p]",
+      "What are you talking about, Sis?[p]"
+    ],
+    [
+      736,
+      "あ、さては資料探しながら、うたた寝してたんでしょう？[p]",
+      "Oh, I know. You dozed off while we were searching, didn't you?[p]"
+    ],
+    [
+      739,
+      "うたた寝……。[p]",
+      "Dozed off...[p]"
+    ],
+    [
+      741,
+      "うん、そうかもしれない。[p]",
+      "Yeah. Maybe I did.[p]"
+    ],
+    [
+      743,
+      "でも、愛理がいてよかった。[p]",
+      "But I'm so glad you're here, Airi.[p]"
+    ],
+    [
+      745,
+      "私の大切な妹。[p]",
+      "My precious little sister.[p]"
+    ],
+    [
+      750,
+      "お姉ちゃん……急にどうしたの。[p]",
+      "Sis... what's gotten into you all of a sudden?[p]"
+    ],
+    [
+      753,
+      "ううん。[p]",
+      "Nothing.[p]"
+    ],
+    [
+      755,
+      "何でもないよ。[p]",
+      "It's nothing.[p]"
+    ],
+    [
+      757,
+      "さあ、お父さんの手掛かりを探さなくっちゃね。[p]",
+      "Come on. We still have to find clues about Dad.[p]"
+    ],
+    [
+      760,
+      "きっと私はどんな困難も乗り越えてみせる。[p]",
+      "I know I'll overcome whatever comes my way.[p]"
+    ],
+    [
+      762,
+      "どんな苦境にあっても、どれほど悲しいことがあっても。[p]",
+      "No matter how hard things get. No matter how much it hurts.[p]"
+    ],
+    [
+      765,
+      "あれ？[p]",
+      "Huh?[p]"
+    ],
+    [
+      770,
+      "どうしたの？[p]",
+      "What is it?[p]"
+    ],
+    [
+      772,
+      "何か見つかったの？[p]",
+      "Did you find something?[p]"
+    ],
+    [
+      775,
+      "ここの棚の本。[p]",
+      "The books on this shelf.[p]"
+    ],
+    [
+      777,
+      "なんか一つにつながっているみたいで……。[p]",
+      "It feels like they're all connected somehow...[p]"
+    ]
+  ]
+}
