@@ -896,6 +896,9 @@
     bg(this.root, D.img.bgTable);
     this.root.appendChild(h("div", "dbt-shade shade"));
 
+    this.declarations = [];
+    this.historyButton = btn(battleText("宣言履歴", "History"), "navy dbt-history-button", function () { self.openHistory(); });
+    this.root.appendChild(this.historyButton);
     this.opp = {};
     this.bubble = {};
     this.portraits = {};
@@ -1454,6 +1457,50 @@
     });
   };
 
+  function battleText(ja, en) {
+    return window.I18N && window.I18N.isEN() ? en : ja;
+  }
+
+  B.openHistory = function () {
+    if (this.historyOverlay) closeRoot(this.historyOverlay);
+    var self = this;
+    var ov = h("div", "dbt-overlay dbt-history");
+    var box = h("div", "history-box");
+    box.appendChild(h("h2", "", battleText("宣言履歴", "Declaration History")));
+    box.appendChild(h("p", "", battleText("直前のダウト判定からの宣言です。実際の札は表示しません。", "Declarations since the last resolved challenge. Actual cards stay hidden.")));
+    var list = h("div", "history-list");
+    if (!this.declarations.length) list.appendChild(h("p", "", battleText("まだ宣言はありません", "No declarations yet.")));
+    this.declarations.forEach(function (entry, i) {
+      var row = h("div", "history-row seat-" + entry.seat);
+      [String(i + 1), entry.name, battleText("宣言 ", "Rank ") + entry.rank,
+        entry.count + battleText("枚", entry.count === 1 ? " card" : " cards")].forEach(function (text) {
+          var cell = h("span", ""); cell.textContent = text; row.appendChild(cell);
+        });
+      list.appendChild(row);
+    });
+    box.appendChild(list);
+    box.appendChild(btn(battleText("閉じる", "Close"), "navy", function () { closeRoot(ov); self.historyOverlay = null; }));
+    ov.appendChild(box); this.root.appendChild(ov); this.historyOverlay = ov;
+    list.scrollTop = list.scrollHeight;
+  };
+
+  B.doubtCutin = async function (g, seat) {
+    if (this.historyOverlay) { closeRoot(this.historyOverlay); this.historyOverlay = null; }
+    var band = h("div", "dbt-doubt-cut");
+    band.appendChild(portrait(g.ids[seat], "doubt-face"));
+    var label = h("div", "doubt-shout", battleText("ダウト！", "DOUBT!"));
+    band.appendChild(label);
+    var name = h("div", "doubt-name"); name.textContent = g.name(seat); band.appendChild(name);
+    this.root.appendChild(band);
+    var root = this.root;
+    root.classList.add("doubt-cutting");
+    await new Promise(function (resolve) {
+      var timer = setTimeout(done, 1150);
+      function done() { clearTimeout(timer); closeRoot(band); root.classList.remove("doubt-cutting"); resolve(); }
+      band.addEventListener("click", done, { once: true });
+    });
+  };
+
   B.makeIO = function () {
     var ui = this;
     return {
@@ -1462,7 +1509,11 @@
       say: function (g, seat, cat) { ui.say(g, seat, cat); },
       sayLater: function (g, seat, cat, ms) { setTimeout(function () { ui.say(g, seat, cat); }, ms); },
       wait: function (g, ms) { return sleep(ms); },
+      doubt: function (g, seat) { return ui.doubtCutin(g, seat); },
       placed: async function (g, seat, n) {
+        ui.declarations.push({ seat: seat, name: g.name(seat), rank: RANK[g.last.rank], count: g.shownPlay(g.last.cards.length, seat) });
+        ui.historyButton.textContent = battleText("宣言履歴", "History") + " (" + ui.declarations.length + ")";
+        if (ui.historyOverlay) ui.openHistory();
         await ui.flyCards(seat, n);
         ui.render(g);
       },
@@ -1626,6 +1677,7 @@
         return ui.overlayWait(ov, 1400);
       },
       reveal: async function (g, info) {
+        if (ui.historyOverlay) { closeRoot(ui.historyOverlay); ui.historyOverlay = null; }
         var ov = h("div", "dbt-overlay dbt-reveal");
         ov.appendChild(h("div", "who",
           g.name(info.doubter) + "のダウト　―　" + g.name(info.placer) + "の〈" + RANK[info.rank] + "〉"));
@@ -1643,7 +1695,7 @@
         ov.appendChild(res);
         ui.root.appendChild(ov);
         await sleep(450 + info.cards.length * 120);
-        v.textContent = info.isLie ? "嘘！" : (info.suitPass ? "同じ絵柄！" : "本当");
+        v.textContent = info.isLie ? battleText("ダウト成功", "Doubt Successful") : battleText("ダウト失敗", "Doubt Failed");
         v.className = "verdict " + (info.isLie ? "lie" : "true");
         var loser = info.isLie ? info.placer : info.doubter;
         res.textContent = info.noTake ? g.name(info.doubter) + "は札を引き取らない" :
@@ -1656,6 +1708,8 @@
           setTimeout(end, 1200);
         });
         closeRoot(ov);
+        ui.declarations = [];
+        ui.historyButton.textContent = battleText("宣言履歴", "History");
       },
     };
   };

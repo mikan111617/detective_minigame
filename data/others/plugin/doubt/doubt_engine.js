@@ -558,6 +558,7 @@
       await this.io.cutin(this, pc.seat, pc.text);
     }
     this.io.say(this, doubter, "doubt");
+    if (this.io.doubt) await this.io.doubt(this, doubter);
     this.io.log(this, this.name(doubter) + "：ダウト！");
 
     // 小出里亜：ダウト無効
