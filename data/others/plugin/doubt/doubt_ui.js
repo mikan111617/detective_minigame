@@ -506,11 +506,12 @@
       root.appendChild(ov);
     }
 
-    modes.appendChild(btn(
-      demo ? "アーケードプレイ<small>体験版・第一戦まで</small>" : "アーケードプレイ<small>全5戦</small>",
-      "purple", goArcade
-    ));
-    if (!demo) {
+    if (demo) {
+      modes.appendChild(btn("体験版をプレイ<small>愛理＆和人と対戦</small>", "purple", function () {
+        go("simple", "*simple_start");
+      }));
+    } else {
+      modes.appendChild(btn("アーケードプレイ<small>全5戦</small>", "purple", goArcade));
       modes.appendChild(btn("シンプルプレイ<small>フリー対戦</small>", "teal", function () { go("simple", "*simple_start"); }));
     }
     root.appendChild(modes);
