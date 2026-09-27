@@ -858,3 +858,28 @@
 .dbt-en .dbt-exchange .confirm { max-width:900px; font-size:32px; }
 .dbt-en .dbt-exchange .back { max-width:480px; font-size:26px; }
 .dbt-en .dbt-resign .targets .dbt-btn { padding:20px; font-size:34px; }
+
+/* Declaration history and challenge emphasis. Speech bubbles stay above the cut-in. */
+.dbt-history-button { position:absolute; left:780px; top:8px; width:360px; padding:8px 18px; font-size:24px; z-index:6; }
+/* 履歴ボタンの下に直近の宣言ログを出す（ボタンと重ならない位置） */
+.dbt-battle .dbt-log { top: 78px; }
+/* ダウトのカットイン中は、主人公の吹き出しを帯の上に逃がす */
+.dbt-battle.doubt-cutting .dbt-bubble.s0 { top: 290px; }
+.dbt-history .history-box { width:1160px; max-height:900px; padding:36px; background:#17243e; border:3px solid #e8b54a; text-align:center; }
+.dbt-history h2 { font-size:40px; margin:0 0 14px; }
+.dbt-history p { font-size:23px; line-height:1.5; }
+.dbt-history .history-list { max-height:590px; overflow-y:auto; margin:24px 0; }
+.dbt-history .history-row { display:grid; grid-template-columns:70px minmax(0,1fr) 190px 190px; gap:18px; padding:18px; border-bottom:1px solid #758099; font-size:28px; text-align:left; overflow-wrap:anywhere; }
+.dbt-history .history-row:last-child { background:#33405b; border:2px solid #e8b54a; }
+.dbt-history .seat-0 { color:#f6efe0; }.dbt-history .seat-1 { color:#f5a3b8; }.dbt-history .seat-2 { color:#9dcce6; }
+.dbt-history .dbt-btn { width:260px; margin:auto; padding:14px; font-size:30px; }
+.dbt-doubt-cut { position:absolute; left:0; right:0; top:370px; height:320px; z-index:4; overflow:hidden; cursor:pointer; background:linear-gradient(100deg,#100e1bea,#9f1e24f5 48%,#180e1bf0); border-block:5px solid #e8b54a; box-shadow:0 14px 40px #0009; animation:dbt-doubt-enter .22s ease-out both; }
+.dbt-doubt-cut .doubt-face { position:absolute; left:280px; top:0; width:400px; height:560px; transform:rotate(-5deg); background:none; }
+.dbt-doubt-cut .doubt-shout { position:absolute; left:720px; right:130px; top:45px; text-align:center; font-size:126px; font-weight:900; line-height:1.2; letter-spacing:.02em; color:#fff7db; text-shadow:6px 6px #651019,0 0 20px #ffcb6e; animation:dbt-doubt-word .28s ease-out both; }
+.dbt-doubt-cut .doubt-name { position:absolute; left:720px; right:130px; bottom:24px; text-align:center; font-size:34px; color:#ffe2a7; }
+.dbt-reveal .verdict { font-size:86px; letter-spacing:.03em; }
+.dbt-en .dbt-reveal .verdict { font-size:76px; }
+@keyframes dbt-doubt-enter { from { transform:translateX(-100%); } to { transform:translateX(0); } }
+@keyframes dbt-doubt-word { from { transform:scale(1.45); opacity:0; } to { transform:scale(1); opacity:1; } }
+@media (prefers-reduced-motion:reduce) { .dbt-doubt-cut,.dbt-doubt-cut .doubt-shout { animation:none; } }
+
