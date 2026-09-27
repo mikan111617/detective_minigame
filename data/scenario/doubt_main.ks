@@ -147,6 +147,8 @@
 ;==================================================
 *simple
 [eval exp="f.doubt_total = 0; f.doubt_lives = 1"]
+; アーケード（中断を含む）のラウンド数・勝敗が残っていると、対戦画面にラウンド表示が出てしまうので消す
+[eval exp="f.doubt_rounds = 1; f.doubt_round = 1; f.doubt_win_count = 0; f.doubt_lose_count = 0"]
 [jump target="*simple_demo" cond="f.doubt_demo"]
 
 *simple_select
