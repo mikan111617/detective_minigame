@@ -465,8 +465,8 @@
     root.appendChild(h("div", "head",
       '<div class="kicker">―― 相手の目を誤魔化す嘘つきの祭典 ――</div>' +
       "<h1>舞黒館の<em>惨劇</em></h1>" +
-      '<div class="sub">「探偵少女はダウトで勝ちの目を見るか」</div>' +
-      (demo ? '<div class="demo-label">体験版</div>' : "")));
+      '<div class="sub">「探偵少女はダウトで勝ちの目を見るか」</div>'));
+    if (demo) root.appendChild(h("div", "demo-ribbon", "体験版"));
     var modes = h("div", "modes");
     function go(mode, target) {
       f().doubt_mode = mode;
