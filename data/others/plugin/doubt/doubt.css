@@ -592,9 +592,10 @@
 .dbt-settings .shade { background: linear-gradient(180deg, rgba(11,17,34,.9) 0%, rgba(11,17,34,.74) 50%, rgba(11,17,34,.94) 100%); }
 .dbt-settings .hd { position: absolute; left: 0; right: 0; top: 28px; text-align: center; font-family: "Kiwi Maru", serif; font-size: 68px; letter-spacing: .3em; color: #e8b54a; text-shadow: 5px 5px 0 #7f1810; }
 .dbt-settings .item { position: absolute; left: 240px; width: 1440px; background: rgba(11,17,34,.84); box-shadow: 0 0 0 3px #e8b54a; padding: 18px 50px 20px; }
-.dbt-settings .item.level { top: 130px; }
-.dbt-settings .item.rounds { top: 445px; }
-.dbt-settings .item.maxplay { top: 690px; }
+.dbt-settings .item.level { top: 110px; }
+.dbt-settings .item.rounds { top: 395px; }
+.dbt-settings .item.maxplay { top: 600px; }
+.dbt-settings .item.decksize { top: 795px; }
 .dbt-settings .item .k { font-family: "Kiwi Maru", serif; font-size: 32px; letter-spacing: .12em; color: #f6efe0; }
 .dbt-settings .item .d { margin-top: 7px; font-size: 20px; line-height: 1.4; color: #d8b26a; }
 .dbt-settings .opts { display: flex; justify-content: center; gap: 24px; margin-top: 14px; }
