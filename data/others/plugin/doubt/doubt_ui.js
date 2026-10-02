@@ -836,6 +836,8 @@
   defineTag("doubt_vs", { pair: "0" }, function (pm) {
     var pr = D.pairs[pairIndexOf(pm)];
     return new Promise(function (resolve) {
+      // 中断→再開などで古いVS画面が残っていても、必ず1枚だけにする。
+      document.querySelectorAll(".dbt-root.dbt-vs").forEach(closeRoot);
       var root = openRoot("dbt-vs");
       // 立ち絵をクリックすると、そのキャラのスキルが出る（真歩流も見られる）
       var ids = ["mahoru", pr.a, pr.b];
@@ -873,7 +875,7 @@
         '<span class="tagbox r">' + pr.label + "</span>"));
       root.appendChild(h("div", "mark", "<span>VS</span>"));
       root.appendChild(btn("勝負", "red go", function () {
-        closeRoot(root);
+        document.querySelectorAll(".dbt-root.dbt-vs").forEach(closeRoot);
         resolve();
       }));
     });
@@ -1951,6 +1953,10 @@
     var old = document.querySelector(".dbt-skipbtn");
     if (old && old.parentNode) old.parentNode.removeChild(old);
     if (pm.show === "false") return;
+
+    // 物語パートではゲーム用DOMが残っている必要はない。
+    // 中断→再開などでVS/結果画面が残留していても、物語開始時に必ず掃除する。
+    document.querySelectorAll(".dbt-root").forEach(closeRoot);
 
     var base = document.querySelector(".tyrano_base") || document.body;
     var b = h("div", "dbt-skipbtn dbt-btn navy", "スキップ<small>物語を飛ばす</small>");
