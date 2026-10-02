@@ -590,22 +590,22 @@
 
 /* ===== 設定 ===== */
 .dbt-settings .shade { background: linear-gradient(180deg, rgba(11,17,34,.9) 0%, rgba(11,17,34,.74) 50%, rgba(11,17,34,.94) 100%); }
-.dbt-settings .hd { position: absolute; left: 0; right: 0; top: 28px; text-align: center; font-family: "Kiwi Maru", serif; font-size: 68px; letter-spacing: .3em; color: #e8b54a; text-shadow: 5px 5px 0 #7f1810; }
-.dbt-settings .item { position: absolute; left: 240px; width: 1440px; background: rgba(11,17,34,.84); box-shadow: 0 0 0 3px #e8b54a; padding: 18px 50px 20px; }
-.dbt-settings .item.level { top: 110px; }
-.dbt-settings .item.rounds { top: 395px; }
-.dbt-settings .item.maxplay { top: 600px; }
-.dbt-settings .item.decksize { top: 795px; }
-.dbt-settings .item .k { font-family: "Kiwi Maru", serif; font-size: 32px; letter-spacing: .12em; color: #f6efe0; }
-.dbt-settings .item .d { margin-top: 7px; font-size: 20px; line-height: 1.4; color: #d8b26a; }
-.dbt-settings .opts { display: flex; justify-content: center; gap: 24px; margin-top: 14px; }
-.dbt-settings .cell { width: 260px; padding: 12px 0 9px; font-family: "Bellefair", serif; font-size: 52px; line-height: 1; }
-.dbt-settings .cell small { font-family: "Zen Maru Gothic", sans-serif; font-size: 18px; margin-top: 6px; line-height: 1.3; }
-.dbt-settings .cell.wide { width: 360px; font-family: "Kiwi Maru", serif; font-size: 34px; letter-spacing: .04em; }
-.dbt-settings .cell.wide small { font-size: 17px; }
-.dbt-settings .cell.compact { width: 220px; font-size: 50px; }
+.dbt-settings .hd { position: absolute; left: 0; right: 0; top: 16px; text-align: center; font-family: "Kiwi Maru", serif; font-size: 58px; letter-spacing: .3em; color: #e8b54a; text-shadow: 5px 5px 0 #7f1810; }
+.dbt-settings .item { position: absolute; left: 240px; width: 1440px; background: rgba(11,17,34,.84); box-shadow: 0 0 0 3px #e8b54a; padding: 10px 42px 12px; }
+.dbt-settings .item.level { top: 98px; }
+.dbt-settings .item.rounds { top: 305px; }
+.dbt-settings .item.maxplay { top: 472px; }
+.dbt-settings .item.decksize { top: 639px; }
+.dbt-settings .item .k { font-family: "Kiwi Maru", serif; font-size: 27px; letter-spacing: .12em; color: #f6efe0; }
+.dbt-settings .item .d { margin-top: 4px; font-size: 17px; line-height: 1.28; color: #d8b26a; }
+.dbt-settings .opts { display: flex; justify-content: center; gap: 20px; margin-top: 8px; }
+.dbt-settings .cell { width: 250px; padding: 7px 0 6px; font-family: "Bellefair", serif; font-size: 42px; line-height: 1; }
+.dbt-settings .cell small { font-family: "Zen Maru Gothic", sans-serif; font-size: 15px; margin-top: 4px; line-height: 1.18; }
+.dbt-settings .cell.wide { width: 350px; font-family: "Kiwi Maru", serif; font-size: 30px; letter-spacing: .04em; }
+.dbt-settings .cell.wide small { font-size: 14px; }
+.dbt-settings .cell.compact { width: 205px; font-size: 42px; }
 .dbt-settings .cell.on { background: #d8352a; box-shadow: 0 0 0 3px #e8b54a, 7px 7px 0 0 #7f1810; }
-.dbt-settings .back { position: absolute; left: 0; right: 0; margin: 0 auto; bottom: 18px; width: 340px; padding: 12px 0 10px; font-size: 34px; }
+.dbt-settings .back { position: absolute; left: 0; right: 0; margin: 0 auto; bottom: 18px; width: 320px; padding: 9px 0 8px; font-size: 30px; }
 
 /* ===== 余興：ハイアンドロー ===== */
 .dbt-highlow .shade { background: linear-gradient(180deg, rgba(11,17,34,.88) 0%, rgba(11,17,34,.6) 45%, rgba(11,17,34,.92) 100%); }
