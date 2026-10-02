@@ -11,7 +11,7 @@
  * [doubt_unlock_hidden]    隠しの二人をフリー対戦に加える（sf.doubt_hidden_cleared）
  * [doubt_highlow]          余興のハイアンドロー（挑むかどうかは任意）
  * [doubt_bonus]            残機ボーナスを通算に足す
- * [doubt_settings]         設定画面（難易度・ラウンド数・出札上限）
+ * [doubt_settings]         設定画面（難易度・ラウンド数・出札上限・カード枚数）
  * [doubt_help]             遊び方（ルール／キャラクター紹介）
  * [doubt_debug]            デバッグ：好きな卓から始める → f.doubt_debug_go ほか
  * [doubt_skip show="true"]  物語を飛ばすボタンの出し入れ（doubt_story.ks の *setup / *finish）
@@ -293,6 +293,22 @@
       TYRANO.kag.variable.sf.doubt_max_play = v;
       TYRANO.kag.saveSystemVariable();
     } catch (e) { console.error("[doubt] 出札上限の保存に失敗しました", e); }
+  }
+
+  // 基本デッキの枚数。52枚＝通常、26枚＝短時間向け。
+  function getDeckSize() {
+    var v = 0;
+    try { v = parseInt(sysVar().doubt_deck_size, 10); } catch (e) {}
+    var opts = D.rules.deckSizeOptions || [52, 26];
+    if (opts.indexOf(v) < 0) v = D.rules.deckSizeDefault || 52;
+    return v;
+  }
+
+  function setDeckSize(v) {
+    try {
+      TYRANO.kag.variable.sf.doubt_deck_size = v;
+      TYRANO.kag.saveSystemVariable();
+    } catch (e) { console.error("[doubt] カード枚数の保存に失敗しました", e); }
   }
 
   // 今のラウンド状況の一行（1ラウンド制の時は何も出さない）
@@ -658,7 +674,7 @@
         var tip = h("div", "tip");
         tip.appendChild(h("div", "tk", "読み合いのヒント"));
         tip.appendChild(h("div", "td",
-          "同じ数字の札は通常4枚です。自分が持っている枚数や、ダウトで公開された札を手掛かりにすると、" +
+          "同じ数字の札は通常52枚モードでは4枚、26枚モードでは2枚です。自分が持っている枚数や、ダウトで公開された札を手掛かりにすると、" +
           "相手の宣言が成立するかを推理できます。<small>※特殊能力によって札の枚数や情報が変化することがあります。</small>"));
         body.appendChild(tip);
 
@@ -1739,7 +1755,7 @@
       };
     });
     var game = new E.DoubtGame({
-      data: D, pairIndex: idx, io: io, level: getLevel(), maxPlay: getMaxPlay()
+      data: D, pairIndex: idx, io: io, level: getLevel(), maxPlay: getMaxPlay(), deckSize: getDeckSize()
     });
     ui.game = game;
     lifecycle.battle = ui;
@@ -2204,6 +2220,30 @@
       mpBox.appendChild(mpOpts);
       root.appendChild(mpBox);
       chooseMaxPlay(maxNow);
+
+      // ---- カスタムルール：カード枚数 ----
+      var deckNow = getDeckSize();
+      var deckBox = h("div", "item decksize");
+      deckBox.appendChild(h("div", "k", "カード枚数"));
+      deckBox.appendChild(h("div", "d", "通常の52枚か、短時間向けの26枚で遊べます。26枚では各数字が2枚ずつです。"));
+      var deckOpts = h("div", "opts");
+      var deckCells = [];
+      function chooseDeckSize(v) {
+        deckNow = v;
+        setDeckSize(v);
+        deckCells.forEach(function (c) { c.classList.toggle("on", c._v === v); });
+      }
+      (D.rules.deckSizeOptions || [52, 26]).forEach(function (v) {
+        var label = v === 26 ? "ショート" : "通常";
+        var note = v === 26 ? "26枚・短時間" : "52枚・標準";
+        var c = btn(label + "<small>" + note + "</small>", "navy cell wide", function () { chooseDeckSize(v); });
+        c._v = v;
+        deckCells.push(c);
+        deckOpts.appendChild(c);
+      });
+      deckBox.appendChild(deckOpts);
+      root.appendChild(deckBox);
+      chooseDeckSize(deckNow);
 
       root.appendChild(btn("とじる", "navy back", function () {
         closeRoot(root);
