@@ -1044,7 +1044,7 @@
     [
       2265,
       "          var c = btn(v + \"<small>最大\" + v + \"枚</small>\", \"navy cell compact\",",
-      "          var c = btn(v + \"<small>Max \" + v + \" cards</small>\", \"navy cell compact\","
+      "          var c = btn(v + \"<small>Max \" + v + (v === 1 ? \" card\" : \" cards\") + \"</small>\", \"navy cell compact\","
     ],
     [
       2279,
