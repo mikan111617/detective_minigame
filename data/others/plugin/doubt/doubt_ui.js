@@ -911,8 +911,9 @@
     bg(this.root, D.img.bgTable);
     this.root.appendChild(h("div", "dbt-shade shade"));
 
-    this.declarations = [];
-    this.historyButton = btn(battleText("宣言履歴", "History"), "navy dbt-history-button", function () { self.openHistory(); });
+    this.history = [];
+    this.historyPlayCount = 0;
+    this.historyButton = btn(battleText("対戦履歴", "Battle History"), "navy dbt-history-button", function () { self.openHistory(); });
     this.root.appendChild(this.historyButton);
     this.opp = {};
     this.bubble = {};
@@ -1476,21 +1477,52 @@
     return window.I18N && window.I18N.isEN() ? en : ja;
   }
 
+  B.pushHistory = function (entry) {
+    this.history.push(entry);
+    this.historyButton.textContent = battleText("対戦履歴", "Battle History") + " (" + this.history.length + ")";
+    if (this.historyOverlay) this.openHistory();
+  };
+
   B.openHistory = function () {
     if (this.historyOverlay) closeRoot(this.historyOverlay);
     var self = this;
     var ov = h("div", "dbt-overlay dbt-history");
     var box = h("div", "history-box");
-    box.appendChild(h("h2", "", battleText("宣言履歴", "Declaration History")));
-    box.appendChild(h("p", "", battleText("直前のダウト判定からの宣言です。実際の札は表示しません。", "Declarations since the last resolved challenge. Actual cards stay hidden.")));
+    box.appendChild(h("h2", "", battleText("対戦履歴", "Battle History")));
+    box.appendChild(h("p", "", battleText(
+      "この対戦で公開された情報を最後まで残します。伏せ札など、まだ公開されていない情報は表示しません。",
+      "Public information from this battle remains here until the match ends. Hidden cards are never shown."
+    )));
     var list = h("div", "history-list");
-    if (!this.declarations.length) list.appendChild(h("p", "", battleText("まだ宣言はありません", "No declarations yet.")));
-    this.declarations.forEach(function (entry, i) {
-      var row = h("div", "history-row seat-" + entry.seat);
-      [String(i + 1), entry.name, battleText("宣言 ", "Rank ") + entry.rank,
-        entry.count + battleText("枚", entry.count === 1 ? " card" : " cards")].forEach(function (text) {
+    if (!this.history.length) list.appendChild(h("p", "", battleText("まだ履歴はありません", "No history yet.")));
+    this.history.forEach(function (entry) {
+      var row;
+      if (entry.type === "play") {
+        row = h("div", "history-row play seat-" + entry.seat);
+        [String(entry.no), entry.name, "〈" + entry.rank + "〉",
+          entry.count + battleText("枚", entry.count === 1 ? " card" : " cards")].forEach(function (text) {
+            var cell = h("span", ""); cell.textContent = text; row.appendChild(cell);
+          });
+      } else if (entry.type === "doubt") {
+        row = h("div", "history-row event doubt seat-" + entry.seat);
+        [battleText("ダウト", "DOUBT"), entry.name,
+          battleText("→ ", "→ ") + entry.targetName].forEach(function (text) {
+            var cell = h("span", ""); cell.textContent = text; row.appendChild(cell);
+          });
+      } else {
+        row = h("div", "history-row event result");
+        var verdict = entry.cancelled
+          ? battleText("ダウト無効", "Doubt Cancelled")
+          : (entry.isLie ? battleText("ダウト成功（嘘）", "Doubt Successful (Lie)")
+                         : battleText("ダウト失敗（本当）", "Doubt Failed (True)"));
+        if (entry.suitPass) verdict = battleText("ダウト失敗（絵柄一致）", "Doubt Failed (Suit Match)");
+        var shown = entry.cancelled
+          ? battleText("公開なし", "No reveal")
+          : battleText("公開：", "Revealed: ") + entry.cards.join(" / ");
+        [battleText("結果", "Result"), verdict, shown + "　" + entry.outcome].forEach(function (text) {
           var cell = h("span", ""); cell.textContent = text; row.appendChild(cell);
         });
+      }
       list.appendChild(row);
     });
     box.appendChild(list);
@@ -1524,11 +1556,13 @@
       say: function (g, seat, cat) { ui.say(g, seat, cat); },
       sayLater: function (g, seat, cat, ms) { setTimeout(function () { ui.say(g, seat, cat); }, ms); },
       wait: function (g, ms) { return sleep(ms); },
-      doubt: function (g, seat) { return ui.doubtCutin(g, seat); },
+      doubt: function (g, seat) {
+        ui.pushHistory({ type: "doubt", seat: seat, name: g.name(seat), targetName: g.name(g.last.seat) });
+        return ui.doubtCutin(g, seat);
+      },
       placed: async function (g, seat, n) {
-        ui.declarations.push({ seat: seat, name: g.name(seat), rank: RANK[g.last.rank], count: g.shownPlay(g.last.cards.length, seat) });
-        ui.historyButton.textContent = battleText("宣言履歴", "History") + " (" + ui.declarations.length + ")";
-        if (ui.historyOverlay) ui.openHistory();
+        ui.historyPlayCount++;
+        ui.pushHistory({ type: "play", no: ui.historyPlayCount, seat: seat, name: g.name(seat), rank: RANK[g.last.rank], count: g.shownPlay(g.last.cards.length, seat) });
         await ui.flyCards(seat, n);
         ui.render(g);
       },
@@ -1686,6 +1720,26 @@
         ov.appendChild(txt);
         return ui.overlayWait(ov, 2000);
       },
+      resolved: function (g, info) {
+        var cards = (info.cards || []).map(function (c) {
+          return c.r === 0 ? "JOKER" : RANK[c.r] + SUIT[c.s];
+        });
+        var outcome;
+        if (info.cancelled) {
+          outcome = battleText("伏せ札はそのまま場に残る", "The face-down cards remain in the pile");
+        } else if (info.noTake || info.loser < 0) {
+          outcome = g.name(info.doubter) + battleText("は札を引き取らない", " takes no cards");
+        } else if (info.discardCount > 0) {
+          outcome = g.name(info.loser) + battleText("が", " takes ") + info.takeCount + battleText("枚回収（", " cards (") +
+            info.discardCount + battleText("枚は場から除外）", " removed from play)");
+        } else {
+          outcome = g.name(info.loser) + battleText("が場の札を", " takes ") + info.takeCount + battleText("枚回収", " cards from the pile");
+        }
+        ui.pushHistory({
+          type: "result", cancelled: !!info.cancelled, isLie: !!info.isLie, suitPass: !!info.suitPass,
+          cards: cards, outcome: outcome
+        });
+      },
       notice: function (g, title, sub) {
         var ov = h("div", "dbt-overlay dbt-notice");
         ov.appendChild(h("div", "box", '<div class="t">' + title + '</div><div class="s">' + (sub || "") + "</div>"));
@@ -1723,8 +1777,6 @@
           setTimeout(end, 1200);
         });
         closeRoot(ov);
-        ui.declarations = [];
-        ui.historyButton.textContent = battleText("宣言履歴", "History");
       },
     };
   };
