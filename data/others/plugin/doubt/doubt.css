@@ -864,6 +864,24 @@
 .dbt-en .dbt-exchange .back { max-width:480px; font-size:26px; }
 .dbt-en .dbt-resign .targets .dbt-btn { padding:20px; font-size:34px; }
 
+/* English settings need tighter type and fixed row heights because labels are much longer. */
+.dbt-settings.dbt-en .hd { top:10px; font-size:52px; letter-spacing:.18em; }
+.dbt-settings.dbt-en .item { padding:8px 42px 9px; box-sizing:border-box; }
+.dbt-settings.dbt-en .item.level { top:82px; height:200px; }
+.dbt-settings.dbt-en .item.rounds { top:294px; height:148px; }
+.dbt-settings.dbt-en .item.maxplay { top:454px; height:148px; }
+.dbt-settings.dbt-en .item.decksize { top:614px; height:148px; }
+.dbt-settings.dbt-en .item .k { font-size:24px; line-height:1.08; letter-spacing:.055em; }
+.dbt-settings.dbt-en .item .d { margin-top:4px; font-size:15px; line-height:1.18; }
+.dbt-settings.dbt-en .opts { gap:18px; margin-top:7px; }
+.dbt-settings.dbt-en .dbt-btn.cell { padding:6px 0 5px; font-size:38px; line-height:1.02; box-sizing:border-box; }
+.dbt-settings.dbt-en .dbt-btn.cell small { margin-top:4px; font-size:13px; line-height:1.12; letter-spacing:.01em; }
+.dbt-settings.dbt-en .dbt-btn.cell.wide { width:365px; font-size:28px; line-height:1.04; }
+.dbt-settings.dbt-en .item.level .dbt-btn.cell.wide { height:98px; }
+.dbt-settings.dbt-en .item.level .dbt-btn.cell.wide small { font-size:12px; line-height:1.12; }
+.dbt-settings.dbt-en .dbt-btn.cell.compact { width:205px; font-size:38px; }
+.dbt-settings.dbt-en .back { bottom:16px; width:300px; padding:8px 0 7px; font-size:28px; line-height:1.05; }
+
 /* Battle history and challenge emphasis. Speech bubbles stay above the cut-in. */
 .dbt-history-button { position:absolute; left:780px; top:8px; width:360px; padding:8px 18px; font-size:24px; z-index:6; }
 /* 履歴ボタンの下に直近の宣言ログを出す（ボタンと重ならない位置） */
