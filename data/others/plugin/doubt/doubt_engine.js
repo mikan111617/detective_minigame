@@ -604,6 +604,9 @@
         await this.io.cutin(this, placer, this.data.chara.koderia.ability);
         this.io.log(this, this.name(placer) + "がダウトを無効にした");
         await this.io.notice(this, "ダウト無効", "伏せ札はそのまま場に残る");
+        if (this.io.resolved) this.io.resolved(this, {
+          cancelled: true, rank: rank, doubter: doubter, placer: placer
+        });
         return;
       }
     }
@@ -633,11 +636,15 @@
     // 表になった札は、卓の全員が見ている
     this.markSeen(cards, "pile");
 
+    var resolvedTake = 0;
+    var resolvedDiscard = 0;
     if (loser >= 0) {
       var take = this.pile.splice(0);
       if (this.hasAbil(loser, "kazuto")) {
         this.shuffle(take);
         var half = Math.ceil(take.length / 2);
+        resolvedTake = half;
+        resolvedDiscard = take.length - half;
         this.addToHand(loser, take.slice(0, half));
         Array.prototype.push.apply(this.discard, take.slice(half));
         // どちらに回ったか分からないので、覚えていた分は忘れる
@@ -645,6 +652,7 @@
         await this.io.cutin(this, loser, this.data.chara.kazuto.ability);
         this.io.log(this, this.name(loser) + "は" + half + "枚だけ回収（" + (take.length - half) + "枚は場から除外）");
       } else {
+        resolvedTake = take.length;
         this.addToHand(loser, take);
         this.moveSeenPile(take, loser);
         this.io.log(this, this.name(loser) + "が場の札" + take.length + "枚を回収");
@@ -677,6 +685,14 @@
       this.io.log(this, this.name(doubter) + "の読み違い。札は場に残る");
       await this.io.notice(this, "本当だった", this.name(doubter) + "は札を引き取らない");
     }
+
+    // プレイヤーが実際に見たダウト結果だけを、UIの対戦履歴へ渡す。
+    if (this.io.resolved) this.io.resolved(this, {
+      cards: cards.slice(), rank: rank, isLie: isLie,
+      doubter: doubter, placer: placer, loser: loser,
+      noTake: noTake, suitPass: suitPass,
+      takeCount: resolvedTake, discardCount: resolvedDiscard
+    });
 
     // 名指し成功
     if (guess && isLie && cards.some(function (c) { return c.r === guess; }) && this.hands[doubter].length > 0) {
