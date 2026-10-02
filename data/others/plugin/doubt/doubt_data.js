@@ -91,7 +91,7 @@
        *   catch  … 真歩流？の嘘センサーの上乗せ（他のキャラだけ賢くならないように）
        */
       levels: [
-        { key: "easy",   name: "やさしい", note: "自分の手札を頼りに、慎重に疑う",       score: 0.8, blind: 0.12, bluff: 2,   memory: false, odds: 0,   catch: 0 },
+        { key: "easy",   name: "やさしい", note: "自分の手札を頼りに、慎重に疑う",       score: 0.8, blind: 0.12, bluff: 2,   memory: false, odds: 0,   catch: 0,    certain: 0.3, bonus: 0.5 },
         { key: "normal", name: "ふつう",   note: "公開された札も覚えて読み合う",         score: 1,   blind: 0.18, bluff: 1,   memory: true,  odds: 0.5, catch: 0.12 },
         { key: "hard",   name: "むずかしい", note: "見込みまで計算し、根拠を重く見る",   score: 1.2, blind: 0.05, bluff: 0.3, memory: true,  odds: 0.9, catch: 0.28 },
       ],
@@ -103,6 +103,9 @@
       debugMenu: false,
       hiddenScore: 40000, // この点に届いていれば、コンティニューしていても隠し戦に進める
       extraDealEach: 3,  // メアリー／英国の青年が、自分以外の各プレイヤーに配る新規札の枚数
+      maryFadeEach: 1,   // メアリーの手番ごとに、各相手の「まだ見えている手札」から見えなくなる枚数
+      deckSizeDefault: 52, // 通常52枚。ショートは26枚（各数字2枚）
+      deckSizeOptions: [52, 26],
       roundMax: 3,      // 設定画面で選べるラウンド数の上限
       roundDefault: 1,  // 設定していない時のラウンド数
       maxPlay: 4,       // 一度に出せる札の上限の既定値
@@ -141,7 +144,7 @@
         uses: -1 },
       mary: { name: "メアリー", reading: "", color: "#c77dd8", doubt: 0.16, tell: 0.4, bluff: 0.1,
         doubtStyle: "memory", // 記憶型：序盤の記憶を強く信じる。札が動くほど読み違えることもある
-        ability: "対戦開始時の他人の手札を覚え、記録より多い枚数の宣言を怪しむ（その後の出入りまでは分からない）",
+        ability: "対戦開始時に他人の手札がすべて見えるが、自分の手番ごとに各相手の見える札が1枚ずつ減る（公開された札は別に覚える）",
         uses: -1, sub: "mary_deal", subUses: 1 },
       reido: { name: "零度警部", reading: "れいど", color: "#6fa8c9", doubt: 0.16, tell: 0.35, bluff: 0.1,
         doubtStyle: "evidence", // 証拠型：怪しいだけでは動かず、根拠が濃い時に踏み込む
