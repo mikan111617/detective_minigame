@@ -327,882 +327,882 @@
       "      root.appendChild(h(\"div\", \"hint\", \"← → Select opponents / Their skills appear when selected\"));"
     ],
     [
-      847,
+      849,
       "        panel.innerHTML = skillWithSub(ids[k], k === 0 ? \"（あなた）\" : \"\");",
       "        panel.innerHTML = skillWithSub(ids[k], k === 0 ? \"(You)\" : \"\");"
     ],
     [
-      868,
+      870,
       "      root.appendChild(h(\"div\", \"skhint\", \"立ち絵をクリックすると、そのキャラのスキルが出ます\"));",
       "      root.appendChild(h(\"div\", \"skhint\", \"Click a character to view their skill\"));"
     ],
     [
-      871,
+      873,
       "        '<span class=\"tagbox l\">あなた</span><span class=\"n l\">真歩流</span>' +",
       "        '<span class=\"tagbox l\">You</span><span class=\"n l\">Mahoru</span>' +"
     ],
     [
-      875,
+      877,
       "      root.appendChild(btn(\"勝負\", \"red go\", function () {",
       "      root.appendChild(btn(\"Start Match\", \"red go\", function () {"
     ],
     [
-      939,
+      941,
       "        '<div class=\"cnt\"><span class=\"k\">手札</span><span class=\"v\">0</span></div>' +",
       "        '<div class=\"cnt\"><span class=\"k\">Hand</span><span class=\"v\">0</span></div>' +"
     ],
     [
-      966,
+      968,
       "    this.rankLbl = h(\"div\", \"lbl\", \"いまの宣言\");",
       "    this.rankLbl = h(\"div\", \"lbl\", \"Current Claim\");"
     ],
     [
-      973,
+      975,
       "    this.pileInfo = h(\"div\", \"dbt-pileinfo\", '<span class=\"k\">場の伏せ札</span><span class=\"v\">0</span><span class=\"d\"></span>');",
       "    this.pileInfo = h(\"div\", \"dbt-pileinfo\", '<span class=\"k\">Face-down Pile</span><span class=\"v\">0</span><span class=\"d\"></span>');"
     ],
     [
-      984,
+      986,
       "    this.bMain = btn(\"伏せる\", \"red\", function () { self.onMain(); });",
       "    this.bMain = btn(\"Play\", \"red\", function () { self.onMain(); });"
     ],
     [
-      985,
+      987,
       "    this.bDoubt = btn(\"ダウトを宣言する\", \"navy\", function () { self.onDoubt(); });",
       "    this.bDoubt = btn(\"Call Doubt\", \"navy\", function () { self.onDoubt(); });"
     ],
     [
-      986,
+      988,
       "    this.bAbility = btn(\"能力を発動する\", \"pink\", function () { self.onAbility(); });",
       "    this.bAbility = btn(\"Use Ability\", \"pink\", function () { self.onAbility(); });"
     ],
     [
-      987,
+      989,
       "    this.bSkill = btn(\"スキル\", \"navy info\", function () { self.openSkills(); });",
       "    this.bSkill = btn(\"Skills\", \"navy info\", function () { self.openSkills(); });"
     ],
     [
-      996,
+      998,
       "      this.bResign = btn(\"降参\", \"navy resign\", function () { self.askResign(); });",
       "      this.bResign = btn(\"Forfeit\", \"navy resign\", function () { self.askResign(); });"
     ],
     [
-      1000,
+      1002,
       "      this.bResign = btn(\"中断\", \"navy resign\", function () { self.askSuspend(); });",
       "      this.bResign = btn(\"Suspend\", \"navy resign\", function () { self.askSuspend(); });"
     ],
     [
-      1006,
+      1008,
       "    this.cutinShown = {};   // この対戦でカットインを出し切ったキャラ",
       "    this.cutinShown = {};   // This Matchでカットインを出し切ったキャラ"
     ],
     [
-      1029,
+      1031,
       "    box.appendChild(h(\"div\", \"q\", \"スキル\"));",
       "    box.appendChild(h(\"div\", \"q\", \"Skills\"));"
     ],
     [
-      1032,
+      1034,
       "      var left = ch.uses > 0 ? \"残り\" + Math.max(0, g.uses[seat]) + \"回\" : \"常時\";",
       "      var left = ch.uses > 0 ? \"Remaining \" + Math.max(0, g.uses[seat]) + \"\" : \"Always\";"
     ],
     [
-      1034,
+      1036,
       "        skillHTML(g.ids[seat], left, seat === 0 ? \"（あなた）\" : \"\")));",
       "        skillHTML(g.ids[seat], left, seat === 0 ? \"(You)\" : \"\")));"
     ],
     [
-      1039,
+      1041,
       "          skillHTML(g.subId[seat], sc.uses > 0 ? \"残り\" + Math.max(0, g.subUses[seat]) + \"回\" : \"常時\",",
       "          skillHTML(g.subId[seat], sc.uses > 0 ? \"Remaining \" + Math.max(0, g.subUses[seat]) + \"\" : \"Always\","
     ],
     [
-      1040,
+      1042,
       "            \"（二つ目の力）\")));",
       "            \"(Second Ability)\")));"
     ],
     [
-      1046,
+      1048,
       "          skillHTML(g.borrowId, bc.uses > 0 ? \"残り\" + Math.max(0, g.borrowUses) + \"回\" : \"常時\",",
       "          skillHTML(g.borrowId, bc.uses > 0 ? \"Remaining \" + Math.max(0, g.borrowUses) + \"\" : \"Always\","
     ],
     [
-      1047,
+      1049,
       "            \"の力（\" + D.chara.mahoru_awake.name + \"が使う）\")));",
       "            \"'s ability (\" + D.chara.mahoru_awake.name + \" uses it)\")));"
     ],
     [
-      1050,
+      1052,
       "    box.appendChild(btn(\"とじる\", \"navy cancel\", function () { closeRoot(ov); }));",
       "    box.appendChild(btn(\"Close\", \"navy cancel\", function () { closeRoot(ov); }));"
     ],
     [
-      1061,
+      1063,
       "    box.appendChild(h(\"div\", \"q\", \"降参しますか\"));",
       "    box.appendChild(h(\"div\", \"q\", \"Forfeit this match?\"));"
     ],
     [
-      1062,
+      1064,
       "    box.appendChild(h(\"div\", \"d\", \"この対戦は負けになり、相手選びに戻ります\"));",
       "    box.appendChild(h(\"div\", \"d\", \"This match will count as a loss and return to opponent selection.\"));"
     ],
     [
-      1064,
+      1066,
       "    row.appendChild(btn(\"降参する\", \"red\", function () {",
       "    row.appendChild(btn(\"Forfeit\", \"red\", function () {"
     ],
     [
-      1070,
+      1072,
       "    row.appendChild(btn(\"やめる\", \"navy\", function () { closeRoot(ov); }));",
       "    row.appendChild(btn(\"Cancel\", \"navy\", function () { closeRoot(ov); }));"
     ],
     [
-      1070,
+      1072,
       "    row.appendChild(btn(\"やめる\", \"navy\", function () { closeRoot(ov); }));",
       "    row.appendChild(btn(\"Cancel\", \"navy\", function () { closeRoot(ov); }));"
     ],
     [
-      1083,
+      1085,
       "    box.appendChild(h(\"div\", \"q\", \"中断しますか\"));",
       "    box.appendChild(h(\"div\", \"q\", \"Suspend the game?\"));"
     ],
     [
-      1084,
+      1086,
       "    box.appendChild(h(\"div\", \"d\", \"タイトルに戻ります。<br>アーケードプレイを選ぶと、この試合の最初から再開できます\"));",
       "    box.appendChild(h(\"div\", \"d\", \"You will return to the title screen.<br>Select Arcade to restart this match from the beginning.\"));"
     ],
     [
-      1086,
+      1088,
       "    row.appendChild(btn(\"中断する\", \"red\", function () {",
       "    row.appendChild(btn(\"Suspend\", \"red\", function () {"
     ],
     [
-      1105,
+      1107,
       "    this.bMain.innerHTML = m === \"window\" ? \"見送る\" : (m === \"give\" ? \"渡す\" : \"伏せる\");",
       "    this.bMain.innerHTML = m === \"window\" ? \"Pass\" : (m === \"give\" ? \"Give\" : \"Play\");"
     ],
     [
-      1114,
+      1116,
       "      this.bAbility.innerHTML = \"手札を交換する<small>残り\" + Math.max(0, swaps) + \"</small>\";",
       "      this.bAbility.innerHTML = \"Exchange Hands<small>Remaining \" + Math.max(0, swaps) + \"</small>\";"
     ],
     [
-      1117,
+      1119,
       "      this.bAbility.innerHTML = \"数字を名指しする<small>残り\" + Math.max(0, uses) + \"</small>\";",
       "      this.bAbility.innerHTML = \"Name the Rank<small>Remaining \" + Math.max(0, uses) + \"</small>\";"
     ],
     [
-      1138,
+      1140,
       "      if (ch.uses > 0) parts.push(\"能力 残り\" + Math.max(0, g.uses[seat]));",
       "      if (ch.uses > 0) parts.push(\"Ability: \" + Math.max(0, g.uses[seat]));"
     ],
     [
-      1140,
+      1142,
       "      if (sub && sub.uses > 0) parts.push(sub.name + \" 残り\" + Math.max(0, g.subUses[seat]));",
       "      if (sub && sub.uses > 0) parts.push(sub.name + \" Remaining \" + Math.max(0, g.subUses[seat]));"
     ],
     [
-      1143,
+      1145,
       "        useText = \"名指し 残り\" + Math.max(0, g.uses[seat]);",
       "        useText = \"Rank Guess: \" + Math.max(0, g.uses[seat]);"
     ],
     [
-      1146,
+      1148,
       "          useText += \"／\" + bc.name + \"の力\" + (bc.uses > 0 ? \" 残り\" + Math.max(0, g.borrowUses) : \"\");",
       "          useText += \" / \" + bc.name + \"\\'s ability\" + (bc.uses > 0 ? \" Remaining \" + Math.max(0, g.borrowUses) : \"\");"
     ],
     [
-      1148,
+      1150,
       "        if (g.sealed > 0) useText = \"力を封じられている\";",
       "        if (g.sealed > 0) useText = \"Power sealed\";"
     ],
     [
-      1150,
+      1152,
       "      if (g.immune[seat] > 0) useText = \"ダウトされない（あと\" + g.immune[seat] + \"回）\";",
       "      if (g.immune[seat] > 0) useText = \"Immune to Doubt (\" + g.immune[seat] + \" turns)\";"
     ],
     [
-      1151,
+      1153,
       "      if (hidden) useText = \"枚数が読めない\";",
       "      if (hidden) useText = \"Card count hidden\";"
     ],
     [
-      1156,
+      1158,
       "    this.rankLbl.textContent = g.turn === 0 ? \"あなたが出す数字\" : g.name(g.turn) + \"の宣言\";",
       "    this.rankLbl.textContent = g.turn === 0 ? \"Rank You Must Claim\" : g.name(g.turn) + \"'s Claim\";"
     ],
     [
-      1160,
+      1162,
       "    this.pileInfo.querySelector(\".d\").textContent = g.discard.length ? \"捨て札 \" + g.discard.length : \"\";",
       "    this.pileInfo.querySelector(\".d\").textContent = g.discard.length ? \"Discarded \" + g.discard.length : \"\";"
     ],
     [
-      1253,
+      1255,
       "    box.appendChild(h(\"div\", \"q\", \"伏せ札の本当の数字を名指しする\"));",
       "    box.appendChild(h(\"div\", \"q\", \"Name the True Rank of the Face-down Cards\"));"
     ],
     [
-      1265,
+      1267,
       "    box.appendChild(btn(\"やめる\", \"navy cancel\", function () { closeRoot(ov); }));",
       "    box.appendChild(btn(\"Cancel\", \"navy cancel\", function () { closeRoot(ov); }));"
     ],
     [
-      1265,
+      1267,
       "    box.appendChild(btn(\"やめる\", \"navy cancel\", function () { closeRoot(ov); }));",
       "    box.appendChild(btn(\"Cancel\", \"navy cancel\", function () { closeRoot(ov); }));"
     ],
     [
-      1277,
+      1279,
       "    box.appendChild(h(\"div\", \"q\", \"誰と手札を公開して交換する？\"));",
       "    box.appendChild(h(\"div\", \"q\", \"Whose hand will you reveal and exchange with?\"));"
     ],
     [
-      1280,
+      1282,
       "      var b = btn(g.name(seat) + \"<small>手札を互いに全公開</small>\", \"navy\", async function () {",
       "      var b = btn(g.name(seat) + \"<small>Both hands are fully revealed</small>\", \"navy\", async function () {"
     ],
     [
-      1331,
+      1333,
       "      title(g.name(seat) + \"と手札を全公開\", \"交換する枚数を決める（最大\" + max + \"枚）\");",
       "      title(g.name(seat) + \" — Reveal Both Hands\", \"Choose how many cards to exchange (max \" + max + \")\");"
     ],
     [
-      1332,
+      1334,
       "      grid(\"あなたの手札\", g.hands[0], \"mine\");",
       "      grid(\"Your Hand\", g.hands[0], \"mine\");"
     ],
     [
-      1333,
+      1335,
       "      grid(g.name(seat) + \"の手札\", g.hands[seat], \"theirs\");",
       "      grid(g.name(seat) + \"'s Hand\", g.hands[seat], \"theirs\");"
     ],
     [
-      1340,
+      1342,
       "      box.appendChild(btn(\"この枚数で交換する\", \"red confirm\", chooseCards));",
       "      box.appendChild(btn(\"Exchange This Many\", \"red confirm\", chooseCards));"
     ],
     [
-      1349,
+      1351,
       "        title(g.name(seat) + \"と\" + count + \"枚ずつ交換\", \"赤枠＝相手が要求するあなたの札。欲しい相手の札を\" + count + \"枚選ぶ\");",
       "        title(g.name(seat) + \" — exchange \" + count + \" cards each\", \"Red outline = cards your opponent wants. Choose \" + count + \" cards you want in return\");"
     ],
     [
-      1350,
+      1352,
       "        grid(\"相手が要求するあなたの札\", g.hands[0], \"mine\", null, null, demandMap);",
       "        grid(\"Cards Your Opponent Wants\", g.hands[0], \"mine\", null, null, demandMap);"
     ],
     [
-      1351,
+      1353,
       "        grid(g.name(seat) + \"から欲しい札\", g.hands[seat], \"theirs\", function (id) {",
       "        grid(\"Cards You Want from \" + g.name(seat), g.hands[seat], \"theirs\", function (id) {"
     ],
     [
-      1360,
+      1362,
       "        var ok = btn(\"交換を確定する（\" + n + \"/\" + count + \"）\", \"red confirm\" + (n === count ? \"\" : \" off\"), function () {",
       "        var ok = btn(\"Confirm Exchange (\" + n + \"/\" + count + \"）\", \"red confirm\" + (n === count ? \"\" : \" off\"), function () {"
     ],
     [
-      1372,
+      1374,
       "        box.appendChild(btn(\"枚数を選び直す\", \"navy back\", chooseCount));",
       "        box.appendChild(btn(\"Choose Count Again\", \"navy back\", chooseCount));"
     ],
     [
-      1582,
+      1584,
       "        return ui.waitInput(\"place\", \"〈\" + RANK[g.rank] + \"〉として伏せる札を選ぶ（1〜\" + g.maxPlay + \"枚・嘘でもよい）\");",
       "        return ui.waitInput(\"place\", \"〈\" + RANK[g.rank] + \"〉 — choose 1–\" + g.maxPlay + \" cards to play (bluffing allowed)\");"
     ],
     [
-      1586,
+      1588,
       "        var head = g.name(g.last.seat) + \"の〈\" + RANK[g.last.rank] + \"〉×\" +",
       "        var head = g.name(g.last.seat) + \"\\'s 〈\" + RANK[g.last.rank] + \"〉 × \" +"
     ],
     [
-      1587,
+      1589,
       "          g.shownPlay(g.last.cards.length, g.last.seat) + \"枚　\";",
       "          g.shownPlay(g.last.cards.length, g.last.seat) + \"　\";"
     ],
     [
-      1593,
+      1595,
       "          why = g.noDoubtPlayer > 0 ? \"この一巡、あなたはダウトを言えない\" : \"この伏せ札には、ダウトを言えない\";",
       "          why = g.noDoubtPlayer > 0 ? \"You cannot call Doubt this round\" : \"You cannot call Doubt on these cards\";"
     ],
     [
-      1595,
+      1597,
       "          why = \"封じられていても、上がりの一手だけは疑える！\";",
       "          why = \"Even while sealed, you may challenge a game-winning play!\";"
     ],
     [
-      1597,
+      1599,
       "          why = \"嘘だと思ったらダウト\";",
       "          why = \"Call Doubt if You Suspect a Lie\";"
     ],
     [
-      1605,
+      1607,
       "          ? \"〈\" + RANK[offerRank] + \"〉\" + n + \"枚との交換\\n\"",
       "          ? \"Exchange for \" + n + \" × 〈\" + RANK[offerRank] + \"〉\\n\""
     ],
     [
-      1608,
+      1610,
       "          offered + g.name(placer) + \"に渡す札を\" + n + \"枚選ぶ\");",
       "          offered + \"Choose \" + n + \" cards to give \" + g.name(placer));"
     ],
     [
-      1637,
+      1639,
       "            box.appendChild(h(\"div\", \"q\", \"名推理成功\"));",
       "            box.appendChild(h(\"div\", \"q\", \"Brilliant Deduction\"));"
     ],
     [
-      1638,
+      1640,
       "            box.appendChild(h(\"div\", \"sub\", \"手札を確認する相手を1人選ぶ\"));",
       "            box.appendChild(h(\"div\", \"sub\", \"Choose one opponent whose hand to inspect\"));"
     ],
     [
-      1641,
+      1643,
       "              row.appendChild(btn(g.name(seat) + \"<small>手札を確認</small>\", \"navy\", function () { inspect(seat); }));",
       "              row.appendChild(btn(g.name(seat) + \"<small>Inspect hand</small>\", \"navy\", function () { inspect(seat); }));"
     ],
     [
-      1650,
+      1652,
       "              box.appendChild(h(\"div\", \"q\", g.name(target) + \"の手札\"));",
       "              box.appendChild(h(\"div\", \"q\", g.name(target) + \"'s Hand\"));"
     ],
     [
-      1651,
+      1653,
       "              box.appendChild(h(\"div\", \"sub\", \"確認したうえで、自分の手札から\" + n + \"枚を捨てる\"));",
       "              box.appendChild(h(\"div\", \"sub\", \"After inspecting it, discard \" + n + \" cards from your own hand\"));"
     ],
     [
-      1652,
+      1654,
       "              miniGrid(g.name(target) + \"の手札\", g.hands[target]);",
       "              miniGrid(g.name(target) + \"'s Hand\", g.hands[target]);"
     ],
     [
-      1653,
+      1655,
       "              miniGrid(\"捨てる自分の札\", g.hands[0], function (id) {",
       "              miniGrid(\"Your Cards to Discard\", g.hands[0], function (id) {"
     ],
     [
-      1662,
+      1664,
       "              box.appendChild(btn(\"この札を捨てる（\" + cnt + \"/\" + n + \"）\", \"red confirm\" + (cnt === n ? \"\" : \" off\"), function () {",
       "              box.appendChild(btn(\"Discard These Cards (\" + cnt + \"/\" + n + \"）\", \"red confirm\" + (cnt === n ? \"\" : \" off\"), function () {"
     ],
     [
-      1763,
+      1765,
       "          g.name(info.doubter) + \"のダウト　―　\" + g.name(info.placer) + \"の〈\" + RANK[info.rank] + \"〉\"));",
       "          g.name(info.doubter) + \" called Doubt — \" + g.name(info.placer) + \"\\'s 〈\" + RANK[info.rank] + \"〉\"));"
     ],
     [
-      1781,
+      1783,
       "        res.textContent = info.noTake ? g.name(info.doubter) + \"は札を引き取らない\" :",
       "        res.textContent = info.noTake ? g.name(info.doubter) + \" takes no cards\" :"
     ],
     [
-      1782,
+      1784,
       "          (info.suitPass ? \"絵柄が揃っているので〈\" + RANK[info.rank] + \"〉として通る。\" : \"\") +",
       "          (info.suitPass ? \"All suits match, so it counts as \" + RANK[info.rank] + \".\" : \"\") +"
     ],
     [
-      1783,
+      1785,
       "          g.name(loser) + \"が場の札を引き取る\";",
       "          g.name(loser) + \" takes the pile\";"
     ],
     [
-      1801,
+      1803,
       "      try { snap = JSON.parse(JSON.stringify(f())); } catch (e) { console.error(\"[doubt] 中断用の写しを取れませんでした\", e); }",
       "      try { snap = JSON.parse(JSON.stringify(f())); } catch (e) { console.error(\"[doubt] Suspend用の写しを取れませんでした\", e); }"
     ],
     [
-      1840,
+      1842,
       "      sov.appendChild(h(\"div\", \"box\", '<div class=\"t\">中断</div>'));",
       "      sov.appendChild(h(\"div\", \"box\", '<div class=\"t\">Suspend</div>'));"
     ],
     [
-      1855,
+      1857,
       "      '<div class=\"t\">' + (result.resigned ? \"降参\" : (result.win ? \"上がり！\" : game.name(result.winner) + \"の上がり\")) + \"</div>\"));",
       "      '<div class=\"t\">' + (result.resigned ? \"Forfeit\" : (result.win ? \"OUT!\" : game.name(result.winner) + \" goes out\")) + \"</div>\"));"
     ],
     [
-      1893,
+      1895,
       "      root.appendChild(h(\"div\", \"stage\", \"―― \" + pr.label + \"・決着 ――\" + (rt ? \"　\" + rt : \"\")));",
       "      root.appendChild(h(\"div\", \"stage\", \"―― \" + pr.label + \" · Result —\" + (rt ? \"　\" + rt : \"\")));"
     ],
     [
-      1894,
+      1896,
       "      root.appendChild(h(\"div\", \"big\", win ? \"勝利\" : \"敗北\"));",
       "      root.appendChild(h(\"div\", \"big\", win ? \"VICTORY\" : \"DEFEAT\"));"
     ],
     [
-      1895,
+      1897,
       "      root.appendChild(h(\"div\", \"catch\", win ? \"嘘を、ぜんぶ剥がした\" : \"嘘に、呑まれた\"));",
       "      root.appendChild(h(\"div\", \"catch\", win ? \"Every lie laid bare\" : \"Swallowed by the lie\"));"
     ],
     [
-      1898,
+      1900,
       "        ? \"相手の残り札 \" + fv.doubt_opp_left + \"枚 × \" + D.rules.scorePerCard +",
       "        ? \"Opponent cards remaining: \" + fv.doubt_opp_left + \" × \" + D.rules.scorePerCard +"
     ],
     [
-      1900,
+      1902,
       "        : \"勝利時のみ加算\";",
       "        : \"Added only on victory\";"
     ],
     [
-      1902,
+      1904,
       "        scoreDetail += '<br><b class=\"bonus\">読み切りボーナス ＋' + accuracyBonus.toLocaleString() + \"点</b>\";",
       "        scoreDetail += '<br><b class=\"bonus\">Perfect Read Bonus +' + accuracyBonus.toLocaleString() + \" pts</b>\";"
     ],
     [
-      1905,
+      1907,
       "        '<div class=\"k\">この対戦</div><div class=\"v\">' + gain.toLocaleString() + \"<small>点</small></div>\" +",
       "        '<div class=\"k\">This Match</div><div class=\"v\">' + gain.toLocaleString() + \"<small> pts</small></div>\" +"
     ],
     [
-      1909,
+      1911,
       "        '<div class=\"k\">通算</div><div class=\"v\">' + after.toLocaleString() + \"<small>点</small></div>\" +",
       "        '<div class=\"k\">Total</div><div class=\"v\">' + after.toLocaleString() + \"<small> pts</small></div>\" +"
     ],
     [
-      1910,
+      1912,
       "        '<div class=\"d\">次の残機まで あと' + toNext.toLocaleString() + \"点</div>\"));",
       "        '<div class=\"d\">Next life in ' + toNext.toLocaleString() + \" pts</div>\"));"
     ],
     [
-      1915,
+      1917,
       "        '<div class=\"k\">残機</div><div class=\"lives\">' + lives + \"</div>\" +",
       "        '<div class=\"k\">Lives</div><div class=\"lives\">' + lives + \"</div>\" +"
     ],
     [
-      1916,
+      1918,
       "        '<div class=\"d\">' + (added > 0 ? \"残機が\" + added + \"つ増えた（＋\" + added + \"）\" : \"コンティニューできる回数\") + \"</div>\"));",
       "        '<div class=\"d\">' + (added > 0 ? \"Lives +\" + added + \" (+\" + added + \")\" : \"Number of continues available\") + \"</div>\"));"
     ],
     [
-      1919,
+      1921,
       "        '<div class=\"k\">戦績</div><div class=\"stats\">' +",
       "        '<div class=\"k\">Stats</div><div class=\"stats\">' +"
     ],
     [
-      1920,
+      1922,
       "          '<div class=\"stat\"><span>ダウト成功率</span><b>' + accuracyText + '</b><small>' + success + \" / \" + attempts + \"</small></div>\" +",
       "          '<div class=\"stat\"><span>Doubt Accuracy</span><b>' + accuracyText + '</b><small>' + success + \" / \" + attempts + \"</small></div>\" +"
     ],
     [
-      1921,
+      1923,
       "          '<div class=\"stat\"><span>嘘の成功</span><b>' + bluffSuccess + '</b><small>回</small></div>' +",
       "          '<div class=\"stat\"><span>Successful Bluffs</span><b>' + bluffSuccess + '</b><small></small></div>' +"
     ],
     [
-      1922,
+      1924,
       "          '<div class=\"stat\"><span>名指し成功</span><b>' + guessSuccess + '</b><small>回</small></div>' +",
       "          '<div class=\"stat\"><span>Correct Rank Guesses</span><b>' + guessSuccess + '</b><small></small></div>' +"
     ],
     [
-      1925,
+      1927,
       "      root.appendChild(btn(\"次へ\", \"next\", function () {",
       "      root.appendChild(btn(\"Next\", \"next\", function () {"
     ],
     [
-      1956,
+      1962,
       "    var b = h(\"div\", \"dbt-skipbtn dbt-btn navy\", \"スキップ<small>物語を飛ばす</small>\");",
       "    var b = h(\"div\", \"dbt-skipbtn dbt-btn navy\", \"Skip<small>Skip story scenes</small>\");"
     ],
     [
-      1979,
+      1985,
       "      root.appendChild(h(\"div\", \"hd\", \"デバッグ\"));",
       "      root.appendChild(h(\"div\", \"hd\", \"Debug\"));"
     ],
     [
-      1980,
+      1986,
       "      root.appendChild(h(\"div\", \"sub\", \"アーケードプレイを、好きなところから始めます\"));",
       "      root.appendChild(h(\"div\", \"sub\", \"Start Arcade from any point.\"));"
     ],
     [
-      2006,
+      2012,
       "      row(\"卓\", \"ここから始める\", D.pairs.map(function (pr, i) {",
       "      row(\"Table\", \"Start Here\", D.pairs.map(function (pr, i) {"
     ],
     [
-      2009,
+      2015,
       "      row(\"入り方\", \"\", [",
       "      row(\"Starting Point\", \"\", ["
     ],
     [
-      2010,
+      2016,
       "        { t: \"物語から\", v: 1 },",
       "        { t: \"From Story\", v: 1 },"
     ],
     [
-      2011,
+      2017,
       "        { t: \"対戦から<small>会話を飛ばす</small>\", v: 0 },",
       "        { t: \"From Match<small>Skip dialogue</small>\", v: 0 },"
     ],
     [
-      2013,
+      2019,
       "      row(\"通算スコア\", \"隠し戦の条件は \" + D.rules.hiddenScore.toLocaleString() + \"点\", [",
       "      row(\"Total Score\", \"Secret match requirement: \" + D.rules.hiddenScore.toLocaleString() + \" pts\", ["
     ],
     [
-      2018,
+      2024,
       "      row(\"残機\", \"\", [{ t: \"1\", v: 1 }, { t: \"3\", v: 3 }, { t: \"5\", v: 5 }], \"lives\");",
       "      row(\"Lives\", \"\", [{ t: \"1\", v: 1 }, { t: \"3\", v: 3 }, { t: \"5\", v: 5 }], \"lives\");"
     ],
     [
-      2036,
+      2042,
       "      cmds.appendChild(btn(\"ここから始める\", \"red\", function () { finish(true); }));",
       "      cmds.appendChild(btn(\"Start Here\", \"red\", function () { finish(true); }));"
     ],
     [
-      2037,
+      2043,
       "      cmds.appendChild(btn(\"もどる\", \"navy\", function () { finish(false); }));",
       "      cmds.appendChild(btn(\"Back\", \"navy\", function () { finish(false); }));"
     ],
     [
-      2047,
+      2053,
       "      root.appendChild(h(\"div\", \"hd\", \"解放\"));",
       "      root.appendChild(h(\"div\", \"hd\", \"Unlocked\"));"
     ],
     [
-      2054,
+      2060,
       "      root.appendChild(h(\"div\", \"t\", names.join(\" と \")));",
       "      root.appendChild(h(\"div\", \"t\", names.join(\" & \")));"
     ],
     [
-      2056,
+      2062,
       "        names.join(\" と \") + \" がフリーゲームに解放されました\"));",
       "        names.join(\" & \") + \" are now available in Free Play\"));"
     ],
     [
-      2058,
+      2064,
       "      root.appendChild(btn(\"つぎへ\", \"navy back\", function () {",
       "      root.appendChild(btn(\"Next\", \"navy back\", function () {"
     ],
     [
-      2071,
+      2077,
       "    } catch (e) { console.error(\"[doubt] 解放フラグの保存に失敗しました\", e); }",
       "    } catch (e) { console.error(\"[doubt] Unlockedフラグの保存に失敗しました\", e); }"
     ],
     [
-      2097,
+      2103,
       "    if (bet <= 0) return;   // 賭けるものが無ければ、そのまま次へ",
       "    if (bet <= 0) return;   // 賭けるものが無ければ、そのままNext"
     ],
     [
-      2103,
+      2109,
       "      root.appendChild(h(\"div\", \"hd\", \"館主の余興\"));",
       "      root.appendChild(h(\"div\", \"hd\", \"The Master's Diversion\"));"
     ],
     [
-      2104,
+      2110,
       "      root.appendChild(h(\"div\", \"sub\", \"ハイアンドロー\"));",
       "      root.appendChild(h(\"div\", \"sub\", \"High & Low\"));"
     ],
     [
-      2106,
+      2112,
       "        '<span class=\"k\">賭ける点</span><span class=\"v\">' + bet.toLocaleString() + \"</span>\" +",
       "        '<span class=\"k\">Points at Stake</span><span class=\"v\">' + bet.toLocaleString() + \"</span>\" +"
     ],
     [
-      2107,
+      2113,
       "        '<span class=\"d\">当たれば2倍（＋' + bet.toLocaleString() + \"）／外せば半分（－\" + (bet - Math.floor(bet / 2)).toLocaleString() + \"）</span>\");",
       "        '<span class=\"d\">Win: double (+ ' + bet.toLocaleString() + \") / Lose: half (- \" + (bet - Math.floor(bet / 2)).toLocaleString() + \"）</span>\");"
     ],
     [
-      2112,
+      2118,
       "      var msg = h(\"div\", \"msg\", \"この札より、次の札は大きいか小さいか。\");",
       "      var msg = h(\"div\", \"msg\", \"Will the next card be higher or lower than this one?\");"
     ],
     [
-      2128,
+      2134,
       "        msg.textContent = \"一度も落とさずに勝ち抜いた褒美だ。ひと勝負、どうかね。\";",
       "        msg.textContent = \"A reward for winning without dropping a round. Care for one more wager?\";"
     ],
     [
-      2129,
+      2135,
       "        cmds.appendChild(btn(\"挑戦する<small>当たれば2倍、外せば半分</small>\", \"red\", play));",
       "        cmds.appendChild(btn(\"Play<small>Win: double / Lose: half</small>\", \"red\", play));"
     ],
     [
-      2130,
+      2136,
       "        cmds.appendChild(btn(\"やめておく<small>点はそのまま</small>\", \"navy\", finish));",
       "        cmds.appendChild(btn(\"Decline<small>Keep your points</small>\", \"navy\", finish));"
     ],
     [
-      2143,
+      2149,
       "        msg.textContent = \"次の札は、この札より大きいか小さいか。\";",
       "        msg.textContent = \"Is the next card higher or lower?\";"
     ],
     [
-      2144,
+      2150,
       "        cmds.appendChild(btn(\"ハイ<small>大きい</small>\", \"red\", function () { reveal(first, \"hi\", slot); }));",
       "        cmds.appendChild(btn(\"HIGH<small>Higher</small>\", \"red\", function () { reveal(first, \"hi\", slot); }));"
     ],
     [
-      2145,
+      2151,
       "        cmds.appendChild(btn(\"ロー<small>小さい</small>\", \"navy\", function () { reveal(first, \"lo\", slot); }));",
       "        cmds.appendChild(btn(\"LOW<small>Lower</small>\", \"navy\", function () { reveal(first, \"lo\", slot); }));"
     ],
     [
-      2160,
+      2166,
       "        msg.innerHTML = '<b class=\"' + (hit ? \"hit\" : \"miss\") + '\">' + (hit ? \"的中！\" : \"外れ\") + \"</b>\" +",
       "        msg.innerHTML = '<b class=\"' + (hit ? \"hit\" : \"miss\") + '\">' + (hit ? \"HIT!\" : \"MISS\") + \"</b>\" +"
     ],
     [
-      2161,
+      2167,
       "          \"　この戦いの点は \" + bet.toLocaleString() + \" → \" + fv.doubt_round_gain.toLocaleString() + \" 点\" +",
       "          \"　Match points: \" + bet.toLocaleString() + \" → \" + fv.doubt_round_gain.toLocaleString() + \"  pts\" +"
     ],
     [
-      2162,
+      2168,
       "          (sc.added > 0 ? \"　（残機が\" + sc.added + \"つ増えた）\" : \"\");",
       "          (sc.added > 0 ? \"　(Lives +\" + sc.added + \")\" : \"\");"
     ],
     [
-      2163,
+      2169,
       "        cmds.appendChild(h(\"div\", \"total\", '<span class=\"k\">通算</span><span class=\"v\">' + sc.after.toLocaleString() + \"</span>\"));",
       "        cmds.appendChild(h(\"div\", \"total\", '<span class=\"k\">Total</span><span class=\"v\">' + sc.after.toLocaleString() + \"</span>\"));"
     ],
     [
-      2164,
+      2170,
       "        cmds.appendChild(btn(\"つぎへ\", \"navy\", finish));",
       "        cmds.appendChild(btn(\"Next\", \"navy\", finish));"
     ],
     [
-      2183,
+      2189,
       "      root.appendChild(h(\"div\", \"hd\", \"残機ボーナス\"));",
       "      root.appendChild(h(\"div\", \"hd\", \"Lives Bonus\"));"
     ],
     [
-      2188,
+      2194,
       "        \"残り\" + lives + \"機 × \" + D.rules.lifeBonus.toLocaleString() + \"点\"));",
       "        \"Remaining \" + lives + \" lives × \" + D.rules.lifeBonus.toLocaleString() + \" pts\"));"
     ],
     [
-      2191,
+      2197,
       "        '<span class=\"k\">通算スコア</span><span class=\"v\">' + sc.after.toLocaleString() + \"</span>\"));",
       "        '<span class=\"k\">Total Score</span><span class=\"v\">' + sc.after.toLocaleString() + \"</span>\"));"
     ],
     [
-      2192,
+      2198,
       "      root.appendChild(btn(\"つぎへ\", \"navy back\", function () {",
       "      root.appendChild(btn(\"Next\", \"navy back\", function () {"
     ],
     [
-      2207,
+      2213,
       "      root.appendChild(h(\"div\", \"hd\", \"設定\"));",
       "      root.appendChild(h(\"div\", \"hd\", \"Settings\"));"
     ],
     [
-      2212,
+      2218,
       "      lvBox.appendChild(h(\"div\", \"k\", \"難易度\"));",
       "      lvBox.appendChild(h(\"div\", \"k\", \"Difficulty\"));"
     ],
     [
-      2214,
+      2220,
       "        \"相手の読みの鋭さと、得点の倍率が変わります。<br>\" +",
       "        \"Changes how sharply opponents read the table and the score multiplier.<br>\" +"
     ],
     [
-      2215,
+      2221,
       "        \"やさしいほど慎重に、むずかしいほど公開情報と見込みを重く見て判断します。\"));",
       "        \"Easy plays more cautiously; Hard relies more heavily on revealed information and probability.\"));"
     ],
     [
-      2224,
+      2230,
       "        var c = btn(lv.name + \"<small>得点 ×\" + lv.score + \"<br>\" + lv.note + \"</small>\", \"navy cell wide\",",
       "        var c = btn(lv.name + \"<small>Score ×\" + lv.score + \"<br>\" + lv.note + \"</small>\", \"navy cell wide\","
     ],
     [
-      2236,
+      2242,
       "      box.appendChild(h(\"div\", \"k\", \"アーケードプレイのラウンド数\"));",
       "      box.appendChild(h(\"div\", \"k\", \"Rounds per Arcade Table\"));"
     ],
     [
-      2238,
+      2244,
       "        \"一つの卓で先に決めた数だけ勝てば、次の卓へ進めます。\" +",
       "        \"Win the chosen number of rounds first to advance to the next table.\" +"
     ],
     [
-      2239,
+      2245,
       "        \"相手が先にその数だけ勝つと敗北です。\"));",
       "        \"If the opponents reach that number first, you lose.\"));"
     ],
     [
-      2249,
+      2255,
       "          var c = btn(v + \"<small>\" + (v === 1 ? \"1勝で突破\" : v + \"先取\") + \"</small>\", \"navy cell\",",
       "          var c = btn(v + \"<small>\" + (v === 1 ? \"Win 1\" : v + \" wins\") + \"</small>\", \"navy cell\","
     ],
     [
-      2262,
+      2268,
       "      mpBox.appendChild(h(\"div\", \"k\", \"一度に出せる札の上限\"));",
       "      mpBox.appendChild(h(\"div\", \"k\", \"Maximum Cards per Play\"));"
     ],
     [
-      2264,
+      2270,
       "        \"1回の手番で伏せられる札の最大枚数を変更します。既定は4枚です。\"));",
       "        \"Set the maximum number of cards you may play face down in one turn. Default: 4.\"));"
     ],
     [
-      2276,
+      2282,
       "          var c = btn(v + \"<small>最大\" + v + \"枚</small>\", \"navy cell compact\",",
       "          var c = btn(v + \"<small>Max \" + v + (v === 1 ? \" card\" : \" cards\") + \"</small>\", \"navy cell compact\","
     ],
     [
-      2290,
+      2296,
       "      deckBox.appendChild(h(\"div\", \"k\", \"カード枚数\"));",
       "      deckBox.appendChild(h(\"div\", \"k\", \"Card Count\"));"
     ],
     [
-      2291,
+      2297,
       "      deckBox.appendChild(h(\"div\", \"d\", \"通常の52枚か、短時間向けの26枚で遊べます。26枚では各数字が2枚ずつです。\"));",
       "      deckBox.appendChild(h(\"div\", \"d\", \"Choose the standard 52-card deck or a quicker 26-card deck. In 26-card mode, each rank has 2 cards.\"));"
     ],
     [
-      2300,
+      2306,
       "        var label = v === 26 ? \"ショート\" : \"通常\";",
       "        var label = v === 26 ? \"Short\" : \"Standard\";"
     ],
     [
-      2301,
+      2307,
       "        var note = v === 26 ? \"26枚・短時間\" : \"52枚・標準\";",
       "        var note = v === 26 ? \"26 cards · Quick\" : \"52 cards · Standard\";"
     ],
     [
-      2311,
+      2317,
       "      root.appendChild(btn(\"とじる\", \"navy back\", function () {",
       "      root.appendChild(btn(\"Close\", \"navy back\", function () {"
     ],
     [
-      2330,
+      2336,
       "      root.appendChild(h(\"div\", \"q\", \"まだ遊ぶかい\"));",
       "      root.appendChild(h(\"div\", \"q\", \"Care to keep playing?\"));"
     ],
     [
-      2333,
+      2339,
       "      root.appendChild(h(\"div\", \"rest\", marks + \"<span>残り</span><b>\" + fv.doubt_lives + \"</b><span>回</span>\"));",
       "      root.appendChild(h(\"div\", \"rest\", marks + \"<span>Remaining </span><b>\" + fv.doubt_lives + \"</b><span></span>\"));"
     ],
     [
-      2334,
+      2340,
       "      root.appendChild(btn(\"つづける<small>同じ相手に、もう一度</small>\", \"red yes\", function () {",
       "      root.appendChild(btn(\"Continue<small>Face the same opponents again</small>\", \"red yes\", function () {"
     ],
     [
-      2341,
+      2347,
       "      root.appendChild(btn(\"あきらめる<small>今日の勝負は、ここでお開き</small>\", \"no\", function () {",
       "      root.appendChild(btn(\"Give Up<small>End today's games here</small>\", \"no\", function () {"
     ],
     [
-      2357,
+      2363,
       "      root.appendChild(h(\"div\", \"t\", \"今日はお開き\"));",
       "      root.appendChild(h(\"div\", \"t\", \"That's All for Today\"));"
     ],
     [
-      2358,
+      2364,
       "      root.appendChild(h(\"div\", \"q\", \"「今日はここまで。<br>また今度おいで、お客人」\"));",
       "      root.appendChild(h(\"div\", \"q\", \"“That's enough for today.<br>Come again, honored guest.”\"));"
     ],
     [
-      2359,
+      2365,
       "      root.appendChild(btn(\"タイトルへ\", \"navy back\", function () {",
       "      root.appendChild(btn(\"Back to Title\", \"navy back\", function () {"
     ],
     [
-      2383,
+      2389,
       "    catch (e) { console.error(\"[doubt] ランキングの保存に失敗しました\", e); }",
       "    catch (e) { console.error(\"[doubt] Rankingの保存に失敗しました\", e); }"
     ],
     [
-      2409,
+      2415,
       "      root.appendChild(h(\"div\", \"sub\", \"名前を入れてください（\" + max + \"文字まで）\"));",
       "      root.appendChild(h(\"div\", \"sub\", \"Enter a name (up to \" + max + \" characters)\"));"
     ],
     [
-      2410,
+      2416,
       "      root.appendChild(h(\"div\", \"sc\", '<span class=\"k\">通算スコア</span><span class=\"v\">' + score.toLocaleString() + \"</span>\"));",
       "      root.appendChild(h(\"div\", \"sc\", '<span class=\"k\">Total Score</span><span class=\"v\">' + score.toLocaleString() + \"</span>\"));"
     ],
     [
-      2451,
+      2457,
       "              else if (c === \"\\u309b\") { label = \"だく\"; cls += \" mark\"; }",
       "              else if (c === \"\\u309b\") { label = \"Voiced\"; cls += \" mark\"; }"
     ],
     [
-      2452,
+      2458,
       "              else if (c === \"\\u309c\") { label = \"はんだく\"; cls += \" mark\"; }",
       "              else if (c === \"\\u309c\") { label = \"Semi-voiced\"; cls += \" mark\"; }"
     ],
     [
-      2461,
+      2467,
       "      var tKana = btn(\"かな\", \"navy tab on\", function () { setTab(0); });",
       "      var tKana = btn(\"Kana\", \"navy tab on\", function () { setTab(0); });"
     ],
     [
-      2476,
+      2482,
       "        resolve(name.replace(/\\u3000+$/, \"\") || \"ななし\");",
       "        resolve(name.replace(/\\u3000+$/, \"\") || \"ANON\");"
     ],
     [
-      2480,
+      2486,
       "      var bDel = btn(\"けす\", \"navy\", function () {",
       "      var bDel = btn(\"Delete\", \"navy\", function () {"
     ],
     [
-      2485,
+      2491,
       "      var bOk = btn(\"きめる\", \"red\", function () { if (name.length) finish(); });",
       "      var bOk = btn(\"Confirm\", \"red\", function () { if (name.length) finish(); });"
     ],
     [
-      2489,
+      2495,
       "      root.appendChild(h(\"div\", \"hint\", \"キーボードでも入力できます（Backspace＝けす／Enter＝きめる）\"));",
       "      root.appendChild(h(\"div\", \"hint\", \"Keyboard input supported (Backspace = delete / Enter = confirm)\"));"
     ],
     [
-      2522,
+      2528,
       "      root.appendChild(h(\"div\", \"sub\", \"アーケードプレイ　通算スコア\"));",
       "      root.appendChild(h(\"div\", \"sub\", \"Arcade · Total Score\"));"
     ],
     [
-      2530,
+      2536,
       "          '<span class=\"nm\">' + (r ? r.n : \"ーーーーー\") + \"</span>\" +",
       "          '<span class=\"nm\">' + (r ? r.n : \"-----\") + \"</span>\" +"
     ],
     [
-      2535,
+      2541,
       "      root.appendChild(btn(\"タイトルへ\", \"navy back\", function () {",
       "      root.appendChild(btn(\"Back to Title\", \"navy back\", function () {"
     ],
     [
-      2535,
+      2541,
       "      root.appendChild(btn(\"タイトルへ\", \"navy back\", function () {",
       "      root.appendChild(btn(\"Back to Title\", \"navy back\", function () {"
     ],
     [
-      2566,
+      2572,
       "      root.appendChild(h(\"div\", \"t\", \"体験版はここまで\"));",
       "      root.appendChild(h(\"div\", \"t\", \"End of Demo\"));"
     ],
     [
-      2568,
+      2574,
       "        \"愛理と和人との第一戦を遊んでいただき、ありがとうございます。<br>\" +",
       "        \"Thank you for playing the first match against Airi and Kazuto.<br>\" +"
     ],
     [
-      2569,
+      2575,
       "        \"舞黒館では、まだ別の参加者たちが待っています。\"));",
       "        \"More challengers are waiting for you at Maicro House.\"));"
     ],
     [
-      2591,
+      2597,
       "      root.appendChild(h(\"div\", \"t\", \"全戦突破\"));",
       "      root.appendChild(h(\"div\", \"t\", \"ALL MATCHES CLEARED\"));"
     ],
     [
-      2592,
+      2598,
       "      root.appendChild(h(\"div\", \"s\", \"通算スコア\"));",
       "      root.appendChild(h(\"div\", \"s\", \"Total Score\"));"
     ],
     [
-      2594,
+      2600,
       "      root.appendChild(btn(\"つぎへ\", \"navy back\", function () {",
       "      root.appendChild(btn(\"Next\", \"navy back\", function () {"
     ]
