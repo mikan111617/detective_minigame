@@ -61,6 +61,13 @@
     if (!(mp >= mpMin && mp <= mpMax)) mp = opt.data.rules.maxPlay;
     this.maxPlay = mp;
 
+    // 使用する基本デッキ。52枚は各数字4枚、26枚は各数字2枚。
+    var deckOpts = opt.data.rules.deckSizeOptions || [52];
+    var ds = parseInt(opt.deckSize, 10);
+    if (deckOpts.indexOf(ds) < 0) ds = opt.data.rules.deckSizeDefault || 52;
+    this.deckSize = ds;
+    this.baseCopies = Math.max(1, Math.floor(ds / 13));
+
     /*
      * CPUごとの記憶。seen[1] と seen[2] は完全に別。
      * 公開された札は Normal/Hard なら二人とも覚えるが、
@@ -124,8 +131,8 @@
     else if (this.ids[seat] === id) this.uses[seat]--;
   };
 
-  // 数字ごとの札の総数。英国の青年が混ぜた分だけ増える（既定は4枚）
-  P.copiesOf = function (r) { return this.copies[r] || 4; };
+  // 数字ごとの札の総数。追加札が入った数字だけ this.copies に上書きされる。
+  P.copiesOf = function (r) { return this.copies[r] || this.baseCopies; };
 
   // ---------------------------------------------------------------- CPUごとの記憶
 
@@ -165,6 +172,24 @@
     else {
       this.seen[1] = {};
       this.seen[2] = {};
+    }
+  };
+
+  // メアリーの透視は時間とともに薄れる。公開情報として得た記憶は seen 側なので残す。
+  // 「現在も相手の手札にあり、初期透視だけで見えている札」から各相手ぶんだけ消す。
+  P.fadeMaryVision = function (seat) {
+    if (!this.hasAbil(seat, "mary")) return;
+    var each = parseInt(this.data.rules.maryFadeEach, 10) || 0;
+    if (each <= 0) return;
+    var publicMemory = this.memoryOf(seat);
+    var self = this;
+    for (var target = 0; target < 3; target++) {
+      if (target === seat) continue;
+      var visible = this.hands[target].filter(function (c) {
+        return self.maryMemo[c.id] === target && !publicMemory[c.id];
+      });
+      this.shuffle(visible);
+      visible.slice(0, each).forEach(function (c) { delete self.maryMemo[c.id]; });
     }
   };
 
@@ -297,7 +322,7 @@
 
   // 卓にあるべき札の枚数。ジョーカーと、後から混ぜた札のぶん増える
   P.expectedCards = function () {
-    return 52 + this.jokersOut() + this.addedCards;
+    return this.deckSize + this.jokersOut() + this.addedCards;
   };
 
   P.jokersOut = function () {
@@ -308,10 +333,20 @@
 
   P.deal = function () {
     var deck = [];
-    for (var s = 0; s < 4; s++) for (var r = 1; r <= 13; r++) deck.push({ id: "c" + s + "_" + r, r: r, s: s });
+    // 26枚では各数字につき4スートから2枚を無作為に採用する。
+    for (var r = 1; r <= 13; r++) {
+      var suits = this.shuffle([0, 1, 2, 3]);
+      for (var si = 0; si < this.baseCopies; si++) {
+        var s = suits[si];
+        deck.push({ id: "c" + s + "_" + r, r: r, s: s });
+      }
+    }
     this.shuffle(deck);
-    for (var i = 0; i < 51; i++) this.hands[i % 3].push(deck[i]);
-    this.pile.push(deck[51]); // 余りの1枚は場に伏せて始める
+    // 52枚は17枚ずつ＋場1枚、26枚は8枚ずつ＋場2枚。全員の初期手札数は同じ。
+    var pileStart = this.deckSize === 26 ? 2 : 1;
+    var dealt = deck.length - pileStart;
+    for (var i = 0; i < dealt; i++) this.hands[i % 3].push(deck[i]);
+    for (var pi = dealt; pi < deck.length; pi++) this.pile.push(deck[pi]);
     for (var k = 0; k < 3; k++) this.sortHand(k);
     var self = this;
     var js = this.abilSeatOf("juri");
@@ -932,6 +967,12 @@
     // メアリーの記憶ぶんは、確信の判断にだけ使う（当てずっぽうの疑いは増やさない）
     if (memo && known + memo + k > this.copiesOf(r)) certain = true;
 
+    // Easyでは、論理的に嘘だと確定しても必ず行動できるわけではない。
+    var certainRate = this.level.certain != null ? this.level.certain : 1;
+    var certainActs = certain && (certainRate >= 1 || this.rng() < certainRate);
+    if (certain && !certainActs) this.dropCutin(seat);
+    var bonusScale = this.level.bonus != null ? this.level.bonus : 1;
+
     /*
      * 勘で疑うキャラ（真歩流？・快活な少女）。手札の中身は見ていない。
      *   catchRate … 嘘を見抜く確率。難易度で上がる
@@ -944,7 +985,7 @@
       var sense = Math.min(1, ch.catchRate + (this.level.catch || 0));
       // 勘の粗さは、難易度が上がるほど減る
       var slip = (ch.falseRate || 0) * (1 - (this.level.catch || 0));
-      var feel = isLie ? (certain || this.rng() < sense) : this.rng() < slip;
+      var feel = isLie ? (certainActs || this.rng() < sense) : this.rng() < slip;
       if (!feel) {
         this.dropCutin(seat);
         return "none";
@@ -966,7 +1007,7 @@
        * ここで撃つと、せっかく投げ捨てた札を味方に抱えさせてしまう。
        */
       if (this.noDoubtPlayer > 0) return "none";
-      if (certain) return "doubt";
+      if (certain) return certainActs ? "doubt" : "none";
       var md = this.pair.mateDoubt != null ? this.pair.mateDoubt : this.data.rules.mateDoubt;
       var q = (ch.doubt + (k - 1) * 0.1 + known * 0.06) * md * this.level.blind;
       var mo = this.lieOdds(seat, target, r, k, known);
@@ -975,17 +1016,17 @@
       }
 
       // 相方へのダウトは全体に弱めだが、性格の方向だけは同じにする。
-      if (ch.doubtStyle === "logic" && (mo > 0 || known + k >= this.copiesOf(r))) q += 0.06;
-      if (ch.doubtStyle === "enjoy" && mo < 0.25 && known === 0) q = Math.max(q, 0.03 + (k - 1) * 0.04);
+      if (ch.doubtStyle === "logic" && (mo > 0 || known + k >= this.copiesOf(r))) q += 0.06 * bonusScale;
+      if (ch.doubtStyle === "enjoy" && mo < 0.25 && known === 0) q = Math.max(q, (0.03 + (k - 1) * 0.04) * bonusScale);
       if (ch.doubtStyle === "cautious" && known === 0 && mo < 0.4) q *= 0.2;
-      if (ch.doubtStyle === "memory" && memo > 0) q += Math.min(0.1, memo * 0.025);
+      if (ch.doubtStyle === "memory" && memo > 0) q += Math.min(0.1, memo * 0.025) * bonusScale;
       if (ch.doubtStyle === "evidence" && known === 0 && mo < 0.45) q *= 0.2;
       if (ch.doubtStyle === "perfect_memory" && known === 0) q *= 0.55;
       if (ch.doubtStyle === "risk") {
-        if (this.pile.length <= 4) q += 0.05;
+        if (this.pile.length <= 4) q += 0.05 * bonusScale;
         else if (this.pile.length >= 12) q *= 0.55;
       }
-      if (ch.doubtStyle === "aggressive" && this.hands[target].length <= 4) q += 0.05;
+      if (ch.doubtStyle === "aggressive" && this.hands[target].length <= 4) q += 0.05 * bonusScale;
       if (ch.doubtStyle === "defensive") q *= 0.45;
       if (ch.doubtStyle === "manipulate") q *= 0.62;
 
@@ -995,6 +1036,7 @@
     }
 
     if (certain) {
+      if (!certainActs) return "none";
       // 零度警部は証拠が揃った時ほど、能力で確実に暴きに行く
       if (this.hasAbil(seat, "reido") && this.abilLeft(seat, "reido") > 0 && this.hands[seat].length >= 6) {
         var forceRate = ch.doubtStyle === "evidence" ? 0.6 : 0.3;
@@ -1034,7 +1076,7 @@
     if (ch.doubtStyle === "logic") {
       var tightCount = known + k >= this.copiesOf(r);
       if (personalityOdds > 0 || tightCount) {
-        p += 0.12 + Math.min(0.18, personalityOdds * 0.2 + (tightCount ? 0.06 : 0));
+        p += (0.12 + Math.min(0.18, personalityOdds * 0.2 + (tightCount ? 0.06 : 0))) * bonusScale;
       }
     }
 
@@ -1045,7 +1087,7 @@
      * 1/2/3/4枚なら、おおむね 7% / 15% / 23% / 31% が最低ライン。
      */
     if (ch.doubtStyle === "enjoy" && personalityOdds < 0.25 && known === 0) {
-      var funP = 0.07 + Math.max(0, k - 1) * 0.08;
+      var funP = (0.07 + Math.max(0, k - 1) * 0.08) * bonusScale;
       p = Math.max(p, funP);
     }
 
@@ -1063,10 +1105,10 @@
         p *= 0.25;
       } else if (k > memoTarget) {
         var excess = k - memoTarget;
-        p += Math.min(0.28, 0.1 + excess * 0.06);
+        p += Math.min(0.28, 0.1 + excess * 0.06) * bonusScale;
       }
       // 出し手以外が同じ数字を持っていた記憶も、従来どおり疑う根拠にする。
-      if (memo > 0) p += Math.min(0.2, memo * 0.045 + personalityOdds * 0.08);
+      if (memo > 0) p += Math.min(0.2, memo * 0.045 + personalityOdds * 0.08) * bonusScale;
       else if (!(memoTarget > 0 && k <= memoTarget)) p *= 0.8;
     }
 
@@ -1075,29 +1117,29 @@
       if (known === 0 && personalityOdds < 0.45) {
         p *= 0.18;
       } else {
-        p += 0.06 + personalityOdds * 0.12 + Math.min(0.08, known * 0.025);
+        p += (0.06 + personalityOdds * 0.12 + Math.min(0.08, known * 0.025)) * bonusScale;
       }
     }
 
     // 珠璃：完全記憶型。覚えている同数字が根拠にあるほど強気。
     // 決定的な記憶は上の certain 判定ですでに100%ダウトになる。
     if (ch.doubtStyle === "perfect_memory") {
-      if (known > 0) p += Math.min(0.14, known * 0.045);
+      if (known > 0) p += Math.min(0.14, known * 0.045) * bonusScale;
       else p *= 0.55;
     }
 
     // 叡留久：リスク計算型。失敗時に抱える場札が少なければ大胆、多ければ慎重。
     if (ch.doubtStyle === "risk") {
-      if (this.pile.length <= 4) p += 0.13;
-      else if (this.pile.length <= 8) p += 0.06;
+      if (this.pile.length <= 4) p += 0.13 * bonusScale;
+      else if (this.pile.length <= 8) p += 0.06 * bonusScale;
       else if (this.pile.length >= 16) p *= 0.35;
       else if (this.pile.length >= 10) p *= 0.65;
     }
 
     // 朱志香：攻撃型。プレイヤーの上がりが近いほど、逃がさないために踏み込む。
     if (ch.doubtStyle === "aggressive") {
-      if (this.hands[0].length <= 5) p += 0.12;
-      if (this.hands[0].length <= 2) p += 0.06;
+      if (this.hands[0].length <= 5) p += 0.12 * bonusScale;
+      if (this.hands[0].length <= 2) p += 0.06 * bonusScale;
     }
 
     // 小出里亜：防御型。確定情報以外では、自分から仕掛ける頻度を抑える。
@@ -1108,16 +1150,16 @@
     // 英国の青年：駆け引き型。盤面操作が主役なので、曖昧なダウトには乗りにくい。
     if (ch.doubtStyle === "manipulate") {
       p *= 0.62;
-      if (personalityOdds > 0.6) p += 0.05;
+      if (personalityOdds > 0.6) p += 0.05 * bonusScale;
     }
 
     if (this.hands[0].length === 0) p = 0.85;
-    else if (this.hands[0].length <= 2) p += 0.2;
+    else if (this.hands[0].length <= 2) p += 0.2 * bonusScale;
     p -= Math.min(0.1, this.pile.length * 0.008);
 
     // 外しても痛まないなら、確信が無くても踏み込む
     var free = this.hasAbil(seat, "free_doubt") && this.abilLeft(seat, "free_doubt") > 0;
-    if (free) p += 0.25;
+    if (free) p += 0.25 * bonusScale;
 
     if (this.hasAbil(seat, "reido") && this.abilLeft(seat, "reido") > 0 &&
         this.hands[seat].length >= 3) {
@@ -1135,6 +1177,9 @@
   P.aiTurnStart = async function (seat) {
     var id = this.ids[seat];
     var self = this;
+
+    // メアリーは自分の手番を迎えるたび、現在の相手手札に残る透視情報が少しずつ薄れる。
+    if (this.hasAbil(seat, "mary")) this.fadeMaryVision(seat);
 
     if (id === "eruku" && this.uses[seat] > 0) {
       var diff = this.hands[seat].length - this.hands[0].length;
@@ -1295,7 +1340,7 @@
   P.makeUniqueExtraCards = function (prefix, count) {
     var ranks = [];
     for (var r = 1; r <= 13; r++) {
-      if (this.copiesOf(r) === 4) ranks.push(r);
+      if (this.copiesOf(r) === this.baseCopies) ranks.push(r);
     }
     this.shuffle(ranks);
     if (ranks.length < count) throw new Error("not enough unique ranks for extra cards");
