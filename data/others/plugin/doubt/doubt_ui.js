@@ -80,11 +80,22 @@
     var root = h("div", "dbt-root dbt-fadein " + (cls || ""));
     if (window.I18N && window.I18N.isEN()) root.classList.add("dbt-en");
     base.appendChild(root);
+    // 次の画面を先に置いてから前画面を外す。先に消すと下のTyranoレイヤーが
+    // 一瞬露出し、ゲームオーバー後などに直前の対戦前画面がフラッシュする。
+    document.querySelectorAll(".dbt-root.dbt-handoff").forEach(function (old) {
+      if (old !== root) closeRoot(old);
+    });
     return root;
   }
 
   function closeRoot(root) {
     if (root && root.parentNode) root.parentNode.removeChild(root);
+  }
+
+  function handoffRoot(root) {
+    if (!root) return;
+    root.classList.add("dbt-handoff");
+    root.style.pointerEvents = "none";
   }
 
   function bg(root, src) {
@@ -533,16 +544,16 @@
     var extra = h("div", "extra");
     if (!demo) {
       extra.appendChild(btn("ランキング", "navy", function () {
-        closeRoot(root);
+        handoffRoot(root);
         jumpFromTitle("*ranking");
       }));
     }
     extra.appendChild(btn("設定", "navy", function () {
-      closeRoot(root);
+      handoffRoot(root);
       jumpFromTitle("*settings");
     }));
     extra.appendChild(btn("遊び方", "navy", function () {
-      closeRoot(root);
+      handoffRoot(root);
       jumpFromTitle("*help");
     }));
     extra.appendChild(btn("LANGUAGE<small>日本語 / English</small>", "navy", function () {
@@ -595,7 +606,7 @@
       function clearBody() { body.innerHTML = ""; }
 
       function finish() {
-        closeRoot(root);
+        handoffRoot(root);
         resolve();
       }
 
@@ -2298,7 +2309,7 @@
       chooseDeckSize(deckNow);
 
       root.appendChild(btn("とじる", "navy back", function () {
-        closeRoot(root);
+        handoffRoot(root);
         resolve();
       }));
     });
@@ -2324,12 +2335,12 @@
         fv.doubt_lives--;
         fv.doubt_continue = true;
         fv.doubt_used_continue = true;   // 隠しの二人の出現条件に使う
-        closeRoot(root);
+        handoffRoot(root);
         resolve();
       }));
       root.appendChild(btn("あきらめる<small>今日の勝負は、ここでお開き</small>", "no", function () {
         fv.doubt_continue = false;
-        closeRoot(root);
+        handoffRoot(root);
         resolve();
       }));
     });
@@ -2346,7 +2357,7 @@
       root.appendChild(h("div", "t", "今日はお開き"));
       root.appendChild(h("div", "q", "「今日はここまで。<br>また今度おいで、お客人」"));
       root.appendChild(btn("タイトルへ", "navy back", function () {
-        closeRoot(root);
+        handoffRoot(root);
         resolve();
       }));
     });
@@ -2522,7 +2533,7 @@
       }
       root.appendChild(rows);
       root.appendChild(btn("タイトルへ", "navy back", function () {
-        closeRoot(root);
+        handoffRoot(root);
         resolve();
       }));
     });
