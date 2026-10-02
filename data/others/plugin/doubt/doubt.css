@@ -142,24 +142,26 @@
 }
 .dbt-help .rule .rd b { color: #f5a3b8; font-weight: 500; }
 .dbt-help .tip {
-  position: absolute; left: 180px; right: 180px; top: 680px;
-  padding: 18px 28px 20px; background: rgba(75,42,110,.72);
+  position: absolute; left: 180px; right: 180px; top: 670px;
+  padding: 14px 28px 16px; background: rgba(75,42,110,.72);
   box-shadow: 0 0 0 3px #e8b54a;
+  box-sizing: border-box;
 }
 .dbt-help .tip .tk {
-  font-family: "Kiwi Maru", serif; font-size: 27px; letter-spacing: .12em; color: #ffdca8;
+  font-family: "Kiwi Maru", serif; font-size: 26px; line-height: 1.2; letter-spacing: .12em; color: #ffdca8;
 }
-.dbt-help .tip .td { margin-top: 7px; font-size: 21px; line-height: 1.5; }
-.dbt-help .tip small { display: block; margin-top: 3px; font-size: 16px; color: #d8b26a; }
+.dbt-help .tip .td { margin-top: 5px; font-size: 19px; line-height: 1.38; }
+.dbt-help .tip small { display: block; margin-top: 4px; font-size: 14px; line-height: 1.3; color: #d8b26a; }
 .dbt-help .skillnote {
-  position: absolute; left: 180px; right: 180px; top: 827px;
-  display: flex; align-items: center; gap: 28px; padding: 15px 28px;
+  position: absolute; left: 180px; right: 180px; top: 830px;
+  display: flex; align-items: center; gap: 26px; padding: 12px 28px;
   background: rgba(27,42,74,.88); box-shadow: 0 0 0 2px rgba(232,181,74,.52);
+  box-sizing: border-box;
 }
 .dbt-help .skillnote .sk {
-  flex: none; font-family: "Kiwi Maru", serif; font-size: 25px; letter-spacing: .12em; color: #e8b54a;
+  flex: none; font-family: "Kiwi Maru", serif; font-size: 24px; letter-spacing: .12em; color: #e8b54a;
 }
-.dbt-help .skillnote .sd { font-size: 20px; line-height: 1.45; }
+.dbt-help .skillnote .sd { font-size: 19px; line-height: 1.35; }
 .dbt-help .skillnote b { color: #f5a3b8; font-weight: 500; }
 
 /* キャラクター紹介 */
