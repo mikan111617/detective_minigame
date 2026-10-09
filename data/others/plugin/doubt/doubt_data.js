@@ -117,6 +117,8 @@
       jokers: 2, // 舞黒邦夢が山札から出すジョーカーの枚数
       maicroQuiet: 5, // 誰かの手札がこの枚数以下の間は、舞黒邦夢のもてなしが起きない
       maicroEventMax: 3, // 舞黒邦夢のもてなしは1戦にこの回数まで（多いと決着がつかず長引く）
+      maicroTurns: 6, // もてなしの「能力封印」「柄の縛り」が続く手数（二巡＝3人×2）
+      koderiaMinHand: 5, // 小出里亜の力は、使う本人の手札がこの枚数以上ある時だけ使える
       sightTurns: 6,  // 朱志香の「見透かし」が続く手数（二巡＝3人×2）
       tauntCool: 9,   // 挑発をもう一度使えるまでの手数（三巡＝3人×3）
       tauntUp: 0.3,   // 挑発に乗った相手のダウト率の上乗せ
@@ -175,7 +177,7 @@
         uses: -1, sub: "jushika_sight", subUses: 2 },
       koderia: { name: "小出里亜", reading: "こでりあ", color: "#9fb0d4", doubt: 0.08, tell: 0.18, bluff: 0.15,
         doubtStyle: "defensive", // 防御型：自分から無理に疑わず、確実な時だけ動く
-        ability: "成立するはずのダウトを無効にする",
+        ability: "成立するはずのダウトを無効にする（自分の手札が4枚以下の時は使えない）",
         uses: 2 },
       mahoru_awake: { name: "真歩流？", reading: "まほる？", color: "#7a3fd8", doubt: 0.3, tell: 0.3, bluff: 0.1,
         doubtStyle: "supersense", // 全知型：全員の手札を把握し、持っていない数字の宣言は必ず見抜く
@@ -183,7 +185,7 @@
         uses: 2, handSight: true },
       maicro: { name: "舞黒邦夢", reading: "まいくろほうむ", color: "#c08a1e", doubt: 0.25, tell: 0.15, bluff: 0.15,
         doubtStyle: "enjoy", // エンジョイ型：根拠が薄い時ほど遊びで踏み込み、枚数が多いほど疑いやすい
-        ability: "館主のもてなし。1戦に3回まで、場がかき乱される（ときどき味方の足を引っぱる）",
+        ability: "館主のもてなし。1戦に3回まで場をかき乱す（二巡のあいだ全員の能力を封じる／手札と場の札を入れ替える／二巡のあいだ2つの柄以外を嘘にする／誰かにジョーカーを渡す）",
         uses: -1 },
 
       /*
