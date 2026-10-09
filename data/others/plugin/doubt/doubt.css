@@ -350,10 +350,13 @@
   transition: transform .15s, bottom .15s, box-shadow .15s; cursor: default;
 }
 .dbt-card.red { color: #d8352a; }
-.dbt-card .tl { position: absolute; left: 12px; top: 6px; font-family: "Bellefair", serif; font-size: 44px; line-height: 1; }
-.dbt-card .st { position: absolute; left: 14px; top: 50px; font-size: 26px; }
+/* 札の表：白い面に絵柄を額装し、左上と右下に数字と柄を重ねる */
+.dbt-card .art { position: absolute; left: 8px; right: 8px; top: 8px; bottom: 8px; background-size: cover; background-position: center; background-color: #f6efe0; box-shadow: inset 0 0 0 1px rgba(192,138,30,.75); }
+.dbt-card .ix { position: absolute; z-index: 1; display: flex; flex-direction: column; align-items: center; min-width: 34px; padding: 3px 3px 4px; background: #f6efe0; border-radius: 0 0 8px 0; font-family: "Bellefair", serif; font-size: 34px; line-height: .95; }
+.dbt-card .ix i { font-style: normal; font-family: serif; font-size: 22px; line-height: 1; margin-top: 1px; }
+.dbt-card .ix.tl { left: 4px; top: 4px; }
+.dbt-card .ix.br { right: 4px; bottom: 4px; transform: rotate(180deg); }
 .dbt-card .mid { position: absolute; left: 0; right: 0; top: 70px; text-align: center; font-size: 70px; line-height: 1; }
-.dbt-card .mid.face { font-family: "Bellefair", serif; font-size: 96px; top: 58px; opacity: .85; }
 .dbt-card.joker { background: #2a1846; color: #e8b54a; }
 .dbt-card.joker .jk { position: absolute; left: 0; right: 0; top: 14px; text-align: center; font-family: "Bellefair", serif; font-size: 34px; letter-spacing: .12em; }
 .dbt-card.joker .mid { top: 72px; font-size: 90px; }
@@ -619,10 +622,11 @@
 .dbt-highlow .bet .d { font-size: 24px; color: #d8b26a; }
 .dbt-highlow .table { position: absolute; left: 0; right: 0; top: 380px; height: 300px; display: flex; align-items: center; justify-content: center; gap: 70px; }
 .dbt-highlow .table .dbt-card { position: relative; bottom: auto; width: 222px; height: 318px; transform: none; }
-.dbt-highlow .table .dbt-card .tl { font-size: 66px; }
-.dbt-highlow .table .dbt-card .st { top: 74px; font-size: 38px; }
-.dbt-highlow .table .dbt-card .mid { top: 104px; font-size: 106px; }
-.dbt-highlow .table .dbt-card .mid.face { font-size: 144px; top: 86px; }
+.dbt-highlow .table .dbt-card .art { left: 12px; right: 12px; top: 12px; bottom: 12px; }
+.dbt-highlow .table .dbt-card .ix { min-width: 50px; font-size: 50px; }
+.dbt-highlow .table .dbt-card .ix i { font-size: 32px; }
+.dbt-highlow .table .dbt-card .ix.tl { left: 6px; top: 6px; }
+.dbt-highlow .table .dbt-card .ix.br { right: 6px; bottom: 6px; }
 .dbt-highlow .table .dbt-card.back { background-size: cover; background-position: center; background-color: #4b2a6e; }
 .dbt-highlow .table .slot { width: 222px; height: 318px; }
 .dbt-highlow .table .vs { font-family: "Bellefair", serif; font-size: 72px; color: #e8b54a; }

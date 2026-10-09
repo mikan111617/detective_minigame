@@ -921,13 +921,23 @@
       j.dataset.id = c.id;
       return j;
     }
+    // 白い札の面に数字ごとの絵柄を額に入れて置き、左上と右下に数字と柄を重ねる
     var e = h("div", "dbt-card" + (red ? " red" : ""));
+    var idx = RANK[c.r] + "<i>" + SUIT[c.s] + "</i>";
     e.innerHTML =
-      '<span class="tl">' + RANK[c.r] + "</span>" +
-      '<span class="st">' + SUIT[c.s] + "</span>" +
-      '<span class="mid' + (c.r >= 11 ? " face" : "") + '">' + (c.r >= 11 ? RANK[c.r] : SUIT[c.s]) + "</span>";
+      '<span class="art" style="background-image:url(\'' + D.img.cardFace(c.r) + '\')"></span>' +
+      '<span class="ix tl">' + idx + "</span>" +
+      '<span class="ix br">' + idx + "</span>";
     e.dataset.id = c.id;
     return e;
+  }
+
+  // 札の絵柄は最初の対戦で先読みしておき、配った瞬間に白いまま出ないようにする
+  var facesLoaded = false;
+  function preloadFaces() {
+    if (facesLoaded) return;
+    facesLoaded = true;
+    for (var r = 1; r <= 13; r++) new Image().src = D.img.cardFace(r);
   }
 
   function miniCardEl(c) {
@@ -956,6 +966,7 @@
 
   function BattleUI(pairIndex) {
     var self = this;
+    preloadFaces();
     this.pair = D.pairs[pairIndex];
     this.root = openRoot("dbt-battle");
     bg(this.root, D.img.bgTable);

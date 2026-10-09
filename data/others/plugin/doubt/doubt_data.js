@@ -28,6 +28,9 @@
       bgContinue: IMG + "bg/continue.png",
       bgGameover: IMG + "bg/gameover.png",
       cardBack: IMG + "card/card-back.png",
+      // 札の表の絵柄（数字ごとに1枚）。元画像は data/image/trump/{数字}.png、
+      // ゲームではそれを縮小した card/face/{数字}.webp を使う
+      cardFace: function (r) { return IMG + "card/face/" + r + ".webp"; },
       // 立ち絵：chara/{id}.png　表情差分：chara/{id}_shaken.png（無ければ通常立ち絵）
       chara: function (id, face) {
         var base = DATA.charaFile[id] || id;
