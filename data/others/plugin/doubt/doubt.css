@@ -962,3 +962,8 @@
 .dbt-gone .chip { min-width: 30px; padding: 1px 4px; background: #f6efe0; color: #1b2a4a; font-family: "Bellefair", serif; font-size: 21px; line-height: 1.2; letter-spacing: 0; }
 .dbt-gone .chip.red { color: #c0392b; }
 .dbt-stock .opt .stocknote, .subsk .stocknote, .dbt-skills .stocknote { color: #f5a3b8; }
+
+/* 挑発：卓の右側（場の伏せ札の下）に置く切り替えボタン。押すと次に伏せる札で相手を煽る */
+.dbt-btn.dbt-taunt { position: absolute; right: 250px; top: 560px; z-index: 31; min-width: 0; padding: 14px 24px; font-size: 26px; }
+.dbt-btn.dbt-taunt small { display: inline; font-size: 18px; margin-left: 8px; }
+.dbt-btn.dbt-taunt.armed { background: #d8352a; box-shadow: 0 0 0 3px #ffdca8, 6px 6px 0 0 #3a0d0a; color: #fff; }

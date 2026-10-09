@@ -51,6 +51,9 @@
     this.immune = [0, 0, 0];     // この席の伏せ札にダウトを言えない残り回数（叡留久）
     this.sight = [0, 0, 0];      // 朱志香の「見透かし」で、相手の手札が見えている残り手数
     this.maicroEvents = 0;       // 舞黒邦夢のもてなしをこの対戦で何回したか
+    this.tauntNext = 0;          // 挑発をもう一度使える手数（steps がここに届けば使える）
+    this.tauntArmed = false;     // 次に伏せる札で挑発する（画面側で切り替える）
+    this.taunt = null;           // いま効いている挑発。taunt[席] = "up"（乗った）/ "down"（警戒した）
 
     /*
      * ストック（アーケードで持ち帰ったプレイヤーの能力）。opt.stock = { id, uses }
@@ -468,6 +471,8 @@
 
     this.io.log(this, this.name(seat) + "：〈" + RANK[this.rank] + "〉が" + this.shownPlay(cards.length, seat) + "枚");
     this.io.update(this);
+    if (seat === 0 && this.tauntArmed && this.canTaunt()) await this.applyTaunt();
+    this.tauntArmed = false;
     // 枚数が読めない間は、飛んでいく札の数も当てにならないようにする
     await this.io.placed(this, seat, this.blurred() && seat > 0 ? 1 + Math.floor(this.rng() * 4) : cards.length);
 
@@ -477,6 +482,7 @@
     var playerLie = seat === 0 && cards.some(function (c) { return c.r !== this.rank; }, this);
     if (playerLie) this.playerLieCaught = false;
     await this.doubtPhase(seat, cards);
+    this.taunt = null;
     if (playerLie && !this.playerLieCaught) this.stats.bluffSuccess++;
     if (this.resigned) return;
     if (this.immune[seat] > 0) this.immune[seat]--;
@@ -757,20 +763,22 @@
     if (guess && isLie && cards.some(function (c) { return c.r === guess; }) && this.hands[doubter].length > 0) {
       var n = Math.min(2, this.hands[doubter].length);
       if (doubter === 0) {
-        // 真歩流：成功報酬は「相手1人の手札を見る＋自分の好きな札を2枚まで捨てる」。
+        // 真歩流：成功報酬は「次の手番はダウトされない＋好きな札を2枚まで捨てられる（捨てなくてもよい）」。
+        // ダウトされないのは、叡留久の取引と同じく上がりの一手を除く。
+        this.immune[0] = Math.max(this.immune[0], 1);
         var reward = await this.io.guessReward(this, n);
         if (this.resigned) return;
         var ids = reward && reward.ids ? reward.ids : [];
         var drop = this.hands[0].filter(function (c) { return ids.indexOf(c.id) >= 0; }).slice(0, n);
-        if (drop.length === n) {
+        if (drop.length > 0) {
           this.removeFromHand(0, drop);
           Array.prototype.push.apply(this.discard, drop);
           // 捨てた札は公開情報。既に覚えていたCPUにも「場から外れた」と分かる。
           this.moveSeenPile(drop, -1);
           this.markSeen(drop, -1);
-          this.io.log(this, "名推理成功：" + this.name(reward.target) + "の手札を確認し、手札" + n + "枚を捨てた");
-          this.io.update(this);
         }
+        this.io.log(this, "名推理成功：次の手番はダウトされない" + (drop.length ? "。手札" + drop.length + "枚を捨てた" : ""));
+        this.io.update(this);
       } else {
         // 真歩流？（CPU）の名指し成功は従来どおり、不要札を相手へ押しつける。
         var gv = this.worstCards(this.hands[doubter], n);
@@ -850,6 +858,41 @@
     this.io.log(this, this.name(target) + "と手札を" + n + "枚ずつ交換した");
     this.io.update(this);
     return true;
+  };
+
+  /*
+   * 挑発。プレイヤーが伏せた直後に、相手2人を煽ってダウトの気をそそる。
+   * 熱くなりやすい性格は乗ってきて疑いやすくなり、冷静な性格は警戒して疑いにくくなる。
+   * ただし、たまに逆の反応をする。確信して疑う場面（記憶・全知・見透かし）には効かない。
+   * 一度使うと三巡（rules.tauntCool 手）のあいだ使えない。
+   */
+  P.canTaunt = function () {
+    return this.steps >= this.tauntNext;
+  };
+
+  // 次に挑発できるまでの残り巡（自分の手番に見る値。0なら今使える）
+  P.tauntWait = function () {
+    return Math.max(0, Math.ceil((this.tauntNext - this.steps) / 3));
+  };
+
+  P.tauntHot = function (seat) {
+    var hot = { logic: 1, enjoy: 1, risk: 1, aggressive: 1 };
+    return !!hot[this.ch(seat).doubtStyle];
+  };
+
+  P.applyTaunt = async function () {
+    this.tauntNext = this.steps + (this.data.rules.tauntCool || 9);
+    this.taunt = [null, null, null];
+    var parts = [];
+    for (var s = 1; s <= 2; s++) {
+      var up = this.tauntHot(s);
+      if (this.rng() < (this.data.rules.tauntFlip || 0.25)) up = !up;
+      this.taunt[s] = up ? "up" : "down";
+      parts.push(this.name(s) + (up ? "は乗ってきた" : "は警戒した"));
+    }
+    this.io.log(this, "挑発！　" + parts.join("、"));
+    if (this.io.taunt) await this.io.taunt(this, this.taunt);
+    this.io.update(this);
   };
 
   /*
@@ -1269,6 +1312,9 @@
       var punishBigPile = this.pile.length >= 7 && enoughEvidence;
       if (closingMove || stopPlayer || punishBigPile) return "ability";
     }
+    // 挑発：乗った相手は踏み込みやすく、警戒した相手は慎重になる
+    if (this.taunt && this.taunt[seat] === "up") p += (this.data.rules.tauntUp || 0.3);
+    else if (this.taunt && this.taunt[seat] === "down") p *= (this.data.rules.tauntDown || 0.35);
     p = Math.max(0, Math.min(0.95, p));
     if (this.rng() >= p) return "none";
     return free ? "free" : "doubt";

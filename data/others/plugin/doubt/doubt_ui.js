@@ -1029,6 +1029,9 @@
     this.bDoubt = btn("ダウトを宣言する", "navy", function () { self.onDoubt(); });
     this.bAbility = btn("能力を発動する", "pink", function () { self.onAbility(); });
     this.bSkill = btn("スキル", "navy info", function () { self.openSkills(); });
+    // 挑発。押すと次に伏せる札で相手を煽る（もう一度押すと取りやめ）
+    this.bTaunt = btn("挑発する", "navy dbt-taunt", function () { self.onTaunt(); });
+    this.root.appendChild(this.bTaunt);
     // ストックした能力。持っている時だけ並べる（自分で使う能力だけ押せる）
     var sid = stockId();
     if (sid) this.bStock = btn(D.chara[sid].name, "teal stock", function () { self.onStock(); });
@@ -1089,6 +1092,11 @@
         box.appendChild(h("div", "sk borrow",
           skillHTML(g.subId[seat], sc.uses > 0 ? "残り" + Math.max(0, g.subUses[seat]) + "回" : "常時",
             "（二つ目の力）")));
+      }
+      // 誰でも使える挑発
+      if (seat === 0) {
+        box.appendChild(h("div", "sk borrow",
+          skillHTML("taunt", g.canTaunt() ? "使える" : "あと" + g.tauntWait() + "巡", "（コマンド）")));
       }
       // プレイヤーのストック
       if (seat === 0 && g.stockId) {
@@ -1175,10 +1183,23 @@
     }
     this.handEl.classList.toggle("turn", m === "place" || m === "give");
     if (this.bResign) this.bResign.classList.toggle("off", m === "idle");
+    // 挑発の構えは、伏せた後にエンジン側で解く（ここで解くと伏せる前に消えてしまう）
+    var tauntOk = !!(g && m === "place" && g.canTaunt());
+    this.bTaunt.innerHTML = g && g.tauntArmed ? "挑発して伏せる<small>取りやめる</small>"
+      : (g && !g.canTaunt() ? "挑発<small>あと" + g.tauntWait() + "巡</small>" : "挑発する<small>三巡に一度</small>");
+    this.bTaunt.classList.toggle("armed", !!(g && g.tauntArmed));
+    this.bTaunt.classList.toggle("off", !tauntOk);
     if (this.bStock && g && g.stockId) {
       this.bStock.innerHTML = D.chara[g.stockId].name + "<small>" + stockUseText(g.abilLeft(0, g.stockId)) + "</small>";
       this.bStock.classList.toggle("off", !this.stockReady(m) || !!this.stockBusy);
     }
+  };
+
+  B.onTaunt = function () {
+    var g = this.game;
+    if (!g || this.mode !== "place" || !g.canTaunt()) return;
+    g.tauntArmed = !g.tauntArmed;
+    this.setButtons();
   };
 
   // ストックした能力を、今この場面で自分から使えるか
@@ -1752,68 +1773,45 @@
         return ui.waitInput("give",
           offered + g.name(placer) + "に渡す札を" + n + "枚選ぶ");
       },
-      // 真歩流の名指し成功報酬。相手1人の手札を確認してから、自分の札を捨てる。
+      // 真歩流の名指し成功報酬。次の手番はダウトされず、自分の札を n 枚まで捨てられる（0枚でもよい）。
       guessReward: function (g, n) {
         return new Promise(function (resolve) {
           var ov = h("div", "dbt-overlay dbt-exchange dbt-inspect");
           var box = h("div", "box");
           ov.appendChild(box);
           ui.root.appendChild(ov);
+          var selected = {};
 
-          function miniGrid(label, cards, onPick, selected) {
+          function render() {
+            box.innerHTML = "";
+            box.appendChild(h("div", "q", "名推理成功"));
+            box.appendChild(h("div", "sub", "次の手番はダウトされない。手札を" + n + "枚まで捨てられる"));
             var sec = h("div", "handsec");
-            sec.appendChild(h("div", "label", label));
+            sec.appendChild(h("div", "label", "捨てる自分の札"));
             var gr = h("div", "cardgrid");
-            sortedCardsForDisplay(cards).forEach(function (c) {
+            sortedCardsForDisplay(g.hands[0]).forEach(function (c) {
               var e = miniCardEl(c);
-              if (selected && selected[c.id]) e.classList.add("sel");
-              if (onPick) {
-                e.classList.add("pickable");
-                e.addEventListener("click", function () { onPick(c.id); });
-              }
+              if (selected[c.id]) e.classList.add("sel");
+              e.classList.add("pickable");
+              e.addEventListener("click", function () {
+                if (selected[c.id]) delete selected[c.id];
+                else {
+                  if (Object.keys(selected).length >= n) return;
+                  selected[c.id] = true;
+                }
+                render();
+              });
               gr.appendChild(e);
             });
             sec.appendChild(gr);
             box.appendChild(sec);
+            var cnt = Object.keys(selected).length;
+            box.appendChild(btn(cnt ? "この札を捨てる（" + cnt + "/" + n + "）" : "捨てずに進む", "red confirm", function () {
+              closeRoot(ov);
+              resolve({ ids: Object.keys(selected) });
+            }));
           }
-
-          function chooseTarget() {
-            box.innerHTML = "";
-            box.appendChild(h("div", "q", "名推理成功"));
-            box.appendChild(h("div", "sub", "手札を確認する相手を1人選ぶ"));
-            var row = h("div", "targets");
-            [1, 2].forEach(function (seat) {
-              row.appendChild(btn(g.name(seat) + "<small>手札を確認</small>", "navy", function () { inspect(seat); }));
-            });
-            box.appendChild(row);
-          }
-
-          function inspect(target) {
-            var selected = {};
-            function render() {
-              box.innerHTML = "";
-              box.appendChild(h("div", "q", g.name(target) + "の手札"));
-              box.appendChild(h("div", "sub", "確認したうえで、自分の手札から" + n + "枚を捨てる"));
-              miniGrid(g.name(target) + "の手札", g.hands[target]);
-              miniGrid("捨てる自分の札", g.hands[0], function (id) {
-                if (selected[id]) delete selected[id];
-                else {
-                  if (Object.keys(selected).length >= n) return;
-                  selected[id] = true;
-                }
-                render();
-              }, selected);
-              var cnt = Object.keys(selected).length;
-              box.appendChild(btn("この札を捨てる（" + cnt + "/" + n + "）", "red confirm" + (cnt === n ? "" : " off"), function () {
-                if (Object.keys(selected).length !== n) return;
-                closeRoot(ov);
-                resolve({ target: target, ids: Object.keys(selected) });
-              }));
-            }
-            render();
-          }
-
-          chooseTarget();
+          render();
         });
       },
       // ストックした能力を、条件がそろった場面で使うか確かめる
@@ -1915,6 +1913,16 @@
           type: "result", cancelled: !!info.cancelled, isLie: !!info.isLie, suitPass: !!info.suitPass,
           cards: cards, outcome: outcome
         });
+      },
+      // 挑発の反応。真歩流が煽り、相手2人がそれぞれ乗るか身構える
+      taunt: async function (g, res) {
+        ui.showSay({ seat: 0, cat: "taunt", text: "ほら、疑ってみたら？" });
+        await sleep(500);
+        for (var s = 1; s <= 2; s++) {
+          ui.showSay({ seat: s, cat: "taunt",
+            text: res[s] === "up" ? "上等じゃない……！" : "……その手には乗らない。" });
+        }
+        await sleep(900);
       },
       notice: function (g, title, sub) {
         var ov = h("div", "dbt-overlay dbt-notice");
