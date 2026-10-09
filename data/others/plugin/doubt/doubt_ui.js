@@ -1477,11 +1477,19 @@
     ov.appendChild(box);
     this.root.appendChild(ov);
     var count = 1;
+    // これから自分が出す数字（今の手番から3人ごとに1つずつ進む）。交換しながら確かめられるようにする
+    var upcoming = [0, 1, 2, 3].map(function (k) { return ((g.rank - 1 + 3 * k) % 13) + 1; });
 
     function title(t, sub) {
       box.innerHTML = "";
       box.appendChild(h("div", "q", t));
       if (sub) box.appendChild(h("div", "sub", sub));
+      var nx = h("div", "nextrow");
+      nx.appendChild(h("span", "k", "あなたが出す数字"));
+      upcoming.forEach(function (r, k) {
+        nx.appendChild(h("span", "rk n" + k, '<b>' + RANK[r] + "</b><small>" + (k === 0 ? "今" : k + "巡後") + "</small>"));
+      });
+      box.appendChild(nx);
     }
     function grid(label, cards, cls, onPick, selected, demanded) {
       var sec = h("div", "handsec " + (cls || ""));
@@ -1491,6 +1499,12 @@
         var e = miniCardEl(c);
         if (selected && selected[c.id]) e.classList.add("sel");
         if (demanded && demanded[c.id]) e.classList.add("demand");
+        // これから出す数字の札には、何番目に出す数字かの印を付ける
+        var up = upcoming.indexOf(c.r);
+        if (up >= 0) {
+          e.classList.add("soon", "n" + up);
+          e.appendChild(h("em", "", up === 0 ? "今" : up + "巡後"));
+        }
         if (onPick) {
           e.classList.add("pickable");
           e.addEventListener("click", function () { onPick(c.id); });

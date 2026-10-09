@@ -971,3 +971,16 @@
 .dbt-btn.dbt-taunt { position: absolute; right: 330px; top: 430px; z-index: 31; min-width: 0; padding: 14px 24px; font-size: 26px; }
 .dbt-btn.dbt-taunt small { display: inline; font-size: 18px; margin-left: 8px; }
 .dbt-btn.dbt-taunt.armed { background: #d8352a; box-shadow: 0 0 0 3px #ffdca8, 6px 6px 0 0 #3a0d0a; color: #fff; }
+
+/* 手札の交換：これから自分が出す数字の並びと、その数字の札の印 */
+.dbt-exchange .nextrow { display: flex; justify-content: center; align-items: center; gap: 14px; margin: 0 0 6px; }
+.dbt-exchange .nextrow .k { font-size: 22px; letter-spacing: .12em; color: #9fb0d4; margin-right: 6px; }
+.dbt-exchange .nextrow .rk { display: flex; flex-direction: column; align-items: center; min-width: 74px; padding: 4px 8px 6px; background: rgba(11,17,34,.8); box-shadow: 0 0 0 2px rgba(232,181,74,.55); color: #f6efe0; }
+.dbt-exchange .nextrow .rk b { font-family: "Bellefair", serif; font-weight: normal; font-size: 40px; line-height: 1; }
+.dbt-exchange .nextrow .rk small { font-size: 16px; color: #e8b54a; letter-spacing: .08em; }
+.dbt-exchange .nextrow .rk.n0 { background: #d8352a; box-shadow: 0 0 0 2px #ffdca8; }
+.dbt-exchange .nextrow .rk.n0 small { color: #ffdca8; }
+.dbt-mini-card { position: relative; }
+.dbt-mini-card em { position: absolute; left: 50%; bottom: -12px; transform: translateX(-50%); padding: 1px 6px; font-style: normal; font-family: "Kiwi Maru", serif; font-size: 14px; line-height: 1.3; white-space: nowrap; background: #1b2a4a; color: #ffdca8; box-shadow: 0 0 0 1px #e8b54a; }
+.dbt-mini-card.soon.n0 em { background: #d8352a; color: #fff; }
+.dbt-exchange .cardgrid { row-gap: 18px; }
