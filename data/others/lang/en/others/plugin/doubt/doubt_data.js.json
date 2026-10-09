@@ -207,532 +207,537 @@
       "        ability: \"Once per game, add 6 new cards with no duplicate ranks and deal 3 to each of the other two players (only one extra card per rank is added)\","
     ],
     [
-      242,
+      231,
+      "      kazuto: \"場から除外された札が何だったかも分かる\",",
+      "      kazuto: \"You also learn exactly which cards were removed from play\","
+    ],
+    [
+      246,
       "      { a: \"airi\", b: \"kazuto\", label: \"第一戦\", tagline: \"愛と薬だけが友達\" },",
       "      { a: \"airi\", b: \"kazuto\", label: \"Match 1\", tagline: \"Love and Medicine Are All They Need\" },"
     ],
     [
-      243,
+      247,
       "      { a: \"mary\", b: \"reido\", label: \"第二戦\", tagline: \"狂気の香りと下戸\" },",
       "      { a: \"mary\", b: \"reido\", label: \"Match 2\", tagline: \"Mad Fragrance and a Lightweight\" },"
     ],
     [
-      244,
+      248,
       "      { a: \"juri\", b: \"eruku\", label: \"第三戦\", tagline: \"ハイスペック夫婦\" },",
       "      { a: \"juri\", b: \"eruku\", label: \"Match 3\", tagline: \"The Ultimate Power Couple\" },"
     ],
     [
-      245,
+      249,
       "      { a: \"jushika\", b: \"koderia\", label: \"第四戦\", tagline: \"最強館主と闇のメイド\" },",
       "      { a: \"jushika\", b: \"koderia\", label: \"Match 4\", tagline: \"The Formidable Manager and the Dark Maid\" },"
     ],
     [
-      246,
+      250,
       "      { a: \"mahoru_awake\", b: \"maicro\", label: \"最終戦\", tagline: \"ダーク真歩流と舞黒邦夢\" },",
       "      { a: \"mahoru_awake\", b: \"maicro\", label: \"Final Match\", tagline: \"Dark Mahoru and Houmu Maicro\" },"
     ],
     [
-      247,
+      251,
       "      { a: \"yuduki\", b: \"arther\", label: \"隠し戦\", tagline: \"招かれざる二人\" },",
       "      { a: \"yuduki\", b: \"arther\", label: \"Secret Match\", tagline: \"The Uninvited Two\" },"
     ],
     [
-      249,
+      253,
       "    playerTagline: \"嘘を全て打ち砕く\",",
       "    playerTagline: \"Shatter Every Lie\","
     ],
     [
-      268,
+      272,
       "        doubt: [\"ダウト！\", \"その嘘、見えてる。\", \"そこまでだよ。\"],",
       "        doubt: [\"Doubt!\", \"I can see right through that lie.\", \"That's as far as you go.\"],"
     ],
     [
-      269,
+      273,
       "        ability: [\"その数字、言い当てる。\", \"……もう、読めた。\", \"この手札、交換してもらうわ。\"],",
       "        ability: [\"I'll tell you exactly what number it is.\", \"...I've figured you out.\", \"We're swapping hands.\"],"
     ],
     [
-      272,
+      276,
       "        place_calm: [\"はい、どうぞ♪\", \"ちゃんと本当だよ？\"],",
       "        place_calm: [\"Here you go♪\", \"I'm telling the truth, okay?\"],"
     ],
     [
-      273,
+      277,
       "        place_shaken: [\"え、えっと……本当だよ？\", \"そ、そんなに見ないで……\"],",
       "        place_shaken: [\"U-um... I'm telling the truth, okay?\", \"D-don't look at me like that...\"],"
     ],
     [
-      274,
+      278,
       "        caught: [\"うそぉ、なんで分かったの！？\"],",
       "        caught: [\"No way! How did you know!?\"],"
     ],
     [
-      275,
+      279,
       "        safe: [\"ほらね、本当だったでしょ♪\"],",
       "        safe: [\"See? I told you I was telling the truth♪\"],"
     ],
     [
-      276,
+      280,
       "        partner: [\"和人さん、しっかりー！\"],",
       "        partner: [\"Kazuto, come on! Get it together!\"],"
     ],
     [
-      277,
+      281,
       "        doubt: [\"読めたよ、それダウト！\"],",
       "        doubt: [\"I knew it—Doubt!\"],"
     ],
     [
-      278,
+      282,
       "        doubt_miss: [\"あれぇ……本当だった……\"],",
       "        doubt_miss: [\"Huh...? You were telling the truth...\"],"
     ],
     [
-      279,
+      283,
       "        ability: [\"同じ絵柄なら、おんなじ数字だよ！\", \"残念、嘘じゃないもん！\"],",
       "        ability: [\"Same suit, same number!\", \"Too bad! I'm not lying!\"],"
     ],
     [
-      282,
+      286,
       "        place_calm: [\"……問題ない。\", \"次。\"],",
       "        place_calm: [\"...No problem.\", \"Next.\"],"
     ],
     [
-      283,
+      287,
       "        place_shaken: [\"……ちょっと待て、脈が……いや、なんでもない。\"],",
       "        place_shaken: [\"...Wait. My pulse... No, it's nothing.\"],"
     ],
     [
-      284,
+      288,
       "        caught: [\"想定内の損失だ。\"],",
       "        caught: [\"An acceptable loss.\"],"
     ],
     [
-      285,
+      289,
       "        safe: [\"診断ミスだな。\"],",
       "        safe: [\"A misdiagnosis.\"],"
     ],
     [
-      286,
+      290,
       "        partner: [\"愛理、顔に出すぎだ。\"],",
       "        partner: [\"Airi, you're giving yourself away.\"],"
     ],
     [
-      287,
+      291,
       "        doubt: [\"その札、ダウトだ。\"],",
       "        doubt: [\"That card's a lie. Doubt.\"],"
     ],
     [
-      288,
+      292,
       "        doubt_miss: [\"……誤診か。\"],",
       "        doubt_miss: [\"...A misdiagnosis.\"],"
     ],
     [
-      289,
+      293,
       "        ability: [\"処置は済んでいる。\", \"半分だけ引き取る。\", \"出血は止めてある。\", \"この程度、後遺症も残らん。\"],",
       "        ability: [\"Treatment's already complete.\", \"I'll take half.\", \"I've stopped the bleeding.\", \"This much won't leave any lasting damage.\"],"
     ],
     [
-      292,
+      296,
       "        place_calm: [\"ふふ、いい香りでしょう？\", \"どうぞ、召し上がれ。\"],",
       "        place_calm: [\"Hee hee... Lovely fragrance, isn't it?\", \"Please, help yourself.\"],"
     ],
     [
-      293,
+      297,
       "        place_shaken: [\"あら……少し香りが強すぎたかしら。\"],",
       "        place_shaken: [\"Oh my... Perhaps the fragrance was a little too strong.\"],"
     ],
     [
-      294,
+      298,
       "        caught: [\"まあ、野暮な人。\"],",
       "        caught: [\"My, what a spoilsport.\"],"
     ],
     [
-      295,
+      299,
       "        safe: [\"嘘の香りはしなかったでしょう？\"],",
       "        safe: [\"You didn't smell a lie, did you?\"],"
     ],
     [
-      296,
+      300,
       "        partner: [\"警部さん、らしくないですね。\"],",
       "        partner: [\"Inspector, this isn't like you.\"],"
     ],
     [
-      297,
+      301,
       "        doubt: [\"その香り、ダウトですよ。\"],",
       "        doubt: [\"That scent gives you away. Doubt.\"],"
     ],
     [
-      298,
+      302,
       "        doubt_miss: [\"あら、外れですか。\"],",
       "        doubt_miss: [\"Oh my... I was mistaken.\"],"
     ],
     [
-      299,
+      303,
       "        ability: [\"最初の香り、覚えているのよ。\", \"ふふ、あなたの手も匂うわ。\", \"新しいお客様を、お招きするわ。\"],",
       "        ability: [\"I remember the very first scent.\", \"Hee hee... I can smell it on your hand, too.\", \"Let's invite a new guest in.\"],"
     ],
     [
-      302,
+      306,
       "        place_calm: [\"異常なし。\", \"次です。\"],",
       "        place_calm: [\"Nothing unusual.\", \"Next.\"],"
     ],
     [
-      303,
+      307,
       "        place_shaken: [\"……咳払いです。気にしないでください。\"],",
       "        place_shaken: [\"...I was merely clearing my throat. Pay it no mind.\"],"
     ],
     [
-      304,
+      308,
       "        caught: [\"証拠は押さえられたか。\"],",
       "        caught: [\"Have you secured the evidence?\"],"
     ],
     [
-      305,
+      309,
       "        safe: [\"冤罪案件です。\"],",
       "        safe: [\"That's a false accusation.\"],"
     ],
     [
-      306,
+      310,
       "        partner: [\"メアリーさん、事情聴取の時間です。\"],",
       "        partner: [\"Mary, it's time for questioning.\"],"
     ],
     [
-      307,
+      311,
       "        doubt: [\"ダウト。署まで来てもらおう。\"],",
       "        doubt: [\"Doubt. You're coming with me to the station.\"],"
     ],
     [
-      308,
+      312,
       "        doubt_miss: [\"……捜査のやり直しだ。\"],",
       "        doubt_miss: [\"...Back to square one on the investigation.\"],"
     ],
     [
-      309,
+      313,
       "        ability: [\"令状だ。その札、検めさせてもらう。\", \"強制捜査に切り替える。\"],",
       "        ability: [\"I've got a warrant. Let me inspect that card.\", \"We're moving to a compulsory search.\"],"
     ],
     [
-      312,
+      316,
       "        place_calm: [\"全部、把握してるから。\", \"はい、次。\"],",
       "        place_calm: [\"I've got everything covered.\", \"All right, next.\"],"
     ],
     [
-      313,
+      317,
       "        place_shaken: [\"……今の、撮ってないわよね？\"],",
       "        place_shaken: [\"...You didn't record that, did you?\"],"
     ],
     [
-      314,
+      318,
       "        caught: [\"この件、拡散しないでね。\"],",
       "        caught: [\"Don't let this go viral, okay?\"],"
     ],
     [
-      315,
+      319,
       "        safe: [\"ほら、ちゃんと事実でしょ。\"],",
       "        safe: [\"See? The facts check out.\"],"
     ],
     [
-      316,
+      320,
       "        partner: [\"叡留久、それは損切りしたほうがいいわよ。\"],",
       "        partner: [\"Eruku, you should cut your losses.\"],"
     ],
     [
-      317,
+      321,
       "        doubt: [\"その札、覚えてる。ダウト。\"],",
       "        doubt: [\"I remember that card. Doubt.\"],"
     ],
     [
-      318,
+      322,
       "        doubt_miss: [\"あら、……記録と違う。\"],",
       "        doubt_miss: [\"Oh... that's not what I had on record.\"],"
     ],
     [
-      319,
+      323,
       "        ability: [\"その札、記録済みだから。\", \"一度見たものは、忘れないの。\"],",
       "        ability: [\"That card's already on record.\", \"I never forget what I've seen.\"],"
     ],
     [
-      322,
+      326,
       "        place_calm: [\"いい取引だ。\", \"投資は分散が基本だよ。\"],",
       "        place_calm: [\"That's a good deal.\", \"Diversification is the first rule of investing.\"],"
     ],
     [
-      323,
+      327,
       "        place_shaken: [\"……今のは、少々リスキーだったかな。\"],",
       "        place_shaken: [\"...That may have been a little risky.\"],"
     ],
     [
-      324,
+      328,
       "        caught: [\"損失は計上しておこう。\"],",
       "        caught: [\"I'll book that as a loss.\"],"
     ],
     [
-      325,
+      329,
       "        safe: [\"監査は通ったね。\"],",
       "        safe: [\"Looks like we passed the audit.\"],"
     ],
     [
-      326,
+      330,
       "        partner: [\"珠璃、ここからリカバリーしよう。\"],",
       "        partner: [\"Juri, we can still turn this around.\"],"
     ],
     [
-      327,
+      331,
       "        doubt: [\"その数字、粉飾だね。ダウト。\"],",
       "        doubt: [\"Those numbers are cooked. Doubt.\"],"
     ],
     [
-      328,
+      332,
       "        doubt_miss: [\"見込み違いか。\"],",
       "        doubt_miss: [\"Looks like I miscalculated.\"],"
     ],
     [
-      329,
+      333,
       "        ability: [\"資産を、丸ごと入れ替えよう。\", \"これも分散投資のうちだよ。\", \"少々の負債は、安全料さ。\"],",
       "        ability: [\"Let's swap our entire portfolios.\", \"It's all part of diversification.\", \"A little debt is just the price of security.\"],"
     ],
     [
-      332,
+      336,
       "        place_calm: [\"……どうぞ。\", \"さあ、ここからですよ。\"],",
       "        place_calm: [\"...Go ahead.\", \"Now then... this is where it starts.\"],"
     ],
     [
-      333,
+      337,
       "        place_shaken: [\"……っ。なんでもありません。\"],",
       "        place_shaken: [\"...! It's nothing.\"],"
     ],
     [
-      334,
+      338,
       "        place_hidden: [\"手の内は隠させていただきます。\"],",
       "        place_hidden: [\"I'll keep my hand hidden, if you don't mind.\"],"
     ],
     [
-      335,
+      339,
       "        caught: [\"……不覚ですね。\"],",
       "        caught: [\"...That was careless of me.\"],"
     ],
     [
-      336,
+      340,
       "        safe: [\"……残念ながら、真実です。\"],",
       "        safe: [\"...I'm afraid it's the truth.\"],"
     ],
     [
-      337,
+      341,
       "        partner: [\"小出里亜さん……まだ、いけますよね！\"],",
       "        partner: [\"Koderia... we can still do this, right?!\"],"
     ],
     [
-      338,
+      342,
       "        doubt: [\"……ダウト、です。\"],",
       "        doubt: [\"...Doubt.\"],"
     ],
     [
-      339,
+      343,
       "        doubt_miss: [\"……申し訳ありません。\"],",
       "        doubt_miss: [\"...My apologies.\"],"
     ],
     [
-      340,
+      344,
       "        ability: [\"……数えるのは、おやめください。\", \"……もう、見えません。\"],",
       "        ability: [\"...Please, stop counting.\", \"...You won't be able to see it anymore.\"],"
     ],
     [
-      343,
+      347,
       "        place_calm: [\"はい、どうぞ。\", \"ふふ、次は真歩流様の番ですね。\"],",
       "        place_calm: [\"Here you are.\", \"Hee hee. You're next, Miss Mahoru.\"],"
     ],
     [
-      344,
+      348,
       "        place_shaken: [\"あら……困りましたね。\"],",
       "        place_shaken: [\"Oh my... What a predicament.\"],"
     ],
     [
-      345,
+      349,
       "        caught: [\"見抜かれてしまいましたね。\"],",
       "        caught: [\"It seems you've seen through me.\"],"
     ],
     [
-      346,
+      350,
       "        safe: [\"疑うのは悲しいですよ。\"],",
       "        safe: [\"It's rather sad to be doubted.\"],"
     ],
     [
-      347,
+      351,
       "        partner: [\"朱志香さま、大丈夫ですよ。\"],",
       "        partner: [\"Miss Jushika, it's all right.\"],"
     ],
     [
-      348,
+      352,
       "        doubt: [\"それは、ダウトですね。\"],",
       "        doubt: [\"I believe that's a Doubt.\"],"
     ],
     [
-      349,
+      353,
       "        doubt_miss: [\"あら、ごめんなさい。\"],",
       "        doubt_miss: [\"Oh, my apologies.\"],"
     ],
     [
-      350,
+      354,
       "        ability: [\"そのダウトは、なかったことに。\", \"ふふ、通しませんよ。\"],",
       "        ability: [\"Let's pretend that Doubt never happened.\", \"Hee hee... I won't let that through.\"],"
     ],
     [
-      353,
+      357,
       "        place_calm: [\"……。\", \"見えてるよ、全部。\"],",
       "        place_calm: [\"...\", \"I can see everything.\"],"
     ],
     [
-      354,
+      358,
       "        place_shaken: [\"……。\"],",
       "        place_shaken: [\"...\"],"
     ],
     [
-      355,
+      359,
       "        caught: [\"……へえ。\"],",
       "        caught: [\"...Oh?\"],"
     ],
     [
-      356,
+      360,
       "        safe: [\"言ったでしょう。\"],",
       "        safe: [\"I told you.\"],"
     ],
     [
-      357,
+      361,
       "        partner: [\"……。\"],",
       "        partner: [\"...\"],"
     ],
     [
-      358,
+      362,
       "        doubt: [\"それ、嘘。\"],",
       "        doubt: [\"That's a lie.\"],"
     ],
     [
-      359,
+      363,
       "        doubt_miss: [\"……今のはわざと。\"],",
       "        doubt_miss: [\"...I meant to do that.\"],"
     ],
     [
-      360,
+      364,
       "        ability: [\"……遊びは、ここまで。\", \"その手は、通らないよ。\"],",
       "        ability: [\"...Playtime's over.\", \"That won't work on me.\"],"
     ],
     [
-      363,
+      367,
       "        place_calm: [\"はい、どうぞ！\", \"さあ、どんどん行くわよ。\"],",
       "        place_calm: [\"Here you go!\", \"Come on, let's keep this moving!\"],"
     ],
     [
-      364,
+      368,
       "        place_shaken: [\"……ん、まあいいか。\"],",
       "        place_shaken: [\"...Mm. Well, whatever.\"],"
     ],
     [
-      365,
+      369,
       "        caught: [\"あー、やられた！\"],",
       "        caught: [\"Ahh, you got me!\"],"
     ],
     [
-      366,
+      370,
       "        safe: [\"残念、本当だもん。\"],",
       "        safe: [\"Too bad! I was telling the truth!\"],"
     ],
     [
-      367,
+      371,
       "        partner: [\"ほら、しっかりしてよ。\"],",
       "        partner: [\"Come on, get it together!\"],"
     ],
     [
-      368,
+      372,
       "        doubt: [\"それ、嘘でしょ！\"],",
       "        doubt: [\"That's a lie, isn't it!?\"],"
     ],
     [
-      369,
+      373,
       "        doubt_miss: [\"えっ、本当だったの！？\"],",
       "        doubt_miss: [\"What!? You were telling the truth!?\"],"
     ],
     [
-      370,
+      374,
       "        ability: [\"はい、ちょっと黙っててね！\", \"この一巡、あなたは何も言えないよ！\", \"外しても痛くないもん！\"],",
       "        ability: [\"Okay, quiet for a second!\", \"You don't get to say a word this round!\", \"Even if I miss, it won't hurt me!\"],"
     ],
     [
-      373,
+      377,
       "        place_calm: [\"どうぞ、ご確認を。\", \"紳士は嘘をつかないものさ。……たまには。\"],",
       "        place_calm: [\"Please, see for yourself.\", \"A gentleman never lies... well, hardly ever.\"],"
     ],
     [
-      374,
+      378,
       "        place_shaken: [\"ふむ、これは失礼。\"],",
       "        place_shaken: [\"Hmm. My apologies.\"],"
     ],
     [
-      375,
+      379,
       "        caught: [\"これは参ったな。\"],",
       "        caught: [\"Well, you've got me there.\"],"
     ],
     [
-      376,
+      380,
       "        safe: [\"申し上げたとおりだよ。\"],",
       "        safe: [\"Just as I told you.\"],"
     ],
     [
-      377,
+      381,
       "        partner: [\"ははは、彼女は元気が良すぎる。\"],",
       "        partner: [\"Ha ha! She's certainly full of energy.\"],"
     ],
     [
-      378,
+      382,
       "        doubt: [\"それは通らないな。\"],",
       "        doubt: [\"I can't let that pass.\"],"
     ],
     [
-      379,
+      383,
       "        doubt_miss: [\"……見立てを誤ったか。\"],",
       "        doubt_miss: [\"...It seems I misread the situation.\"],"
     ],
     [
-      380,
+      384,
       "        ability: [\"さて、取引をしよう。\", \"悪い話ではないだろう？\", \"これがきっかけになるといいが。\"],",
       "        ability: [\"Now then, let's make a deal.\", \"Not a bad offer, is it?\", \"Hopefully this gets things moving.\"],"
     ],
     [
-      383,
+      387,
       "        place_calm: [\"さあさあ、遠慮なく。\", \"今宵のもてなしはまだまだ！\"],",
       "        place_calm: [\"Come, come! Don't hold back!\", \"There's plenty more hospitality in store tonight!\"],"
     ],
     [
-      384,
+      388,
       "        place_shaken: [\"おっと、手が滑った。\"],",
       "        place_shaken: [\"Oops! My hand slipped.\"],"
     ],
     [
-      385,
+      389,
       "        caught: [\"はっはっは、見事！\"],",
       "        caught: [\"Ha ha ha! Splendid!\"],"
     ],
     [
-      386,
+      390,
       "        safe: [\"館主は嘘をつかんよ。\"],",
       "        safe: [\"The master of this house never lies!\"],"
     ],
     [
-      387,
+      391,
       "        partner: [\"もう一人の君、楽しんでいるかね？\"],",
       "        partner: [\"My other self! Are you enjoying yourself?\"],"
     ],
     [
-      388,
+      392,
       "        doubt: [\"おや、それはダウトだ！\"],",
       "        doubt: [\"Oh? That's a Doubt!\"],"
     ],
     [
-      389,
+      393,
       "        doubt_miss: [\"これは失敬！\"],",
       "        doubt_miss: [\"My mistake!\"],"
     ],
     [
-      390,
+      394,
       "        ability: [\"さあ、館主のもてなしだ！\", \"余興の時間といこうか！\", \"はっはっは、席を乱させてもらう！\", \"退屈しのぎに、一手加えよう！\"],",
       "        ability: [\"Come! Allow your host to entertain you!\", \"Time for a little entertainment!\", \"Ha ha ha! Let me shake up the table!\", \"Let's add a little twist to keep boredom at bay!\"],"
     ]

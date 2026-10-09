@@ -226,6 +226,10 @@
       airi: ["airi"], kazuto: ["kazuto"], mary: ["mary", "mary_deal"], reido: ["reido"],
       juri: ["juri"], eruku: ["eruku", "eruku_deal"], jushika: ["jushika_sight"], koderia: ["koderia"],
     },
+    // ストックした時だけ付く効果の説明（元の能力の説明の後ろに足す）
+    stockNote: {
+      kazuto: "場から除外された札が何だったかも分かる",
+    },
     stockUses: {
       airi: 2, kazuto: -1, mary: -1, mary_deal: 1, reido: 2,
       juri: -1, eruku: 1, eruku_deal: 1, jushika_sight: 2, koderia: 1,

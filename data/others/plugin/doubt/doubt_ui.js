@@ -359,12 +359,17 @@
   function stockUseText(left) {
     return left < 0 ? "常時" : "残り" + Math.max(0, left) + "回";
   }
+  // ストックした時だけ付く効果
+  function stockNoteHTML(id) {
+    var note = D.stockNote && D.stockNote[id];
+    return note ? '<div class="ab stocknote">＋' + note + "</div>" : "";
+  }
   // VS画面などで、真歩流の下に並べるストックの説明
   function stockHTML() {
     var id = stockId();
     if (!id) return "";
     var u = stockUses(id);
-    return '<div class="subsk">' + skillHTML(id, u < 0 ? "常時" : "1ゲーム" + u + "回", "（ストック）") + "</div>";
+    return '<div class="subsk">' + skillHTML(id, u < 0 ? "常時" : "1ゲーム" + u + "回", "（ストック）") + stockNoteHTML(id) + "</div>";
   }
 
   // アーケードプレイを突破すると、シンプルプレイで最終戦も選べるようになる
@@ -1008,6 +1013,10 @@
     this.pileInfo = h("div", "dbt-pileinfo", '<span class="k">場の伏せ札</span><span class="v">0</span><span class="d"></span>');
     row.appendChild(this.pileInfo);
     field.appendChild(row);
+    // 和人の力（ストック）で把握している、場から除外された札
+    this.goneEl = h("div", "dbt-gone");
+    this.goneEl.style.display = "none";
+    field.appendChild(this.goneEl);
     this.root.appendChild(field);
 
     this.handEl = h("div", "dbt-hand");
@@ -1084,7 +1093,7 @@
       // プレイヤーのストック
       if (seat === 0 && g.stockId) {
         box.appendChild(h("div", "sk borrow",
-          skillHTML(g.stockId, stockUseText(g.abilLeft(0, g.stockId)), "（ストック）")));
+          skillHTML(g.stockId, stockUseText(g.abilLeft(0, g.stockId)), "（ストック）") + stockNoteHTML(g.stockId)));
       }
       // 真歩流？が借りている能力も、同じように並べる
       if (seat === g.awakeSeat && g.borrowId) {
@@ -1291,6 +1300,17 @@
         pc.style.transform = "rotate(" + ((i % 3) - 1) * 4 + "deg)";
         this.pileEl.appendChild(pc);
       }
+    }
+
+    var gone = g.goneKnown0 || [];
+    this.goneEl.style.display = gone.length ? "" : "none";
+    if (gone.length && this.goneEl._n !== gone.length) {
+      this.goneEl._n = gone.length;
+      this.goneEl.innerHTML = "";
+      this.goneEl.appendChild(h("div", "pk", "除外した札"));
+      var chips = h("div", "chips");
+      sortedCardsForDisplay(gone).forEach(function (c) { chips.appendChild(chipEl(c)); });
+      this.goneEl.appendChild(chips);
     }
 
     this.renderHand(g);
@@ -2224,7 +2244,7 @@
         var u = stockUses(o.id);
         card.appendChild(h("div", "txt",
           '<div class="own">' + D.chara[o.owner].name + "</div>" +
-          skillHTML(o.id, u < 0 ? "常時" : "1ゲーム" + u + "回")));
+          skillHTML(o.id, u < 0 ? "常時" : "1ゲーム" + u + "回") + stockNoteHTML(o.id)));
         card.appendChild(btn("持ち帰る", "red take", function () { finish(o.id); }));
         list.appendChild(card);
       });

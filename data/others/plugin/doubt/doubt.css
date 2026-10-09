@@ -955,3 +955,10 @@
 .dbt-en .dbt-cmd.with-stock .dbt-btn small { font-size: 18px; margin-left: 6px; }
 .dbt-en .dbt-stock .hd { font-size: 64px; letter-spacing: .12em; }
 .dbt-en .dbt-stock .sub { font-size: 26px; }
+/* 和人の力（ストック）：場から除外された札 */
+.dbt-gone { max-width: 760px; padding: 6px 10px 8px; background: rgba(11,17,34,.78); box-shadow: 0 0 0 2px #4f7fd8; text-align: center; }
+.dbt-gone .pk { font-size: 17px; letter-spacing: .18em; color: #9fb0d4; margin-bottom: 4px; }
+.dbt-gone .chips { display: flex; flex-wrap: wrap; justify-content: center; gap: 4px; }
+.dbt-gone .chip { min-width: 30px; padding: 1px 4px; background: #f6efe0; color: #1b2a4a; font-family: "Bellefair", serif; font-size: 21px; line-height: 1.2; letter-spacing: 0; }
+.dbt-gone .chip.red { color: #c0392b; }
+.dbt-stock .opt .stocknote, .subsk .stocknote, .dbt-skills .stocknote { color: #f5a3b8; }

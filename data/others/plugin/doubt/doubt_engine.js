@@ -62,6 +62,7 @@
     this.stockUses = this.stockId ? (opt.stock.uses != null ? opt.stock.uses : opt.data.chara[this.stockId].uses) : 0;
     this.heldBy0 = {};           // プレイヤーが一度でも手にした札
     this.playerVision = {};      // メアリーの力で、プレイヤーに見えている相手の札 { 札id: 席 }
+    this.goneKnown0 = [];        // 和人の力（ストック）で、プレイヤーが把握している除外札
 
     // 難易度。卓の全員の読みの強さが変わる
     var levels = opt.data.rules.levels;
@@ -695,6 +696,10 @@
         Array.prototype.push.apply(this.discard, take.slice(half));
         // どちらに回ったか分からないので、覚えていた分は忘れる
         this.forgetSeen(take);
+        // プレイヤーがストックした和人の力は、場から除外された札の中身も分かる
+        if (loser === 0 && this.stockId === "kazuto") {
+          Array.prototype.push.apply(this.goneKnown0, take.slice(half));
+        }
         await this.io.cutin(this, loser, this.data.chara.kazuto.ability);
         this.io.log(this, this.name(loser) + "は" + half + "枚だけ回収（" + (take.length - half) + "枚は場から除外）");
       } else {
