@@ -153,8 +153,8 @@
     ],
     [
       208,
-      "        ability: \"1ゲーム2回。自分の手番に相手1人と手札を全公開し、自分の手札の半分（切り捨て）まで同じ枚数を指定して交換する（公開内容は当事者だけが知る）\",",
-      "        ability: \"Twice per game, reveal hands with one opponent on your turn and exchange an equal number of chosen cards, up to half your hand rounded down (only the two players see the revealed cards)\","
+      "        ability: \"1ゲーム1回。自分の手番に相手1人と手札を全公開し、自分の手札の半分（切り捨て）まで同じ枚数を指定して交換する（公開内容は当事者だけが知る）\",",
+      "        ability: \"Once per game, reveal hands with one opponent on your turn and exchange an equal number of chosen cards, up to half your hand rounded down (only the two players see the revealed cards)\","
     ],
     [
       210,

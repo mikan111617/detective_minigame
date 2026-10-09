@@ -144,7 +144,7 @@
     chara: {
       mahoru: { name: "真歩流", reading: "まほる", color: "#d8352a", doubt: 0, tell: 0, bluff: 0,
         ability: "ダウトで伏せ札の本当の数字まで言い当てると、次の自分の手番はダウトされず、手札を好きに2枚まで捨てられる（1ゲーム2回まで）",
-        uses: 2, sub: "hand_swap", subUses: 2 },
+        uses: 2, sub: "hand_swap", subUses: 1 },
       airi: { name: "愛理", reading: "あいり", color: "#f5a3b8", doubt: 0.3, tell: 0.6, bluff: 0.05,
         doubtStyle: "logic", // 理論型：確定でなくても、論理的に怪しさが出た場面は検討して踏み込む
         ability: "伏せた札がすべて同じ絵柄なら、宣言した数字として通る（ダウトされた時だけ消費）",
@@ -205,8 +205,8 @@
        * 回数は sub を持つ側の subUses で数えるので、ここの uses は表示のためだけ。
        */
       hand_swap: { name: "手札の交換", color: "#d8352a", doubt: 0, tell: 0, bluff: 0,
-        ability: "1ゲーム2回。自分の手番に相手1人と手札を全公開し、自分の手札の半分（切り捨て）まで同じ枚数を指定して交換する（公開内容は当事者だけが知る）",
-        uses: 2 },
+        ability: "1ゲーム1回。自分の手番に相手1人と手札を全公開し、自分の手札の半分（切り捨て）まで同じ枚数を指定して交換する（公開内容は当事者だけが知る）",
+        uses: 1 },
       taunt: { name: "挑発", color: "#d8352a", doubt: 0, tell: 0, bluff: 0,
         ability: "三巡に一度、札を伏せる時に相手を煽る。熱くなりやすい相手はダウトしやすくなり、冷静な相手は警戒してダウトしにくくなる（たまに逆の反応をする）",
         uses: -1 },
