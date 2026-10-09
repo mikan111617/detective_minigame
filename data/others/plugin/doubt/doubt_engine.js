@@ -49,6 +49,19 @@
     this.copies = {};            // 数字ごとの札の総数。既定は4枚
     this.fakeOffset = {};        // 手札の枚数をごまかす下駄（朱志香）
     this.immune = [0, 0, 0];     // この席の伏せ札にダウトを言えない残り回数（叡留久）
+    this.sight = [0, 0, 0];      // 朱志香の「見透かし」で、相手の手札が見えている残り手数
+    this.maicroEvents = 0;       // 舞黒邦夢のもてなしをこの対戦で何回したか
+
+    /*
+     * ストック（アーケードで持ち帰ったプレイヤーの能力）。opt.stock = { id, uses }
+     *   uses … 残り回数（-1 は常時）
+     * プレイヤーが一度手にした札（珠璃の力）と、見えている相手の札（メアリーの力）も
+     * プレイヤー専用に持つ。CPU 側の juriKnown / maryMemo とは混ぜない。
+     */
+    this.stockId = opt.stock && opt.stock.id && opt.data.chara[opt.stock.id] ? opt.stock.id : null;
+    this.stockUses = this.stockId ? (opt.stock.uses != null ? opt.stock.uses : opt.data.chara[this.stockId].uses) : 0;
+    this.heldBy0 = {};           // プレイヤーが一度でも手にした札
+    this.playerVision = {};      // メアリーの力で、プレイヤーに見えている相手の札 { 札id: 席 }
 
     // 難易度。卓の全員の読みの強さが変わる
     var levels = opt.data.rules.levels;
@@ -111,21 +124,27 @@
   };
   // その席が持っている能力かどうか（本来の能力／借り物／二つ目の能力）
   P.hasAbil = function (seat, id) {
+    if (seat === 0 && this.stockId === id) return true;
     return this.abil(seat) === id || this.subId[seat] === id;
   };
+  // CPU 側の能力の持ち主を探す。プレイヤーがストックで同じ能力を持っていても、
+  // CPU の席が先に見つかるように 1 → 2 → 0 の順に見る。
   P.abilSeatOf = function (id) {
-    for (var s = 0; s < 3; s++) if (this.hasAbil(s, id)) return s;
+    var order = [1, 2, 0];
+    for (var i = 0; i < order.length; i++) if (this.hasAbil(order[i], id)) return order[i];
     return -1;
   };
   P.abilCh = function (seat) { return this.data.chara[this.abil(seat)]; };
   // 能力ごとの残り回数（-1 は常時）。能力idで引く
   P.abilLeft = function (seat, id) {
+    if (seat === 0 && this.stockId === id) return this.stockUses;
     if (this.subId[seat] === id) return this.subUses[seat];
     if (seat === this.awakeSeat && this.borrowId === id) return this.borrowUses;
     if (this.ids[seat] === id) return this.uses[seat];
     return 0;
   };
   P.spendAbilId = function (seat, id) {
+    if (seat === 0 && this.stockId === id) { if (this.stockUses > 0) this.stockUses--; return; }
     if (this.subId[seat] === id) this.subUses[seat]--;
     else if (seat === this.awakeSeat && this.borrowId === id) this.borrowUses--;
     else if (this.ids[seat] === id) this.uses[seat]--;
@@ -305,10 +324,11 @@
 
   P.addToHand = function (seat, cards) {
     Array.prototype.push.apply(this.hands[seat], cards);
-    if (this.hasAbil(seat, "juri")) {
-      var self = this;
+    var self = this;
+    if (seat > 0 && this.hasAbil(seat, "juri")) {
       cards.forEach(function (c) { self.juriKnown[c.id] = true; });
     }
+    if (seat === 0) cards.forEach(function (c) { self.heldBy0[c.id] = true; });
     this.sortHand(0);
   };
 
@@ -351,6 +371,11 @@
     var self = this;
     var js = this.abilSeatOf("juri");
     if (js > 0) this.hands[js].forEach(function (c) { self.juriKnown[c.id] = true; });
+    this.hands[0].forEach(function (c) { self.heldBy0[c.id] = true; });
+    // ストックしたメアリーの力：配り終えた時点の相手二人の手札が見える
+    if (this.stockId === "mary") {
+      for (var vs = 1; vs <= 2; vs++) this.hands[vs].forEach(function (c) { self.playerVision[c.id] = vs; });
+    }
     // メアリーは配り終えた時点の他人の手札だけを覚える。以後は更新しない
     var ms = this.abilSeatOf("mary");
     if (ms > 0) {
@@ -392,7 +417,7 @@
   P.startPassives = async function () {
     for (var seat = 1; seat <= 2; seat++) {
       var id = this.ids[seat];
-      if (id === "mary" || id === "juri" || this.ch(seat).catchRate != null) {
+      if (id === "mary" || id === "juri" || this.ch(seat).catchRate != null || this.ch(seat).handSight) {
         await this.io.cutin(this, seat, this.ch(seat).ability);
       }
       // 何を借りたのかは隠さない。分からないままだと読みようがないので
@@ -417,6 +442,7 @@
 
     var cards;
     if (seat === 0) {
+      this.fadePlayerVision();
       var ids = await this.io.playerPlace(this);
       if (this.resigned) return;
       cards = this.hands[0].filter(function (c) { return ids.indexOf(c.id) >= 0; });
@@ -430,7 +456,9 @@
     this.moveSeenPile(cards, "pile");
     // 一度場に出た札は、配り始めの記憶が当てにならなくなる（メアリー）
     var self0 = this;
-    cards.forEach(function (c) { delete self0.maryMemo[c.id]; });
+    cards.forEach(function (c) { delete self0.maryMemo[c.id]; delete self0.playerVision[c.id]; });
+    // ストックした愛理の力は、ダウトされた時に絵柄が揃っていれば自動で効く
+    if (seat === 0 && this.hasAbil(0, "airi") && this.abilLeft(0, "airi") > 0) this.pendingSuitPass = true;
     this.last = { seat: seat, cards: cards, rank: this.rank, suitPass: !!this.pendingSuitPass };
     this.pendingSuitPass = false;
     this.turnsTaken[seat]++;
@@ -465,6 +493,7 @@
 
     if (this.sealed > 0) this.sealed--;
     if (this.noDoubtPlayer > 0) this.noDoubtPlayer--;
+    for (var sg = 0; sg < 3; sg++) if (this.sight[sg] > 0) this.sight[sg]--;
     this.rank = (this.rank % 13) + 1;
     this.turn = (seat + 1) % 3;
     this.io.update(this);
@@ -555,6 +584,8 @@
     }
     // 零度警部：手札3枚を渡して暴く
     var reidoForce = false;
+    // プレイヤーがストックした零度警部の力は、手札が4枚以上ある時だけ（渡して上がるのは無し）
+    if (act.type === "ability" && doubter === 0 && !(this.hands[0].length >= 4 && this.abilLeft(0, "reido") > 0)) act = { type: "doubt" };
     if (act.type === "ability" && this.hasAbil(doubter, "reido")) {
       this.spendAbilId(doubter, "reido");
       await this.io.cutin(this, doubter, this.data.chara.reido.ability);
@@ -611,6 +642,19 @@
       }
     }
 
+    // ストックした小出里亜の力：プレイヤーの嘘を見抜いたダウトを、選んで無効にできる
+    if (isLie && placer === 0 && doubter > 0 && this.hasAbil(0, "koderia") && this.abilLeft(0, "koderia") > 0 &&
+        this.io.askUse && await this.io.askUse(this, "koderia")) {
+      this.spendAbilId(0, "koderia");
+      await this.io.cutin(this, 0, this.data.chara.koderia.ability);
+      this.io.log(this, this.name(0) + "がダウトを無効にした");
+      await this.io.notice(this, "ダウト無効", "伏せ札はそのまま場に残る");
+      if (this.io.resolved) this.io.resolved(this, {
+        cancelled: true, rank: rank, doubter: doubter, placer: placer
+      });
+      return;
+    }
+
     // プレイヤーの嘘が正しいダウトで捕まった。
     // 小出里亜に無効化された場合はここまで来ないので「嘘成功」として残る。
     if (placer === 0 && isLie) this.playerLieCaught = true;
@@ -638,6 +682,7 @@
 
     var resolvedTake = 0;
     var resolvedDiscard = 0;
+    var gotCards = [];
     if (loser >= 0) {
       var take = this.pile.splice(0);
       if (this.hasAbil(loser, "kazuto")) {
@@ -645,7 +690,8 @@
         var half = Math.ceil(take.length / 2);
         resolvedTake = half;
         resolvedDiscard = take.length - half;
-        this.addToHand(loser, take.slice(0, half));
+        gotCards = take.slice(0, half);
+        this.addToHand(loser, gotCards);
         Array.prototype.push.apply(this.discard, take.slice(half));
         // どちらに回ったか分からないので、覚えていた分は忘れる
         this.forgetSeen(take);
@@ -653,6 +699,7 @@
         this.io.log(this, this.name(loser) + "は" + half + "枚だけ回収（" + (take.length - half) + "枚は場から除外）");
       } else {
         resolvedTake = take.length;
+        gotCards = take;
         this.addToHand(loser, take);
         this.moveSeenPile(take, loser);
         this.io.log(this, this.name(loser) + "が場の札" + take.length + "枚を回収");
@@ -693,6 +740,13 @@
       noTake: noTake, suitPass: suitPass,
       takeCount: resolvedTake, discardCount: resolvedDiscard
     });
+
+    // 香りの招待：引き取った札の半分を、ダウトをし合った相手に押しつける
+    if (loser >= 0 && gotCards.length >= 2) await this.pushInvitation(loser, loser === placer ? doubter : placer, gotCards);
+
+    // 見透かし：ダウトされた側と、ダウトを外した側
+    await this.trySight(placer);
+    if (!isLie && doubter !== placer) await this.trySight(doubter);
 
     // 名指し成功
     if (guess && isLie && cards.some(function (c) { return c.r === guess; }) && this.hands[doubter].length > 0) {
@@ -793,19 +847,25 @@
     return true;
   };
 
-  // 相手側の名指し推理：guessRate で当てにくる。外す時は、実際の数字も宣言も避ける
+  /*
+   * 相手側（真歩流？）の名指し推理。伏せ札そのものは見ていないので、
+   * 出し手が出す前に持っていた札のうち、宣言と違う数字で一番多いものを名指しする。
+   */
   P.aiGuessRank = function (cards, rank) {
-    var real = cards.filter(function (c) { return c.r !== rank && c.r > 0; });
-    var ch = this.data.chara.mahoru_awake;
-    if (real.length && this.rng() < (ch.guessRate != null ? ch.guessRate : 0.7)) {
-      return real[Math.floor(this.rng() * real.length)].r;
+    var placer = this.last ? this.last.seat : 0;
+    var count = {};
+    this.hands[placer].concat(cards).forEach(function (c) {
+      if (c.r > 0 && c.r !== rank) count[c.r] = (count[c.r] || 0) + 1;
+    });
+    var best = [];
+    var top = 0;
+    for (var r in count) {
+      if (count[r] > top) { top = count[r]; best = [+r]; }
+      else if (count[r] === top) best.push(+r);
     }
+    if (best.length) return best[Math.floor(this.rng() * best.length)];
     var pool = [];
-    for (var r = 1; r <= 13; r++) {
-      if (r === rank) continue;
-      if (cards.some(function (c) { return c.r === r; })) continue;
-      pool.push(r);
-    }
+    for (var x = 1; x <= 13; x++) if (x !== rank) pool.push(x);
     return pool[Math.floor(this.rng() * pool.length)];
   };
 
@@ -900,6 +960,19 @@
     return "field";
   };
 
+  // 嘘だと確信した時の踏み込み方（能力を使うかどうか）
+  P.sureAction = function (seat) {
+    var id = this.ids[seat];
+    // 名指し推理は真歩流？だけの能力。残り手札が少ない時や、
+    // プレイヤーが上がりに近い時など、勝敗に直結する局面へ温存する。
+    if (id === "mahoru_awake" && this.uses[seat] > 0 && this.hands[seat].length > 0 &&
+        (this.hands[seat].length <= 4 || this.hands[0].length <= 3 || this.pile.length >= 7)) return "guess";
+    // 空振りを恐れないなら、外れた時の保険をかけてから踏み込む
+    if (this.hasAbil(seat, "free_doubt") && this.abilLeft(seat, "free_doubt") > 0) return "free";
+    if (this.hasAbil(seat, "reido") && this.abilLeft(seat, "reido") > 0 && this.hands[seat].length >= 6) return "ability";
+    return "doubt";
+  };
+
   P.aiDoubtDecision = function (seat, cards, target) {
     target = target || 0;
     var ch = this.ch(seat);
@@ -990,13 +1063,26 @@
     var bonusScale = this.level.bonus != null ? this.level.bonus : 1;
 
     /*
-     * 勘で疑うキャラ（真歩流？・快活な少女）。手札の中身は見ていない。
+     * 手札を把握している（真歩流？の全知・朱志香の見透かし中）。
+     * 伏せた札そのものは見ていないので、「出し手がその数字をその枚数持っていなかった」
+     * と分かる時だけ確信して踏み込む。持っていた時は、下の普通の読みに任せる。
+     * 真歩流？の全知は、力を封じられている間は使えない。見透かしはプレイヤーにだけ向ける。
+     */
+    var knowsHands = (ch.handSight && !(id === "mahoru_awake" && this.sealed > 0)) ||
+      (this.sight[seat] > 0 && target === 0);
+    if (knowsHands) {
+      var placerSeat = this.last ? this.last.seat : target;
+      var had = this.hands[placerSeat].concat(cards).filter(function (c) { return c.r === r; }).length;
+      if (had < k) return this.sureAction(seat);
+    }
+
+    /*
+     * 勘で疑うキャラ（快活な少女）。手札の中身は見ていない。
      *   catchRate … 嘘を見抜く確率。難易度で上がる
      *   falseRate … 本当なのに踏み込んでしまう確率（粗い勘のキャラだけ）
-     * 真歩流？は falseRate を持たないので読み違えない。ただし力を封じられている
-     * 間は下の普通の読みに戻る。記憶の力（メアリー・珠璃）が確信を与えた時は必ず疑う。
+     * 記憶の力（メアリー・珠璃）が確信を与えた時は必ず疑う。
      */
-    var sensor = ch.catchRate != null && !(id === "mahoru_awake" && this.sealed > 0);
+    var sensor = ch.catchRate != null;
     if (sensor) {
       var sense = Math.min(1, ch.catchRate + (this.level.catch || 0));
       // 勘の粗さは、難易度が上がるほど減る
@@ -1006,14 +1092,7 @@
         this.dropCutin(seat);
         return "none";
       }
-      // 名指し推理は真歩流？だけの能力。残り手札が少ない時や、
-      // プレイヤーが上がりに近い時など、勝敗に直結する局面へ温存する。
-      if (id === "mahoru_awake" && this.uses[seat] > 0 && this.hands[seat].length > 0 &&
-          (this.hands[seat].length <= 4 || this.hands[0].length <= 3 || this.pile.length >= 7)) return "guess";
-      // 空振りを恐れないなら、外れた時の保険をかけてから踏み込む
-      if (this.hasAbil(seat, "free_doubt") && this.abilLeft(seat, "free_doubt") > 0) return "free";
-      if (this.hasAbil(seat, "reido") && this.abilLeft(seat, "reido") > 0 && this.hands[seat].length >= 6) return "ability";
-      return "doubt";
+      return this.sureAction(seat);
     }
 
     if (target !== 0) {
@@ -1256,20 +1335,6 @@
     }
 
     /*
-     * メアリー：追加札はプレイヤーの上がり阻止用に温存する。
-     * 相方が残り2枚以下なら、その勝ち筋を邪魔しない。
-     */
-    if (this.hasAbil(seat, "mary_deal") && this.abilLeft(seat, "mary_deal") > 0) {
-      var maryOthers = [0, 1, 2].filter(function (t) { return t !== seat; });
-      var maryMate = maryOthers[0] === 0 ? maryOthers[1] : maryOthers[0];
-      if (this.hands[0].length <= 4 && this.hands[maryMate].length > 2) {
-        this.spendAbilId(seat, "mary_deal");
-        await this.io.cutin(this, seat, this.data.chara.mary_deal.ability);
-        await this.inviteDeck(seat, maryOthers);
-      }
-    }
-
-    /*
      * 叡留久：場札を引き取っても、三巡の保護中に手札を捨て切れる見込みがある時だけ使う。
      */
     if (this.hasAbil(seat, "eruku_deal") && this.abilLeft(seat, "eruku_deal") > 0 &&
@@ -1296,7 +1361,9 @@
 
     // 誰かの手札が少なくなったら、決着をつけさせるためにもてなしは控える
     var minHand = Math.min(this.hands[0].length, this.hands[1].length, this.hands[2].length);
-    if (id === "maicro" && (this.turnsTaken[seat] + 1) % 3 === 0 && minHand > this.data.rules.maicroQuiet) {
+    var eventMax = this.data.rules.maicroEventMax != null ? this.data.rules.maicroEventMax : Infinity;
+    if (id === "maicro" && (this.turnsTaken[seat] + 1) % 3 === 0 && minHand > this.data.rules.maicroQuiet &&
+        this.maicroEvents < eventMax) {
       await this.maicroEvent(seat);
     }
   };
@@ -1370,29 +1437,8 @@
   };
 
   /*
-   * 新しい札を、自分以外の二人に3枚ずつ配る（メアリー）。
-   * 英国の青年とは別の一組なので、札のidの頭文字を分けてある。
-   */
-  P.inviteDeck = async function (seat, others) {
-    var each = this.data.rules.extraDealEach || 3;
-    var take = this.makeUniqueExtraCards("e", each * 2);
-    for (var i = 0; i < take.length; i++) {
-      var to = others[i < each ? 0 : 1];
-      this.copies[take[i].r] = this.copiesOf(take[i].r) + 1;
-      this.addToHand(to, [take[i]]);
-      this.rememberDealtCards(seat, to, [take[i]]);
-    }
-    for (var k = 0; k < 3; k++) this.sortHand(k);
-    this.addedCards += take.length;
-    this.io.log(this, this.name(seat) + "の招待：" + this.name(others[0]) + "と" + this.name(others[1]) + "に" + each + "枚ずつ配られた");
-    await this.io.notice(this, "香りの招待",
-      "新しい札が" + take.length + "枚入り、自分以外の二人に" + each + "枚ずつ配られた");
-    this.io.update(this);
-  };
-
-  /*
-   * もう一組の札から、自分以外の二人へ3枚ずつ新しい札を配る（英国の青年）。
-   * 追加される6枚はすべて別の数字で、1種類につき1枚だけ増える。
+   * もう一組の札（英国の青年）：新しい札を、自分以外の二人に3枚ずつ配る。
+   * 札のidの頭文字は "d" にして、元の山札の札と区別している。
    */
   P.mixDeck = async function (seat) {
     var each = this.data.rules.extraDealEach || 3;
@@ -1414,6 +1460,7 @@
   };
 
   P.maicroEvent = async function (seat) {
+    this.maicroEvents++;
     // 今できる余興だけを並べて、その中から引く。
     // （できない時に決まった余興へ寄せると、真歩流？の封印だけが増えてしまう）
     var able = [1];
@@ -1484,6 +1531,128 @@
     }
     for (var v = 0; v < 3; v++) this.sortHand(v);
     this.io.update(this);
+  };
+
+
+  // ---------------------------------------------------------- 香りの招待・見透かし・ストック
+
+  /*
+   * 香りの招待：嘘を見抜かれた時かダウトを外した時に、引き取った札の半分を
+   * ダウトをし合った相手へ押しつける（一度だけ）。
+   * CPU は4枚以上引き取った時に使う。プレイヤーは使うかどうかを選ぶ。
+   */
+  P.pushInvitation = async function (loser, other, got) {
+    if (!(other >= 0) || other === loser) return;
+    if (!this.hasAbil(loser, "mary_deal") || this.abilLeft(loser, "mary_deal") <= 0) return;
+    var inHand = {};
+    this.hands[loser].forEach(function (c) { inHand[c.id] = true; });
+    var pool = got.filter(function (c) { return inHand[c.id]; });
+    var n = Math.floor(pool.length / 2);
+    if (n < 1) return;
+    var use = loser === 0 ? !!(this.io.askUse && await this.io.askUse(this, "mary_deal", n)) : pool.length >= 4;
+    if (!use) return;
+    this.spendAbilId(loser, "mary_deal");
+    await this.io.cutin(this, loser, this.data.chara.mary_deal.ability);
+    var push = this.worstCards(pool, n);
+    this.removeFromHand(loser, push);
+    this.addToHand(other, push);
+    this.sortHand(other);
+    this.sortHand(loser);
+    this.rememberHiddenTransfer(loser, other, push);
+    this.io.log(this, this.name(loser) + "が引き取った札のうち" + n + "枚を" + this.name(other) + "に押しつけた");
+    await this.io.notice(this, "香りの招待", this.name(other) + "が" + n + "枚を引き取らされた");
+    this.io.update(this);
+  };
+
+  /*
+   * 見透かし（朱志香）：ダウトされた時かダウトを外した時に、二巡のあいだ相手全員の手札を見通す。
+   * CPU はプレイヤーの手札が残り10枚以下の時に使う。プレイヤーは使うかどうかを選ぶ。
+   */
+  P.trySight = async function (seat) {
+    if (!(seat >= 0) || this.sight[seat] > 0 || this.winner >= 0) return;
+    if (!this.hasAbil(seat, "jushika_sight") || this.abilLeft(seat, "jushika_sight") <= 0) return;
+    if (this.hands[seat].length === 0) return;
+    var use = seat === 0 ? !!(this.io.askUse && await this.io.askUse(this, "jushika_sight")) : this.hands[0].length <= 10;
+    if (!use) return;
+    this.spendAbilId(seat, "jushika_sight");
+    await this.io.cutin(this, seat, this.data.chara.jushika_sight.ability);
+    // この手番の終わりに1つ減るので、そのぶん足しておく
+    this.sight[seat] = (this.data.rules.sightTurns || 6) + 1;
+    this.io.log(this, this.name(seat) + "は二巡のあいだ、相手全員の手札を見通す");
+    await this.io.notice(this, "見透かし", this.name(seat) + "は二巡のあいだ、相手全員の手札を見通す");
+    this.io.update(this);
+  };
+
+  // ストックしたメアリーの力：プレイヤーの手番ごとに、各相手の見える札が減っていく
+  P.fadePlayerVision = function () {
+    if (this.stockId !== "mary") return;
+    var each = parseInt(this.data.rules.maryFadeEach, 10) || 0;
+    if (each <= 0) return;
+    var self = this;
+    for (var t = 1; t <= 2; t++) {
+      var visible = this.hands[t].filter(function (c) { return self.playerVision[c.id] === t; });
+      this.shuffle(visible);
+      visible.slice(0, each).forEach(function (c) { delete self.playerVision[c.id]; });
+    }
+  };
+
+  // 画面に出す、プレイヤーから見えている相手の手札（見透かし中は全部、メアリーの力は残っている分）
+  P.visibleOppCards = function (seat) {
+    if (!(seat === 1 || seat === 2)) return [];
+    if (this.sight[0] > 0) return this.hands[seat].slice();
+    var self = this;
+    return this.hands[seat].filter(function (c) { return self.playerVision[c.id] === seat; });
+  };
+
+  // ストックした珠璃の力：伏せられた札のうち、プレイヤーが一度手にしたことのある札
+  P.recognizedCards = function (cards) {
+    if (!this.hasAbil(0, "juri")) return [];
+    var self = this;
+    return (cards || []).filter(function (c) { return self.heldBy0[c.id]; });
+  };
+
+  // ストックした叡留久の力：自分の手番に、相手1人と手札を丸ごと入れ替える
+  P.playerSwapAll = async function (target) {
+    if (!(target === 1 || target === 2)) return false;
+    if (!this.hasAbil(0, "eruku") || this.abilLeft(0, "eruku") <= 0) return false;
+    this.spendAbilId(0, "eruku");
+    await this.io.cutin(this, 0, this.data.chara.eruku.ability);
+    var mine = this.hands[0];
+    var theirs = this.hands[target];
+    this.hands[0] = [];
+    this.hands[target] = [];
+    this.addToHand(0, theirs);
+    this.addToHand(target, mine);
+    this.sortHand(0);
+    this.sortHand(target);
+    var map = {};
+    map[0] = target;
+    map[target] = 0;
+    this.remapSeenLocations(map);
+    // 入れ替えられた本人は、渡した札と受け取った札を正確に覚える
+    this.rememberFor(target, theirs, 0);
+    this.rememberFor(target, mine, target);
+    this.io.log(this, this.name(0) + "が" + this.name(target) + "と手札を丸ごと入れ替えた");
+    this.io.update(this);
+    return true;
+  };
+
+  // ストックした危ない取引：場の伏せ札の半分を引き取り、三巡のあいだダウトされない
+  P.playerRiskyDeal = async function () {
+    if (!this.hasAbil(0, "eruku_deal") || this.abilLeft(0, "eruku_deal") <= 0) return false;
+    if (this.immune[0] > 0 || this.pile.length < 2) return false;
+    this.spendAbilId(0, "eruku_deal");
+    await this.io.cutin(this, 0, this.data.chara.eruku_deal.ability);
+    var half = Math.floor(this.pile.length / 2);
+    var got = this.pile.splice(0, half);
+    this.addToHand(0, got);
+    this.moveSeenPile(got, 0);
+    this.sortHand(0);
+    this.immune[0] = 3;
+    this.io.log(this, this.name(0) + "が場の札" + half + "枚を引き取り、三巡のあいだ疑われない");
+    await this.io.notice(this, "危ない取引", this.name(0) + "の伏せ札は、三巡のあいだダウトできない");
+    this.io.update(this);
+    return true;
   };
 
   var Engine = { DoubtGame: DoubtGame, RANK: RANK, SUIT: SUIT };

@@ -10,6 +10,7 @@
  * [doubt_round_init]       ラウンドの勝ち負けを数え直す
  * [doubt_unlock_hidden]    隠しの二人をフリー対戦に加える（sf.doubt_hidden_cleared）
  * [doubt_highlow]          余興のハイアンドロー（挑むかどうかは任意）
+ * [doubt_stock pair=0]     倒した二人の能力を一つだけ持ち帰る → f.doubt_stock
  * [doubt_bonus]            残機ボーナスを通算に足す
  * [doubt_settings]         設定画面（難易度・ラウンド数・出札上限・カード枚数）
  * [doubt_help]             遊び方（ルール／キャラクター紹介）
@@ -339,6 +340,31 @@
       html += '<div class="subsk">' + skillHTML(ch.sub, "1ゲーム" + ch.subUses + "回", "（二つ目の力）") + "</div>";
     }
     return html;
+  }
+
+  // ストック（アーケードで持ち帰った能力）。フリー対戦では使わない
+  function stockId() {
+    var fv = f();
+    var id = fv.doubt_mode === "arcade" ? fv.doubt_stock : "";
+    return id && D.chara[id] ? id : "";
+  }
+  function stockUses(id) {
+    var u = D.stockUses && D.stockUses[id];
+    return u != null ? u : D.chara[id].uses;
+  }
+  function stockOption() {
+    var id = stockId();
+    return id ? { id: id, uses: stockUses(id) } : null;
+  }
+  function stockUseText(left) {
+    return left < 0 ? "常時" : "残り" + Math.max(0, left) + "回";
+  }
+  // VS画面などで、真歩流の下に並べるストックの説明
+  function stockHTML() {
+    var id = stockId();
+    if (!id) return "";
+    var u = stockUses(id);
+    return '<div class="subsk">' + skillHTML(id, u < 0 ? "常時" : "1ゲーム" + u + "回", "（ストック）") + "</div>";
   }
 
   // アーケードプレイを突破すると、シンプルプレイで最終戦も選べるようになる
@@ -846,7 +872,7 @@
       function showSkill(k) {
         ports.forEach(function (p, j) { p.classList.toggle("on", j === k); });
         panel.className = "skillpanel show" + (k === 0 ? " l" : "");
-        panel.innerHTML = skillWithSub(ids[k], k === 0 ? "（あなた）" : "");
+        panel.innerHTML = skillWithSub(ids[k], k === 0 ? "（あなた）" : "") + (k === 0 ? stockHTML() : "");
       }
 
       var left = h("div", "left");
@@ -909,6 +935,12 @@
 
   // 公開手札は、ゲーム内部の配列順ではなく数字の昇順で見せる。
   // 元配列は変更しないので、CPUの判断や手札管理には影響しない。
+  // 相手の手札をのぞく時の小さな札（数字と絵柄だけ）
+  function chipEl(c) {
+    var red = c.s === 1 || c.s === 2;
+    return h("span", "chip" + (red ? " red" : ""), c.r === 0 ? "JK" : RANK[c.r] + SUIT[c.s]);
+  }
+
   function sortedCardsForDisplay(cards) {
     return cards.slice().sort(function (a, b) {
       var ar = a.r === 0 ? 14 : a.r;
@@ -939,11 +971,12 @@
       var info = h("div", "info",
         '<div class="nm">' + D.chara[id].name + "</div>" +
         '<div class="cnt"><span class="k">手札</span><span class="v">0</span></div>' +
-        '<div class="use"></div>');
+        '<div class="use"></div>' +
+        '<div class="peek"></div>');
       box.appendChild(p);
       box.appendChild(info);
       self.root.appendChild(box);
-      self.opp[seat] = { box: box, count: info.querySelector(".v"), use: info.querySelector(".use") };
+      self.opp[seat] = { box: box, count: info.querySelector(".v"), use: info.querySelector(".use"), peek: info.querySelector(".peek") };
       var bub = h("div", "dbt-bubble s" + seat);
       self.root.appendChild(bub);
       self.bubble[seat] = bub;
@@ -987,11 +1020,18 @@
     this.bDoubt = btn("ダウトを宣言する", "navy", function () { self.onDoubt(); });
     this.bAbility = btn("能力を発動する", "pink", function () { self.onAbility(); });
     this.bSkill = btn("スキル", "navy info", function () { self.openSkills(); });
+    // ストックした能力。持っている時だけ並べる（自分で使う能力だけ押せる）
+    var sid = stockId();
+    if (sid) this.bStock = btn(D.chara[sid].name, "teal stock", function () { self.onStock(); });
     // 降参はフリー対戦だけ。アーケードは残機とコンティニューで区切りがつく
     this.canResign = f().doubt_mode === "simple";
     cmd.appendChild(this.bMain);
     cmd.appendChild(this.bDoubt);
     cmd.appendChild(this.bAbility);
+    if (this.bStock) {
+      cmd.appendChild(this.bStock);
+      cmd.classList.add("with-stock");
+    }
     cmd.appendChild(this.bSkill);
     // 降参はフリー対戦の時だけ、スキルの隣に並べる
     if (this.canResign) {
@@ -1040,6 +1080,11 @@
         box.appendChild(h("div", "sk borrow",
           skillHTML(g.subId[seat], sc.uses > 0 ? "残り" + Math.max(0, g.subUses[seat]) + "回" : "常時",
             "（二つ目の力）")));
+      }
+      // プレイヤーのストック
+      if (seat === 0 && g.stockId) {
+        box.appendChild(h("div", "sk borrow",
+          skillHTML(g.stockId, stockUseText(g.abilLeft(0, g.stockId)), "（ストック）")));
       }
       // 真歩流？が借りている能力も、同じように並べる
       if (seat === g.awakeSeat && g.borrowId) {
@@ -1121,6 +1166,68 @@
     }
     this.handEl.classList.toggle("turn", m === "place" || m === "give");
     if (this.bResign) this.bResign.classList.toggle("off", m === "idle");
+    if (this.bStock && g && g.stockId) {
+      this.bStock.innerHTML = D.chara[g.stockId].name + "<small>" + stockUseText(g.abilLeft(0, g.stockId)) + "</small>";
+      this.bStock.classList.toggle("off", !this.stockReady(m) || !!this.stockBusy);
+    }
+  };
+
+  // ストックした能力を、今この場面で自分から使えるか
+  B.stockReady = function (m) {
+    var g = this.game;
+    if (!g || !g.stockId || g.abilLeft(0, g.stockId) <= 0) return false;
+    switch (g.stockId) {
+      case "reido": return m === "window" && g.hands[0].length >= 4 && !g.doubtBlocked();
+      case "eruku": return m === "place";
+      case "eruku_deal": return m === "place" && g.pile.length >= 2 && g.immune[0] === 0;
+      default: return false;   // 常時の力や、条件がそろうと確認が出る力
+    }
+  };
+
+  B.onStock = async function () {
+    var g = this.game;
+    var self = this;
+    if (!g || this.stockBusy || !this.stockReady(this.mode)) return;
+    if (g.stockId === "reido") {
+      this.finishInput({ type: "ability" });
+      return;
+    }
+    if (g.stockId === "eruku") {
+      var ov = h("div", "dbt-overlay dbt-pad dbt-swap");
+      var box = h("div", "box");
+      box.appendChild(h("div", "q", "誰と手札を丸ごと入れ替える？"));
+      var row = h("div", "targets");
+      [1, 2].forEach(function (seat) {
+        row.appendChild(btn(g.name(seat) + "<small>手札" + g.shownHand(seat) + "枚</small>", "navy", function () {
+          closeRoot(ov);
+          self.runStock(function () { return g.playerSwapAll(seat); });
+        }));
+      });
+      box.appendChild(row);
+      box.appendChild(btn("やめる", "navy cancel", function () { closeRoot(ov); }));
+      ov.appendChild(box);
+      this.root.appendChild(ov);
+      return;
+    }
+    if (g.stockId === "eruku_deal") this.runStock(function () { return g.playerRiskyDeal(); });
+  };
+
+  // 手番の途中で使う能力。伏せるために選んでいた札はいったん解除してから使う
+  B.runStock = async function (fn) {
+    this.stockBusy = true;
+    this.selected = {};
+    this.setButtons();
+    try { await fn(); } finally { this.stockBusy = false; }
+    if (this.game) {
+      if (this.mode === "place") this.guide.textContent = this.placeText(this.game);
+      this.render(this.game);
+    }
+  };
+
+  B.placeText = function (g) {
+    var t = "〈" + RANK[g.rank] + "〉として伏せる札を選ぶ（1〜" + g.maxPlay + "枚・嘘でもよい）";
+    if (g.immune[0] > 0) t += "　いまはダウトされない（あと" + g.immune[0] + "回）";
+    return t;
   };
 
   B.render = function (g) {
@@ -1150,8 +1257,21 @@
         if (g.sealed > 0) useText = "力を封じられている";
       }
       if (g.immune[seat] > 0) useText = "ダウトされない（あと" + g.immune[seat] + "回）";
+      if (g.sight[seat] > 0) useText = "見透かし中：あなたの手札が見えている";
       if (hidden) useText = "枚数が読めない";
       o.use.textContent = useText;
+
+      // メアリーの力（ストック）や見透かしで、相手の手札が見えている時
+      var vis = g.visibleOppCards(seat);
+      var peekOn = g.sight[0] > 0 || vis.length > 0;
+      o.peek.innerHTML = "";
+      o.peek.style.display = peekOn ? "" : "none";
+      if (peekOn) {
+        o.peek.appendChild(h("div", "pk", g.sight[0] > 0 ? "見透かし中" : "見えている札"));
+        var chips = h("div", "chips");
+        sortedCardsForDisplay(vis).forEach(function (c) { chips.appendChild(chipEl(c)); });
+        o.peek.appendChild(chips);
+      }
     });
 
     this.rankBox.innerHTML = "<span>" + RANK[g.rank] + "</span>";
@@ -1581,7 +1701,7 @@
       },
       playerPlace: function (g) {
         ui.game = g;
-        return ui.waitInput("place", "〈" + RANK[g.rank] + "〉として伏せる札を選ぶ（1〜" + g.maxPlay + "枚・嘘でもよい）");
+        return ui.waitInput("place", ui.placeText(g));
       },
       playerDoubt: function (g) {
         ui.game = g;
@@ -1598,6 +1718,9 @@
         } else {
           why = "嘘だと思ったらダウト";
         }
+        // ストックした珠璃の力：伏せ札の中に、一度手にした札があれば分かる
+        var rec = g.recognizedCards(g.last.cards);
+        if (rec.length) why += "　覚えのある札：" + rec.map(function (c) { return RANK[c.r] + SUIT[c.s]; }).join(" ");
         return ui.waitInput("window", head + why);
       },
       pickGive: function (g, n, placer, offerRank) {
@@ -1671,6 +1794,26 @@
           }
 
           chooseTarget();
+        });
+      },
+      // ストックした能力を、条件がそろった場面で使うか確かめる
+      askUse: function (g, id, n) {
+        return new Promise(function (resolve) {
+          var q = {
+            koderia: "嘘を見抜かれた！　このダウトを無効にする？",
+            mary_deal: "引き取る札のうち" + n + "枚を、相手に押しつける？",
+            jushika_sight: "二巡のあいだ、相手全員の手札を見通す？",
+          }[id] || D.chara[id].name + "を使う？";
+          var ov = h("div", "dbt-overlay dbt-pad dbt-swap dbt-ask");
+          var box = h("div", "box");
+          box.appendChild(h("div", "q", D.chara[id].name + "<small>" + stockUseText(g.abilLeft(0, id)) + "</small>"));
+          box.appendChild(h("div", "sub", q));
+          var row = h("div", "targets");
+          row.appendChild(btn("使う", "red", function () { closeRoot(ov); resolve(true); }));
+          row.appendChild(btn("使わない", "navy", function () { closeRoot(ov); resolve(false); }));
+          box.appendChild(row);
+          ov.appendChild(box);
+          ui.root.appendChild(ov);
         });
       },
       // スキル発動カットイン
@@ -1820,7 +1963,8 @@
       };
     });
     var game = new E.DoubtGame({
-      data: D, pairIndex: idx, io: io, level: getLevel(), maxPlay: getMaxPlay(), deckSize: getDeckSize()
+      data: D, pairIndex: idx, io: io, level: getLevel(), maxPlay: getMaxPlay(), deckSize: getDeckSize(),
+      stock: stockOption()
     });
     ui.game = game;
     lifecycle.battle = ui;
@@ -1985,7 +2129,7 @@
       root.appendChild(h("div", "hd", "デバッグ"));
       root.appendChild(h("div", "sub", "アーケードプレイを、好きなところから始めます"));
 
-      var pick = { stage: 0, story: 1, total: 0, lives: 1 };
+      var pick = { stage: 0, story: 1, total: 0, lives: 1, stock: "" };
       var rows = [];
 
       function row(label, note, items, key) {
@@ -2022,6 +2166,9 @@
         { t: (D.rules.hiddenScore).toLocaleString(), v: D.rules.hiddenScore },
       ], "total");
       row("残機", "", [{ t: "1", v: 1 }, { t: "3", v: 3 }, { t: "5", v: 5 }], "lives");
+      var stockItems = [{ t: "なし", v: "" }];
+      Object.keys(D.stockUses).forEach(function (id) { stockItems.push({ t: D.chara[id].name, v: id }); });
+      row("ストック", "持ち帰った能力", stockItems, "stock");
       sync();
 
       function finish(go) {
@@ -2033,6 +2180,7 @@
           fv.doubt_total = pick.total;
           fv.doubt_lives = pick.lives;
           fv.doubt_debug_story = !!pick.story;
+          fv.doubt_stock = pick.stock;
         }
         closeRoot(root);
         resolve();
@@ -2042,6 +2190,52 @@
       cmds.appendChild(btn("ここから始める", "red", function () { finish(true); }));
       cmds.appendChild(btn("もどる", "navy", function () { finish(false); }));
       root.appendChild(cmds);
+    });
+  });
+
+  // ---------------------------------------------------------------- 能力の持ち帰り（ストック）
+  //   アーケードで卓を突破するたびに、倒した二人の能力から一つだけ持ち帰れる。
+  //   持てるのは一つだけ。持ち帰ると、今のストックと入れ替わる。
+  //   二つの力を持つキャラは、どちらか一方を選ぶ（D.stock に候補がある）。
+
+  defineTag("doubt_stock", { pair: "0" }, function (pm) {
+    var pr = D.pairs[pairIndexOf(pm)];
+    var fv = f();
+    var options = [];
+    [pr.a, pr.b].forEach(function (owner) {
+      (D.stock[owner] || []).forEach(function (id) {
+        if (D.chara[id]) options.push({ owner: owner, id: id });
+      });
+    });
+    if (!options.length) return;
+    return new Promise(function (resolve) {
+      var root = openRoot("dbt-stock");
+      bg(root, D.img.bgSelect);
+      root.appendChild(h("div", "dbt-shade shade"));
+      root.appendChild(h("div", "hd", "能力を持ち帰る"));
+      root.appendChild(h("div", "sub", "倒した相手の力を一つだけ、次の卓から使えます（持てるのは一つだけ）"));
+      var cur = fv.doubt_stock && D.chara[fv.doubt_stock] ? fv.doubt_stock : "";
+      root.appendChild(h("div", "cur", "いまのストック：" + (cur ? D.chara[cur].name : "なし")));
+
+      var list = h("div", "opts");
+      options.forEach(function (o) {
+        var card = h("div", "opt");
+        card.appendChild(portrait(o.owner));
+        var u = stockUses(o.id);
+        card.appendChild(h("div", "txt",
+          '<div class="own">' + D.chara[o.owner].name + "</div>" +
+          skillHTML(o.id, u < 0 ? "常時" : "1ゲーム" + u + "回")));
+        card.appendChild(btn("持ち帰る", "red take", function () { finish(o.id); }));
+        list.appendChild(card);
+      });
+      root.appendChild(list);
+      root.appendChild(btn(cur ? "今のままにする" : "持ち帰らない", "navy keep", function () { finish(cur); }));
+
+      function finish(id) {
+        fv.doubt_stock = id || "";
+        closeRoot(root);
+        resolve();
+      }
     });
   });
 

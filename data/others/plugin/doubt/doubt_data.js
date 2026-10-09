@@ -88,7 +88,7 @@
        *   bluff  … 相手が自分から嘘を混ぜる癖の強さ（小さいほど隙を見せない）
        *   memory … 公開された札の在処を全員が覚える
        *   odds   … 「その数字を何枚持っていそうか」の見込みをどれだけ重く見るか（0で使わない）
-       *   catch  … 真歩流？の嘘センサーの上乗せ（他のキャラだけ賢くならないように）
+       *   catch  … 勘で疑うキャラ（快活な少女）の勘の上乗せ（他のキャラだけ賢くならないように）
        */
       levels: [
         { key: "easy",   name: "やさしい", note: "自分の手札を頼りに、慎重に疑う",       score: 0.8, blind: 0.12, bluff: 2,   memory: false, odds: 0,   catch: 0,    certain: 0.3, bonus: 0.5 },
@@ -102,7 +102,7 @@
       // タイトルに「デバッグ」ボタンを出す。配布する時は false にする
       debugMenu: false,
       hiddenScore: 40000, // この点に届いていれば、コンティニューしていても隠し戦に進める
-      extraDealEach: 3,  // メアリー／英国の青年が、自分以外の各プレイヤーに配る新規札の枚数
+      extraDealEach: 3,  // 英国の青年が、自分以外の各プレイヤーに配る新規札の枚数
       maryFadeEach: 1,   // メアリーの手番ごとに、各相手の「まだ見えている手札」から見えなくなる枚数
       deckSizeDefault: 52, // 通常52枚。ショートは26枚（各数字2枚）
       deckSizeOptions: [52, 26],
@@ -113,6 +113,8 @@
       maxPlayMax: 4,
       jokers: 2, // 舞黒邦夢が山札から出すジョーカーの枚数
       maicroQuiet: 5, // 誰かの手札がこの枚数以下の間は、舞黒邦夢のもてなしが起きない
+      maicroEventMax: 3, // 舞黒邦夢のもてなしは1戦にこの回数まで（多いと決着がつかず長引く）
+      sightTurns: 6,  // 朱志香の「見透かし」が続く手数（二巡＝3人×2）
       safetyLimit: 240, // この手数に達したら時間切れ（手札が最も少ない者の勝ち）
       mateDoubt: 0.4, // 相方同士で疑い合う強さ（通常の疑い確率に掛ける）
       // true  … スキル発動のたびに一枚絵のカットインを出す
@@ -126,6 +128,8 @@
     /*
      * doubt     : 相手の宣言を疑う基本確率
      * catchRate : 嘘を嘘だと見抜く確率（持っているキャラだけ、勘で疑う）
+     * handSight : 全員の手札の中身を把握している（伏せた札そのものは見ていない）。
+     *             宣言した数字をその枚数持っていなかったと分かる時だけ、嘘だと確信する
      * falseRate : 本当なのに嘘だと思い込む確率（勘の粗さ。無ければ読み違えない）
      * tell  : 嘘をついた時に動揺が顔に出る確率（本当の時は tell×0.3）
      * bluff : 本当の札に余計な1枚を混ぜる確率
@@ -161,18 +165,18 @@
       jushika: { name: "朱志香", reading: "じゅしか", color: "#b0413e", doubt: 0.08, tell: 0.2, bluff: 0.15,
         doubtStyle: "aggressive", // 攻撃型：相手が上がりに近づくほど強気に踏み込む
         ability: "自分か小出里亜がダウトを外すと、しばらく二人の手札の枚数がでたらめになり、伏せた枚数も分からなくなる",
-        uses: -1 },
+        uses: -1, sub: "jushika_sight", subUses: 2 },
       koderia: { name: "小出里亜", reading: "こでりあ", color: "#9fb0d4", doubt: 0.08, tell: 0.18, bluff: 0.15,
         doubtStyle: "defensive", // 防御型：自分から無理に疑わず、確実な時だけ動く
         ability: "成立するはずのダウトを無効にする",
         uses: 2 },
       mahoru_awake: { name: "真歩流？", reading: "まほる？", color: "#7a3fd8", doubt: 0.3, tell: 0.3, bluff: 0.1,
-        doubtStyle: "supersense", // 超感覚型：力を封じられていない限り、嘘を必ず見抜く
-        ability: "……ものすごく強い。力を封じられていない限り嘘を必ず見抜き、伏せ札の数字を名指ししてくる。そのうえ、誰かの力を借りている",
-        uses: 2, catchRate: 1, guessRate: 0.7 },
+        doubtStyle: "supersense", // 全知型：全員の手札を把握し、持っていない数字の宣言は必ず見抜く
+        ability: "……ものすごく強い。力を封じられていない限り全員の手札を把握し、持っていない数字の宣言を必ず見抜いて、伏せ札の数字を名指ししてくる。そのうえ、誰かの力を借りている",
+        uses: 2, handSight: true },
       maicro: { name: "舞黒邦夢", reading: "まいくろほうむ", color: "#c08a1e", doubt: 0.25, tell: 0.15, bluff: 0.15,
         doubtStyle: "enjoy", // エンジョイ型：根拠が薄い時ほど遊びで踏み込み、枚数が多いほど疑いやすい
-        ability: "館主のもてなし。場がかき乱される（ときどき味方の足を引っぱる）",
+        ability: "館主のもてなし。1戦に3回まで、場がかき乱される（ときどき味方の足を引っぱる）",
         uses: -1 },
 
       /*
@@ -197,8 +201,11 @@
         ability: "1ゲーム1回。自分の手番に相手1人と手札を全公開し、自分の手札の半分（切り捨て）まで同じ枚数を指定して交換する（公開内容は当事者だけが知る）",
         uses: 1 },
       mary_deal: { name: "香りの招待", color: "#c77dd8", doubt: 0, tell: 0, bluff: 0,
-        ability: "一度だけ、数字が重複しない新しい札6枚を、自分以外の二人に3枚ずつ配る（1種類につき1枚だけ増える）",
+        ability: "一度だけ、嘘を見抜かれた時かダウトを外した時に、引き取る場の札の半分を相手に押しつける",
         uses: 1 },
+      jushika_sight: { name: "見透かし", color: "#b0413e", doubt: 0, tell: 0, bluff: 0,
+        ability: "ダウトされた時かダウトを外した時、二巡のあいだ相手全員の手札を見通す（1ゲーム2回まで）",
+        uses: 2 },
       eruku_deal: { name: "危ない取引", color: "#3fae7a", doubt: 0, tell: 0, bluff: 0,
         ability: "一度だけ、場の伏せ札の半分を引き取る代わりに、三巡のあいだダウトされない",
         uses: 1 },
@@ -208,6 +215,20 @@
       arther_deck: { name: "もう一組の札", color: "#5f8fd0", doubt: 0, tell: 0, bluff: 0,
         ability: "一度だけ、数字が重複しない新しい札6枚を、自分以外の二人に3枚ずつ配る（1種類につき1枚だけ増える）",
         uses: 1 },
+    },
+
+    /*
+     * ストック：アーケードで勝った卓の相手から、能力を1つだけ持ち帰れる（最大1つ。取り替えはできる）。
+     *   stock     … キャラごとに持ち帰れる能力の候補（二つの力を持つキャラは、どちらか一方）
+     *   stockUses … 持ち帰った時に使える回数（-1 は常時）。基本は元の回数のまま
+     */
+    stock: {
+      airi: ["airi"], kazuto: ["kazuto"], mary: ["mary", "mary_deal"], reido: ["reido"],
+      juri: ["juri"], eruku: ["eruku", "eruku_deal"], jushika: ["jushika_sight"], koderia: ["koderia"],
+    },
+    stockUses: {
+      airi: 2, kazuto: -1, mary: -1, mary_deal: 1, reido: 2,
+      juri: -1, eruku: 1, eruku_deal: 1, jushika_sight: 2, koderia: 1,
     },
 
     /*

@@ -11,6 +11,8 @@
 *arcade
 [eval exp="f.doubt_total = 0; f.doubt_lives = 1; f.doubt_stage = 0"]
 [eval exp="f.doubt_used_continue = false"]
+; 持ち帰った能力（ストック）は、新しく始めるたびに空にする
+[eval exp="f.doubt_stock = ''"]
 [call storage="doubt_story.ks" target="*prologue"]
 ; 通常アーケードは必ず最初のステージ会話へ。下のデバッグ入口へ流れ込ませない
 [jump target="*arcade_stage"]
@@ -63,6 +65,8 @@
 [doubt_highlow cond="f.doubt_lose_count == 0"]
 ; 体験版は第一戦を遊び終えたところで終了する
 [jump target="*arcade_demo_end" cond="f.doubt_demo && f.doubt_stage >= f.doubt_demo_last"]
+; 倒した二人の能力を一つだけ持ち帰れる（最終戦の前の卓まで）
+[doubt_stock pair="&f.doubt_stage" cond="f.doubt_stage < 4"]
 ; 隠し戦に勝った時だけ、専用会話と解放を挟んで通常エンディングへ
 [jump target="*arcade_hidden_win" cond="f.doubt_stage == 5"]
 [eval exp="f.doubt_stage++"]

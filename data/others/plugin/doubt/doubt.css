@@ -911,3 +911,47 @@
 @keyframes dbt-doubt-word { from { transform:scale(1.45); opacity:0; } to { transform:scale(1); opacity:1; } }
 @media (prefers-reduced-motion:reduce) { .dbt-doubt-cut,.dbt-doubt-cut .doubt-shout { animation:none; } }
 
+
+/* ---------------------------------------------------------------- ストック（持ち帰った能力） */
+/* 対戦画面：ボタンが一つ増えるので、全体を少し詰める */
+.dbt-cmd.with-stock { gap: 22px; }
+.dbt-cmd.with-stock .dbt-btn { min-width: 300px; padding: 22px 28px; font-size: 32px; }
+.dbt-cmd.with-stock .dbt-btn.info { min-width: 170px; }
+.dbt-cmd.with-stock .dbt-btn.resign { min-width: 150px; }
+.dbt-cmd .dbt-btn.stock { min-width: 250px; }
+.dbt-cmd .dbt-btn.stock small { font-size: 20px; }
+
+/* 相手の手札が見えている時（メアリーの力・見透かし） */
+.dbt-opp .peek { max-width: 340px; padding: 6px 8px 8px; background: rgba(11,17,34,.78); box-shadow: 0 0 0 2px #b0413e; }
+.dbt-opp .peek .pk { font-size: 17px; letter-spacing: .18em; color: #f5a3b8; margin-bottom: 4px; }
+.dbt-opp .peek .chips { display: flex; flex-wrap: wrap; gap: 4px; }
+.dbt-opp.s2 .peek .chips { justify-content: flex-end; }
+.dbt-opp .peek .chip { min-width: 30px; padding: 1px 4px; background: #f6efe0; color: #1b2a4a; font-family: "Bellefair", serif; font-size: 21px; line-height: 1.2; text-align: center; letter-spacing: 0; }
+.dbt-opp .peek .chip.red { color: #c0392b; }
+
+/* 使うかどうかの確認 */
+.dbt-ask .q small { margin-left: 16px; font-size: 24px; color: #e8b54a; letter-spacing: .1em; }
+.dbt-ask .sub { font-size: 30px; line-height: 1.5; margin: -6px 0 34px; color: #f6efe0; }
+
+/* 持ち帰る能力を選ぶ画面 */
+.dbt-stock .hd { position: absolute; left: 0; right: 0; top: 70px; text-align: center; font-family: "Kiwi Maru", serif; font-size: 80px; letter-spacing: .3em; color: #e8b54a; text-shadow: 5px 5px 0 #7f1810; }
+.dbt-stock .sub { position: absolute; left: 0; right: 0; top: 196px; text-align: center; font-size: 30px; letter-spacing: .08em; color: #f6efe0; text-shadow: 0 2px 6px #000; }
+.dbt-stock .cur { position: absolute; left: 0; right: 0; top: 250px; text-align: center; font-size: 26px; letter-spacing: .12em; color: #f5a3b8; }
+.dbt-stock .opts { position: absolute; left: 60px; right: 60px; top: 320px; display: flex; justify-content: center; gap: 36px; }
+.dbt-stock .opt { width: 540px; display: flex; flex-direction: column; align-items: center; gap: 16px; padding: 22px 24px 26px; background: rgba(11,17,34,.82); box-shadow: 0 0 0 3px #c08a1e; }
+.dbt-stock .opt .dbt-portrait { width: 200px; height: 240px; box-shadow: 0 0 0 3px #c08a1e; }
+.dbt-stock .opt .txt { align-self: stretch; text-align: left; min-height: 230px; }
+.dbt-stock .opt .own { font-size: 20px; letter-spacing: .2em; color: #e8b54a; margin-bottom: 4px; }
+.dbt-stock .opt .skhd { display: flex; align-items: baseline; justify-content: space-between; gap: 14px; }
+.dbt-stock .opt .who { font-family: "Kiwi Maru", serif; font-size: 34px; }
+.dbt-stock .opt .use { font-size: 22px; color: #e8b54a; white-space: nowrap; }
+.dbt-stock .opt .ab { margin-top: 8px; font-size: 24px; line-height: 1.5; color: #f6efe0; }
+.dbt-stock .opt .take { padding: 14px 60px; font-size: 32px; }
+.dbt-stock .keep { position: absolute; left: 50%; bottom: 56px; transform: translateX(-50%); padding: 16px 70px; font-size: 32px; }
+.dbt-stock .keep:active { transform: translate(calc(-50% + 3px), 3px); }
+/* 英語：ストックのボタンが増えた時は、六つが一列に収まるように詰める */
+.dbt-en .dbt-cmd.with-stock { gap: 16px; padding: 0 16px; }
+.dbt-en .dbt-cmd.with-stock .dbt-btn { min-width: 0; padding: 18px 20px; font-size: 26px; letter-spacing: .04em; white-space: nowrap; }
+.dbt-en .dbt-cmd.with-stock .dbt-btn small { font-size: 18px; margin-left: 6px; }
+.dbt-en .dbt-stock .hd { font-size: 64px; letter-spacing: .12em; }
+.dbt-en .dbt-stock .sub { font-size: 26px; }
