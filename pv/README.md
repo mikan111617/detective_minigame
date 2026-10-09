@@ -20,3 +20,20 @@
 - 対戦シーンはデバッグメニュー（実行時のみ有効化）から第一〜第四戦を使用。最終戦・隠し戦は使っていません。
 - BGM・ボイスはゲーム内の素材（data/bgm, data/voice_en）。カット切り替えのインパクト音のみ編集時に追加。
 - 勝利・敗北シーンは短く決着させるため、収録時のみ配札を調整しています（ゲーム本体のファイルは変更していません）。
+
+## スクリーンショット（英語版）
+
+`screenshots_en/` … 1920×1080 / PNG（無劣化）
+
+| ファイル | 内容 |
+|---|---|
+| 01_title.png | タイトル画面 |
+| 02_story_library.png | ストーリー：資料室で父の手がかりを探す真歩流と愛理 |
+| 03_story_salon.png | ストーリー：第一戦の卓で待つ愛理と和人 |
+| 04_battle_doubt_call.png | 対戦：真歩流の「DOUBT!」 |
+| 05_battle_doubt_success.png | 対戦：ダウト成功（伏せ札が暴かれる） |
+| 06_battle_doubt_rival.png | 対戦：和人が愛理にダウト |
+| 07_battle_skill_mahoru.png | 対戦：真歩流のスキル発動（数字の名指し） |
+| 08_battle_skill_jushika.png | 対戦：朱志香のスキル発動 |
+| 09_battle_card_select.png | 対戦：伏せる札を選ぶ |
+| 10_battle_card_play.png | 対戦：札を伏せて場に出す |
