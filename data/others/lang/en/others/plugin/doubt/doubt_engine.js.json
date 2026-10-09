@@ -19,7 +19,7 @@
     [
       472,
       "    this.io.log(this, this.name(seat) + \"：〈\" + RANK[this.rank] + \"〉が\" + this.shownPlay(cards.length, seat) + \"枚\");",
-      "    this.io.log(this, this.name(seat) + \": 〈\" + RANK[this.rank] + \"〉 × \" + this.shownPlay(cards.length, seat) + \" cards\");"
+      "    this.io.log(this, this.name(seat) + \": 〈\" + RANK[this.rank] + \"〉 × \" + this.shownPlay(cards.length, seat) + (this.shownPlay(cards.length, seat) === 1 ? \" card\" : \" cards\"));"
     ],
     [
       495,
@@ -69,12 +69,12 @@
     [
       710,
       "        this.io.log(this, this.name(loser) + \"は\" + half + \"枚だけ回収（\" + (take.length - half) + \"枚は場から除外）\");",
-      "        this.io.log(this, this.name(loser) + \" takes only \" + half + \" cards (\" + (take.length - half) + \" cards are removed from play)\");"
+      "        this.io.log(this, this.name(loser) + \" takes only \" + half + (half === 1 ? \" card\" : \" cards\") + \" (\" + (take.length - half) + (take.length - half === 1 ? \" card is\" : \" cards are\") + \" removed from play)\");"
     ],
     [
       716,
       "        this.io.log(this, this.name(loser) + \"が場の札\" + take.length + \"枚を回収\");",
-      "        this.io.log(this, this.name(loser) + \" takes \" + take.length + \" cards from the pile\");"
+      "        this.io.log(this, this.name(loser) + \" takes \" + take.length + (take.length === 1 ? \" card\" : \" cards\") + \" from the pile\");"
     ],
     [
       739,
@@ -99,7 +99,7 @@
     [
       789,
       "        this.io.log(this, this.name(doubter) + \"が\" + gv.length + \"枚を\" + this.name(placer) + \"に渡した\");",
-      "        this.io.log(this, this.name(doubter) + \" gives \" + gv.length + \" cards to \" + this.name(placer));"
+      "        this.io.log(this, this.name(doubter) + \" gives \" + gv.length + (gv.length === 1 ? \" card\" : \" cards\") + \" to \" + this.name(placer));"
     ],
     [
       793,
@@ -114,7 +114,7 @@
     [
       858,
       "    this.io.log(this, this.name(target) + \"と手札を\" + n + \"枚ずつ交換した\");",
-      "    this.io.log(this, this.name(target) + \" exchanges \" + n + \" cards each\");"
+      "    this.io.log(this, this.name(target) + \" exchanges \" + n + (n === 1 ? \" card\" : \" cards\") + \" each\");"
     ],
     [
       891,
@@ -149,7 +149,7 @@
     [
       1407,
       "        this.io.log(this, this.name(seat) + \"が場の札\" + half + \"枚を引き取り、三巡のあいだ疑われない\");",
-      "        this.io.log(this, this.name(seat) + \" takes \" + half + \" cards from the pile and cannot be challenged for three turns\");"
+      "        this.io.log(this, this.name(seat) + \" takes \" + half + (half === 1 ? \" card\" : \" cards\") + \" from the pile and cannot be challenged for three turns\");"
     ],
     [
       1408,
@@ -169,7 +169,7 @@
     [
       1468,
       "    this.io.log(this, this.name(seat) + \"との取引：〈\" + RANK[give[0].r] + \"〉\" + n + \"枚と\" + back.length + \"枚を交換\");",
-      "    this.io.log(this, this.name(seat) + \" trades: 〈\" + RANK[give[0].r] + \"〉\" + n + \" × \" + back.length + \" cards exchanged\");"
+      "    this.io.log(this, this.name(seat) + \" trades: 〈\" + RANK[give[0].r] + \"〉\" + n + \" × \" + back.length + (back.length === 1 ? \" card\" : \" cards\") + \" exchanged\");"
     ],
     [
       1506,
@@ -179,7 +179,7 @@
     [
       1507,
       "      this.name(others[0]) + \"と\" + this.name(others[1]) + \"に\" + each + \"枚ずつ配られた\");",
-      "      this.name(others[0]) + \" and \" + this.name(others[1]) + \" receive \" + each + \" cards each\");"
+      "      this.name(others[0]) + \" and \" + this.name(others[1]) + \" receive \" + each + (each === 1 ? \" card\" : \" cards\") + \" each\");"
     ],
     [
       1508,
@@ -239,12 +239,12 @@
     [
       1613,
       "    this.io.log(this, this.name(loser) + \"が引き取った札のうち\" + n + \"枚を\" + this.name(other) + \"に押しつけた\");",
-      "    this.io.log(this, \"Fragrant Invitation: \" + n + \" picked-up cards pushed from \" + this.name(loser) + \" to \" + this.name(other));"
+      "    this.io.log(this, \"Fragrant Invitation: \" + n + (n === 1 ? \" picked-up card\" : \" picked-up cards\") + \" pushed from \" + this.name(loser) + \" to \" + this.name(other));"
     ],
     [
       1614,
       "    await this.io.notice(this, \"香りの招待\", this.name(other) + \"が\" + n + \"枚を引き取らされた\");",
-      "    await this.io.notice(this, \"Fragrant Invitation\", n + \" cards are forced onto \" + this.name(other) + \".\");"
+      "    await this.io.notice(this, \"Fragrant Invitation\", n + (n === 1 ? \" card is\" : \" cards are\") + \" forced onto \" + this.name(other) + \".\");"
     ],
     [
       1632,
@@ -264,7 +264,7 @@
     [
       1703,
       "    this.io.log(this, this.name(0) + \"が場の札\" + half + \"枚を引き取り、三巡のあいだ疑われない\");",
-      "    this.io.log(this, \"You take \" + half + \" cards from the pile and cannot be challenged for three turns\");"
+      "    this.io.log(this, \"You take \" + half + (half === 1 ? \" card\" : \" cards\") + \" from the pile and cannot be challenged for three turns\");"
     ],
     [
       1704,

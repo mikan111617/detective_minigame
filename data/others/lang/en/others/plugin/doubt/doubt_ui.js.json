@@ -674,7 +674,7 @@
     [
       1537,
       "        title(g.name(seat) + \"と\" + count + \"枚ずつ交換\", \"赤枠＝相手が要求するあなたの札。欲しい相手の札を\" + count + \"枚選ぶ\");",
-      "        title(g.name(seat) + \" — exchange \" + count + \" cards each\", \"Red outline = cards your opponent wants. Choose \" + count + \" cards you want in return\");"
+      "        title(g.name(seat) + \" — exchange \" + count + (count === 1 ? \" card\" : \" cards\") + \" each\", \"Red outline = cards your opponent wants. Choose \" + count + (count === 1 ? \" card\" : \" cards\") + \" you want in return\");"
     ],
     [
       1538,
@@ -734,7 +734,7 @@
     [
       1799,
       "          offered + g.name(placer) + \"に渡す札を\" + n + \"枚選ぶ\");",
-      "          offered + \"Choose \" + n + \" cards to give \" + g.name(placer));"
+      "          offered + \"Choose \" + n + (n === 1 ? \" card\" : \" cards\") + \" to give \" + g.name(placer));"
     ],
     [
       1812,
@@ -744,7 +744,7 @@
     [
       1813,
       "            box.appendChild(h(\"div\", \"sub\", \"次の手番はダウトされない。手札を\" + n + \"枚まで捨てられる\"));",
-      "            box.appendChild(h(\"div\", \"sub\", \"Your next play cannot be challenged. You may discard up to \" + n + \" cards\"));"
+      "            box.appendChild(h(\"div\", \"sub\", \"Your next play cannot be challenged. You may discard up to \" + n + (n === 1 ? \" card\" : \" cards\")));"
     ],
     [
       1815,
