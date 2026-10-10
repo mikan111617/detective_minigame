@@ -11,6 +11,8 @@
 *arcade
 [eval exp="f.doubt_total = 0; f.doubt_lives = 1; f.doubt_stage = 0"]
 [eval exp="f.doubt_used_continue = false"]
+; 持ち帰った能力（ストック）は、新しく始めるたびに空にする
+[eval exp="f.doubt_stock = ''"]
 [call storage="doubt_story.ks" target="*prologue"]
 ; 通常アーケードは必ず最初のステージ会話へ。下のデバッグ入口へ流れ込ませない
 [jump target="*arcade_stage"]
@@ -33,9 +35,11 @@
 [doubt_round_init]
 
 *arcade_battle
-; 最終戦と隠し戦は専用のBGM
-@playbgm storage="boss_battle.mp3" cond="f.doubt_stage>=4"
-@playbgm storage="card.mp3" cond="f.doubt_stage<4"
+; 最終戦と隠し戦は専用のBGM。設定の「対戦中のBGM」がパターン2（sf.doubt_bgm==2）なら別アレンジ
+@playbgm storage="boss_battle.mp3" cond="f.doubt_stage>=4 && sf.doubt_bgm!=2"
+@playbgm storage="boss_battle_ver2.mp3" cond="f.doubt_stage>=4 && sf.doubt_bgm==2"
+@playbgm storage="card.mp3" cond="f.doubt_stage<4 && sf.doubt_bgm!=2"
+@playbgm storage="card_ver2.mp3" cond="f.doubt_stage<4 && sf.doubt_bgm==2"
 [doubt_vs pair="&f.doubt_stage"]
 [doubt_battle pair="&f.doubt_stage"]
 ; 対戦中に「中断」した。中断データは [doubt_battle] が保存済みなので、タイトルへ戻る
@@ -63,6 +67,8 @@
 [doubt_highlow cond="f.doubt_lose_count == 0"]
 ; 体験版は第一戦を遊び終えたところで終了する
 [jump target="*arcade_demo_end" cond="f.doubt_demo && f.doubt_stage >= f.doubt_demo_last"]
+; 倒した二人の能力を一つだけ持ち帰れる（最終戦の前の卓まで）
+[doubt_stock pair="&f.doubt_stage" cond="f.doubt_stage < 4"]
 ; 隠し戦に勝った時だけ、専用会話と解放を挟んで通常エンディングへ
 [jump target="*arcade_hidden_win" cond="f.doubt_stage == 5"]
 [eval exp="f.doubt_stage++"]
@@ -154,11 +160,16 @@
 *simple_select
 [doubt_select]
 [jump target="*title" cond="f.doubt_pair < 0"]
+; アーケードプレイを突破していれば、相手を選んだ後に能力を一つ借りられる（その対戦の間だけ）
+[doubt_borrow]
+[jump target="*simple_select" cond="f.doubt_borrow_back"]
 
 *simple_battle
-; 最終戦のペアを選んだ時だけ専用のBGM
-@playbgm storage="boss_battle.mp3" cond="f.doubt_pair==4"
-@playbgm storage="card.mp3" cond="f.doubt_pair!=4"
+; 最終戦のペアを選んだ時だけ専用のBGM。パターン2なら別アレンジ
+@playbgm storage="boss_battle.mp3" cond="f.doubt_pair==4 && sf.doubt_bgm!=2"
+@playbgm storage="boss_battle_ver2.mp3" cond="f.doubt_pair==4 && sf.doubt_bgm==2"
+@playbgm storage="card.mp3" cond="f.doubt_pair!=4 && sf.doubt_bgm!=2"
+@playbgm storage="card_ver2.mp3" cond="f.doubt_pair!=4 && sf.doubt_bgm==2"
 [doubt_vs pair="&f.doubt_pair"]
 [doubt_battle pair="&f.doubt_pair"]
 ; フリー対戦は結果画面を出さず、決着の表示だけで相手選びに戻る
@@ -167,7 +178,8 @@
 
 *simple_demo
 [eval exp="f.doubt_pair = 0"]
-@playbgm storage="card.mp3"
+@playbgm storage="card.mp3" cond="sf.doubt_bgm!=2"
+@playbgm storage="card_ver2.mp3" cond="sf.doubt_bgm==2"
 [doubt_vs pair="0"]
 [doubt_battle pair="0"]
 @playbgm storage="title.mp3"

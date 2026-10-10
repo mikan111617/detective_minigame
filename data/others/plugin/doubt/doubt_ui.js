@@ -10,6 +10,7 @@
  * [doubt_round_init]       ラウンドの勝ち負けを数え直す
  * [doubt_unlock_hidden]    隠しの二人をフリー対戦に加える（sf.doubt_hidden_cleared）
  * [doubt_highlow]          余興のハイアンドロー（挑むかどうかは任意）
+ * [doubt_stock pair=0]     倒した二人の能力を一つだけ持ち帰る → f.doubt_stock
  * [doubt_bonus]            残機ボーナスを通算に足す
  * [doubt_settings]         設定画面（難易度・ラウンド数・出札上限・カード枚数）
  * [doubt_help]             遊び方（ルール／キャラクター紹介）
@@ -154,6 +155,40 @@
     return b;
   }
 
+  // ---- D案の見た目のための小さな部品 ----
+  // 新しく足した文言は、行ごとの翻訳表ではなくここで日本語／英語を出し分ける
+  function tr(ja, en) { return window.I18N && window.I18N.isEN() ? en : ja; }
+
+  // 見出しの左右に、細い金線と菱形を付ける
+  function decoWrap(el) {
+    var w = h("div", "dbt-deco");
+    w.appendChild(h("i", ""));
+    w.appendChild(h("em", ""));
+    w.appendChild(el);
+    w.appendChild(h("em", ""));
+    w.appendChild(h("i", ""));
+    return w;
+  }
+
+  // 画面左下の共通「もどる」ボタン。文言はそのまま、左に矢印を付ける
+  function asBack(b) {
+    b.classList.add("dbt-backbtn");
+    b.insertBefore(h("span", "bk-arrow", "‹"), b.firstChild);
+    return b;
+  }
+
+  var ICON_INFO = '<svg class="ic" viewBox="0 0 24 24" width="34" height="34" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="9.5"></circle><line x1="12" y1="10.5" x2="12" y2="17"></line><circle cx="12" cy="7.3" r="1.1" fill="currentColor" stroke="none"></circle></svg>';
+  var ICON_PAUSE = '<svg class="ic" viewBox="0 0 24 24" width="34" height="34" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="6.5" y="5" width="3.6" height="14" rx="1"></rect><rect x="13.9" y="5" width="3.6" height="14" rx="1"></rect></svg>';
+
+  // 切符の形のボタン（タイトル）。もとの文言を本体に入れ、左に半券を付ける
+  function asTicket(b, mark) {
+    var body = h("span", "ticket-body");
+    while (b.firstChild) body.appendChild(b.firstChild);
+    b.appendChild(h("span", "ticket-stub", mark));
+    b.appendChild(body);
+    return b;
+  }
+
   // ---------------------------------------------------------------- ボイス
   //   data/voice/{キャラid}/{セリフの種類}_{番号}.mp3 を鳴らす。
   //   再生はキャラクターごとに分けてある。
@@ -198,9 +233,9 @@
     if (!V || !V.on || !id || index == null) return;
     var src = V.path(id, cat, index);
     var url = absUrl(src);
-    if (voiceNG[url]) return;
+    if (voiceNG[url]) return null;
     var vol = seVolume() * (V.volume != null ? V.volume : 1);
-    if (!(vol > 0)) return;
+    if (!(vol > 0)) return null;
 
     var a = new Audio();
     a.volume = Math.max(0, Math.min(1, vol));
@@ -224,6 +259,27 @@
     } catch (e) {
       if (voiceNow[id] === a) delete voiceNow[id];
     }
+    return a;
+  }
+
+  /*
+   * 鳴らした声が終わるまで待つ（掛け合いで声を重ねないため）。
+   * ファイルが無い・鳴らせない時は、吹き出しを読める程度に待つ。長すぎる声は上限で打ち切る。
+   */
+  function waitVoice(a, minMs, maxMs) {
+    return new Promise(function (resolve) {
+      var t0 = Date.now();
+      var done = false;
+      function finish() {
+        if (done) return;
+        done = true;
+        setTimeout(resolve, Math.max(0, minMs - (Date.now() - t0)));
+      }
+      if (!a) { finish(); return; }
+      a.addEventListener("ended", finish);
+      a.addEventListener("error", finish);
+      setTimeout(finish, maxMs);
+    });
   }
 
   // セリフをランダムに1つ選ぶ（文章と、ボイスを引くための番号を返す）
@@ -331,6 +387,30 @@
       "あなた " + (fv.doubt_win_count || 0) + " － " + (fv.doubt_lose_count || 0) + " 相手";
   }
 
+  // 能力名（doubt_data.js の skillName）。無ければ空
+  var SUB_IDS = { hand_swap: 1, taunt: 1, mary_deal: 1, jushika_sight: 1, eruku_deal: 1, free_doubt: 1, arther_deck: 1 };
+  // 二つ目の能力なら、その持ち主のキャラid（立ち絵を出すため）
+  function ownerOf(id) {
+    if (!SUB_IDS[id]) return id;
+    if (id === "hand_swap" || id === "taunt") return "mahoru";
+    for (var k in D.chara) { if (D.chara.hasOwnProperty(k) && D.chara[k].sub === id) return k; }
+    return "mahoru";
+  }
+  function abilName(id) {
+    var n = D.skillName && D.skillName[id];
+    return n || (SUB_IDS[id] && D.chara[id] ? D.chara[id].name : "");
+  }
+  // スキル表示に能力名を添える。二つ目の能力は人物名の代わりに能力名を出す
+  var baseSkillHTML = skillHTML;
+  skillHTML = function (id, useText, extraName) {
+    var html = baseSkillHTML(id, useText, extraName);
+    var nm = D.skillName && D.skillName[id];
+    if (!nm) return html;
+    if (SUB_IDS[id]) return html.replace(">" + D.chara[id].name, ">" + nm);
+    var at = html.indexOf("</span>");
+    return html.slice(0, at) + '<small class="sn">' + nm + "</small>" + html.slice(at);
+  };
+
   // 二つ目の能力（sub）を持っているキャラは、続けて並べる
   function skillWithSub(id, extraName) {
     var ch = D.chara[id];
@@ -340,6 +420,45 @@
     }
     return html;
   }
+
+  // ストック（アーケードで持ち帰った能力）。フリー対戦では使わない
+  function stockId() {
+    var fv = f();
+    var id = fv.doubt_mode === "arcade" ? fv.doubt_stock : (fv.doubt_mode === "simple" ? fv.doubt_borrow : "");
+    return id && D.chara[id] ? id : "";
+  }
+  function stockUses(id) {
+    var u = D.stockUses && D.stockUses[id];
+    return u != null ? u : D.chara[id].uses;
+  }
+  function stockOption() {
+    var id = stockId();
+    return id ? { id: id, uses: stockUses(id) } : null;
+  }
+  function stockUseText(left) {
+    return left < 0 ? "常時" : "残り" + Math.max(0, left) + "回";
+  }
+  // ストックした時だけ付く効果
+  function stockNoteHTML(id) {
+    var note = D.stockNote && D.stockNote[id];
+    return note ? '<div class="ab stocknote">＋' + note + "</div>" : "";
+  }
+  // VS画面などで、真歩流の下に並べるストックの説明
+  function stockHTML() {
+    var id = stockId();
+    if (!id) return "";
+    var u = stockUses(id);
+    return '<div class="subsk">' + skillHTML(id, u < 0 ? "常時" : "1ゲーム" + u + "回", "（ストック）") + stockNoteHTML(id) + "</div>";
+  }
+
+  // フリー対戦で借りた能力は「ストック」ではなく「借りた力」と見せる
+  function isBorrowMode() { var fv = f(); return fv.doubt_mode === "simple" && !!fv.doubt_borrow; }
+  function relabelStock(html) {
+    if (!isBorrowMode()) return html;
+    return String(html).replace(/（ストック）/g, tr("（借りた力）", " (Borrowed)")).replace(/ ?\(Stock\)/g, tr("（借りた力）", " (Borrowed)"));
+  }
+  var baseStockHTML = stockHTML;
+  stockHTML = function () { return relabelStock(baseStockHTML()); };
 
   // アーケードプレイを突破すると、シンプルプレイで最終戦も選べるようになる
   function isCleared() {
@@ -494,6 +613,18 @@
       "<h1>舞黒館の<em>惨劇</em></h1>" +
       '<div class="sub">「探偵少女はダウトで勝ちの目を見るか」</div>'));
     if (demo) root.appendChild(h("div", "demo-ribbon", "体験版"));
+    // D案：四隅の扇・二重の額縁・館の銘・入館証
+    root.insertBefore(h("div", "t-fan l"), root.querySelector(".head"));
+    root.insertBefore(h("div", "t-fan r"), root.querySelector(".head"));
+    root.insertBefore(h("div", "t-frame"), root.querySelector(".head"));
+    (function () {
+      var kick = root.querySelector(".head .kicker");
+      if (kick) kick.textContent = kick.textContent.replace(/^[\s―—\-]+|[\s―—\-]+$/g, "");
+      var est = h("div", "estline", "<i></i><em></em><span>MAICRO HOUSE · EST. 1930</span><em></em><i></i>");
+      var h1 = root.querySelector(".head h1");
+      if (h1) h1.parentNode.insertBefore(est, h1.nextSibling);
+      root.appendChild(h("div", "admit", "<b>ADMIT ONE</b><span>" + tr("今宵かぎりの入館証", "Tonight Only") + "</span>"));
+    })();
     var modes = h("div", "modes");
     function go(mode, target) {
       f().doubt_mode = mode;
@@ -540,6 +671,7 @@
     if (!demo) {
       modes.appendChild(btn("シンプルプレイ<small>フリー対戦</small>", "teal", function () { go("simple", "*simple_start"); }));
     }
+    modes.querySelectorAll(".dbt-btn").forEach(function (b, i) { asTicket(b, i === 0 ? "♥" : "♣"); });
     root.appendChild(modes);
     var extra = h("div", "extra");
     if (!demo) {
@@ -565,6 +697,8 @@
         window.location.reload();
       }
     }));
+    var langBtn = extra.lastChild;
+    if (langBtn) langBtn.classList.add("lang");
     root.appendChild(extra);
 
     // 開発用デバッグは、通常メニューと分けて画面最下部に小さく置く
@@ -623,10 +757,59 @@
         var html = '<div class="abilmain"><span class="uses">' + useText(ch) + '</span>' + ch.ability + "</div>";
         if (ch.sub && D.chara[ch.sub]) {
           var sub = D.chara[ch.sub];
-          html += '<div class="abilsub"><b>' + sub.name + '</b> <span class="uses">1ゲーム' +
+          html += '<div class="abilsub"><b>' + abilName(ch.sub) + '</b> <span class="uses">1ゲーム' +
             ch.subUses + "回</span>" + sub.ability + "</div>";
         }
         return html;
+      }
+
+      // D案：見出しの飾りと、左下の共通「もどる」
+      function dressHelp(page) {
+        var hd = body.querySelector(".hd");
+        if (hd) {
+          var bar = h("div", "hd-wrap");
+          hd.parentNode.insertBefore(bar, hd);
+          bar.appendChild(decoWrap(hd));
+        }
+        var back = body.querySelector(".dbt-btn.back");
+        if (back) asBack(back);
+        if (page === "rules") dressRules();
+      }
+
+      // ルールの各手順に、カードの図解を添える。本文は文ごとに段落へ分けて読みやすく
+      function miniCard(r, s, cls) {
+        var red = s === 1 || s === 2;
+        return '<span class="mc' + (red ? " red" : "") + (cls ? " " + cls : "") + '"><i style="background-image:url(\'' + D.img.cardFace(r) + '\')"></i><b>' + RANK[r] + "<em>" + SUIT[s] + "</em></b></span>";
+      }
+      function backCard(cls) {
+        return '<span class="mb' + (cls ? " " + cls : "") + '" style="background-image:url(\'' + D.img.cardBack + '\')"></span>';
+      }
+      function dressRules() {
+        var arts = [
+          '<div class="il il1">' + miniCard(7, 2, "a") + miniCard(2, 0, "b") + '<span class="arrow"></span>' + backCard("c") + backCard("d") + '<span class="tg">〈7〉×2</span></div>',
+          '<div class="il il2">' + backCard("a") + backCard("b") + backCard("c") + '<span class="say">' + tr("ダウト！", "DOUBT!") + "</span></div>",
+          '<div class="il il3"><div class="half lie"><span class="tg">' + tr("嘘だった", "A lie") + "</span>" + miniCard(7, 2) + miniCard(2, 0, "ng") +
+            "<p>" + tr("伏せた側が<br>引き取る", "The player who<br>played takes") + '</p></div><div class="half true"><span class="tg">' + tr("本当だった", "The truth") + "</span>" +
+            miniCard(7, 0) + miniCard(7, 2) + "<p>" + tr("ダウトした側が<br>引き取る", "The doubter<br>takes") + "</p></div></div>",
+          '<div class="il il4"><span class="slot"></span><span class="slot"></span><span class="slot"></span><span class="slot"></span><span class="zero">0<small>' + tr("枚", "") + '</small></span><span class="win">WIN</span></div>'
+        ];
+        body.querySelectorAll(".rule").forEach(function (box, i) {
+          var no = box.querySelector(".no"), rt = box.querySelector(".rt"), rd = box.querySelector(".rd");
+          var head = h("div", "rhead");
+          box.insertBefore(head, no);
+          head.appendChild(no);
+          head.appendChild(rt);
+          if (arts[i]) box.insertBefore(h("div", "rart", arts[i]), rd);
+          // 「。<br>」の切れ目を段落にする
+          rd.innerHTML = rd.innerHTML.split(/<br\s*\/?>/i).map(function (t) { return "<p>" + t + "</p>"; }).join("");
+        });
+        var td = body.querySelector(".tip .td");
+        if (td) {
+          var sm = td.querySelector("small");
+          var html = td.innerHTML.replace(/<small>[\s\S]*<\/small>/i, "");
+          var parts = html.split(/(?<=[。.])\s*/).filter(function (t) { return t.trim(); });
+          td.innerHTML = parts.map(function (t) { return "<p>" + t + "</p>"; }).join("") + (sm ? '<p class="note">' + sm.innerHTML + "</p>" : "");
+        }
       }
 
       function renderMenu() {
@@ -644,6 +827,7 @@
         body.appendChild(choices);
 
         body.appendChild(btn("タイトルへ戻る", "navy back", finish));
+        dressHelp("menu");
       }
 
       function renderRules() {
@@ -696,6 +880,7 @@
         body.appendChild(skill);
 
         body.appendChild(btn("もどる", "navy back", renderMenu));
+        dressHelp("rules");
       }
 
       function renderCharacters() {
@@ -740,6 +925,81 @@
         nav.appendChild(next);
         body.appendChild(nav);
       }
+
+      /*
+       * キャラクター紹介（D案）：上に顔の一覧、左に大きな立ち絵、右に名前と能力。
+       * ← → でも切り替えられる。一覧の順番は charIds のまま。
+       */
+      var charKey = null;
+      renderCharacters = function () {
+        clearBody();
+        body.className = "helpbody charpage2";
+        if (charPage < 0 || charPage >= charIds.length) charPage = 0;
+        var id = charIds[charPage];
+        var ch = D.chara[id];
+
+        var stage = h("div", "cstage");
+        stage.appendChild(h("div", "rays"));
+        var big = portrait(id, "cbig");
+        stage.appendChild(big);
+        body.appendChild(stage);
+        body.appendChild(h("div", "cfade"));
+
+        var title = h("div", "ctitle");
+        title.appendChild(h("em", ""));
+        title.appendChild(h("h1", "", tr("キャラクター紹介", "Characters")));
+        body.appendChild(title);
+
+        var strip = h("div", "cstrip");
+        charIds.forEach(function (cid, i) {
+          var t = h("div", "cthumb" + (i === charPage ? " on" : ""));
+          var face = portrait(cid, "cface");
+          t.appendChild(face);
+          if (i === charPage) t.appendChild(h("span", "cnm", D.chara[cid].name));
+          t.addEventListener("click", function () { if (i !== charPage) { charPage = i; renderCharacters(); } });
+          strip.appendChild(t);
+        });
+        body.appendChild(strip);
+
+        var panel = h("div", "cpanel");
+        panel.appendChild(h("div", "cname",
+          '<span class="name">' + ch.name + "</span>" + (ch.reading ? '<span class="reading">' + ch.reading + "</span>" : "")));
+        var line = h("div", "cline");
+        line.style.background = "linear-gradient(90deg, " + ch.color + ", rgba(0,0,0,0))";
+        panel.appendChild(line);
+        panel.appendChild(h("div", "csec", "<em></em>" + tr("特殊能力", "Abilities") + "<i></i>"));
+        function abil(kind, chip, name, text) {
+          return '<div class="cab"><div class="cabh"><span class="chip ' + kind + '">' + chip + "</span>" +
+            (name ? '<span class="cabn">' + name + "</span>" : "") + '</div><div class="cabt">' + text + "</div></div>";
+        }
+        var html = abil(ch.uses > 0 ? "limit" : "always", useText(ch), abilName(id), ch.ability);
+        if (ch.sub && D.chara[ch.sub]) {
+          var sub = D.chara[ch.sub];
+          html += abil("limit", tr("1ゲーム", "Up to ") + ch.subUses + tr("回", " per game"), abilName(ch.sub), sub.ability);
+        }
+        panel.appendChild(h("div", "cabs", html));
+        body.appendChild(panel);
+
+        function go(d) { charPage = (charPage + d + charIds.length) % charIds.length; renderCharacters(); }
+        var prev = btn("‹", "navy carrow l", function () { go(-1); });
+        var next = btn("›", "navy carrow r", function () { go(1); });
+        body.appendChild(prev);
+        body.appendChild(next);
+        body.appendChild(h("div", "chint", tr("← → で人物を切り替え", "← → to switch") + "　" + (charPage + 1) + " / " + charIds.length));
+        body.appendChild(asBack(btn(tr("もどる", "Back"), "navy back", function () {
+          document.removeEventListener("keydown", charKey);
+          charKey = null;
+          renderMenu();
+        })));
+        if (!charKey) {
+          charKey = function (ev) {
+            if (!root.parentNode || body.className.indexOf("charpage2") < 0) return;
+            if (ev.key === "ArrowLeft") go(-1);
+            else if (ev.key === "ArrowRight") go(1);
+          };
+          document.addEventListener("keydown", charKey);
+        }
+      };
 
       renderMenu();
     });
@@ -820,6 +1080,53 @@
       root.appendChild(cmds);
       root.appendChild(h("div", "hint", "← → で相手を選ぶ／選ぶとスキルの内容が出ます"));
 
+      // ---- D案：見出し・三つの区画・まだ解放されていない卓 ----
+      (function () {
+        var head = h("div", "sel-head");
+        head.appendChild(decoWrap(h("h1", "", tr("対戦相手を選ぶ", "Choose Your Opponents"))));
+        head.appendChild(h("div", "sub", tr("シンプルプレイ　―　フリー対戦", "Free Play")));
+        root.appendChild(head);
+        var meName = root.querySelector(".me .plate b");
+        if (meName && D.chara.mahoru.reading) meName.insertAdjacentHTML("afterend", '<i class="rd">' + D.chara.mahoru.reading + "</i>");
+        var cap = h("div", "grid-cap", "<em></em>" + tr("相手の組み合わせ", "Opponent Pairs") + "<i></i>");
+        grid.parentNode.insertBefore(cap, grid);
+        cols.forEach(function (c, i) {
+          var pr = D.pairs[i];
+          if (pr.tagline) c.querySelector(".lb").insertAdjacentHTML("beforeend", '<i class="tl">' + pr.tagline + "</i>");
+          c.appendChild(h("span", "ribbon", tr("選択中", "Selected")));
+        });
+        for (var k = pairCount; k < D.pairs.length; k++) {
+          var lock = h("div", "col locked",
+            '<div class="lockface"><svg viewBox="0 0 24 24" width="34" height="34" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="5" y="11" width="14" height="10" rx="1.5"></rect><path d="M8 11V8a4 4 0 0 1 8 0v3"></path></svg>' +
+            tr("未解放", "Locked") + '</div><div class="lb">' + D.pairs[k].label + '<i class="tl">？？？</i></div>');
+          grid.appendChild(lock);
+        }
+        var detail = h("div", "detail");
+        detail.appendChild(h("div", "dhead"));
+        root.appendChild(detail);
+        detail.appendChild(preview);
+        detail.appendChild(h("div", "vsline"));
+        detail.appendChild(plate);
+        var go = cmds.querySelector(".red");
+        if (go) { go.innerHTML = tr("この相手と対戦", "Battle These Two"); go.classList.add("go"); root.appendChild(go); }
+        var bk = cmds.querySelector(".navy");
+        if (bk) root.appendChild(asBack(bk));
+        var hint = root.querySelector(".hint");
+        if (hint) hint.textContent = tr("← → で選ぶ　Enter で決定", "← → to choose　Enter to start");
+        var baseShow = show;
+        show = function (i) {
+          baseShow(i);
+          var pr = D.pairs[i];
+          detail.querySelector(".dhead").innerHTML = '<b>' + pr.label + "</b>" + (pr.tagline ? "<span>" + pr.tagline + "</span>" : "");
+          detail.querySelector(".vsline").innerHTML = "<span>" + D.chara.mahoru.name + '</span><em>VS</em><span>' + D.chara[pr.a].name + " × " + D.chara[pr.b].name + "</span>";
+          [[".p1", pr.a], [".p2", pr.b]].forEach(function (q) {
+            var p = preview.querySelector(q[0]);
+            var c = D.chara[q[1]];
+            if (p) p.insertAdjacentHTML("beforeend", '<div class="pn"><b>' + c.name + "</b>" + (c.reading ? "<i>" + c.reading + "</i>" : "") + "</div>");
+          });
+        };
+      })();
+
       function onKey(ev) {
         if (ev.key === "ArrowLeft") show((current + pairCount - 1) % pairCount);
         else if (ev.key === "ArrowRight") show((current + 1) % pairCount);
@@ -828,6 +1135,122 @@
       }
       document.addEventListener("keydown", onKey);
       show(0);
+    });
+  });
+
+  // ---------------------------------------------------------------- 能力を借りる（フリー対戦）
+  //   アーケードプレイを一度突破すると、フリー対戦で相手を選んだ後に、
+  //   各キャラクターの能力を一つだけ借りて戦える（その対戦の間だけ）。
+  //   能力を札のように並べ、← → でページをめくって選ぶ。
+  //   → f.doubt_borrow = 能力のid（借りない時は ""）／ f.doubt_borrow_back = 相手選びに戻る
+
+  // 借りられる能力。ストックと同じ仕組みで使えるもの（アーケードの第一戦〜第四戦の相手の力）
+  function borrowList() {
+    var out = [];
+    D.pairs.forEach(function (pr) {
+      [pr.a, pr.b].forEach(function (cid) {
+        (D.stock && D.stock[cid] || []).forEach(function (sid) {
+          if (D.chara[sid] && out.every(function (o) { return o.id !== sid; })) out.push({ id: sid, owner: cid });
+        });
+      });
+    });
+    return out;
+  }
+  // 使い方の目安（スキル発動から使う／条件がそろうと聞かれる／いつも効いている）
+  var BORROW_HOW = {
+    reido: "act", eruku: "act", eruku_deal: "act",
+    koderia: "ask", mary_deal: "ask", jushika_sight: "ask"
+  };
+
+  defineTag("doubt_borrow", {}, function () {
+    var fv = f();
+    fv.doubt_borrow = "";
+    fv.doubt_borrow_back = false;
+    if (fv.doubt_mode !== "simple" || fv.doubt_demo || !isCleared()) return;
+    var list = borrowList();
+    if (!list.length) return;
+    return new Promise(function (resolve) {
+      var root = openRoot("dbt-borrow");
+      bg(root, D.img.bgSelect);
+      root.appendChild(h("div", "dbt-shade shade"));
+      root.appendChild(h("div", "use-kicker", "BORROW"));
+      root.appendChild(decoWrap(h("div", "use-hd", tr("能力を借りる", "Borrow an Ability"))));
+      root.appendChild(h("div", "bsub", tr("この対戦の間だけ、選んだ能力を一つ真歩流が使えます", "Mahoru can use one chosen ability for this match only")));
+      var stage = h("div", "bstage");
+      root.appendChild(stage);
+      var dots = h("div", "bdots");
+      root.appendChild(dots);
+
+      var last = "";
+      try { last = TYRANO.kag.variable.sf.doubt_borrow_last || ""; } catch (e) {}
+      var page = 0;
+      list.forEach(function (o, i) { if (o.id === last) page = i; });
+
+      function useLabel(id) {
+        var u = stockUses(id);
+        return u < 0 ? tr("常時", "Always") : tr("1ゲーム", "Up to ") + u + tr("回", " per game");
+      }
+      function howLabel(id) {
+        var k = BORROW_HOW[id];
+        if (k === "act") return tr("「スキル発動」から使う", "Use from \"Use Skill\"");
+        if (k === "ask") return tr("条件がそろうと、使うか聞かれる", "You are asked when it can be used");
+        return tr("自動で効く", "Works automatically");
+      }
+      function card(o, cls) {
+        var ch = D.chara[o.owner];
+        var c = h("div", "use-card bcard " + cls);
+        var art = h("div", "art");
+        art.appendChild(h("div", "rays"));
+        art.appendChild(portrait(o.owner));
+        art.appendChild(h("span", "tag", ch.name));
+        c.appendChild(art);
+        var note = D.stockNote && D.stockNote[o.id];
+        c.appendChild(h("div", "txt",
+          '<div class="sep"><i></i><em></em><i></i></div>' +
+          '<div class="nm">' + (abilName(o.id) || D.chara[o.id].name) + "</div>" +
+          '<div class="chips"><span class="chip ' + (stockUses(o.id) < 0 ? "always" : "limit") + '">' + useLabel(o.id) + "</span>" +
+          '<span class="how">' + howLabel(o.id) + "</span></div>" +
+          '<div class="ab">' + D.chara[o.id].ability + (note ? '<span class="note">＋' + note + "</span>" : "") + "</div>"));
+        return c;
+      }
+      function render() {
+        stage.innerHTML = "";
+        var n = list.length;
+        var prev = list[(page + n - 1) % n], next = list[(page + 1) % n];
+        var pc = card(prev, "side l"), nc = card(next, "side r");
+        pc.addEventListener("click", function () { go(-1); });
+        nc.addEventListener("click", function () { go(1); });
+        stage.appendChild(pc);
+        stage.appendChild(nc);
+        stage.appendChild(card(list[page], "main on"));
+        stage.appendChild(btn("‹", "navy barrow l", function () { go(-1); }));
+        stage.appendChild(btn("›", "navy barrow r", function () { go(1); }));
+        dots.innerHTML = list.map(function (o, i) { return "<i" + (i === page ? ' class="on"' : "") + "></i>"; }).join("") +
+          "<b>" + (page + 1) + " / " + n + "</b>";
+      }
+      function go(d) { page = (page + d + list.length) % list.length; render(); }
+      function finish(id, back) {
+        document.removeEventListener("keydown", onKey);
+        fv.doubt_borrow = id || "";
+        fv.doubt_borrow_back = !!back;
+        if (id) { try { TYRANO.kag.variable.sf.doubt_borrow_last = id; TYRANO.kag.saveSystemVariable(); } catch (e) {} }
+        closeRoot(root);
+        resolve();
+      }
+      var cmds = h("div", "use-cmds");
+      cmds.appendChild(btn(tr("この能力を借りる", "Borrow This"), "gold go", function () { finish(list[page].id); }));
+      cmds.appendChild(btn(tr("借りずに戦う", "Play Without"), "navy", function () { finish(""); }));
+      root.appendChild(cmds);
+      root.appendChild(asBack(btn(tr("相手選びへ", "Opponents"), "navy back", function () { finish("", true); })));
+      root.appendChild(h("div", "bhint", tr("← → でめくる　Enter で借りる", "← → to browse　Enter to borrow")));
+      function onKey(ev) {
+        if (ev.key === "ArrowLeft") go(-1);
+        else if (ev.key === "ArrowRight") go(1);
+        else if (ev.key === "Enter") finish(list[page].id);
+        else if (ev.key === "Escape") finish("", true);
+      }
+      document.addEventListener("keydown", onKey);
+      render();
     });
   });
 
@@ -846,7 +1269,7 @@
       function showSkill(k) {
         ports.forEach(function (p, j) { p.classList.toggle("on", j === k); });
         panel.className = "skillpanel show" + (k === 0 ? " l" : "");
-        panel.innerHTML = skillWithSub(ids[k], k === 0 ? "（あなた）" : "");
+        panel.innerHTML = skillWithSub(ids[k], k === 0 ? "（あなた）" : "") + (k === 0 ? stockHTML() : "");
       }
 
       var left = h("div", "left");
@@ -878,6 +1301,21 @@
         document.querySelectorAll(".dbt-root.dbt-vs").forEach(closeRoot);
         resolve();
       }));
+      // ---- D案：斜めの金線で三つに割った立ち絵、控えめなコピー、意味の分かるボタン ----
+      root.querySelector(".go").innerHTML = tr("対戦開始", "Start Match");
+      root.appendChild(h("div", "slash",
+        '<svg viewBox="0 0 1920 1080" width="1920" height="1080"><line x1="980" y1="0" x2="820" y2="1080" stroke="#C7A260" stroke-width="3"></line>' +
+        '<line x1="988" y1="0" x2="828" y2="1080" stroke="rgba(227,200,135,.45)" stroke-width="1"></line>' +
+        '<line x1="1460" y1="0" x2="1300" y2="1080" stroke="rgba(199,162,96,.7)" stroke-width="1.5"></line></svg>'));
+      root.insertBefore(h("div", "vshade"), root.querySelector(".skillpanel"));
+      var tb = root.querySelector(".tagbox.r");
+      if (tb) tb.insertAdjacentHTML("beforeend", "　" + tr("対戦相手", "Opponents"));
+      var nr = root.querySelector(".band .n.r");
+      if (nr) nr.innerHTML = D.chara[pr.a].name + '<em>×</em>' + D.chara[pr.b].name;
+      // コピーは絵の切り抜きの外に出して、暗幕より手前に置く
+      root.querySelectorAll(".copy").forEach(function (c) { root.appendChild(c); });
+      var nl = root.querySelector(".band .n.l");
+      if (nl && D.chara.mahoru.reading) nl.insertAdjacentHTML("beforeend", "<i>" + D.chara.mahoru.reading + "</i>");
     });
   });
 
@@ -890,13 +1328,23 @@
       j.dataset.id = c.id;
       return j;
     }
+    // 白い札の面に数字ごとの絵柄を額に入れて置き、左上と右下に数字と柄を重ねる
     var e = h("div", "dbt-card" + (red ? " red" : ""));
+    var idx = RANK[c.r] + "<i>" + SUIT[c.s] + "</i>";
     e.innerHTML =
-      '<span class="tl">' + RANK[c.r] + "</span>" +
-      '<span class="st">' + SUIT[c.s] + "</span>" +
-      '<span class="mid' + (c.r >= 11 ? " face" : "") + '">' + (c.r >= 11 ? RANK[c.r] : SUIT[c.s]) + "</span>";
+      '<span class="art" style="background-image:url(\'' + D.img.cardFace(c.r) + '\')"></span>' +
+      '<span class="ix tl">' + idx + "</span>" +
+      '<span class="ix br">' + idx + "</span>";
     e.dataset.id = c.id;
     return e;
+  }
+
+  // 札の絵柄は最初の対戦で先読みしておき、配った瞬間に白いまま出ないようにする
+  var facesLoaded = false;
+  function preloadFaces() {
+    if (facesLoaded) return;
+    facesLoaded = true;
+    for (var r = 1; r <= 13; r++) new Image().src = D.img.cardFace(r);
   }
 
   function miniCardEl(c) {
@@ -909,6 +1357,24 @@
 
   // 公開手札は、ゲーム内部の配列順ではなく数字の昇順で見せる。
   // 元配列は変更しないので、CPUの判断や手札管理には影響しない。
+  // 相手の手札をのぞく時の小さな札（数字と絵柄だけ）
+  function chipEl(c) {
+    var red = c.s === 1 || c.s === 2;
+    return h("span", "chip" + (red ? " red" : ""), c.r === 0 ? "JK" : RANK[c.r] + SUIT[c.s]);
+  }
+
+  // 卓にかかっている決まりの説明。残りは「あと何手」で出す
+  function ruleTexts(g) {
+    var out = [];
+    if (!g) return out;
+    if (g.sealed > 0) out.push("能力封印：誰も特殊能力を使えない（あと" + g.sealed + "手）");
+    if (g.suitRule) {
+      var su = g.suitRule.suits.map(function (x) { return '<span class="s' + x + '">' + SUIT[x] + "</span>"; }).join("");
+      out.push("柄の縛り：" + su + "以外の柄は嘘になる（あと" + g.suitRule.left + "手）");
+    }
+    return out;
+  }
+
   function sortedCardsForDisplay(cards) {
     return cards.slice().sort(function (a, b) {
       var ar = a.r === 0 ? 14 : a.r;
@@ -919,6 +1385,7 @@
 
   function BattleUI(pairIndex) {
     var self = this;
+    preloadFaces();
     this.pair = D.pairs[pairIndex];
     this.root = openRoot("dbt-battle");
     bg(this.root, D.img.bgTable);
@@ -939,16 +1406,18 @@
       var info = h("div", "info",
         '<div class="nm">' + D.chara[id].name + "</div>" +
         '<div class="cnt"><span class="k">手札</span><span class="v">0</span></div>' +
-        '<div class="use"></div>');
+        '<div class="use"></div>' +
+        '<div class="peek"></div>');
       box.appendChild(p);
       box.appendChild(info);
       self.root.appendChild(box);
-      self.opp[seat] = { box: box, count: info.querySelector(".v"), use: info.querySelector(".use") };
+      self.opp[seat] = { box: box, count: info.querySelector(".v"), use: info.querySelector(".use"), peek: info.querySelector(".peek") };
+      info.querySelector(".cnt").appendChild(h("span", "unit", tr("枚", "")));
       var bub = h("div", "dbt-bubble s" + seat);
       self.root.appendChild(bub);
       self.bubble[seat] = bub;
       // 名前や立ち絵を押すと、この対戦のスキル一覧が出る
-      box.addEventListener("click", function () { self.openSkills(); });
+      box.addEventListener("click", function () { self.openInfo("skills"); });
     });
 
     // 主人公（真歩流）の吹き出し。立ち絵は出さないので、手札の上に出す
@@ -970,11 +1439,29 @@
     var row = h("div", "row");
     this.rankBox = h("div", "dbt-rank", "<span>A</span>");
     row.appendChild(this.rankBox);
+    // D案：宣言する数字の札。上に見出し、下に「場札／除外」の枚数を入れる
+    this.rankCard = h("div", "dbt-rankcard");
+    this.rankCard.appendChild(this.rankLbl);
+    this.rankCard.appendChild(this.rankBox);
+    this.rankFoot = h("div", "rk-foot",
+      '<div class="c"><span class="k">' + tr("場札", "Pile") + '</span><b class="pile">0</b><i>' + tr("枚", "") + "</i></div>" +
+      '<div class="c"><span class="k">' + tr("除外", "Out") + '</span><b class="gone">0</b><i>' + tr("枚", "") + "</i></div>");
+    this.rankCard.appendChild(this.rankFoot);
+    this.rankCard.insertBefore(h("div", "rays"), this.rankCard.firstChild);
+    row.appendChild(this.rankCard);
     this.pileEl = h("div", "dbt-pile");
     row.appendChild(this.pileEl);
     this.pileInfo = h("div", "dbt-pileinfo", '<span class="k">場の伏せ札</span><span class="v">0</span><span class="d"></span>');
     row.appendChild(this.pileInfo);
     field.appendChild(row);
+    // 和人の力（ストック）で把握している、場から除外された札
+    // 舞黒邦夢のもてなしで、いま卓にかかっている決まり（能力封印・柄の縛り）
+    this.ruleEl = h("div", "dbt-rule");
+    this.ruleEl.style.display = "none";
+    field.appendChild(this.ruleEl);
+    this.goneEl = h("div", "dbt-gone");
+    this.goneEl.style.display = "none";
+    field.appendChild(this.goneEl);
     this.root.appendChild(field);
 
     this.handEl = h("div", "dbt-hand");
@@ -987,11 +1474,21 @@
     this.bDoubt = btn("ダウトを宣言する", "navy", function () { self.onDoubt(); });
     this.bAbility = btn("能力を発動する", "pink", function () { self.onAbility(); });
     this.bSkill = btn("スキル", "navy info", function () { self.openSkills(); });
+    // 挑発。押すと次に伏せる札で相手を煽る（もう一度押すと取りやめ）
+    this.bTaunt = btn("挑発する", "navy dbt-taunt", function () { self.onTaunt(); });
+    this.root.appendChild(this.bTaunt);
+    // ストックした能力。持っている時だけ並べる（自分で使う能力だけ押せる）
+    var sid = stockId();
+    if (sid) this.bStock = btn(D.chara[sid].name, "teal stock", function () { self.onStock(); });
     // 降参はフリー対戦だけ。アーケードは残機とコンティニューで区切りがつく
     this.canResign = f().doubt_mode === "simple";
     cmd.appendChild(this.bMain);
     cmd.appendChild(this.bDoubt);
     cmd.appendChild(this.bAbility);
+    if (this.bStock) {
+      cmd.appendChild(this.bStock);
+      cmd.classList.add("with-stock");
+    }
     cmd.appendChild(this.bSkill);
     // 降参はフリー対戦の時だけ、スキルの隣に並べる
     if (this.canResign) {
@@ -1003,7 +1500,47 @@
       cmd.appendChild(this.bResign);
     }
     this.suspended = false;
+
+    // ---- D案のボタン帯 ----
+    //   中央：カードを出す ／ 挑発する（ダウトの場面では ダウト！）／ スキル発動
+    //   右端：情報（カードのプレイ履歴・スキル確認）と 中断（降参）のアイコン
+    //   能力のボタン（手札の交換・名指し・ストック）は「スキル発動」の中から選ぶ
+    cmd.innerHTML = "";
+    cmd.classList.remove("with-stock");
+    var center = h("div", "cmd-center");
+    this.bTaunt.classList.remove("dbt-taunt");
+    this.bTaunt.classList.add("taunt");
+    this.bDoubt.classList.remove("navy");
+    this.bDoubt.classList.add("wine", "doubt");
+    this.bDoubt.innerHTML = tr("ダウト！", "DOUBT!");
+    this.bUse = btn(tr("スキル発動", "Use Skill"), "gold use", function () { self.openUse(); });
+    center.appendChild(this.bMain);
+    center.appendChild(this.bTaunt);
+    center.appendChild(this.bDoubt);
+    center.appendChild(this.bUse);
+    cmd.appendChild(center);
+    var icons = h("div", "cmd-icons");
+    this.bInfo = btn(ICON_INFO + "<small>" + tr("情報", "Info") + "</small>", "navy icon", function () { self.openInfo("history"); });
+    icons.appendChild(this.bInfo);
+    if (this.bResign) {
+      this.bResign.innerHTML = ICON_PAUSE + "<small>" + this.bResign.textContent + "</small>";
+      this.bResign.classList.add("icon");
+      icons.appendChild(this.bResign);
+    }
+    cmd.appendChild(icons);
+    cmd.appendChild(h("div", "cmd-gem"));
     this.root.appendChild(cmd);
+
+    // スペースキーで「カードを出す」（押せる時だけ）
+    this.onKeyDown = function (ev) {
+      if (ev.code !== "Space" && ev.key !== " ") return;
+      if (!self.root.parentNode || self.root.querySelector(".dbt-overlay")) return;
+      if (self.mode === "place" && !self.bMain.classList.contains("off")) {
+        ev.preventDefault();
+        self.onMain();
+      }
+    };
+    document.addEventListener("keydown", this.onKeyDown);
 
     this.cutinShown = {};   // この対戦でカットインを出し切ったキャラ
     this.mode = "idle";
@@ -1017,13 +1554,14 @@
   var B = BattleUI.prototype;
 
   B.close = function () {
+    if (this.onKeyDown) document.removeEventListener("keydown", this.onKeyDown);
     if (lifecycle.battle === this) lifecycle.battle = null;
     stopAllVoice();
     closeRoot(this.root);
   };
 
   // この対戦に出ている3人のスキルを並べて見せる
-  B.openSkills = function () {
+  B.openSkills = function (into) {
     var g = this.game;
     if (!g) return;
     var ov = h("div", "dbt-overlay dbt-pad dbt-skills");
@@ -1041,6 +1579,16 @@
           skillHTML(g.subId[seat], sc.uses > 0 ? "残り" + Math.max(0, g.subUses[seat]) + "回" : "常時",
             "（二つ目の力）")));
       }
+      // 誰でも使える挑発
+      if (seat === 0) {
+        box.appendChild(h("div", "sk borrow",
+          skillHTML("taunt", g.canTaunt() ? "使える" : "あと" + g.tauntWait() + "巡", "（コマンド）")));
+      }
+      // プレイヤーのストック
+      if (seat === 0 && g.stockId) {
+        box.appendChild(h("div", "sk borrow",
+          skillHTML(g.stockId, stockUseText(g.abilLeft(0, g.stockId)), "（ストック）") + stockNoteHTML(g.stockId)));
+      }
       // 真歩流？が借りている能力も、同じように並べる
       if (seat === g.awakeSeat && g.borrowId) {
         var bc = D.chara[g.borrowId];
@@ -1051,6 +1599,15 @@
     });
     box.appendChild(btn("とじる", "navy cancel", function () { closeRoot(ov); }));
     ov.appendChild(box);
+    // 情報画面の「スキル確認」の中に並べる時は、行だけを移す
+    if (into) {
+      into.classList.add("dbt-skills");
+      Array.prototype.slice.call(box.querySelectorAll(".sk")).forEach(function (el) {
+        el.innerHTML = relabelStock(el.innerHTML);
+        into.appendChild(el);
+      });
+      return;
+    }
     this.root.appendChild(ov);
   };
 
@@ -1103,8 +1660,13 @@
     var nSel = Object.keys(this.selected).length;
     var m = this.mode;
     var uses = g ? g.uses[0] : 0;
-    var swaps = g ? g.abilLeft(0, "hand_swap") : 0;
+    var swaps = g ? g.subUses[0] : 0;
+    // 能力封印の間は、名指しも手札の交換も押せない（残り回数はそのまま見せる）
+    var abSealed = !!(g && g.sealed > 0);
     this.bMain.innerHTML = m === "window" ? "見送る" : (m === "give" ? "渡す" : "伏せる");
+    // D案：自分の番は「カードを出す」（スペースキーでも出せる）。見送る時は控えめな紺に
+    if (m !== "window" && m !== "give") this.bMain.innerHTML = tr("カードを出す", "Play Cards") + '<small class="key">SPACE</small>';
+    this.bMain.classList.toggle("pass", m === "window");
     this.bMain.classList.toggle("off",
       !((m === "place" && nSel >= 1 && nSel <= g.maxPlay) || m === "window" ||
         (m === "give" && nSel === this.need)));
@@ -1114,13 +1676,98 @@
     // 自分の手番は「手札の交換」、ダウトの場面は「名指し推理」
     if (m === "place") {
       this.bAbility.innerHTML = "手札を交換する<small>残り" + Math.max(0, swaps) + "</small>";
-      this.bAbility.classList.toggle("off", !(swaps > 0));
+      this.bAbility.classList.toggle("off", !(swaps > 0) || abSealed);
     } else {
       this.bAbility.innerHTML = "数字を名指しする<small>残り" + Math.max(0, uses) + "</small>";
-      this.bAbility.classList.toggle("off", !(m === "window" && uses > 0) || sealedDoubt);
+      this.bAbility.classList.toggle("off", !(m === "window" && uses > 0) || sealedDoubt || abSealed);
     }
     this.handEl.classList.toggle("turn", m === "place" || m === "give");
     if (this.bResign) this.bResign.classList.toggle("off", m === "idle");
+    // 挑発の構えは、伏せた後にエンジン側で解く（ここで解くと伏せる前に消えてしまう）
+    var tauntOk = !!(g && m === "place" && g.canTaunt());
+    this.bTaunt.innerHTML = g && g.tauntArmed ? "挑発して伏せる<small>取りやめる</small>"
+      : (g && !g.canTaunt() ? "挑発<small>あと" + g.tauntWait() + "巡</small>" : "挑発する<small>三巡に一度</small>");
+    this.bTaunt.classList.toggle("armed", !!(g && g.tauntArmed));
+    this.bTaunt.classList.toggle("off", !tauntOk);
+    if (this.bStock && g && g.stockId) {
+      this.bStock.innerHTML = D.chara[g.stockId].name + "<small>" + stockUseText(g.abilLeft(0, g.stockId)) + "</small>";
+      this.bStock.classList.toggle("off", !this.stockReady(m) || !!this.stockBusy);
+    }
+    // 中央の二つ目：自分の番は挑発、ダウトの場面ではダウト！
+    if (this.bUse) {
+      this.bTaunt.style.display = m === "window" ? "none" : "";
+      this.bDoubt.style.display = m === "window" ? "" : "none";
+      var ready = this.useOptions().some(function (o) { return o.ok; });
+      this.bUse.classList.toggle("off", !ready);
+      this.bTaunt.innerHTML = g && g.tauntArmed ? tr("挑発して出す", "Taunt: ON") + "<small>" + tr("取りやめる", "cancel") + "</small>"
+        : (g && !g.canTaunt() ? tr("挑発", "Taunt") + "<small>" + tr("あと", "in ") + g.tauntWait() + tr("巡", " turns") + "</small>" : tr("挑発する", "Taunt"));
+    }
+  };
+
+  B.onTaunt = function () {
+    var g = this.game;
+    if (!g || this.mode !== "place" || !g.canTaunt()) return;
+    g.tauntArmed = !g.tauntArmed;
+    this.setButtons();
+  };
+
+  // ストックした能力を、今この場面で自分から使えるか
+  B.stockReady = function (m) {
+    var g = this.game;
+    if (!g || !g.stockId || g.abilLeft(0, g.stockId) <= 0) return false;
+    switch (g.stockId) {
+      case "reido": return m === "window" && g.hands[0].length >= 4 && !g.doubtBlocked();
+      case "eruku": return m === "place";
+      case "eruku_deal": return m === "place" && g.pile.length >= 2 && g.immune[0] === 0;
+      default: return false;   // 常時の力や、条件がそろうと確認が出る力
+    }
+  };
+
+  B.onStock = async function () {
+    var g = this.game;
+    var self = this;
+    if (!g || this.stockBusy || !this.stockReady(this.mode)) return;
+    if (g.stockId === "reido") {
+      this.finishInput({ type: "ability" });
+      return;
+    }
+    if (g.stockId === "eruku") {
+      var ov = h("div", "dbt-overlay dbt-pad dbt-swap");
+      var box = h("div", "box");
+      box.appendChild(h("div", "q", "誰と手札を丸ごと入れ替える？"));
+      var row = h("div", "targets");
+      [1, 2].forEach(function (seat) {
+        row.appendChild(btn(g.name(seat) + "<small>手札" + g.shownHand(seat) + "枚</small>", "navy", function () {
+          closeRoot(ov);
+          self.runStock(function () { return g.playerSwapAll(seat); });
+        }));
+      });
+      box.appendChild(row);
+      box.appendChild(btn("やめる", "navy cancel", function () { closeRoot(ov); }));
+      ov.appendChild(box);
+      this.root.appendChild(ov);
+      return;
+    }
+    if (g.stockId === "eruku_deal") this.runStock(function () { return g.playerRiskyDeal(); });
+  };
+
+  // 手番の途中で使う能力。伏せるために選んでいた札はいったん解除してから使う
+  B.runStock = async function (fn) {
+    this.stockBusy = true;
+    this.selected = {};
+    this.setButtons();
+    try { await fn(); } finally { this.stockBusy = false; }
+    if (this.game) {
+      if (this.mode === "place") this.guide.textContent = this.placeText(this.game);
+      this.render(this.game);
+    }
+  };
+
+  B.placeText = function (g) {
+    var t = "〈" + RANK[g.rank] + "〉として伏せる札を選ぶ（1〜" + g.maxPlay + "枚・嘘でもよい）";
+    if (g.immune[0] > 0) t += "　いまはダウトされない（あと" + g.immune[0] + "回）";
+    if (g.suitRule) t += "　" + g.suitRule.suits.map(function (x) { return SUIT[x]; }).join("") + "以外の柄は嘘になる";
+    return t;
   };
 
   B.render = function (g) {
@@ -1139,7 +1786,7 @@
       var parts = [];
       if (ch.uses > 0) parts.push("能力 残り" + Math.max(0, g.uses[seat]));
       var sub = g.subId[seat] && D.chara[g.subId[seat]];
-      if (sub && sub.uses > 0) parts.push(sub.name + " 残り" + Math.max(0, g.subUses[seat]));
+      if (sub && sub.uses > 0) parts.push(abilName(g.subId[seat]) + " 残り" + Math.max(0, g.subUses[seat]));
       var useText = parts.join("／");
       if (id === "mahoru_awake") {
         useText = "名指し 残り" + Math.max(0, g.uses[seat]);
@@ -1147,11 +1794,24 @@
           var bc = D.chara[g.borrowId];
           useText += "／" + bc.name + "の力" + (bc.uses > 0 ? " 残り" + Math.max(0, g.borrowUses) : "");
         }
-        if (g.sealed > 0) useText = "力を封じられている";
       }
+      if (g.sealed > 0) useText = "力を封じられている";
       if (g.immune[seat] > 0) useText = "ダウトされない（あと" + g.immune[seat] + "回）";
+      if (g.sight[seat] > 0) useText = "見透かし中：あなたの手札が見えている";
       if (hidden) useText = "枚数が読めない";
       o.use.textContent = useText;
+
+      // メアリーの力（ストック）や見透かしで、相手の手札が見えている時
+      var vis = g.visibleOppCards(seat);
+      var peekOn = g.sight[0] > 0 || vis.length > 0;
+      o.peek.innerHTML = "";
+      o.peek.style.display = peekOn ? "" : "none";
+      if (peekOn) {
+        o.peek.appendChild(h("div", "pk", g.sight[0] > 0 ? "見透かし中" : "見えている札"));
+        var chips = h("div", "chips");
+        sortedCardsForDisplay(vis).forEach(function (c) { chips.appendChild(chipEl(c)); });
+        o.peek.appendChild(chips);
+      }
     });
 
     this.rankBox.innerHTML = "<span>" + RANK[g.rank] + "</span>";
@@ -1160,6 +1820,10 @@
     var n = g.pile.length;
     this.pileInfo.querySelector(".v").textContent = hidden ? "？" : n;
     this.pileInfo.querySelector(".d").textContent = g.discard.length ? "捨て札 " + g.discard.length : "";
+    this.rankFoot.querySelector(".pile").textContent = hidden ? "？" : n;
+    this.rankFoot.querySelector(".gone").textContent = g.discard.length;
+    this.rankCard.classList.toggle("mine", g.turn === 0);
+    if (g.turn === 0) this.rankLbl.textContent = tr("宣言する数字", "Your Rank");
     var shown = hidden && n > 0 ? 6 : Math.min(n, 6);
     if (this.pileEl.childNodes.length !== shown) {
       this.pileEl.innerHTML = "";
@@ -1171,6 +1835,20 @@
         pc.style.transform = "rotate(" + ((i % 3) - 1) * 4 + "deg)";
         this.pileEl.appendChild(pc);
       }
+    }
+
+    var gone = g.goneKnown0 || [];
+    var rules = ruleTexts(g);
+    this.ruleEl.style.display = rules.length ? "" : "none";
+    this.ruleEl.innerHTML = rules.join("<br>");
+    this.goneEl.style.display = gone.length ? "" : "none";
+    if (gone.length && this.goneEl._n !== gone.length) {
+      this.goneEl._n = gone.length;
+      this.goneEl.innerHTML = "";
+      this.goneEl.appendChild(h("div", "pk", "除外した札"));
+      var chips = h("div", "chips");
+      sortedCardsForDisplay(gone).forEach(function (c) { chips.appendChild(chipEl(c)); });
+      this.goneEl.appendChild(chips);
     }
 
     this.renderHand(g);
@@ -1207,6 +1885,8 @@
       e.style.bottom = (rows - 1 - row) * 138 - Math.abs(d) * Math.min(7, 90 / Math.max(1, cnt)) + "px";
       e.style.zIndex = row * 100 + idx + 1;
       if (self.selected[c.id]) e.classList.add("sel");
+      // 選んだ札が宣言どおりなら金色に光らせ、違う札なら縁を赤く（！の印）
+      if (self.selected[c.id] && self.mode === "place" && g.isTrueCard) e.classList.add(g.isTrueCard(c, g.rank) ? "ok" : "ng");
       if (pickable) {
         e.classList.add("pickable");
         e.addEventListener("click", function () { self.toggleCard(c.id); });
@@ -1227,11 +1907,32 @@
     this.setButtons();
   };
 
+  B.recordPlacedFrom = function () {
+    var root = this.root;
+    var rr = root.getBoundingClientRect();
+    var k = rr.width / 1920 || 1;
+    var list = [];
+    this.handEl.querySelectorAll(".dbt-card.sel").forEach(function (el) {
+      var r = el.getBoundingClientRect();
+      var m = /rotate\((-?[\d.]+)deg\)/.exec(el.style.transform || "");
+      list.push({
+        id: el.dataset.id,
+        x: (r.left - rr.left) / k, y: (r.top - rr.top) / k, w: el.offsetWidth, h: el.offsetHeight,
+        rot: m ? parseFloat(m[1]) : 0,
+        html: el.innerHTML,
+        red: el.classList.contains("red")
+      });
+    });
+    this.placedFrom = list;
+  };
+
   B.onMain = function () {
     var r = this.resolver;
     if (!r) return;
     if (this.mode === "place" || this.mode === "give") {
       var ids = Object.keys(this.selected);
+      // 伏せる札の、いまの位置と表の絵柄を覚えておく（場へ滑らせる演出に使う）
+      if (this.mode === "place") this.recordPlacedFrom();
       this.selected = {};
       this.finishInput(ids);
     } else if (this.mode === "window") {
@@ -1245,6 +1946,7 @@
 
   B.onAbility = function () {
     var self = this;
+    if (this.game && this.game.sealed > 0) return;   // 能力封印中
     // 自分の手番なら「手札の交換」、ダウトの場面なら「名指し推理」
     if (this.mode === "place") { this.askSwapTarget(); return; }
     if (this.mode !== "window") return;
@@ -1305,11 +2007,19 @@
     ov.appendChild(box);
     this.root.appendChild(ov);
     var count = 1;
+    // これから自分が出す数字（今の手番から3人ごとに1つずつ進む）。交換しながら確かめられるようにする
+    var upcoming = [0, 1, 2, 3].map(function (k) { return ((g.rank - 1 + 3 * k) % 13) + 1; });
 
     function title(t, sub) {
       box.innerHTML = "";
       box.appendChild(h("div", "q", t));
       if (sub) box.appendChild(h("div", "sub", sub));
+      var nx = h("div", "nextrow");
+      nx.appendChild(h("span", "k", "あなたが出す数字"));
+      upcoming.forEach(function (r, k) {
+        nx.appendChild(h("span", "rk n" + k, '<b>' + RANK[r] + "</b><small>" + (k === 0 ? "今" : k + "巡後") + "</small>"));
+      });
+      box.appendChild(nx);
     }
     function grid(label, cards, cls, onPick, selected, demanded) {
       var sec = h("div", "handsec " + (cls || ""));
@@ -1319,6 +2029,12 @@
         var e = miniCardEl(c);
         if (selected && selected[c.id]) e.classList.add("sel");
         if (demanded && demanded[c.id]) e.classList.add("demand");
+        // これから出す数字の札には、何番目に出す数字かの印を付ける
+        var up = upcoming.indexOf(c.r);
+        if (up >= 0) {
+          e.classList.add("soon", "n" + up);
+          e.appendChild(h("em", "", up === 0 ? "今" : up + "巡後"));
+        }
         if (onPick) {
           e.classList.add("pickable");
           e.addEventListener("click", function () { onPick(c.id); });
@@ -1397,6 +2113,10 @@
     if (mode === "place") this.placeGuide = guide;
     this.guide.textContent = guide;
     this.guide.classList.toggle("trade-fixed", mode === "give");
+    // 自分の番の説明は、注意が要る時（ダウトされない・柄の縛り）だけ出す
+    var gg = this.game;
+    this.guide.classList.toggle("quiet", mode === "place" && !(gg && (gg.immune[0] > 0 || gg.suitRule)));
+    if (mode === "place") this.showTurnBanner();
     this.renderHand(this.game);
     this.setButtons();
     return new Promise(function (resolve) {
@@ -1419,6 +2139,16 @@
     if (!ln) return;
     playVoice(id, cat, ln.index);
     this.showSay({ seat: seat, cat: cat, text: ln.text });
+  };
+
+  // セリフを言わせて、声が終わるまで待つ（声のファイルが無ければ読める程度に待つ）
+  B.sayAndWait = function (g, seat, cat) {
+    var id = g.ids[seat];
+    var ln = pickLine(id, cat);
+    if (!ln) return Promise.resolve();
+    var a = playVoice(id, cat, ln.index);
+    this.showSay({ seat: seat, cat: cat, text: ln.text });
+    return waitVoice(a, 1100, 6000);
   };
 
   // 吹き出しは出さず、声だけ鳴らす（カットインの最中など）。
@@ -1449,26 +2179,110 @@
     }, 2200);
   };
 
+  /*
+   * 札を伏せて、場の山へ滑らせる。
+   *   自分の札：伏せるボタンを押した時の手札の位置から、表→裏に返しながら滑らせる
+   *   相手の札：立ち絵の位置から裏向きのまま滑らせる
+   * 山の上で少し減速して止まり、山がわずかに沈む。
+   * 戻り値は飛ばした札の配列。場を描き直してから消すと、ちらつかない。
+   */
   B.flyCards = async function (seat, n) {
-    var from = seat === 0 ? { x: 900, y: 760 } : (seat === 1 ? { x: 150, y: 120 } : { x: 1680, y: 120 });
-    var to = this.pileEl.getBoundingClientRect ? { x: 930, y: 190 } : { x: 930, y: 190 };
-    var flies = [];
-    for (var i = 0; i < Math.min(n, 4); i++) {
-      var e = h("div", "dbt-fly");
-      e.style.backgroundImage = "url('" + D.img.cardBack + "')";
-      e.style.left = from.x + i * 12 + "px";
-      e.style.top = from.y + "px";
-      this.root.appendChild(e);
-      flies.push(e);
+    var root = this.root;
+    var cnt = Math.max(1, Math.min(n, 4));
+    var W = 128, H = 180;   // 場の山の札と同じ大きさ
+    var rr = root.getBoundingClientRect();
+    var k = rr.width / 1920 || 1;
+    function rel(r) { return { x: (r.left - rr.left) / k, y: (r.top - rr.top) / k, w: r.width / k, h: r.height / k }; }
+    function tf(x, y, r, s, ry) {
+      return "perspective(1400px) translate(" + x + "px," + y + "px) rotate(" + r + "deg) rotateY(" + ry + "deg) scale(" + s + ")";
     }
-    await sleep(20);
-    flies.forEach(function (e, i) {
-      e.style.left = to.x + i * 6 + "px";
-      e.style.top = to.y + "px";
-      e.style.transform = "rotate(" + (i * 5 - 5) + "deg)";
+
+    var pr = rel(this.pileEl.getBoundingClientRect());
+    var tx = pr.x + pr.w / 2 - W / 2;
+    var ty = pr.y + pr.h / 2 - H / 2;
+
+    // 自分の札は、伏せるボタンを押した瞬間の位置（onMain で記録）
+    var from = seat === 0 && this.placedFrom ? this.placedFrom.slice(0, cnt) : [];
+    this.placedFrom = null;
+    var handEl = this.handEl;
+    from.forEach(function (s) {
+      var el = s.id && handEl.querySelector('.dbt-card[data-id="' + s.id + '"]');
+      if (el) el.style.visibility = "hidden";
     });
-    await sleep(300);
-    flies.forEach(function (e) { closeRoot(e); });
+
+    var reduce = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    var flies = [], waits = [];
+    for (var i = 0; i < cnt; i++) {
+      var s = from[i];
+      if (!s) {
+        if (seat !== 0 && this.portraits[seat]) {
+          var p = rel(this.portraits[seat].getBoundingClientRect());
+          s = { x: p.x + p.w / 2 - W / 2 + i * 10, y: p.y + p.h * 0.45 - H / 2, w: W * 0.8, h: H * 0.8, rot: 0 };
+        } else {
+          s = { x: 860 + i * 14, y: 700, w: 148, h: 212, rot: 0 };
+        }
+      }
+      var e = h("div", "dbt-fly");
+      var back = h("div", "b");
+      back.style.backgroundImage = "url('" + D.img.cardBack + "')";
+      e.appendChild(back);
+      var showFront = !!(s.html);
+      if (showFront) {
+        var front = h("div", "f dbt-card" + (s.red ? " red" : ""));
+        front.innerHTML = s.html;
+        e.appendChild(front);
+      }
+      e.style.left = tx + "px";
+      e.style.top = ty + "px";
+      root.appendChild(e);
+      flies.push(e);
+
+      var sx = s.x + s.w / 2 - (tx + W / 2);
+      var sy = s.y + s.h / 2 - (ty + H / 2);
+      var sc = Math.max(0.6, Math.min(1.6, s.w / W));
+      var endRot = (i - (cnt - 1) / 2) * 5 + (Math.random() * 4 - 2);
+      var startRot = seat === 1 ? -12 : (seat === 2 ? 12 : (s.rot || 0));
+      var lean = seat === 2 ? -4 : 4;   // 滑ってきた向きに少し傾けてから戻す
+
+      if (reduce || !e.animate) {
+        e.style.transform = tf(0, 0, endRot, 1, 0);
+        continue;
+      }
+      var frames = showFront ? [
+        { transform: tf(sx, sy, startRot, sc, 180), offset: 0 },
+        { transform: tf(sx * 0.82, sy * 0.82 - 26, startRot * 0.5 + lean, sc * 1.04, 0), offset: 0.24 },
+        { transform: tf(sx * 0.05, sy * 0.05, endRot + lean * 0.6, 1.02, 0), offset: 0.84 },
+        { transform: tf(0, 0, endRot, 1, 0), offset: 1 }
+      ] : [
+        { transform: tf(sx, sy, startRot, sc * 0.85, 0), opacity: 0, offset: 0 },
+        { transform: tf(sx * 0.86, sy * 0.86, startRot * 0.6, sc, 0), opacity: 1, offset: 0.14 },
+        { transform: tf(sx * 0.05, sy * 0.05, endRot + lean * 0.6, 1.02, 0), opacity: 1, offset: 0.84 },
+        { transform: tf(0, 0, endRot, 1, 0), opacity: 1, offset: 1 }
+      ];
+      var anim = e.animate(frames, { duration: 480, delay: i * 70, easing: "cubic-bezier(.22,.8,.3,1)", fill: "both" });
+      waits.push(anim.finished ? anim.finished.catch(function () {}) : sleep(480 + i * 70));
+    }
+    if (waits.length) await Promise.all(waits);
+
+    // 山がわずかに沈む
+    if (!reduce && this.pileEl.animate) {
+      this.pileEl.animate(
+        [{ transform: "none" }, { transform: "translateY(4px) scale(1.015)" }, { transform: "none" }],
+        { duration: 200, easing: "ease-out" });
+    }
+    return flies;
+  };
+
+  // 場を描き直した後に、滑らせた札をそっと消す
+  B.clearFlies = function (flies) {
+    (flies || []).forEach(function (e) {
+      if (e.animate && !(window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches)) {
+        var an = e.animate([{ opacity: 1 }, { opacity: 0 }], { duration: 140, easing: "ease-out", fill: "forwards" });
+        an.onfinish = function () { closeRoot(e); };
+      } else {
+        closeRoot(e);
+      }
+    });
   };
 
   B.overlayWait = function (ov, ms) {
@@ -1493,11 +2307,11 @@
   B.pushHistory = function (entry) {
     this.history.push(entry);
     this.historyButton.textContent = battleText("対戦履歴", "Battle History") + " (" + this.history.length + ")";
-    if (this.historyOverlay) this.openHistory();
+    if (this.historyOverlay) this.openInfo("history");
   };
 
-  B.openHistory = function () {
-    if (this.historyOverlay) closeRoot(this.historyOverlay);
+  B.openHistory = function (into) {
+    if (this.historyOverlay && !into) closeRoot(this.historyOverlay);
     var self = this;
     var ov = h("div", "dbt-overlay dbt-history");
     var box = h("div", "history-box");
@@ -1540,17 +2354,152 @@
     });
     box.appendChild(list);
     box.appendChild(btn(battleText("閉じる", "Close"), "navy", function () { closeRoot(ov); self.historyOverlay = null; }));
+    // 情報画面の「カードのプレイ履歴」の中に並べる時は、説明と一覧だけを移す
+    if (into) {
+      into.appendChild(box.querySelector("p"));
+      into.appendChild(list);
+      return list;
+    }
     ov.appendChild(box); this.root.appendChild(ov); this.historyOverlay = ov;
     list.scrollTop = list.scrollHeight;
   };
 
+  /*
+   * 情報（D案）：カードのプレイ履歴とスキル確認を、タブで切り替えて見る
+   */
+  B.openInfo = function (tab) {
+    var self = this;
+    if (!this.game) return;
+    if (this.infoOverlay) closeRoot(this.infoOverlay);
+    tab = tab === "skills" ? "skills" : "history";
+    var ov = h("div", "dbt-overlay dbt-info");
+    var box = h("div", "info-box");
+    box.appendChild(decoWrap(h("div", "info-hd", tr("情報", "Info"))));
+    var tabs = h("div", "info-tabs");
+    var tH = btn(tr("カードのプレイ履歴", "Card History"), "navy tab", function () { self.openInfo("history"); });
+    var tS = btn(tr("スキル確認", "Skills"), "navy tab", function () { self.openInfo("skills"); });
+    (tab === "skills" ? tS : tH).classList.add("on");
+    tabs.appendChild(tH);
+    tabs.appendChild(tS);
+    box.appendChild(tabs);
+    var body = h("div", "info-body " + tab);
+    box.appendChild(body);
+    function close() { closeRoot(ov); self.infoOverlay = null; self.historyOverlay = null; }
+    var list = tab === "skills" ? (this.openSkills(body), null) : this.openHistory(body);
+    if (tab === "skills") body.insertBefore(h("p", "", tr("この対戦に出ている3人のスキルと、使えるコマンドです。", "Skills of the three players at this table, and your commands.")), body.firstChild);
+    box.appendChild(btn(tr("閉じる", "Close"), "navy info-close", close));
+    ov.appendChild(box);
+    ov.addEventListener("click", function (ev) { if (ev.target === ov) close(); });
+    this.root.appendChild(ov);
+    this.infoOverlay = ov;
+    this.historyOverlay = tab === "history" ? ov : null;
+    if (list) {
+      var last = list.lastChild;
+      if (last && last.classList) last.classList.add("latest");
+      list.scrollTop = list.scrollHeight;
+    }
+  };
+
+  /*
+   * スキル発動（D案）：いま使える能力を札のように並べ、選んで「発動する」
+   *   自分の番 … 手札の交換　／　ダウトの場面 … 数字の名指し　／　アーケード … ストックした能力
+   */
+  B.useOptions = function () {
+    var g = this.game, m = this.mode, out = [];
+    if (!g || !(m === "place" || m === "window")) return out;
+    var sealed = g.sealed > 0;
+    var mc = D.chara.mahoru;
+    if (m === "place") {
+      var swaps = g.subUses[0];
+      out.push({ key: "swap", id: "mahoru", tag: mc.name, name: abilName("hand_swap"), text: D.chara.hand_swap.ability,
+        left: swaps, ok: swaps > 0 && !sealed && !this.stockBusy });
+    } else {
+      var uses = g.uses[0];
+      out.push({ key: "guess", id: "mahoru", tag: mc.name, name: abilName("mahoru"), text: mc.ability,
+        left: uses, ok: uses > 0 && !g.doubtBlocked() && !sealed });
+    }
+    if (g.stockId && D.chara[g.stockId]) {
+      out.push({ key: "stock", id: g.stockId, tag: (isBorrowMode() ? tr("借りた力", "Borrowed") : tr("ストック", "Stock")) + "・" + D.chara[g.stockId].name, name: abilName(g.stockId) || D.chara[g.stockId].name, text: D.chara[g.stockId].ability,
+        left: g.abilLeft(0, g.stockId), ok: this.stockReady(m) && !this.stockBusy });
+    }
+    return out;
+  };
+
+  B.openUse = function () {
+    var self = this;
+    var opts = this.useOptions();
+    if (!opts.some(function (o) { return o.ok; })) return;
+    var ov = h("div", "dbt-overlay dbt-use");
+    ov.appendChild(h("div", "use-kicker", "ABILITY"));
+    ov.appendChild(decoWrap(h("div", "use-hd", tr("能力発動", "Use an Ability"))));
+    var row = h("div", "use-cards");
+    var pick = -1;
+    var cards = opts.map(function (o, i) {
+      var c = h("div", "use-card" + (o.ok ? "" : " off"));
+      var art = h("div", "art");
+      art.appendChild(h("div", "rays"));
+      art.appendChild(portrait(ownerOf(o.id)));
+      art.appendChild(h("span", "tag", o.tag));
+      c.appendChild(art);
+      var gems = "";
+      if (o.left < 0) gems = "<b>" + tr("常時", "Always") + "</b>";
+      else for (var k = 0; k < o.left; k++) gems += "<i></i>";
+      c.appendChild(h("div", "txt",
+        '<div class="sep"><i></i><em></em><i></i></div>' +
+        '<div class="nm">' + o.name + "</div>" +
+        '<div class="ab">' + o.text + "</div>" +
+        '<div class="left"><span>' + tr("残り", "Left") + "</span>" + (gems || "<b>0</b>") + "</div>"));
+      if (o.ok) c.addEventListener("click", function (ev) { ev.stopPropagation(); choose(i); });
+      row.appendChild(c);
+      return c;
+    });
+    ov.appendChild(row);
+    var cmds = h("div", "use-cmds");
+    var go = btn(tr("発動する", "Activate"), "gold go off", function () {
+      if (pick < 0) return;
+      var o = opts[pick];
+      closeRoot(ov);
+      if (o.key === "stock") self.onStock();
+      else self.onAbility();
+    });
+    cmds.appendChild(go);
+    cmds.appendChild(btn(tr("もどる", "Back"), "navy", function () { closeRoot(ov); }));
+    ov.appendChild(cmds);
+    function choose(i) {
+      pick = i;
+      cards.forEach(function (c, k) { c.classList.toggle("on", k === i); });
+      go.classList.toggle("off", false);
+    }
+    for (var i = 0; i < opts.length; i++) { if (opts[i].ok) { choose(i); break; } }
+    this.root.appendChild(ov);
+  };
+
+  // 自分の番が来た時に、一度だけ「あなたの番」を出して消す
+  B.showTurnBanner = function () {
+    var old = this.root.querySelector(".dbt-turnban");
+    if (old) closeRoot(old);
+    var ban = h("div", "dbt-turnban",
+      '<div class="rays"></div><div class="ln top"><i></i><em></em><i></i></div>' +
+      '<div class="rib"><small>YOUR TURN</small><b>' + tr("あなたの番", "Your Turn") + "</b></div>" +
+      '<div class="ln bot"><i></i><em></em><i></i></div>');
+    this.root.appendChild(ban);
+    setTimeout(function () { closeRoot(ban); }, 1350);
+  };
+
   B.doubtCutin = async function (g, seat) {
     if (this.historyOverlay) { closeRoot(this.historyOverlay); this.historyOverlay = null; }
+    if (this.infoOverlay) { closeRoot(this.infoOverlay); this.infoOverlay = null; }
     var band = h("div", "dbt-doubt-cut");
     band.appendChild(portrait(g.ids[seat], "doubt-face"));
     var label = h("div", "doubt-shout", battleText("ダウト！", "DOUBT!"));
     band.appendChild(label);
     var name = h("div", "doubt-name"); name.textContent = g.name(seat); band.appendChild(name);
+    // 帯の色は、ダウトした人ごとに変える（doubt_data.js の doubtBand）
+    var col = D.doubtBand && D.doubtBand[g.ids[seat]];
+    if (col) {
+      band.style.background = "linear-gradient(100deg, #100e1bea, " + col[0] + "f5 48%, #180e1bf0)";
+      band.style.setProperty("--band-dark", col[1]);
+    }
     this.root.appendChild(band);
     var root = this.root;
     root.classList.add("doubt-cutting");
@@ -1576,12 +2525,13 @@
       placed: async function (g, seat, n) {
         ui.historyPlayCount++;
         ui.pushHistory({ type: "play", no: ui.historyPlayCount, seat: seat, name: g.name(seat), rank: RANK[g.last.rank], count: g.shownPlay(g.last.cards.length, seat) });
-        await ui.flyCards(seat, n);
+        var flies = await ui.flyCards(seat, n);
         ui.render(g);
+        ui.clearFlies(flies);
       },
       playerPlace: function (g) {
         ui.game = g;
-        return ui.waitInput("place", "〈" + RANK[g.rank] + "〉として伏せる札を選ぶ（1〜" + g.maxPlay + "枚・嘘でもよい）");
+        return ui.waitInput("place", ui.placeText(g));
       },
       playerDoubt: function (g) {
         ui.game = g;
@@ -1598,6 +2548,9 @@
         } else {
           why = "嘘だと思ったらダウト";
         }
+        // ストックした珠璃の力：伏せ札の中に、一度手にした札があれば分かる
+        var rec = g.recognizedCards(g.last.cards);
+        if (rec.length) why += "　覚えのある札：" + rec.map(function (c) { return RANK[c.r] + SUIT[c.s]; }).join(" ");
         return ui.waitInput("window", head + why);
       },
       pickGive: function (g, n, placer, offerRank) {
@@ -1609,68 +2562,65 @@
         return ui.waitInput("give",
           offered + g.name(placer) + "に渡す札を" + n + "枚選ぶ");
       },
-      // 真歩流の名指し成功報酬。相手1人の手札を確認してから、自分の札を捨てる。
+      // 真歩流の名指し成功報酬。次の手番はダウトされず、自分の札を n 枚まで捨てられる（0枚でもよい）。
       guessReward: function (g, n) {
         return new Promise(function (resolve) {
           var ov = h("div", "dbt-overlay dbt-exchange dbt-inspect");
           var box = h("div", "box");
           ov.appendChild(box);
           ui.root.appendChild(ov);
+          var selected = {};
 
-          function miniGrid(label, cards, onPick, selected) {
+          function render() {
+            box.innerHTML = "";
+            box.appendChild(h("div", "q", "名推理成功"));
+            box.appendChild(h("div", "sub", "次の手番はダウトされない。手札を" + n + "枚まで捨てられる"));
             var sec = h("div", "handsec");
-            sec.appendChild(h("div", "label", label));
+            sec.appendChild(h("div", "label", "捨てる自分の札"));
             var gr = h("div", "cardgrid");
-            sortedCardsForDisplay(cards).forEach(function (c) {
+            sortedCardsForDisplay(g.hands[0]).forEach(function (c) {
               var e = miniCardEl(c);
-              if (selected && selected[c.id]) e.classList.add("sel");
-              if (onPick) {
-                e.classList.add("pickable");
-                e.addEventListener("click", function () { onPick(c.id); });
-              }
+              if (selected[c.id]) e.classList.add("sel");
+              e.classList.add("pickable");
+              e.addEventListener("click", function () {
+                if (selected[c.id]) delete selected[c.id];
+                else {
+                  if (Object.keys(selected).length >= n) return;
+                  selected[c.id] = true;
+                }
+                render();
+              });
               gr.appendChild(e);
             });
             sec.appendChild(gr);
             box.appendChild(sec);
+            var cnt = Object.keys(selected).length;
+            box.appendChild(btn(cnt ? "この札を捨てる（" + cnt + "/" + n + "）" : "捨てずに進む", "red confirm", function () {
+              closeRoot(ov);
+              resolve({ ids: Object.keys(selected) });
+            }));
           }
-
-          function chooseTarget() {
-            box.innerHTML = "";
-            box.appendChild(h("div", "q", "名推理成功"));
-            box.appendChild(h("div", "sub", "手札を確認する相手を1人選ぶ"));
-            var row = h("div", "targets");
-            [1, 2].forEach(function (seat) {
-              row.appendChild(btn(g.name(seat) + "<small>手札を確認</small>", "navy", function () { inspect(seat); }));
-            });
-            box.appendChild(row);
-          }
-
-          function inspect(target) {
-            var selected = {};
-            function render() {
-              box.innerHTML = "";
-              box.appendChild(h("div", "q", g.name(target) + "の手札"));
-              box.appendChild(h("div", "sub", "確認したうえで、自分の手札から" + n + "枚を捨てる"));
-              miniGrid(g.name(target) + "の手札", g.hands[target]);
-              miniGrid("捨てる自分の札", g.hands[0], function (id) {
-                if (selected[id]) delete selected[id];
-                else {
-                  if (Object.keys(selected).length >= n) return;
-                  selected[id] = true;
-                }
-                render();
-              }, selected);
-              var cnt = Object.keys(selected).length;
-              box.appendChild(btn("この札を捨てる（" + cnt + "/" + n + "）", "red confirm" + (cnt === n ? "" : " off"), function () {
-                if (Object.keys(selected).length !== n) return;
-                closeRoot(ov);
-                resolve({ target: target, ids: Object.keys(selected) });
-              }));
-            }
-            render();
-          }
-
-          chooseTarget();
+          render();
+        });
+      },
+      // ストックした能力を、条件がそろった場面で使うか確かめる
+      askUse: function (g, id, n) {
+        return new Promise(function (resolve) {
+          var q = {
+            koderia: "嘘を見抜かれた！　このダウトを無効にする？",
+            mary_deal: "引き取る札のうち" + n + "枚を、相手に押しつける？",
+            jushika_sight: "二巡のあいだ、相手全員の手札を見通す？",
+          }[id] || D.chara[id].name + "を使う？";
+          var ov = h("div", "dbt-overlay dbt-pad dbt-swap dbt-ask");
+          var box = h("div", "box");
+          box.appendChild(h("div", "q", D.chara[id].name + "<small>" + stockUseText(g.abilLeft(0, id)) + "</small>"));
+          box.appendChild(h("div", "sub", q));
+          var row = h("div", "targets");
+          row.appendChild(btn("使う", "red", function () { closeRoot(ov); resolve(true); }));
+          row.appendChild(btn("使わない", "navy", function () { closeRoot(ov); resolve(false); }));
+          box.appendChild(row);
+          ov.appendChild(box);
+          ui.root.appendChild(ov);
         });
       },
       // スキル発動カットイン
@@ -1684,6 +2634,13 @@
         // スキル発動のセリフ。声を鳴らしつつ、文章はカットインにも出す
         var line = ui.sayVoice(g, seat, "ability");
         var lineHTML = line ? '<div class="ln">「' + line + '」</div>' : "";
+        // どの能力のカットインか（効果の文から引く）。見出しに能力名を出す
+        var skId = id;
+        [id, g.subId && g.subId[seat], seat === 0 ? g.stockId : null, g.borrowId, "hand_swap", "free_doubt", "arther_deck", "mary_deal", "eruku_deal", "jushika_sight"]
+          .forEach(function (k) { if (k && D.chara[k] && text && text.indexOf(D.chara[k].ability) >= 0 && skId === id) skId = k; });
+        if (g.borrowId && text && text.indexOf(D.chara[g.borrowId].name) === 0 && seat === g.awakeSeat) skId = "mahoru_awake_borrow";
+        var skName = abilName(skId) || "";
+        var skHTML = skName ? '<div class="skn">' + skName + "</div>" : "";
         var repeat = !!ui.cutinShown[id];
         ui.cutinShown[id] = true;
 
@@ -1699,7 +2656,7 @@
             mini.appendChild(mart);
             mini.classList.add("has-art");
           }
-          var mtxt = h("div", "txt", '<div class="nm">' + ch.name + '</div><div class="ef">' + text + "</div>" + lineHTML);
+          var mtxt = h("div", "txt", skHTML + '<div class="nm">' + ch.name + '</div><div class="ef">' + text + "</div>" + lineHTML);
           mtxt.style.borderColor = ch.color;
           mini.appendChild(mtxt);
           return ui.overlayWait(mini, 1100);
@@ -1728,7 +2685,7 @@
         band.appendChild(h("div", "lines"));
         ov.appendChild(band);
 
-        var txt = h("div", "txt", '<div class="nm">' + ch.name + '</div><div class="ef">' + text + "</div>" + lineHTML);
+        var txt = h("div", "txt", skHTML + '<div class="nm">' + ch.name + '</div><div class="ef">' + text + "</div>" + lineHTML);
         txt.style.borderColor = ch.color;
         ov.appendChild(txt);
         return ui.overlayWait(ov, 2000);
@@ -1753,42 +2710,221 @@
           cards: cards, outcome: outcome
         });
       },
+      // 挑発の反応。真歩流が煽り、相手2人がそれぞれ乗るか身構える
+      // 挑発の掛け合い。真歩流が言い終えてから、相手の二人のうち一人だけが返す（声を重ねない）
+      taunt: async function (g, res) {
+        await ui.sayAndWait(g, 0, "taunt");
+        var who = Math.random() < 0.5 ? 1 : 2;
+        await ui.sayAndWait(g, who, "taunt");
+      },
       notice: function (g, title, sub) {
         var ov = h("div", "dbt-overlay dbt-notice");
         ov.appendChild(h("div", "box", '<div class="t">' + title + '</div><div class="s">' + (sub || "") + "</div>"));
         return ui.overlayWait(ov, 1400);
       },
+      /*
+       * ダウト判定の演出（4段階）
+       *   1 ダウト宣言：（直前にカットイン）画面を暗くし、伏せ札を中央に並べる …… 約0.3秒
+       *   2 カード公開：伏せ札を左から順にめくる …… 1枚0.15秒
+       *   3 判定成立  ：判定の根拠（数字・絵柄・違う札）を光らせ、「ダウト成功！／失敗！」 …… 約0.5秒
+       *   4 ペナルティ：「〇〇が場の札を引き取る」→ 札がまとまって引き取る側へ飛ぶ
+       * 画面を押すと、そこから先は早送りで閉じる。
+       */
       reveal: async function (g, info) {
         if (ui.historyOverlay) { closeRoot(ui.historyOverlay); ui.historyOverlay = null; }
-        var ov = h("div", "dbt-overlay dbt-reveal");
+        if (ui.infoOverlay) { closeRoot(ui.infoOverlay); ui.infoOverlay = null; }
+        var reduce = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+        var skip = false;
+        function wait(ms) {
+          if (skip || reduce) return Promise.resolve();
+          return new Promise(function (r) {
+            var t = setTimeout(r, ms);
+            waiters.push(function () { clearTimeout(t); r(); });
+          });
+        }
+        var waiters = [];
+        function anim(el, frames, opt) {
+          if (skip || reduce || !el.animate) {
+            var last = frames[frames.length - 1];
+            Object.keys(last).forEach(function (k) { if (k !== "offset" && k !== "easing") el.style[k] = last[k]; });
+            return Promise.resolve();
+          }
+          var an = el.animate(frames, Object.assign({ fill: "both" }, opt));
+          running.push(an);
+          return an.finished ? an.finished.catch(function () {}) : wait(opt.duration || 0);
+        }
+        var running = [];
+
+        var rr = ui.root.getBoundingClientRect();
+        var k = rr.width / 1920 || 1;
+        function rel(el) {
+          var r = el.getBoundingClientRect();
+          return { x: (r.left - rr.left) / k, y: (r.top - rr.top) / k, w: r.width / k, h: r.height / k };
+        }
+
+        var ov = h("div", "dbt-overlay dbt-reveal2");
         ov.appendChild(h("div", "who",
           g.name(info.doubter) + "のダウト　―　" + g.name(info.placer) + "の〈" + RANK[info.rank] + "〉"));
         var row = h("div", "cards");
-        info.cards.forEach(function (c, i) {
-          var e = cardEl(c);
-          e.style.animationDelay = i * 0.12 + "s";
-          if (c.r !== info.rank) e.classList.add("bad");
-          row.appendChild(e);
-        });
         ov.appendChild(row);
+        var basis = h("div", "basis", "");
+        ov.appendChild(basis);
         var v = h("div", "verdict", "");
         ov.appendChild(v);
         var res = h("div", "res", "");
         ov.appendChild(res);
         ui.root.appendChild(ov);
-        await sleep(450 + info.cards.length * 120);
-        v.textContent = info.isLie ? battleText("ダウト成功", "Doubt Successful") : battleText("ダウト失敗", "Doubt Failed");
-        v.className = "verdict " + (info.isLie ? "lie" : "true");
-        var loser = info.isLie ? info.placer : info.doubter;
-        res.textContent = info.noTake ? g.name(info.doubter) + "は札を引き取らない" :
-          (info.suitPass ? "絵柄が揃っているので〈" + RANK[info.rank] + "〉として通る。" : "") +
-          g.name(loser) + "が場の札を引き取る";
-        await new Promise(function (resolve) {
-          var done = false;
-          function end() { if (!done) { done = true; resolve(); } }
-          ov.addEventListener("click", end);
-          setTimeout(end, 1200);
+        ov.addEventListener("click", function () {
+          if (skip) return;
+          skip = true;
+          running.forEach(function (an) { try { an.finish(); } catch (e) {} });
+          waiters.forEach(function (fn) { fn(); });
         });
+
+        // 1 ダウト宣言：伏せ札を場の山から中央へ並べる
+        var n = info.cards.length;
+        var CW = 148, CH = 212, GAP = 26;
+        var rowW = n * CW + (n - 1) * GAP;
+        var x0 = (1920 - rowW) / 2, y0 = 400;
+        var pile = rel(ui.pileEl);
+        var slots = info.cards.map(function (c, i) {
+          var slot = h("div", "rv");
+          slot.style.left = (x0 + i * (CW + GAP)) + "px";
+          slot.style.top = y0 + "px";
+          var inner = h("div", "rv-in");
+          var back = h("div", "b");
+          back.style.backgroundImage = "url('" + D.img.cardBack + "')";
+          inner.appendChild(back);
+          var face = cardEl(c);
+          face.classList.add("f");
+          inner.appendChild(face);
+          slot.appendChild(inner);
+          row.appendChild(slot);
+          return { el: slot, inner: inner, face: face, card: c };
+        });
+        ov.style.background = "rgba(6,10,20,0)";
+        anim(ov, [{ backgroundColor: "rgba(6,10,20,0)" }, { backgroundColor: "rgba(6,10,20,.72)" }], { duration: 260, easing: "ease-out" });
+        await Promise.all(slots.map(function (s, i) {
+          var dx = pile.x + pile.w / 2 - (x0 + i * (CW + GAP) + CW / 2);
+          var dy = pile.y + pile.h / 2 - (y0 + CH / 2);
+          return anim(s.el, [
+            { transform: "translate(" + dx + "px," + dy + "px) scale(.86) rotate(" + (i * 3 - 4) + "deg)", opacity: 0 },
+            { transform: "none", opacity: 1 }
+          ], { duration: 300, delay: i * 30, easing: "cubic-bezier(.22,.8,.3,1)" });
+        }));
+
+        // 2 カード公開：左から順にめくる
+        for (var i = 0; i < slots.length; i++) {
+          anim(slots[i].inner, [{ transform: "rotateY(0deg)" }, { transform: "rotateY(180deg)" }], { duration: 150, easing: "ease-out" });
+          await wait(150);
+        }
+        await wait(120);
+
+        // 3 判定成立：根拠を光らせる
+        var rankHit = info.cards.filter(function (c) { return c.r === info.rank; }).length;
+        var red = function (s) { return s === 1 || s === 2; };
+        var bad = info.cards.filter(function (c) { return c.r !== info.rank; });
+        var bhtml, bcls;
+        if (info.isLie) {
+          slots.forEach(function (s) {
+            if (s.card.r !== info.rank) {
+              s.el.classList.add("bad");
+              anim(s.el, [{ transform: "translateX(0)" }, { transform: "translateX(-8px)" }, { transform: "translateX(7px)" }, { transform: "translateX(-4px)" }, { transform: "translateX(0)" }], { duration: 300, easing: "ease-out" });
+            } else {
+              s.el.classList.add("dim");
+            }
+          });
+          bhtml = "〈" + RANK[info.rank] + "〉" + battleText("以外の札", " — other cards") + " <b>×" + bad.length + "</b>";
+          bcls = "lie";
+        } else if (info.suitPass) {
+          var suit = info.cards[0].s;
+          slots.forEach(function (s) { s.el.classList.add("hit-suit"); });
+          bhtml = '<span class="sym' + (red(suit) ? " red" : "") + '">' + SUIT[suit] + "</span> <b>×" + n + "</b>　" + battleText("絵柄が揃っている", "same suit");
+          bcls = "ok";
+        } else {
+          slots.forEach(function (s) { s.el.classList.add("hit-rank"); });
+          bhtml = "〈" + RANK[info.rank] + "〉 <b>×" + rankHit + "</b>　" + battleText("宣言どおり", "as declared");
+          bcls = "ok";
+        }
+        basis.innerHTML = bhtml;
+        basis.className = "basis show " + bcls;
+        anim(basis, [{ transform: "scale(.7)", opacity: 0 }, { transform: "scale(1.08)", opacity: 1, offset: .6 }, { transform: "scale(1)", opacity: 1 }], { duration: 260, easing: "ease-out" });
+        await wait(300);
+        v.textContent = info.isLie ? battleText("ダウト成功！", "Doubt Successful!") : battleText("ダウト失敗！", "Doubt Failed!");
+        v.className = "verdict show " + (info.isLie ? "lie" : "true");
+        anim(v, [{ transform: "scale(1.5)", opacity: 0, letterSpacing: ".4em" }, { transform: "scale(1)", opacity: 1, letterSpacing: ".12em" }], { duration: 260, easing: "cubic-bezier(.2,.9,.3,1.2)" });
+        await wait(520);
+
+        // 4 ペナルティ：引き取る側へ札が飛ぶ
+        var loser = info.isLie ? info.placer : info.doubter;
+        if (info.noTake) {
+          res.textContent = g.name(info.doubter) + battleText("は札を引き取らない", " takes no cards");
+          res.className = "res show";
+          anim(res, [{ opacity: 0, transform: "translateY(10px)" }, { opacity: 1, transform: "none" }], { duration: 200, easing: "ease-out" });
+          await wait(700);
+          await Promise.all(slots.map(function (s) {
+            return anim(s.el, [{ opacity: 1 }, { opacity: 0 }], { duration: 200, easing: "ease-in" });
+          }));
+        } else {
+          res.innerHTML = '<span class="nm">' + g.name(loser) + "</span>" + battleText("が場の札を引き取る", " takes the pile");
+          res.className = "res show";
+          anim(res, [{ opacity: 0, transform: "translateY(10px)" }, { opacity: 1, transform: "none" }], { duration: 200, easing: "ease-out" });
+          await wait(380);
+
+          // 札をまとめる
+          var cx = 960 - CW / 2, cy = y0;
+          slots.forEach(function (s) { s.el.classList.remove("dim", "bad", "hit-suit", "hit-rank"); });
+          await Promise.all(slots.map(function (s, i) {
+            var sx = x0 + i * (CW + GAP);
+            return anim(s.el, [
+              { transform: "none" },
+              { transform: "translate(" + (cx - sx + (i - (n - 1) / 2) * 6) + "px," + (-i * 2) + "px) rotate(" + ((i - (n - 1) / 2) * 3) + "deg)" }
+            ], { duration: 200, easing: "ease-in-out" });
+          }));
+
+          // 引き取る側へ飛ばす（場の山もいっしょに消える）
+          var target;
+          if (loser === 0) {
+            var hr = rel(ui.handEl);
+            target = { x: hr.x + hr.w / 2, y: hr.y + hr.h - 120 };
+          } else if (ui.portraits[loser]) {
+            var pr = rel(ui.portraits[loser]);
+            target = { x: pr.x + pr.w / 2, y: pr.y + pr.h / 2 };
+          } else {
+            target = { x: 960, y: 900 };
+          }
+          Array.prototype.forEach.call(ui.pileEl.children, function (pc) { pc.style.visibility = "hidden"; });
+          anim(row.parentNode.querySelector(".who"), [{ opacity: 1 }, { opacity: 0 }], { duration: 200 });
+          anim(basis, [{ opacity: 1 }, { opacity: 0 }], { duration: 200 });
+          anim(v, [{ opacity: 1 }, { opacity: 0 }], { duration: 200 });
+          var tdx = target.x - 960, tdy = target.y - (cy + CH / 2);
+          await Promise.all(slots.map(function (s, i) {
+            var sx = x0 + i * (CW + GAP);
+            var bx = cx - sx + (i - (n - 1) / 2) * 6, by = -i * 2, br = (i - (n - 1) / 2) * 3;
+            return anim(s.el, [
+              { transform: "translate(" + bx + "px," + by + "px) rotate(" + br + "deg) scale(1)", opacity: 1 },
+              { transform: "translate(" + (bx + tdx * 0.35) + "px," + (by + tdy * 0.35 - 40) + "px) rotate(" + (br + 6) + "deg) scale(.82)", opacity: 1, offset: .4 },
+              { transform: "translate(" + (bx + tdx) + "px," + (by + tdy) + "px) rotate(" + (br + 12) + "deg) scale(.45)", opacity: 0 }
+            ], { duration: 460, delay: i * 25, easing: "cubic-bezier(.45,.05,.55,.95)" });
+          }));
+
+          // 手札が増えた合図
+          var gain = g.pile ? g.pile.length : n;
+          var halfTake = g.hasAbil && g.hasAbil(loser, "kazuto");
+          if (!halfTake && gain > 0) {
+            var pop = h("div", "dbt-gain", "＋" + gain);
+            pop.style.left = target.x + "px";
+            pop.style.top = target.y + "px";
+            ui.root.appendChild(pop);
+            if (reduce || !pop.animate) setTimeout(function () { closeRoot(pop); }, 600);
+            else pop.animate([
+              { transform: "translate(-50%,-50%) scale(.6)", opacity: 0 },
+              { transform: "translate(-50%,-90%) scale(1.1)", opacity: 1, offset: .3 },
+              { transform: "translate(-50%,-130%) scale(1)", opacity: 0 }
+            ], { duration: 900, easing: "ease-out", fill: "both" }).onfinish = function () { closeRoot(pop); };
+          }
+          await anim(ov, [{ backgroundColor: "rgba(6,10,20,.72)" }, { backgroundColor: "rgba(6,10,20,0)" }], { duration: 200, easing: "ease-out" });
+        }
         closeRoot(ov);
       },
     };
@@ -1820,7 +2956,8 @@
       };
     });
     var game = new E.DoubtGame({
-      data: D, pairIndex: idx, io: io, level: getLevel(), maxPlay: getMaxPlay(), deckSize: getDeckSize()
+      data: D, pairIndex: idx, io: io, level: getLevel(), maxPlay: getMaxPlay(), deckSize: getDeckSize(),
+      stock: stockOption()
     });
     ui.game = game;
     lifecycle.battle = ui;
@@ -1924,6 +3061,11 @@
           '<div class="stat"><span>名指し成功</span><b>' + guessSuccess + '</b><small>回</small></div>' +
         "</div>"));
 
+      // ---- D案：勝ちは事件解決の判、負けは残機を前に出した余韻の構成 ----
+      if (win) {
+        root.appendChild(h("div", "stamp", '<span class="c">CASE</span><b>' + tr("解決", "SOLVED") + '</b><span class="n">NO.' + ("0" + (pairIndexOf(pm) + 1)).slice(-2) + "</span>"));
+      }
+      root.appendChild(h("div", "rframe"));
       root.appendChild(btn("次へ", "next", function () {
         closeRoot(root);
         resolve();
@@ -1960,6 +3102,7 @@
 
     var base = document.querySelector(".tyrano_base") || document.body;
     var b = h("div", "dbt-skipbtn dbt-btn navy", "スキップ<small>物語を飛ばす</small>");
+    b.insertBefore(h("span", "ff", "▶▶"), b.querySelector("small"));
     b.addEventListener("click", function (ev) {
       ev.stopPropagation();
       if (b.parentNode) b.parentNode.removeChild(b);
@@ -1985,7 +3128,7 @@
       root.appendChild(h("div", "hd", "デバッグ"));
       root.appendChild(h("div", "sub", "アーケードプレイを、好きなところから始めます"));
 
-      var pick = { stage: 0, story: 1, total: 0, lives: 1 };
+      var pick = { stage: 0, story: 1, total: 0, lives: 1, stock: "" };
       var rows = [];
 
       function row(label, note, items, key) {
@@ -2022,6 +3165,9 @@
         { t: (D.rules.hiddenScore).toLocaleString(), v: D.rules.hiddenScore },
       ], "total");
       row("残機", "", [{ t: "1", v: 1 }, { t: "3", v: 3 }, { t: "5", v: 5 }], "lives");
+      var stockItems = [{ t: "なし", v: "" }];
+      Object.keys(D.stockUses).forEach(function (id) { stockItems.push({ t: D.chara[id].name, v: id }); });
+      row("ストック", "持ち帰った能力", stockItems, "stock");
       sync();
 
       function finish(go) {
@@ -2033,6 +3179,7 @@
           fv.doubt_total = pick.total;
           fv.doubt_lives = pick.lives;
           fv.doubt_debug_story = !!pick.story;
+          fv.doubt_stock = pick.stock;
         }
         closeRoot(root);
         resolve();
@@ -2042,6 +3189,52 @@
       cmds.appendChild(btn("ここから始める", "red", function () { finish(true); }));
       cmds.appendChild(btn("もどる", "navy", function () { finish(false); }));
       root.appendChild(cmds);
+    });
+  });
+
+  // ---------------------------------------------------------------- 能力の持ち帰り（ストック）
+  //   アーケードで卓を突破するたびに、倒した二人の能力から一つだけ持ち帰れる。
+  //   持てるのは一つだけ。持ち帰ると、今のストックと入れ替わる。
+  //   二つの力を持つキャラは、どちらか一方を選ぶ（D.stock に候補がある）。
+
+  defineTag("doubt_stock", { pair: "0" }, function (pm) {
+    var pr = D.pairs[pairIndexOf(pm)];
+    var fv = f();
+    var options = [];
+    [pr.a, pr.b].forEach(function (owner) {
+      (D.stock[owner] || []).forEach(function (id) {
+        if (D.chara[id]) options.push({ owner: owner, id: id });
+      });
+    });
+    if (!options.length) return;
+    return new Promise(function (resolve) {
+      var root = openRoot("dbt-stock");
+      bg(root, D.img.bgSelect);
+      root.appendChild(h("div", "dbt-shade shade"));
+      root.appendChild(h("div", "hd", "能力を持ち帰る"));
+      root.appendChild(h("div", "sub", "倒した相手の力を一つだけ、次の卓から使えます（持てるのは一つだけ）"));
+      var cur = fv.doubt_stock && D.chara[fv.doubt_stock] ? fv.doubt_stock : "";
+      root.appendChild(h("div", "cur", "いまのストック：" + (cur ? D.chara[cur].name : "なし")));
+
+      var list = h("div", "opts");
+      options.forEach(function (o) {
+        var card = h("div", "opt");
+        card.appendChild(portrait(o.owner));
+        var u = stockUses(o.id);
+        card.appendChild(h("div", "txt",
+          '<div class="own">' + D.chara[o.owner].name + "</div>" +
+          skillHTML(o.id, u < 0 ? "常時" : "1ゲーム" + u + "回") + stockNoteHTML(o.id)));
+        card.appendChild(btn("持ち帰る", "red take", function () { finish(o.id); }));
+        list.appendChild(card);
+      });
+      root.appendChild(list);
+      root.appendChild(btn(cur ? "今のままにする" : "持ち帰らない", "navy keep", function () { finish(cur); }));
+
+      function finish(id) {
+        fv.doubt_stock = id || "";
+        closeRoot(root);
+        resolve();
+      }
     });
   });
 
@@ -2314,10 +3507,56 @@
       root.appendChild(deckBox);
       chooseDeckSize(deckNow);
 
+      // ---- 対戦中のBGM（パターン1：card / boss_battle、パターン2：card_ver2 / boss_battle_ver2）----
+      //   sf.doubt_bgm に 1 か 2 を残す。doubt_main.ks の [playbgm] がこの値で曲を選ぶ
+      var bgmNow = 1;
+      try { bgmNow = parseInt(sysVar().doubt_bgm, 10) === 2 ? 2 : 1; } catch (e) {}
+      var bgmBox = h("div", "item bgm");
+      bgmBox.appendChild(h("div", "k", tr("対戦中のBGM", "Battle Music")));
+      bgmBox.appendChild(h("div", "d", tr("ダウト中に流れる曲を選べます。パターン2は別アレンジの曲になります。",
+        "Choose the music played during matches. Pattern 2 uses alternate arrangements.")));
+      var bgmOpts = h("div", "opts");
+      var bgmCells = [];
+      function chooseBgm(v) {
+        bgmNow = v;
+        try { TYRANO.kag.variable.sf.doubt_bgm = v; TYRANO.kag.saveSystemVariable(); }
+        catch (e) { console.error("[doubt] BGM setting could not be saved", e); }
+        bgmCells.forEach(function (c) { c.classList.toggle("on", c._v === v); });
+      }
+      [[1, tr("パターン1", "Pattern 1"), tr("いつもの曲", "Original")], [2, tr("パターン2", "Pattern 2"), tr("別アレンジ", "Alternate")]].forEach(function (o) {
+        var c = btn(o[1] + "<small>" + o[2] + "</small>", "navy cell wide", function () { chooseBgm(o[0]); });
+        c._v = o[0];
+        bgmCells.push(c);
+        bgmOpts.appendChild(c);
+      });
+      bgmBox.appendChild(bgmOpts);
+      root.appendChild(bgmBox);
+      chooseBgm(bgmNow);
+
       root.appendChild(btn("とじる", "navy back", function () {
         handoffRoot(root);
         resolve();
       }));
+      // ---- D案：横長の札に「見出し・説明」と選択肢を左右に並べる ----
+      asBack(root.lastChild);
+      var shd = root.querySelector(".hd");
+      var shw = h("div", "hd-wrap");
+      root.insertBefore(shw, shd);
+      shw.appendChild(decoWrap(shd));
+      root.querySelectorAll(".item").forEach(function (it) {
+        var lab = h("div", "lab");
+        it.insertBefore(lab, it.firstChild);
+        lab.appendChild(it.querySelector(".k"));
+        lab.appendChild(it.querySelector(".d"));
+        it.querySelectorAll(".cell").forEach(function (c) {
+          c.appendChild(h("span", "chk", '<svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="#1B2945" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"><polyline points="4 12.5 10 18 20 6"></polyline></svg>'));
+          var sm = c.querySelector("small");
+          if (sm) sm.innerHTML = sm.innerHTML.replace(/(×\s*[\d.]+)/, '<b class="mult">$1</b>');
+        });
+      });
+      root.querySelectorAll(".item .d").forEach(function (d) {
+        d.innerHTML = d.innerHTML.replace(/(得点の倍率|score multiplier)/, "<b>$1</b>");
+      });
     });
   });
 
@@ -2344,6 +3583,7 @@
         handoffRoot(root);
         resolve();
       }));
+      root.appendChild(h("div", "kick", "CONTINUE"));
       root.appendChild(btn("あきらめる<small>今日の勝負は、ここでお開き</small>", "no", function () {
         fv.doubt_continue = false;
         handoffRoot(root);
@@ -2366,6 +3606,23 @@
         handoffRoot(root);
         resolve();
       }));
+      // ---- D案：「今日はお開き」を主見出しに、映画の終幕のように一列に並べる ----
+      (function () {
+        var col = h("div", "endcol");
+        var go = root.querySelector(".go"), t = root.querySelector(".t"), q = root.querySelector(".q"), back = root.querySelector(".back");
+        var gl = h("div", "goline");
+        gl.appendChild(h("i", ""));
+        gl.appendChild(go);
+        gl.appendChild(h("i", ""));
+        col.appendChild(gl);
+        col.appendChild(t);
+        col.appendChild(h("div", "sep", "<em></em><i></i><em></em>"));
+        col.appendChild(q);
+        col.appendChild(back);
+        back.insertAdjacentHTML("afterbegin", '<span class="de l"><em></em><i></i></span>');
+        back.insertAdjacentHTML("beforeend", '<span class="de r"><i></i><em></em></span>');
+        root.appendChild(col);
+      })();
     });
   });
 
@@ -2542,6 +3799,26 @@
         handoffRoot(root);
         resolve();
       }));
+      // ---- D案：スコアボード。1〜3位に金銀銅、空きは「未登録」 ----
+      asBack(root.lastChild);
+      var rsub = root.querySelector(".sub");
+      if (rsub) { var rw = decoWrap(h("span", "", rsub.innerHTML)); rsub.innerHTML = ""; rsub.appendChild(rw); }
+      var board = h("div", "board");
+      root.insertBefore(board, rows);
+      board.appendChild(h("div", "bhead", "<span>" + tr("順位", "Rank") + "</span><span>" + tr("名前", "Name") + "</span><span>" + tr("通算スコア", "Total Score") + "</span>"));
+      board.appendChild(rows);
+      rows.querySelectorAll(".row").forEach(function (row, i) {
+        row.classList.add("r" + (i + 1));
+        var no = row.querySelector(".no");
+        no.innerHTML = "<b>" + no.textContent + "</b>";
+        if (row.classList.contains("empty")) {
+          row.querySelector(".nm").textContent = tr("未登録", "Empty");
+          row.querySelector(".pt").textContent = "———";
+        } else {
+          row.querySelector(".pt").insertAdjacentHTML("beforeend", "<small>" + tr("点", " pts") + "</small>");
+        }
+        if (row.classList.contains("new")) row.querySelector(".nm").insertAdjacentHTML("beforeend", '<i class="newtag">NEW</i>');
+      });
     });
   }
 
