@@ -1414,7 +1414,8 @@
   // 対戦に出る3人の表情（ダウト・悔しい・動揺）を先に読んでおき、出す瞬間に遅れないようにする
   function preloadCharaFaces(ids) {
     ids.forEach(function (id) {
-      ["doubt", "frustrated", "shaken"].forEach(function (f) {
+      // 真歩流は対戦中に立ち絵を出さないので、ダウトのカットインの顔だけでよい
+      (id === "mahoru" ? ["doubt"] : ["doubt", "frustrated", "shaken"]).forEach(function (f) {
         var src = D.img.chara(id, f);
         if (missing[absUrl(src)]) return;
         var im = new Image();
