@@ -39,7 +39,7 @@
     this.juriShown = false;
     this.sealed = 0;
     this.jokerStock = opt.data.rules.jokers;
-    this.handSwapUsed = false;   // 「全員の手札を入れ替え」は1戦に一度だけ
+    this.suitRule = null;        // 柄の縛り（舞黒邦夢）。{ suits: [2つの柄], left: 残り手数 }。この2つ以外の柄は嘘扱い
     this.noDoubtPlayer = 0;      // プレイヤーだけダウトを言えない残り手番（快活な少女）
     this.resigned = false;       // 降参した（フリー対戦だけ）
     // 1対戦ごとのプレイヤー戦績。結果画面と精度ボーナスに使う
@@ -123,6 +123,26 @@
 
   // その席が使える能力のid。真歩流？だけは、借りている能力を返す。
   // 「誰か」を見る処理は ids、「どの能力か」を見る処理は abil を使う。
+  // 封印されていない時だけ働く常時の能力（和人・珠璃・メアリー・朱志香）
+  P.active = function (seat, id) {
+    return this.sealed === 0 && this.hasAbil(seat, id);
+  };
+
+  /*
+   * 柄の縛り。縛りの間は、指定の2つの柄の札しか「本当」にならない。
+   * 数字が合っていても、それ以外の柄はダウトの対象になる。
+   */
+  P.suitOk = function (c) {
+    return !this.suitRule || this.suitRule.suits.indexOf(c.s) >= 0;
+  };
+  P.isTrueCard = function (c, rank) {
+    return c.r === rank && this.suitOk(c);
+  };
+  P.isLiePlay = function (cards, rank) {
+    var self = this;
+    return cards.some(function (c) { return !self.isTrueCard(c, rank); });
+  };
+
   P.abil = function (seat) {
     return seat === this.awakeSeat && this.borrowId ? this.borrowId : this.ids[seat];
   };
@@ -141,6 +161,8 @@
   P.abilCh = function (seat) { return this.data.chara[this.abil(seat)]; };
   // 能力ごとの残り回数（-1 は常時）。能力idで引く
   P.abilLeft = function (seat, id) {
+    // 舞黒邦夢の封印中は、誰も能力を使えない
+    if (this.sealed > 0) return 0;
     if (seat === 0 && this.stockId === id) return this.stockUses;
     if (this.subId[seat] === id) return this.subUses[seat];
     if (seat === this.awakeSeat && this.borrowId === id) return this.borrowUses;
@@ -479,7 +501,7 @@
     if (seat !== 0) this.aiReactPlace(seat, cards);
 
     // プレイヤーが嘘を通せた回数を数える。正しいダウトで捕まった時だけ失敗。
-    var playerLie = seat === 0 && cards.some(function (c) { return c.r !== this.rank; }, this);
+    var playerLie = seat === 0 && this.isLiePlay(cards, this.rank);
     if (playerLie) this.playerLieCaught = false;
     await this.doubtPhase(seat, cards);
     this.taunt = null;
@@ -499,6 +521,10 @@
     }
 
     if (this.sealed > 0) this.sealed--;
+    if (this.suitRule && --this.suitRule.left <= 0) {
+      this.suitRule = null;
+      this.io.log(this, "柄の縛りが解けた");
+    }
     if (this.noDoubtPlayer > 0) this.noDoubtPlayer--;
     for (var sg = 0; sg < 3; sg++) if (this.sight[sg] > 0) this.sight[sg]--;
     this.rank = (this.rank % 13) + 1;
@@ -574,14 +600,17 @@
   P.resolve = async function (doubter, placer, act) {
     var cards = this.last.cards;
     var rank = this.last.rank;
-    var isLie = cards.some(function (c) { return c.r !== rank; });
+    var isLie = this.isLiePlay(cards, rank);
+    var self = this;
+    var suitLie = cards.some(function (c) { return !self.suitOk(c); });
 
     /*
      * 愛理：伏せ札がすべて同じ絵柄なら、宣言した数字として通る。
      * 疑われた時だけ消費するので、回数は「守られる回数」になる。
      */
     var suitPass = false;
-    if (isLie && this.last.suitPass && this.hasAbil(placer, "airi") && this.abilLeft(placer, "airi") > 0) {
+    // 柄の縛りに外れた札は、愛理の力でも通らない
+    if (isLie && !suitLie && this.last.suitPass && this.hasAbil(placer, "airi") && this.abilLeft(placer, "airi") > 0) {
       var s0 = cards[0].s;
       if (cards.every(function (c) { return c.s === s0 && c.r > 0; })) {
         this.spendAbilId(placer, "airi");
@@ -608,6 +637,7 @@
 
     // 名指し推理（真歩流と真歩流？）。相手側は数字を自分で選ぶ
     var guess = 0;
+    if (act.type === "guess" && this.sealed > 0) act = { type: "doubt" };
     if (act.type === "guess") {
       this.uses[doubter]--;
       guess = doubter === 0 ? act.guess : this.aiGuessRank(cards, rank);
@@ -635,8 +665,11 @@
     this.io.log(this, this.name(doubter) + "：ダウト！");
 
     // 小出里亜：ダウト無効
-    if (isLie && doubter === 0 && this.hasAbil(placer, "koderia") && this.abilLeft(placer, "koderia") > 0) {
-      var useIt = this.hands[placer].length <= 2 || this.pile.length >= 6;
+    // 小出里亜の力は、使う本人の手札が4枚以下の時は使えない（上がりの決め手にしない）
+    var koderiaMin = this.data.rules.koderiaMinHand != null ? this.data.rules.koderiaMinHand : 5;
+    if (isLie && doubter === 0 && this.hasAbil(placer, "koderia") && this.abilLeft(placer, "koderia") > 0 &&
+        this.hands[placer].length >= koderiaMin) {
+      var useIt = this.hands[placer].length <= 7 || this.pile.length >= 6;
       if (useIt) {
         this.spendAbilId(placer, "koderia");
         await this.io.cutin(this, placer, this.data.chara.koderia.ability);
@@ -651,7 +684,7 @@
 
     // ストックした小出里亜の力：プレイヤーの嘘を見抜いたダウトを、選んで無効にできる
     if (isLie && placer === 0 && doubter > 0 && this.hasAbil(0, "koderia") && this.abilLeft(0, "koderia") > 0 &&
-        this.io.askUse && await this.io.askUse(this, "koderia")) {
+        this.hands[0].length >= koderiaMin && this.io.askUse && await this.io.askUse(this, "koderia")) {
       this.spendAbilId(0, "koderia");
       await this.io.cutin(this, 0, this.data.chara.koderia.ability);
       this.io.log(this, this.name(0) + "がダウトを無効にした");
@@ -692,7 +725,7 @@
     var gotCards = [];
     if (loser >= 0) {
       var take = this.pile.splice(0);
-      if (this.hasAbil(loser, "kazuto")) {
+      if (this.active(loser, "kazuto")) {
         this.shuffle(take);
         var half = Math.ceil(take.length / 2);
         resolvedTake = half;
@@ -727,7 +760,7 @@
       // 相手側の誰かがダウトを外した（＝疑った側として札を引き取った）ときだけ
       if (loser === doubter && !isLie && loser > 0) {
         var js = this.abilSeatOf("jushika");
-        if (js > 0) {
+        if (js > 0 && this.sealed === 0) {
           this.unreadable = 2;
           // ごまかす下駄を引き直す。0 は使わない（本当の枚数になってしまう）
           for (var fs = 1; fs <= 2; fs++) {
@@ -950,7 +983,9 @@
     var ch = this.ch(seat);
     var hand = this.hands[seat];
     var r = this.rank;
-    var have = hand.filter(function (c) { return c.r === r; });
+    var self = this;
+    // 柄の縛りの間は、許された柄の札だけが本当の札になる
+    var have = hand.filter(function (c) { return self.isTrueCard(c, r); });
     var max = this.maxPlay;
 
     /*
@@ -971,7 +1006,7 @@
      */
     if (this.hasAbil(seat, "airi") && this.abilLeft(seat, "airi") > 0) {
       var bySuit = [[], [], [], []];
-      hand.forEach(function (c) { if (c.r > 0) bySuit[c.s].push(c); });
+      hand.forEach(function (c) { if (c.r > 0 && self.suitOk(c)) bySuit[c.s].push(c); });
       var pick = null;
       for (var su = 0; su < 4; su++) {
         if (!pick || bySuit[su].length > pick.length) pick = bySuit[su];
@@ -998,7 +1033,7 @@
   P.aiReactPlace = function (seat, cards) {
     var ch = this.ch(seat);
     var rank = this.last.rank;
-    var isLie = cards.some(function (c) { return c.r !== rank; });
+    var isLie = this.isLiePlay(cards, rank);
     var p = isLie ? ch.tell : ch.tell * 0.3;
     this.io.say(this, seat, this.rng() < p ? "place_shaken" : "place_calm");
   };
@@ -1013,7 +1048,7 @@
     var id = this.ids[seat];
     // 名指し推理は真歩流？だけの能力。残り手札が少ない時や、
     // プレイヤーが上がりに近い時など、勝敗に直結する局面へ温存する。
-    if (id === "mahoru_awake" && this.uses[seat] > 0 && this.hands[seat].length > 0 &&
+    if (id === "mahoru_awake" && this.sealed === 0 && this.uses[seat] > 0 && this.hands[seat].length > 0 &&
         (this.hands[seat].length <= 4 || this.hands[0].length <= 3 || this.pile.length >= 7)) return "guess";
     // 空振りを恐れないなら、外れた時の保険をかけてから踏み込む
     if (this.hasAbil(seat, "free_doubt") && this.abilLeft(seat, "free_doubt") > 0) return "free";
@@ -1027,7 +1062,7 @@
     var id = this.ids[seat];
     var r = this.last.rank;
     var k = cards.length;
-    var isLie = cards.some(function (c) { return c.r !== r; });
+    var isLie = this.isLiePlay(cards, r);
 
     var known = this.hands[seat].filter(function (c) { return c.r === r; }).length;
     var certain = false;
@@ -1060,7 +1095,7 @@
     // 後から公開情報で所在を把握した札は、古い初期記憶ではなく memory 側を優先する。
     var memo = 0;
     var memoTarget = 0;
-    if (this.hasAbil(seat, "mary")) {
+    if (this.active(seat, "mary")) {
       var mine = mineIds;
       for (var cid in this.maryMemo) {
         if (!this.maryMemo.hasOwnProperty(cid)) continue;
@@ -1079,7 +1114,7 @@
       }
     }
 
-    if (this.hasAbil(seat, "juri")) {
+    if (this.active(seat, "juri")) {
       var self = this;
       var playedIds = playedNow;
       // 覚えている札が今出された中にあり、数字が違えば確実に嘘
@@ -1116,11 +1151,11 @@
      * と分かる時だけ確信して踏み込む。持っていた時は、下の普通の読みに任せる。
      * 真歩流？の全知は、力を封じられている間は使えない。見透かしはプレイヤーにだけ向ける。
      */
-    var knowsHands = (ch.handSight && !(id === "mahoru_awake" && this.sealed > 0)) ||
-      (this.sight[seat] > 0 && target === 0);
+    var knowsHands = this.sealed === 0 && (ch.handSight || (this.sight[seat] > 0 && target === 0));
     if (knowsHands) {
       var placerSeat = this.last ? this.last.seat : target;
-      var had = this.hands[placerSeat].concat(cards).filter(function (c) { return c.r === r; }).length;
+      var selfK = this;
+      var had = this.hands[placerSeat].concat(cards).filter(function (c) { return selfK.isTrueCard(c, r); }).length;
       if (had < k) return this.sureAction(seat);
     }
 
@@ -1312,6 +1347,8 @@
       var punishBigPile = this.pile.length >= 7 && enoughEvidence;
       if (closingMove || stopPlayer || punishBigPile) return "ability";
     }
+    // 柄の縛りの間は、数字が合っていても柄で嘘になりうるので、枚数が多いほど疑う
+    if (this.suitRule) p += (0.1 + (k - 1) * 0.05) * bonusScale;
     // 挑発：乗った相手は踏み込みやすく、警戒した相手は慎重になる
     if (this.taunt && this.taunt[seat] === "up") p += (this.data.rules.tauntUp || 0.3);
     else if (this.taunt && this.taunt[seat] === "down") p *= (this.data.rules.tauntDown || 0.35);
@@ -1327,7 +1364,7 @@
     // メアリーは自分の手番を迎えるたび、現在の相手手札に残る透視情報が少しずつ薄れる。
     if (this.hasAbil(seat, "mary")) this.fadeMaryVision(seat);
 
-    if (id === "eruku" && this.uses[seat] > 0) {
+    if (id === "eruku" && this.sealed === 0 && this.uses[seat] > 0) {
       var diff = this.hands[seat].length - this.hands[0].length;
       if (diff >= 6 || (this.hands[0].length <= 3 && this.hands[seat].length >= 7)) {
         this.uses[seat]--;
@@ -1514,24 +1551,37 @@
     this.maicroEvents++;
     // 今できる余興だけを並べて、その中から引く。
     // （できない時に決まった余興へ寄せると、真歩流？の封印だけが増えてしまう）
-    var able = [1];
+    var able = [];
+    if (this.sealed === 0) able.push(1);
     if (this.pile.length > 0) able.push(2);
-    if (!this.handSwapUsed) able.push(3);
+    if (!this.suitRule) able.push(3);
     if (this.jokerStock > 0) able.push(4);
+    if (!able.length) able.push(2);
     var roll = able[Math.floor(this.rng() * able.length)];
     var target = Math.floor(this.rng() * 3);
+    // 柄の縛りで許す2つの柄
+    var SUITS = ["♠", "♥", "♦", "♣"];
+    var keep = this.shuffle([0, 1, 2, 3]).slice(0, 2).sort();
+    var keepText = SUITS[keep[0]] + SUITS[keep[1]];
+    var turns = (this.data.rules.maicroTurns || 6) + 1;   // 二巡（この手番の残りを含めて数える）
     var text = [
       "",
-      "うっかり、真歩流？の力を一巡だけ封じてしまう",
+      "全員の特殊能力を、二巡のあいだ封じる",
       "全員が、手札の枚数分だけ場の伏せ札と入れ替え",
-      "全員の手札を、丸ごと誰かと入れ替え",
+      "二巡のあいだ、" + keepText + "以外の柄はダウトの対象になる",
       "山札からジョーカーを出して、" + this.name(target) + "に渡す",
     ][roll];
     await this.io.cutin(this, seat, text);
 
     if (roll === 1) {
-      this.sealed = 3;
-      this.io.log(this, "邦夢のもてなし：真歩流？の力が一巡封じられた");
+      this.sealed = turns;
+      this.pendingSuitPass = false;
+      this.io.log(this, "邦夢のもてなし：二巡のあいだ、全員の特殊能力が封じられた");
+      await this.io.notice(this, "能力封印", "二巡のあいだ、誰も特殊能力を使えない");
+    } else if (roll === 3) {
+      this.suitRule = { suits: keep, left: turns };
+      this.io.log(this, "邦夢のもてなし：二巡のあいだ、" + keepText + "以外の柄はダウトの対象");
+      await this.io.notice(this, "柄の縛り", keepText + "以外の柄は、数字が合っていても嘘になる");
     } else if (roll === 2) {
       // ランダム交換なので他人の札の追跡は崩れる。一度各CPUの記憶をリセットし、
       // そのCPU自身が実際に出した札／受け取った札だけを覚え直す。
@@ -1554,24 +1604,6 @@
         this.rememberFor(mixSeat, personalMix[mixSeat].outgoing, "pile");
       }
       this.io.log(this, "邦夢のもてなし：手札と場の札が入れ替わった");
-    } else if (roll === 3) {
-      // 手札を丸ごと、別の誰かの手札と入れ替える（全員が別の手札になる）。1戦に一度だけ
-      this.handSwapUsed = true;
-      // perm[元の席] = 新しい行き先。誰の手札が誰へ行ったかは全員が把握できる。
-      var perm = this.rng() < 0.5 ? [1, 2, 0] : [2, 0, 1];
-      var old = this.hands.map(function (h) { return h.slice(); });
-      this.hands = [[], [], []];
-      for (var u = 0; u < 3; u++) this.addToHand(perm[u], old[u]);
-
-      var handMap = { 0: perm[0], 1: perm[1], 2: perm[2] };
-      this.remapSeenLocations(handMap);
-
-      // 各CPUは、自分の旧手札が誰へ渡ったかと、自分が新しく受け取った手札を把握する。
-      for (var obs = 1; obs <= 2; obs++) {
-        this.rememberFor(obs, old[obs], perm[obs]);
-        this.rememberFor(obs, this.hands[obs], obs);
-      }
-      this.io.log(this, "邦夢のもてなし：全員の手札が入れ替わった");
     } else {
       this.jokerStock--;
       var joker = { id: "jk" + this.jokerStock, r: 0, s: 4 };
@@ -1649,7 +1681,7 @@
 
   // 画面に出す、プレイヤーから見えている相手の手札（見透かし中は全部、メアリーの力は残っている分）
   P.visibleOppCards = function (seat) {
-    if (!(seat === 1 || seat === 2)) return [];
+    if (!(seat === 1 || seat === 2) || this.sealed > 0) return [];
     if (this.sight[0] > 0) return this.hands[seat].slice();
     var self = this;
     return this.hands[seat].filter(function (c) { return self.playerVision[c.id] === seat; });
@@ -1657,7 +1689,7 @@
 
   // ストックした珠璃の力：伏せられた札のうち、プレイヤーが一度手にしたことのある札
   P.recognizedCards = function (cards) {
-    if (!this.hasAbil(0, "juri")) return [];
+    if (!this.active(0, "juri")) return [];
     var self = this;
     return (cards || []).filter(function (c) { return self.heldBy0[c.id]; });
   };

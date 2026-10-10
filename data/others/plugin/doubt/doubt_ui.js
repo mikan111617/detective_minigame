@@ -199,9 +199,9 @@
     if (!V || !V.on || !id || index == null) return;
     var src = V.path(id, cat, index);
     var url = absUrl(src);
-    if (voiceNG[url]) return;
+    if (voiceNG[url]) return null;
     var vol = seVolume() * (V.volume != null ? V.volume : 1);
-    if (!(vol > 0)) return;
+    if (!(vol > 0)) return null;
 
     var a = new Audio();
     a.volume = Math.max(0, Math.min(1, vol));
@@ -225,6 +225,27 @@
     } catch (e) {
       if (voiceNow[id] === a) delete voiceNow[id];
     }
+    return a;
+  }
+
+  /*
+   * 鳴らした声が終わるまで待つ（掛け合いで声を重ねないため）。
+   * ファイルが無い・鳴らせない時は、吹き出しを読める程度に待つ。長すぎる声は上限で打ち切る。
+   */
+  function waitVoice(a, minMs, maxMs) {
+    return new Promise(function (resolve) {
+      var t0 = Date.now();
+      var done = false;
+      function finish() {
+        if (done) return;
+        done = true;
+        setTimeout(resolve, Math.max(0, minMs - (Date.now() - t0)));
+      }
+      if (!a) { finish(); return; }
+      a.addEventListener("ended", finish);
+      a.addEventListener("error", finish);
+      setTimeout(finish, maxMs);
+    });
   }
 
   // セリフをランダムに1つ選ぶ（文章と、ボイスを引くための番号を返す）
@@ -956,6 +977,18 @@
     return h("span", "chip" + (red ? " red" : ""), c.r === 0 ? "JK" : RANK[c.r] + SUIT[c.s]);
   }
 
+  // 卓にかかっている決まりの説明。残りは「あと何手」で出す
+  function ruleTexts(g) {
+    var out = [];
+    if (!g) return out;
+    if (g.sealed > 0) out.push("能力封印：誰も特殊能力を使えない（あと" + g.sealed + "手）");
+    if (g.suitRule) {
+      var su = g.suitRule.suits.map(function (x) { return '<span class="s' + x + '">' + SUIT[x] + "</span>"; }).join("");
+      out.push("柄の縛り：" + su + "以外の柄は嘘になる（あと" + g.suitRule.left + "手）");
+    }
+    return out;
+  }
+
   function sortedCardsForDisplay(cards) {
     return cards.slice().sort(function (a, b) {
       var ar = a.r === 0 ? 14 : a.r;
@@ -1025,6 +1058,10 @@
     row.appendChild(this.pileInfo);
     field.appendChild(row);
     // 和人の力（ストック）で把握している、場から除外された札
+    // 舞黒邦夢のもてなしで、いま卓にかかっている決まり（能力封印・柄の縛り）
+    this.ruleEl = h("div", "dbt-rule");
+    this.ruleEl.style.display = "none";
+    field.appendChild(this.ruleEl);
     this.goneEl = h("div", "dbt-gone");
     this.goneEl.style.display = "none";
     field.appendChild(this.goneEl);
@@ -1176,7 +1213,9 @@
     var nSel = Object.keys(this.selected).length;
     var m = this.mode;
     var uses = g ? g.uses[0] : 0;
-    var swaps = g ? g.abilLeft(0, "hand_swap") : 0;
+    var swaps = g ? g.subUses[0] : 0;
+    // 能力封印の間は、名指しも手札の交換も押せない（残り回数はそのまま見せる）
+    var abSealed = !!(g && g.sealed > 0);
     this.bMain.innerHTML = m === "window" ? "見送る" : (m === "give" ? "渡す" : "伏せる");
     this.bMain.classList.toggle("off",
       !((m === "place" && nSel >= 1 && nSel <= g.maxPlay) || m === "window" ||
@@ -1187,10 +1226,10 @@
     // 自分の手番は「手札の交換」、ダウトの場面は「名指し推理」
     if (m === "place") {
       this.bAbility.innerHTML = "手札を交換する<small>残り" + Math.max(0, swaps) + "</small>";
-      this.bAbility.classList.toggle("off", !(swaps > 0));
+      this.bAbility.classList.toggle("off", !(swaps > 0) || abSealed);
     } else {
       this.bAbility.innerHTML = "数字を名指しする<small>残り" + Math.max(0, uses) + "</small>";
-      this.bAbility.classList.toggle("off", !(m === "window" && uses > 0) || sealedDoubt);
+      this.bAbility.classList.toggle("off", !(m === "window" && uses > 0) || sealedDoubt || abSealed);
     }
     this.handEl.classList.toggle("turn", m === "place" || m === "give");
     if (this.bResign) this.bResign.classList.toggle("off", m === "idle");
@@ -1268,6 +1307,7 @@
   B.placeText = function (g) {
     var t = "〈" + RANK[g.rank] + "〉として伏せる札を選ぶ（1〜" + g.maxPlay + "枚・嘘でもよい）";
     if (g.immune[0] > 0) t += "　いまはダウトされない（あと" + g.immune[0] + "回）";
+    if (g.suitRule) t += "　" + g.suitRule.suits.map(function (x) { return SUIT[x]; }).join("") + "以外の柄は嘘になる";
     return t;
   };
 
@@ -1295,8 +1335,8 @@
           var bc = D.chara[g.borrowId];
           useText += "／" + bc.name + "の力" + (bc.uses > 0 ? " 残り" + Math.max(0, g.borrowUses) : "");
         }
-        if (g.sealed > 0) useText = "力を封じられている";
       }
+      if (g.sealed > 0) useText = "力を封じられている";
       if (g.immune[seat] > 0) useText = "ダウトされない（あと" + g.immune[seat] + "回）";
       if (g.sight[seat] > 0) useText = "見透かし中：あなたの手札が見えている";
       if (hidden) useText = "枚数が読めない";
@@ -1335,6 +1375,9 @@
     }
 
     var gone = g.goneKnown0 || [];
+    var rules = ruleTexts(g);
+    this.ruleEl.style.display = rules.length ? "" : "none";
+    this.ruleEl.innerHTML = rules.join("<br>");
     this.goneEl.style.display = gone.length ? "" : "none";
     if (gone.length && this.goneEl._n !== gone.length) {
       this.goneEl._n = gone.length;
@@ -1438,6 +1481,7 @@
 
   B.onAbility = function () {
     var self = this;
+    if (this.game && this.game.sealed > 0) return;   // 能力封印中
     // 自分の手番なら「手札の交換」、ダウトの場面なら「名指し推理」
     if (this.mode === "place") { this.askSwapTarget(); return; }
     if (this.mode !== "window") return;
@@ -1626,6 +1670,16 @@
     if (!ln) return;
     playVoice(id, cat, ln.index);
     this.showSay({ seat: seat, cat: cat, text: ln.text });
+  };
+
+  // セリフを言わせて、声が終わるまで待つ（声のファイルが無ければ読める程度に待つ）
+  B.sayAndWait = function (g, seat, cat) {
+    var id = g.ids[seat];
+    var ln = pickLine(id, cat);
+    if (!ln) return Promise.resolve();
+    var a = playVoice(id, cat, ln.index);
+    this.showSay({ seat: seat, cat: cat, text: ln.text });
+    return waitVoice(a, 1100, 6000);
   };
 
   // 吹き出しは出さず、声だけ鳴らす（カットインの最中など）。
@@ -2052,14 +2106,11 @@
         });
       },
       // 挑発の反応。真歩流が煽り、相手2人がそれぞれ乗るか身構える
+      // 挑発の掛け合い。真歩流が言い終えてから、相手の二人のうち一人だけが返す（声を重ねない）
       taunt: async function (g, res) {
-        ui.showSay({ seat: 0, cat: "taunt", text: "ほら、疑ってみたら？" });
-        await sleep(500);
-        for (var s = 1; s <= 2; s++) {
-          ui.showSay({ seat: s, cat: "taunt",
-            text: res[s] === "up" ? "上等じゃない……！" : "……その手には乗らない。" });
-        }
-        await sleep(900);
+        await ui.sayAndWait(g, 0, "taunt");
+        var who = Math.random() < 0.5 ? 1 : 2;
+        await ui.sayAndWait(g, who, "taunt");
       },
       notice: function (g, title, sub) {
         var ov = h("div", "dbt-overlay dbt-notice");
