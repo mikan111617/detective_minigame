@@ -1052,3 +1052,6 @@ body .message0_fore .tyrano_chara::after, body .message0_back .tyrano_chara::aft
 .dbt-settings .item .d { margin-top: 6px; line-height: 1.65; }
 .dbt-settings .cell, .dbt-settings .dbt-btn.cell, .dbt-settings.dbt-en .dbt-btn.cell { height: 88px; }
 .dbt-settings .item.level .cell.wide, .dbt-settings.dbt-en .item.level .dbt-btn.cell.wide { height: 124px; }
+
+/* 挑発カットイン（短縮版）：顔が帯に収まる位置で切り出す */
+.dbt-taunt-cutin.mini .art img { object-position: 50% 44%; }

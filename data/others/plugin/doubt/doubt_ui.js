@@ -2285,6 +2285,66 @@
     });
   };
 
+  /*
+   * 挑発のカットイン（真歩流）。スキルのカットインと同じ部品・同じ見た目で出す。
+   *   画像：data/image/cutin/taunt.png（D.img.cutin("taunt")）
+   *   押すと閉じる。閉じても声と掛け合いは止めない。
+   */
+  B.tauntCutin = function (g, line) {
+    var ui = this;
+    var ch = D.chara[g.ids[0]];
+    var col = (D.chara.taunt && D.chara.taunt.color) || ch.color;
+    var lineHTML = line ? '<div class="ln">' + tr("「", "\u201C") + line + tr("」", "\u201D") + "</div>" : "";
+    var head = '<div class="skn">' + tr("挑発", "Taunt") + "</div>" +
+      '<div class="nm">' + ch.name + "</div>" +
+      '<div class="ef">' + tr("相手を煽って、ダウトの読みを揺さぶる", "Rattle the opponents and throw off their Doubt calls") + "</div>" + lineHTML;
+    var src = D.img.cutin("taunt");
+    var hasArt = !missing[absUrl(src)];
+    var repeat = !!ui.cutinShown.taunt;
+    ui.cutinShown.taunt = true;
+
+    if (repeat && !D.rules.cutinEveryTime) {
+      var mini = h("div", "dbt-overlay dbt-cutin mini dbt-taunt-cutin");
+      if (hasArt) {
+        var mart = h("div", "art");
+        var mimg = new Image();
+        mimg.onerror = function () { missing[absUrl(src)] = true; mini.classList.remove("has-art"); if (mart.parentNode) mart.parentNode.removeChild(mart); };
+        mimg.src = src;
+        mart.appendChild(mimg);
+        mini.appendChild(mart);
+        mini.classList.add("has-art");
+      }
+      var mtxt = h("div", "txt", head);
+      mtxt.style.borderColor = col;
+      mini.appendChild(mtxt);
+      return ui.overlayWait(mini, 1100);
+    }
+
+    var ov = h("div", "dbt-overlay dbt-cutin dbt-taunt-cutin");
+    if (hasArt) {
+      var art = h("div", "art");
+      var img = new Image();
+      img.onerror = function () {
+        missing[absUrl(src)] = true;
+        ov.classList.remove("has-art");
+        if (art.parentNode) art.parentNode.removeChild(art);
+      };
+      img.src = src;
+      art.appendChild(img);
+      ov.appendChild(art);
+      ov.appendChild(h("div", "flash"));
+      ov.classList.add("has-art");
+    }
+    var band = h("div", "band");
+    band.style.background = "linear-gradient(90deg, " + col + ", #0b1122 90%)";
+    band.appendChild(h("div", "lines"));
+    ov.appendChild(band);
+    var txt = h("div", "txt", head);
+    txt.style.borderColor = col;
+    ov.appendChild(txt);
+    return ui.overlayWait(ov, 2000);
+  };
+
   B.overlayWait = function (ov, ms) {
     this.root.appendChild(ov);
     return new Promise(function (resolve) {
@@ -2633,7 +2693,7 @@
         var ch = D.chara[id];
         // スキル発動のセリフ。声を鳴らしつつ、文章はカットインにも出す
         var line = ui.sayVoice(g, seat, "ability");
-        var lineHTML = line ? '<div class="ln">「' + line + '」</div>' : "";
+        var lineHTML = line ? '<div class="ln">' + tr("「", "\u201C") + line + tr("」", "\u201D") + "</div>" : "";
         // どの能力のカットインか（効果の文から引く）。見出しに能力名を出す
         var skId = id;
         [id, g.subId && g.subId[seat], seat === 0 ? g.stockId : null, g.borrowId, "hand_swap", "free_doubt", "arther_deck", "mary_deal", "eruku_deal", "jushika_sight"]
@@ -2710,12 +2770,35 @@
           cards: cards, outcome: outcome
         });
       },
-      // 挑発の反応。真歩流が煽り、相手2人がそれぞれ乗るか身構える
       // 挑発の掛け合い。真歩流が言い終えてから、相手の二人のうち一人だけが返す（声を重ねない）
-      taunt: async function (g, res) {
-        await ui.sayAndWait(g, 0, "taunt");
-        var who = Math.random() < 0.5 ? 1 : 2;
-        await ui.sayAndWait(g, who, "taunt");
+      //   真歩流の煽りは data/image/cutin/taunt.png のカットインで見せる（スキルのカットインと同じ作り。
+      //   rules.cutinEveryTime が false なら2回目以降は下部の細帯）。画像が無ければ色帯＋文字だけ。
+      //   掛け合いの途中で画面を押すと、声と吹き出しはそのまま流しつつゲームだけ先へ進める。
+      taunt: function (g, res) {
+        var seq = (async function () {
+          var id = g.ids[0];
+          var ln = pickLine(id, "taunt");
+          var a = ln ? playVoice(id, "taunt", ln.index) : null;
+          var shown = ui.tauntCutin(g, ln ? ln.text : null);
+          await Promise.all([shown, waitVoice(a, 1100, 6000)]);
+          // 先へ進めた後に対戦が終わっていたら、返しのセリフは言わせない
+          if (!ui.root || !ui.root.isConnected || g.winner >= 0 || g.resigned) return;
+          var who = Math.random() < 0.5 ? 1 : 2;
+          await ui.sayAndWait(g, who, "taunt");
+        })();
+        return new Promise(function (resolve) {
+          var done = false;
+          function onTap() { fin(); }
+          function fin() {
+            if (done) return;
+            done = true;
+            document.removeEventListener("pointerdown", onTap, true);
+            resolve();
+          }
+          // 札を出したクリックを拾わないよう、一拍おいてから受け付ける
+          setTimeout(function () { if (!done) document.addEventListener("pointerdown", onTap, true); }, 0);
+          seq.then(fin, fin);
+        });
       },
       notice: function (g, title, sub) {
         var ov = h("div", "dbt-overlay dbt-notice");
