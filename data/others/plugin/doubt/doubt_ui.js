@@ -311,10 +311,12 @@
   }
 
   // セリフをランダムに1つ選ぶ（文章と、ボイスを引くための番号を返す）
-  function pickLine(id, cat) {
+  // only … 選んでよいセリフの番号（省略時はすべて）
+  function pickLine(id, cat, only) {
     var lines = D.lines[id] && D.lines[id][cat];
     if (!lines || !lines.length) return null;
-    var i = Math.floor(Math.random() * lines.length);
+    var pool = (only || []).filter(function (k) { return k >= 0 && k < lines.length; });
+    var i = pool.length ? pool[Math.floor(Math.random() * pool.length)] : Math.floor(Math.random() * lines.length);
     return { text: lines[i], index: i };
   }
 
@@ -2196,9 +2198,9 @@
 
   // 吹き出しは出さず、声だけ鳴らす（カットインの最中など）。
   // 鳴らしたセリフの文章を返すので、呼んだ側が画面にも出せる。
-  B.sayVoice = function (g, seat, cat) {
+  B.sayVoice = function (g, seat, cat, only) {
     var id = g.ids[seat];
-    var ln = pickLine(id, cat);
+    var ln = pickLine(id, cat, only);
     if (!ln) return null;
     playVoice(id, cat, ln.index);
     return ln.text;
@@ -2736,13 +2738,14 @@
       cutin: function (g, seat, text) {
         var id = g.ids[seat];
         var ch = D.chara[id];
-        // スキル発動のセリフ。声を鳴らしつつ、文章はカットインにも出す
-        var line = ui.sayVoice(g, seat, "ability");
-        var lineHTML = line ? '<div class="ln">' + tr("「", "\u201C") + line + tr("」", "\u201D") + "</div>" : "";
         // どの能力のカットインか（効果の文から引く）。見出しに能力名を出す
         var skId = id;
         [id, g.subId && g.subId[seat], seat === 0 ? g.stockId : null, g.borrowId, "hand_swap", "free_doubt", "arther_deck", "mary_deal", "eruku_deal", "jushika_sight"]
           .forEach(function (k) { if (k && D.chara[k] && text && text.indexOf(D.chara[k].ability) >= 0 && skId === id) skId = k; });
+        // スキル発動のセリフ。能力ごとにセリフが決まっている時は、その中から選ぶ（abilityLines）
+        var lineMap = D.abilityLines && D.abilityLines[id];
+        var line = ui.sayVoice(g, seat, "ability", lineMap && (lineMap[skId] || lineMap[id]));
+        var lineHTML = line ? '<div class="ln">' + tr("「", "\u201C") + line + tr("」", "\u201D") + "</div>" : "";
         if (g.borrowId && text && text.indexOf(D.chara[g.borrowId].name) === 0 && seat === g.awakeSeat) skId = "mahoru_awake_borrow";
         var skName = abilName(skId) || "";
         var skHTML = skName ? '<div class="skn">' + skName + "</div>" : "";
@@ -2803,12 +2806,12 @@
         if (info.cancelled) {
           outcome = battleText("伏せ札はそのまま場に残る", "The face-down cards remain in the pile");
         } else if (info.noTake || info.loser < 0) {
-          outcome = g.name(info.doubter) + battleText("は札を引き取らない", " takes no cards");
+          outcome = g.name(info.doubter) + battleText("は札を引き取らない", info.doubter === 0 ? " take no cards" : " takes no cards");
         } else if (info.discardCount > 0) {
-          outcome = g.name(info.loser) + battleText("が", " takes ") + info.takeCount + battleText("枚回収（", " cards (") +
+          outcome = g.name(info.loser) + battleText("が", info.loser === 0 ? " take " : " takes ") + info.takeCount + battleText("枚回収（", " cards (") +
             info.discardCount + battleText("枚は場から除外）", " removed from play)");
         } else {
-          outcome = g.name(info.loser) + battleText("が場の札を", " takes ") + info.takeCount + battleText("枚回収", " cards from the pile");
+          outcome = g.name(info.loser) + battleText("が場の札を", info.loser === 0 ? " take " : " takes ") + info.takeCount + battleText("枚回収", " cards from the pile");
         }
         ui.pushHistory({
           type: "result", cancelled: !!info.cancelled, isLie: !!info.isLie, suitPass: !!info.suitPass,
@@ -2988,7 +2991,7 @@
         // 嘘を見抜かれた側・ダウトを外した側は、しばらく悔しい顔になる
         if (ui.portraits[loser]) setFace(ui.portraits[loser], "frustrated", 3200);
         if (info.noTake) {
-          res.textContent = g.name(info.doubter) + battleText("は札を引き取らない", " takes no cards");
+          res.textContent = g.name(info.doubter) + battleText("は札を引き取らない", info.doubter === 0 ? " take no cards" : " takes no cards");
           res.className = "res show";
           anim(res, [{ opacity: 0, transform: "translateY(10px)" }, { opacity: 1, transform: "none" }], { duration: 200, easing: "ease-out" });
           await wait(700);
@@ -2996,7 +2999,7 @@
             return anim(s.el, [{ opacity: 1 }, { opacity: 0 }], { duration: 200, easing: "ease-in" });
           }));
         } else {
-          res.innerHTML = '<span class="nm">' + g.name(loser) + "</span>" + battleText("が場の札を引き取る", " takes the pile");
+          res.innerHTML = '<span class="nm">' + g.name(loser) + "</span>" + battleText("が場の札を引き取る", loser === 0 ? " take the pile" : " takes the pile");
           res.className = "res show";
           anim(res, [{ opacity: 0, transform: "translateY(10px)" }, { opacity: 1, transform: "none" }], { duration: 200, easing: "ease-out" });
           await wait(380);

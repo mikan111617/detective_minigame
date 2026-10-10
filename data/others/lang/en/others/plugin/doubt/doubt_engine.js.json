@@ -34,12 +34,12 @@
     [
       569,
       "      this.io.log(this, this.name(placer) + \"の伏せ札には、ダウトを言えない（残り\" + this.immune[placer] + \"回）\");",
-      "      this.io.log(this, this.name(placer) + \"\\'s face-down cards cannot be challenged (remaining \" + this.immune[placer] + \")\");"
+      "      this.io.log(this, (placer === 0 ? \"Your\" : this.name(placer) + \"\\'s\") + \" face-down cards cannot be challenged (remaining \" + this.immune[placer] + \")\");"
     ],
     [
       633,
       "      this.io.log(this, this.name(doubter) + \"が手札3枚を\" + this.name(placer) + \"に渡した\");",
-      "      this.io.log(this, this.name(doubter) + \" gives 3 cards to \" + this.name(placer) + \"\");"
+      "      this.io.log(this, this.name(doubter) + (doubter === 0 ? \" give\" : \" gives\") + \" 3 cards to \" + this.name(placer) + \"\");"
     ],
     [
       644,
@@ -54,7 +54,7 @@
     [
       676,
       "        this.io.log(this, this.name(placer) + \"がダウトを無効にした\");",
-      "        this.io.log(this, this.name(placer) + \" nullifies the Doubt call\");"
+      "        this.io.log(this, this.name(placer) + (placer === 0 ? \" nullify\" : \" nullifies\") + \" the Doubt call\");"
     ],
     [
       677,
@@ -74,12 +74,12 @@
     [
       743,
       "        this.io.log(this, this.name(loser) + \"は\" + half + \"枚だけ回収（\" + (take.length - half) + \"枚は場から除外）\");",
-      "        this.io.log(this, this.name(loser) + \" takes only \" + half + (half === 1 ? \" card\" : \" cards\") + \" (\" + (take.length - half) + (take.length - half === 1 ? \" card is\" : \" cards are\") + \" removed from play)\");"
+      "        this.io.log(this, this.name(loser) + (loser === 0 ? \" take\" : \" takes\") + \" only \" + half + (half === 1 ? \" card\" : \" cards\") + \" (\" + (take.length - half) + (take.length - half === 1 ? \" card is\" : \" cards are\") + \" removed from play)\");"
     ],
     [
       749,
       "        this.io.log(this, this.name(loser) + \"が場の札\" + take.length + \"枚を回収\");",
-      "        this.io.log(this, this.name(loser) + \" takes \" + take.length + (take.length === 1 ? \" card\" : \" cards\") + \" from the pile\");"
+      "        this.io.log(this, this.name(loser) + (loser === 0 ? \" take\" : \" takes\") + \" \" + take.length + (take.length === 1 ? \" card\" : \" cards\") + \" from the pile\");"
     ],
     [
       772,
@@ -89,12 +89,12 @@
     [
       776,
       "      this.io.log(this, this.name(doubter) + \"の読み違い。札は場に残る\");",
-      "      this.io.log(this, this.name(doubter) + \" misreads the play. The cards remain in the pile.\");"
+      "      this.io.log(this, this.name(doubter) + (doubter === 0 ? \" misread\" : \" misreads\") + \" the play. The cards remain in the pile.\");"
     ],
     [
       777,
       "      await this.io.notice(this, \"本当だった\", this.name(doubter) + \"は札を引き取らない\");",
-      "      await this.io.notice(this, \"It Was True\", this.name(doubter) + \" takes no cards.\");"
+      "      await this.io.notice(this, \"It Was True\", this.name(doubter) + (doubter === 0 ? \" take\" : \" takes\") + \" no cards.\");"
     ],
     [
       813,
@@ -104,7 +104,7 @@
     [
       822,
       "        this.io.log(this, this.name(doubter) + \"が\" + gv.length + \"枚を\" + this.name(placer) + \"に渡した\");",
-      "        this.io.log(this, this.name(doubter) + \" gives \" + gv.length + (gv.length === 1 ? \" card\" : \" cards\") + \" to \" + this.name(placer));"
+      "        this.io.log(this, this.name(doubter) + (doubter === 0 ? \" give\" : \" gives\") + \" \" + gv.length + (gv.length === 1 ? \" card\" : \" cards\") + \" to \" + this.name(placer));"
     ],
     [
       826,
@@ -119,7 +119,7 @@
     [
       891,
       "    this.io.log(this, this.name(target) + \"と手札を\" + n + \"枚ずつ交換した\");",
-      "    this.io.log(this, this.name(target) + \" exchanges \" + n + (n === 1 ? \" card\" : \" cards\") + \" each\");"
+      "    this.io.log(this, this.name(target) + (target === 0 ? \" exchange\" : \" exchanges\") + \" \" + n + (n === 1 ? \" card\" : \" cards\") + \" each\");"
     ],
     [
       924,
@@ -154,12 +154,12 @@
     [
       1444,
       "        this.io.log(this, this.name(seat) + \"が場の札\" + half + \"枚を引き取り、三巡のあいだ疑われない\");",
-      "        this.io.log(this, this.name(seat) + \" takes \" + half + (half === 1 ? \" card\" : \" cards\") + \" from the pile and cannot be challenged for three turns\");"
+      "        this.io.log(this, this.name(seat) + (seat === 0 ? \" take\" : \" takes\") + \" \" + half + (half === 1 ? \" card\" : \" cards\") + \" from the pile and cannot be challenged for three turns\");"
     ],
     [
       1445,
       "        await this.io.notice(this, this.data.skillName.eruku_deal, this.name(seat) + \"の伏せ札は、三巡のあいだダウトできない\");",
-      "        await this.io.notice(this, this.data.skillName.eruku_deal, this.name(seat) + \"\\'s face-down cards cannot be challenged for three turns.\");"
+      "        await this.io.notice(this, this.data.skillName.eruku_deal, (seat === 0 ? \"Your\" : this.name(seat) + \"\\'s\") + \" face-down cards cannot be challenged for three turns.\");"
     ],
     [
       1557,
@@ -174,12 +174,12 @@
     [
       1573,
       "    this.io.log(this, this.name(seat) + \"との取引：〈\" + RANK[give[0].r] + \"〉\" + n + \"枚と\" + back.length + \"枚を交換\");",
-      "    this.io.log(this, this.name(seat) + \" trades: 〈\" + RANK[give[0].r] + \"〉\" + n + \" × \" + back.length + (back.length === 1 ? \" card\" : \" cards\") + \" exchanged\");"
+      "    this.io.log(this, this.name(seat) + (seat === 0 ? \" trade\" : \" trades\") + \": 〈\" + RANK[give[0].r] + \"〉\" + n + \" × \" + back.length + (back.length === 1 ? \" card\" : \" cards\") + \" exchanged\");"
     ],
     [
       1611,
       "    this.io.log(this, this.name(seat) + \"のもう一組の札：\" +",
-      "    this.io.log(this, this.name(seat) + \"\\'s second deck: \" +"
+      "    this.io.log(this, (seat === 0 ? \"Your\" : this.name(seat) + \"\\'s\") + \" second deck: \" +"
     ],
     [
       1612,
@@ -244,7 +244,7 @@
     [
       1680,
       "      this.io.log(this, \"邦夢のもてなし：ジョーカーが\" + this.name(target) + \"の手札に\");",
-      "      this.io.log(this, \"Houmu\\'s Hospitality: Joker added to \" + this.name(target) + \"\\'s hand\");"
+      "      this.io.log(this, \"Houmu\\'s Hospitality: Joker added to \" + (target === 0 ? \"your\" : this.name(target) + \"\\'s\") + \" hand\");"
     ],
     [
       1681,
