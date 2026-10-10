@@ -968,3 +968,68 @@ body .message0_fore .tyrano_chara::after, body .message0_back .tyrano_chara::aft
 .dbt-en .dbt-select .col .lb .tl { display: none; }
 .dbt-vs.dbt-en .copy.r { top: 100px; }
 .dbt-result.dbt-en .stamp { left: 880px; top: 120px; }
+
+/* 能力名 */
+.dbt-root .sn { display: inline-block; margin-left: 10px; padding: 1px 10px; border: 1px solid rgba(227,200,135,.7); border-radius: 3px; vertical-align: middle;
+  font-family: var(--body); font-weight: 900; font-size: 15px; line-height: 1.5; letter-spacing: .04em; color: #F2DEAE; white-space: nowrap; }
+.dbt-info .info-body.skills .sk .who .sn { display: block; width: max-content; margin: 4px 0 0; }
+.dbt-cutin .txt .skn { display: inline-block; margin-bottom: 8px; padding: 4px 18px; border-radius: 4px; background: linear-gradient(180deg, #e6cd90, #C7A260 50%, #9d7a3c);
+  color: #23180a; font-family: var(--head); font-weight: 700; font-size: 34px; letter-spacing: .08em; box-shadow: 0 6px 16px rgba(0,0,0,.45); }
+.dbt-cutin.mini .txt .skn { font-size: 26px; padding: 2px 14px; margin-bottom: 4px; }
+.dbt-help .charabil .abilsub b { color: #F2DEAE; }
+.dbt-root .skhd .who .sn { display: inline-block !important; font-size: 15px !important; letter-spacing: .04em !important; padding: 1px 10px !important; margin-left: 10px; color: #F2DEAE !important; font-family: var(--body) !important; font-weight: 900 !important; }
+
+/* ================================================================= 能力を借りる（フリー対戦・アーケード突破後） */
+.dbt-borrow .shade { background: rgba(8,12,26,.8); }
+.dbt-borrow .use-kicker { position: absolute; left: 0; right: 0; top: 40px; text-align: center; font-family: var(--num); font-size: 28px; letter-spacing: .6em; padding-left: .6em; color: var(--champ); }
+.dbt-borrow > .dbt-deco { position: absolute; left: 50%; top: 74px; transform: translateX(-50%); }
+.dbt-borrow > .dbt-deco i { width: 170px; }
+.dbt-borrow .use-hd { font-family: var(--head); font-weight: 700; font-size: 72px; line-height: 1.2; letter-spacing: .16em; padding-left: .16em; white-space: nowrap; color: #fffaf0; text-shadow: 0 4px 0 rgba(8,12,26,.7); }
+.dbt-borrow .bsub { position: absolute; left: 0; right: 0; top: 176px; text-align: center; font-weight: 700; font-size: 22px; color: #EDE3CF; }
+.dbt-borrow .bstage { position: absolute; left: 0; right: 0; top: 228px; height: 600px; }
+.dbt-borrow .use-card { position: absolute; top: 0; display: flex; flex-direction: column; overflow: hidden; cursor: pointer;
+  background: linear-gradient(180deg, #1f2f50, #141f38); border: 2px solid var(--gold); border-radius: 4px;
+  box-shadow: inset 0 0 0 6px #18243f, inset 0 0 0 7px rgba(227,200,135,.45), 0 14px 30px rgba(0,0,0,.5); transition: filter .25s ease, transform .25s ease; }
+.dbt-borrow .use-card.main { left: 50%; width: 460px; height: 600px; margin-left: -230px; z-index: 2; cursor: default; border-color: #F2DEAE;
+  box-shadow: inset 0 0 0 6px #18243f, inset 0 0 0 7px rgba(242,222,174,.8), 0 0 0 3px rgba(242,222,174,.45), 0 0 40px rgba(242,222,174,.4); animation: dbtBorrowIn .26s ease-out both; }
+.dbt-borrow .use-card.side { top: 60px; width: 340px; height: 480px; filter: saturate(.35) brightness(.5); }
+.dbt-borrow .use-card.side:hover { filter: saturate(.7) brightness(.75); }
+.dbt-borrow .use-card.side.l { left: 380px; transform: rotate(-4deg); } .dbt-borrow .use-card.side.r { right: 380px; transform: rotate(4deg); }
+@keyframes dbtBorrowIn { from { opacity: 0; transform: translateY(14px) scale(.97); } to { opacity: 1; transform: none; } }
+.dbt-borrow .use-card .art { position: relative; height: 270px; flex: none; margin: 12px 12px 0; overflow: hidden; background: radial-gradient(90% 80% at 50% 100%, #2c4372, #141f38); }
+.dbt-borrow .use-card.side .art { height: 230px; }
+.dbt-borrow .use-card .art .rays { position: absolute; inset: -60px; background: repeating-conic-gradient(from 0deg at 50% 70%, rgba(227,200,135,.22) 0deg 4deg, rgba(227,200,135,0) 4deg 14deg); }
+.dbt-borrow .use-card .art .dbt-portrait { position: absolute; inset: 0; background: none; }
+.dbt-borrow .use-card .art .dbt-portrait img { object-position: 50% 4%; transform: scale(1.2); transform-origin: 50% 0; }
+.dbt-borrow .use-card .art .tag { position: absolute; left: 12px; top: 12px; padding: 2px 12px; border: 1.5px solid var(--gold); border-radius: 3px; background: rgba(27,41,69,.92); font-weight: 900; font-size: 17px; color: var(--champ); letter-spacing: .08em; }
+.dbt-borrow .use-card .txt { flex: 1; min-height: 0; display: flex; flex-direction: column; align-items: center; padding: 10px 24px 18px; text-align: center; }
+.dbt-borrow .use-card .sep { display: flex; align-items: center; gap: 8px; }
+.dbt-borrow .use-card .sep i { display: block; width: 140px; height: 1px; background: rgba(227,200,135,.6); }
+.dbt-borrow .use-card .sep em { display: block; width: 7px; height: 7px; background: var(--champ); transform: rotate(45deg); }
+.dbt-borrow .use-card .nm { margin-top: 8px; font-family: var(--head); font-weight: 700; font-size: 36px; line-height: 1.2; letter-spacing: .06em; color: #F2DEAE; }
+.dbt-borrow .use-card.side .nm { font-size: 28px; }
+.dbt-borrow .use-card .chips { margin-top: 8px; display: flex; align-items: center; gap: 10px; flex-wrap: wrap; justify-content: center; }
+.dbt-borrow .use-card .chip { display: inline-block; padding: 2px 12px; border-radius: 3px; font-weight: 900; font-size: 15px; letter-spacing: .04em; }
+.dbt-borrow .use-card .chip.always { background: #176653; color: var(--ivory); border: 1px solid rgba(227,200,135,.6); }
+.dbt-borrow .use-card .chip.limit { background: #C7A260; color: #1B2945; border: 1px solid var(--champ); }
+.dbt-borrow .use-card .how { font-weight: 700; font-size: 15px; color: #CFC3A9; }
+.dbt-borrow .use-card .ab { margin-top: 12px; font-weight: 700; font-size: 18px; line-height: 1.7; color: #FFF8EA; text-align: left; word-break: auto-phrase; }
+.dbt-borrow .use-card .ab .note { display: block; margin-top: 4px; color: #F2DEAE; font-size: 16px; }
+.dbt-borrow .use-card.side .ab { display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; font-size: 15px; }
+.dbt-borrow .use-card.side .chips { display: none; }
+.dbt-borrow .barrow { position: absolute; top: 270px; z-index: 3; width: 64px; height: 64px; padding: 0; border-radius: 50%; font-size: 34px; line-height: 58px; color: var(--champ); }
+.dbt-borrow .barrow::before, .dbt-borrow .barrow::after { display: none; }
+.dbt-borrow .barrow.l { left: 260px; } .dbt-borrow .barrow.r { right: 260px; }
+.dbt-borrow .bdots { position: absolute; left: 0; right: 0; top: 846px; display: flex; justify-content: center; align-items: center; gap: 10px; }
+.dbt-borrow .bdots i { display: block; width: 10px; height: 10px; transform: rotate(45deg); border: 1px solid var(--gold); background: rgba(27,41,69,.8); }
+.dbt-borrow .bdots i.on { background: var(--champ); box-shadow: 0 0 10px rgba(227,200,135,.7); }
+.dbt-borrow .bdots b { margin-left: 14px; font-family: var(--num); font-weight: 400; font-size: 20px; color: var(--champ); }
+.dbt-borrow .use-cmds { position: absolute; left: 0; right: 0; top: 896px; display: flex; justify-content: center; gap: 28px; }
+.dbt-borrow .use-cmds .go { width: 340px; padding: 22px 0 20px; font-size: 32px; letter-spacing: .12em; }
+.dbt-borrow .use-cmds .navy { width: 260px; padding: 22px 0 20px; font-size: 28px; }
+.dbt-borrow .bhint { position: absolute; right: 56px; bottom: 56px; font-weight: 700; font-size: 17px; letter-spacing: .08em; color: #EDE3CF; }
+.dbt-en .dbt-borrow .use-hd { font-size: 60px; letter-spacing: .06em; }
+.dbt-en .dbt-borrow .use-card .nm { font-size: 30px; }
+/* VS：全面に広げた右の枠が、左の立ち絵のクリックを奪わないように */
+.dbt-vs .right { pointer-events: none; }
+.dbt-vs .right .dbt-portrait { pointer-events: auto; }

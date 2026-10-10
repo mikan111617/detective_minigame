@@ -264,6 +264,30 @@
     ],
     playerTagline: "嘘を全て打ち砕く",
 
+    // 能力名（画面の見出しに出す名前）。キャラのid、または二つ目の能力のidで引く
+    skillName: {
+      mahoru: "名推理(ただの勘)",
+      hand_swap: "無邪気な交渉",
+      airi: "色恋(濃い)ざた好き",
+      kazuto: "いのちをだいじに",
+      mary: "パフュームタクティクス",
+      mary_deal: "香りの招待",
+      reido: "強制家宅捜査",
+      juri: "全ては私のもの",
+      eruku: "不条理交渉",
+      eruku_deal: "不平等取引",
+      jushika: "目つぶし(物理)",
+      jushika_sight: "館主の目",
+      koderia: "秘密の薬",
+      mahoru_awake: "見通す悪魔",
+      mahoru_awake_borrow: "シンクロ能力",
+      maicro: "邦夢の奇妙な冒険",
+      yuduki: "商家の誇り",
+      free_doubt: "空振り三振満塁ホームラン",
+      arther: "英国式取引",
+      arther_deck: "仕込みカード",
+    },
+
     // ダウト演出の帯の色（キャラid: [帯の色, 文字の影の色]）
     doubtBand: {
       mahoru:       ["#c8262b", "#5e0d12"],   // 赤

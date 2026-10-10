@@ -158,6 +158,9 @@
 *simple_select
 [doubt_select]
 [jump target="*title" cond="f.doubt_pair < 0"]
+; アーケードプレイを突破していれば、相手を選んだ後に能力を一つ借りられる（その対戦の間だけ）
+[doubt_borrow]
+[jump target="*simple_select" cond="f.doubt_borrow_back"]
 
 *simple_battle
 ; 最終戦のペアを選んだ時だけ専用のBGM

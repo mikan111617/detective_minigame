@@ -1416,9 +1416,9 @@
       }
     }
 
-    // 英国の青年：取引は「遠い数字の重複札を処分できる」時だけ検討する。
+    // 英国の青年：取引は、損得を見積もって「得になる」時だけ持ちかける（tradePlan）。
     if (this.hasAbil(seat, "arther") && this.abilLeft(seat, "arther") > 0 &&
-        this.hands[0].length >= 5) {
+        this.hands[0].length >= 3 && this.sealed === 0) {
       await this.tradeOffer(seat);
     }
 
@@ -1442,7 +1442,7 @@
         }
         this.immune[seat] = 3;
         this.io.log(this, this.name(seat) + "が場の札" + half + "枚を引き取り、三巡のあいだ疑われない");
-        await this.io.notice(this, "危ない取引", this.name(seat) + "の伏せ札は、三巡のあいだダウトできない");
+        await this.io.notice(this, this.data.skillName.eruku_deal, this.name(seat) + "の伏せ札は、三巡のあいだダウトできない");
         this.io.update(this);
       }
     }
@@ -1460,33 +1460,101 @@
    * 英国の青年の取引。同じ数字の札をまとめて渡し、代わりに好きな札を同じ枚数もらう。
    * 渡す札はプレイヤーが選ぶ（弱い札を押し出せるので、一方的な取り上げにはならない）。
    */
-  P.tradeOffer = async function (seat) {
+  /*
+   * 英国の青年の取引の見積もり。
+   *   渡す札は、プレイヤーが選んで返してくる（自分の要らない札を押し出してくる）前提で考える。
+   *   札の値打ち＝その札を本当の札として出せるまでの近さ（0〜1。今の手番の数字が1、遠いほど0）。
+   *   ・自分の得   … 受け取る札の値打ち − 渡す札の値打ち
+   *   ・相手の得   … 渡す札がプレイヤーにとってどれだけ近いか − プレイヤーが手放す札の値打ち
+   *   ・情報の損   … 数字を全部プレイヤーに渡すと、その数字の宣言を必ず見抜かれる
+   *   受け取る札はプレイヤーの手札を覗かず、自分の手札・記憶・残り枚数から見込みで数える。
+   *   いちばん得な「数字と枚数」を選び、得が小さい時は持ちかけない。
+   */
+  P.tradePlan = function (seat) {
     var self = this;
-    // 同じ数字がいちばん重なっているところを探す
+    var mate = seat === 1 ? 2 : 1;
+    var hand = this.hands[seat];
+    function near(d) { return Math.max(0, 1 - d / 39); }
+    // 自分（英国の青年）：今の手番の数字は「今すぐ本当として出せる」ので最も近い
+    function valA(r) { return r === 0 ? 0 : (r === self.rank ? 1 : near(self.turnsUntilForSeat(seat, r))); }
+    function valP(r) { return r === 0 ? 0 : near(self.turnsUntilForSeat(0, r)); }
+
+    // 自分から見た、まだ在処の分からない札の枚数（数字ごと）
+    var unknown = {}, known0 = {};
+    for (var x = 1; x <= 13; x++) unknown[x] = this.copiesOf(x);
+    unknown[0] = this.jokersOut();
+    hand.forEach(function (c) { unknown[c.r]--; });
+    var mem = this.memoryOf(seat), knownIn0 = 0, knownElse = 0;
+    for (var cid in mem) {
+      if (!mem.hasOwnProperty(cid)) continue;
+      if (hand.some(function (c) { return c.id === cid; })) continue;
+      var m = mem[cid];
+      unknown[m.r] = (unknown[m.r] || 0) - 1;
+      if (m.w === 0) { known0[m.r] = (known0[m.r] || 0) + 1; knownIn0++; }
+      else knownElse++;
+    }
+    var slots0 = Math.max(0, this.hands[0].length - knownIn0);
+    var slotsAll = Math.max(1, this.hands[0].length + this.hands[mate].length + this.pile.length + this.discard.length - knownIn0 - knownElse);
+    var share0 = Math.min(1, slots0 / slotsAll);
+    var expect0 = {};
+    for (x = 0; x <= 13; x++) expect0[x] = (known0[x] || 0) + Math.max(0, unknown[x] || 0) * share0;
+
+    // プレイヤーが手放しそうな札：プレイヤーにとって遠い数字から（ジョーカーは真っ先に）
+    var order = [];
+    for (x = 0; x <= 13; x++) order.push(x);
+    order.sort(function (p, q) { return valP(p) - valP(q); });
+    function predictReturn(n) {
+      var left = n, gotA = 0, lostP = 0;
+      for (var i = 0; i < order.length && left > 0; i++) {
+        var take = Math.min(left, expect0[order[i]]);
+        if (take <= 0) continue;
+        gotA += take * valA(order[i]);
+        lostP += take * valP(order[i]);
+        left -= take;
+      }
+      if (left > 0) { gotA += left * 0.3; lostP += left * 0.3; }   // 見込みが足りない分は平均的な札とみなす
+      return { gotA: gotA, lostP: lostP };
+    }
+
     var byRank = {};
-    this.hands[seat].forEach(function (c) {
-      if (c.r === 0) return;                       // ジョーカーは取引に出さない
+    hand.forEach(function (c) {
+      if (c.r === 0 || c.r === self.rank) return;      // ジョーカーと、今すぐ出せる数字は手放さない
       (byRank[c.r] = byRank[c.r] || []).push(c);
     });
-    // 重なっている中でも、自分の次の手番から遠い数字だけを取引材料にする。
-    var best = null, bestFar = -1;
-    for (var r in byRank) {
-      if (!byRank.hasOwnProperty(r)) continue;
-      if (byRank[r].length < 2) continue;
-      var dist = this.turnsUntilForSeat(seat, byRank[r][0].r);
-      var far = dist * 10 + byRank[r].length;
-      if (far > bestFar) { bestFar = far; best = byRank[r]; }
+    var best = null;
+    var maxN = Math.min(this.maxPlay, this.hands[0].length - 1);
+    for (var key in byRank) {
+      if (!byRank.hasOwnProperty(key)) continue;
+      var cards = byRank[key];
+      var r = cards[0].r;
+      if (cards.length < 2) continue;
+      for (var n = 2; n <= Math.min(cards.length, maxN); n++) {
+        var ret = predictReturn(n);
+        var gainA = ret.gotA - n * valA(r);
+        var gainP = n * valP(r) - ret.lostP;
+        // 数字を全部渡すと、その数字の宣言はプレイヤーに必ず見抜かれる
+        var keep = cards.length - n;
+        var leak = (n + (known0[r] || 0) >= this.copiesOf(r)) ? 0.6 : (keep === 0 ? 0.15 : 0);
+        var score = gainA - 0.8 * Math.max(0, gainP) - leak;
+        if (!best || score > best.score) best = { score: score, give: cards.slice(0, n), r: r, n: n };
+      }
     }
-    if (!best) return;
-    if (this.turnsUntilForSeat(seat, best[0].r) < 9) return;
+    if (!best) return null;
+    // 上がり目前の相手に近い札を渡すのは論外。得が小さい時は温存する
+    var need = this.hands[0].length <= 4 ? 0.9 : 0.55;
+    return best.score >= need ? best : null;
+  };
 
-    var n = Math.min(best.length, this.maxPlay, this.hands[0].length);
-    if (n < 2) return;
-    var give = best.slice(0, n);
+  P.tradeOffer = async function (seat) {
+    var self = this;
+    var plan = this.tradePlan(seat);
+    if (!plan) return;
+    var n = plan.n;
+    var give = plan.give;
 
     this.spendAbilId(seat, "arther");
     await this.io.cutin(this, seat, this.data.chara.arther.ability);
-    await this.io.notice(this, "取引",
+    await this.io.notice(this, this.data.skillName.arther,
       "〈" + RANK[give[0].r] + "〉を" + n + "枚渡す。代わりに好きな札を" + n + "枚もらいたい");
 
     // 交換相手が何の数字を差し出すのか、選択が終わるまでUIに表示する
@@ -1733,7 +1801,7 @@
     this.sortHand(0);
     this.immune[0] = 3;
     this.io.log(this, this.name(0) + "が場の札" + half + "枚を引き取り、三巡のあいだ疑われない");
-    await this.io.notice(this, "危ない取引", this.name(0) + "の伏せ札は、三巡のあいだダウトできない");
+    await this.io.notice(this, this.data.skillName.eruku_deal, this.name(0) + "の伏せ札は、三巡のあいだダウトできない");
     this.io.update(this);
     return true;
   };

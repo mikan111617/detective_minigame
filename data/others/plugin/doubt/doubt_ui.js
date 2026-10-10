@@ -387,6 +387,30 @@
       "あなた " + (fv.doubt_win_count || 0) + " － " + (fv.doubt_lose_count || 0) + " 相手";
   }
 
+  // 能力名（doubt_data.js の skillName）。無ければ空
+  var SUB_IDS = { hand_swap: 1, taunt: 1, mary_deal: 1, jushika_sight: 1, eruku_deal: 1, free_doubt: 1, arther_deck: 1 };
+  // 二つ目の能力なら、その持ち主のキャラid（立ち絵を出すため）
+  function ownerOf(id) {
+    if (!SUB_IDS[id]) return id;
+    if (id === "hand_swap" || id === "taunt") return "mahoru";
+    for (var k in D.chara) { if (D.chara.hasOwnProperty(k) && D.chara[k].sub === id) return k; }
+    return "mahoru";
+  }
+  function abilName(id) {
+    var n = D.skillName && D.skillName[id];
+    return n || (SUB_IDS[id] && D.chara[id] ? D.chara[id].name : "");
+  }
+  // スキル表示に能力名を添える。二つ目の能力は人物名の代わりに能力名を出す
+  var baseSkillHTML = skillHTML;
+  skillHTML = function (id, useText, extraName) {
+    var html = baseSkillHTML(id, useText, extraName);
+    var nm = D.skillName && D.skillName[id];
+    if (!nm) return html;
+    if (SUB_IDS[id]) return html.replace(">" + D.chara[id].name, ">" + nm);
+    var at = html.indexOf("</span>");
+    return html.slice(0, at) + '<small class="sn">' + nm + "</small>" + html.slice(at);
+  };
+
   // 二つ目の能力（sub）を持っているキャラは、続けて並べる
   function skillWithSub(id, extraName) {
     var ch = D.chara[id];
@@ -400,7 +424,7 @@
   // ストック（アーケードで持ち帰った能力）。フリー対戦では使わない
   function stockId() {
     var fv = f();
-    var id = fv.doubt_mode === "arcade" ? fv.doubt_stock : "";
+    var id = fv.doubt_mode === "arcade" ? fv.doubt_stock : (fv.doubt_mode === "simple" ? fv.doubt_borrow : "");
     return id && D.chara[id] ? id : "";
   }
   function stockUses(id) {
@@ -426,6 +450,15 @@
     var u = stockUses(id);
     return '<div class="subsk">' + skillHTML(id, u < 0 ? "常時" : "1ゲーム" + u + "回", "（ストック）") + stockNoteHTML(id) + "</div>";
   }
+
+  // フリー対戦で借りた能力は「ストック」ではなく「借りた力」と見せる
+  function isBorrowMode() { var fv = f(); return fv.doubt_mode === "simple" && !!fv.doubt_borrow; }
+  function relabelStock(html) {
+    if (!isBorrowMode()) return html;
+    return String(html).replace(/（ストック）/g, tr("（借りた力）", " (Borrowed)")).replace(/ ?\(Stock\)/g, tr("（借りた力）", " (Borrowed)"));
+  }
+  var baseStockHTML = stockHTML;
+  stockHTML = function () { return relabelStock(baseStockHTML()); };
 
   // アーケードプレイを突破すると、シンプルプレイで最終戦も選べるようになる
   function isCleared() {
@@ -724,7 +757,7 @@
         var html = '<div class="abilmain"><span class="uses">' + useText(ch) + '</span>' + ch.ability + "</div>";
         if (ch.sub && D.chara[ch.sub]) {
           var sub = D.chara[ch.sub];
-          html += '<div class="abilsub"><b>' + sub.name + '</b> <span class="uses">1ゲーム' +
+          html += '<div class="abilsub"><b>' + abilName(ch.sub) + '</b> <span class="uses">1ゲーム' +
             ch.subUses + "回</span>" + sub.ability + "</div>";
         }
         return html;
@@ -939,10 +972,10 @@
           return '<div class="cab"><div class="cabh"><span class="chip ' + kind + '">' + chip + "</span>" +
             (name ? '<span class="cabn">' + name + "</span>" : "") + '</div><div class="cabt">' + text + "</div></div>";
         }
-        var html = abil(ch.uses > 0 ? "limit" : "always", useText(ch), "", ch.ability);
+        var html = abil(ch.uses > 0 ? "limit" : "always", useText(ch), abilName(id), ch.ability);
         if (ch.sub && D.chara[ch.sub]) {
           var sub = D.chara[ch.sub];
-          html += abil("limit", tr("1ゲーム", "Up to ") + ch.subUses + tr("回", " per game"), sub.name, sub.ability);
+          html += abil("limit", tr("1ゲーム", "Up to ") + ch.subUses + tr("回", " per game"), abilName(ch.sub), sub.ability);
         }
         panel.appendChild(h("div", "cabs", html));
         body.appendChild(panel);
@@ -1102,6 +1135,122 @@
       }
       document.addEventListener("keydown", onKey);
       show(0);
+    });
+  });
+
+  // ---------------------------------------------------------------- 能力を借りる（フリー対戦）
+  //   アーケードプレイを一度突破すると、フリー対戦で相手を選んだ後に、
+  //   各キャラクターの能力を一つだけ借りて戦える（その対戦の間だけ）。
+  //   能力を札のように並べ、← → でページをめくって選ぶ。
+  //   → f.doubt_borrow = 能力のid（借りない時は ""）／ f.doubt_borrow_back = 相手選びに戻る
+
+  // 借りられる能力。ストックと同じ仕組みで使えるもの（アーケードの第一戦〜第四戦の相手の力）
+  function borrowList() {
+    var out = [];
+    D.pairs.forEach(function (pr) {
+      [pr.a, pr.b].forEach(function (cid) {
+        (D.stock && D.stock[cid] || []).forEach(function (sid) {
+          if (D.chara[sid] && out.every(function (o) { return o.id !== sid; })) out.push({ id: sid, owner: cid });
+        });
+      });
+    });
+    return out;
+  }
+  // 使い方の目安（スキル発動から使う／条件がそろうと聞かれる／いつも効いている）
+  var BORROW_HOW = {
+    reido: "act", eruku: "act", eruku_deal: "act",
+    koderia: "ask", mary_deal: "ask", jushika_sight: "ask"
+  };
+
+  defineTag("doubt_borrow", {}, function () {
+    var fv = f();
+    fv.doubt_borrow = "";
+    fv.doubt_borrow_back = false;
+    if (fv.doubt_mode !== "simple" || fv.doubt_demo || !isCleared()) return;
+    var list = borrowList();
+    if (!list.length) return;
+    return new Promise(function (resolve) {
+      var root = openRoot("dbt-borrow");
+      bg(root, D.img.bgSelect);
+      root.appendChild(h("div", "dbt-shade shade"));
+      root.appendChild(h("div", "use-kicker", "BORROW"));
+      root.appendChild(decoWrap(h("div", "use-hd", tr("能力を借りる", "Borrow an Ability"))));
+      root.appendChild(h("div", "bsub", tr("この対戦の間だけ、選んだ能力を一つ真歩流が使えます", "Mahoru can use one chosen ability for this match only")));
+      var stage = h("div", "bstage");
+      root.appendChild(stage);
+      var dots = h("div", "bdots");
+      root.appendChild(dots);
+
+      var last = "";
+      try { last = TYRANO.kag.variable.sf.doubt_borrow_last || ""; } catch (e) {}
+      var page = 0;
+      list.forEach(function (o, i) { if (o.id === last) page = i; });
+
+      function useLabel(id) {
+        var u = stockUses(id);
+        return u < 0 ? tr("常時", "Always") : tr("1ゲーム", "Up to ") + u + tr("回", " per game");
+      }
+      function howLabel(id) {
+        var k = BORROW_HOW[id];
+        if (k === "act") return tr("「スキル発動」から使う", "Use from \"Use Skill\"");
+        if (k === "ask") return tr("条件がそろうと、使うか聞かれる", "You are asked when it can be used");
+        return tr("自動で効く", "Works automatically");
+      }
+      function card(o, cls) {
+        var ch = D.chara[o.owner];
+        var c = h("div", "use-card bcard " + cls);
+        var art = h("div", "art");
+        art.appendChild(h("div", "rays"));
+        art.appendChild(portrait(o.owner));
+        art.appendChild(h("span", "tag", ch.name));
+        c.appendChild(art);
+        var note = D.stockNote && D.stockNote[o.id];
+        c.appendChild(h("div", "txt",
+          '<div class="sep"><i></i><em></em><i></i></div>' +
+          '<div class="nm">' + (abilName(o.id) || D.chara[o.id].name) + "</div>" +
+          '<div class="chips"><span class="chip ' + (stockUses(o.id) < 0 ? "always" : "limit") + '">' + useLabel(o.id) + "</span>" +
+          '<span class="how">' + howLabel(o.id) + "</span></div>" +
+          '<div class="ab">' + D.chara[o.id].ability + (note ? '<span class="note">＋' + note + "</span>" : "") + "</div>"));
+        return c;
+      }
+      function render() {
+        stage.innerHTML = "";
+        var n = list.length;
+        var prev = list[(page + n - 1) % n], next = list[(page + 1) % n];
+        var pc = card(prev, "side l"), nc = card(next, "side r");
+        pc.addEventListener("click", function () { go(-1); });
+        nc.addEventListener("click", function () { go(1); });
+        stage.appendChild(pc);
+        stage.appendChild(nc);
+        stage.appendChild(card(list[page], "main on"));
+        stage.appendChild(btn("‹", "navy barrow l", function () { go(-1); }));
+        stage.appendChild(btn("›", "navy barrow r", function () { go(1); }));
+        dots.innerHTML = list.map(function (o, i) { return "<i" + (i === page ? ' class="on"' : "") + "></i>"; }).join("") +
+          "<b>" + (page + 1) + " / " + n + "</b>";
+      }
+      function go(d) { page = (page + d + list.length) % list.length; render(); }
+      function finish(id, back) {
+        document.removeEventListener("keydown", onKey);
+        fv.doubt_borrow = id || "";
+        fv.doubt_borrow_back = !!back;
+        if (id) { try { TYRANO.kag.variable.sf.doubt_borrow_last = id; TYRANO.kag.saveSystemVariable(); } catch (e) {} }
+        closeRoot(root);
+        resolve();
+      }
+      var cmds = h("div", "use-cmds");
+      cmds.appendChild(btn(tr("この能力を借りる", "Borrow This"), "gold go", function () { finish(list[page].id); }));
+      cmds.appendChild(btn(tr("借りずに戦う", "Play Without"), "navy", function () { finish(""); }));
+      root.appendChild(cmds);
+      root.appendChild(asBack(btn(tr("相手選びへ", "Opponents"), "navy back", function () { finish("", true); })));
+      root.appendChild(h("div", "bhint", tr("← → でめくる　Enter で借りる", "← → to browse　Enter to borrow")));
+      function onKey(ev) {
+        if (ev.key === "ArrowLeft") go(-1);
+        else if (ev.key === "ArrowRight") go(1);
+        else if (ev.key === "Enter") finish(list[page].id);
+        else if (ev.key === "Escape") finish("", true);
+      }
+      document.addEventListener("keydown", onKey);
+      render();
     });
   });
 
@@ -1453,7 +1602,10 @@
     // 情報画面の「スキル確認」の中に並べる時は、行だけを移す
     if (into) {
       into.classList.add("dbt-skills");
-      Array.prototype.slice.call(box.querySelectorAll(".sk")).forEach(function (el) { into.appendChild(el); });
+      Array.prototype.slice.call(box.querySelectorAll(".sk")).forEach(function (el) {
+        el.innerHTML = relabelStock(el.innerHTML);
+        into.appendChild(el);
+      });
       return;
     }
     this.root.appendChild(ov);
@@ -1634,7 +1786,7 @@
       var parts = [];
       if (ch.uses > 0) parts.push("能力 残り" + Math.max(0, g.uses[seat]));
       var sub = g.subId[seat] && D.chara[g.subId[seat]];
-      if (sub && sub.uses > 0) parts.push(sub.name + " 残り" + Math.max(0, g.subUses[seat]));
+      if (sub && sub.uses > 0) parts.push(abilName(g.subId[seat]) + " 残り" + Math.max(0, g.subUses[seat]));
       var useText = parts.join("／");
       if (id === "mahoru_awake") {
         useText = "名指し 残り" + Math.max(0, g.uses[seat]);
@@ -2259,15 +2411,15 @@
     var mc = D.chara.mahoru;
     if (m === "place") {
       var swaps = g.subUses[0];
-      out.push({ key: "swap", id: "mahoru", tag: mc.name, name: D.chara.hand_swap.name, text: D.chara.hand_swap.ability,
+      out.push({ key: "swap", id: "mahoru", tag: mc.name, name: abilName("hand_swap"), text: D.chara.hand_swap.ability,
         left: swaps, ok: swaps > 0 && !sealed && !this.stockBusy });
     } else {
       var uses = g.uses[0];
-      out.push({ key: "guess", id: "mahoru", tag: mc.name, name: tr("数字の名指し", "Name the Rank"), text: mc.ability,
+      out.push({ key: "guess", id: "mahoru", tag: mc.name, name: abilName("mahoru"), text: mc.ability,
         left: uses, ok: uses > 0 && !g.doubtBlocked() && !sealed });
     }
     if (g.stockId && D.chara[g.stockId]) {
-      out.push({ key: "stock", id: g.stockId, tag: tr("ストック", "Stock"), name: D.chara[g.stockId].name, text: D.chara[g.stockId].ability,
+      out.push({ key: "stock", id: g.stockId, tag: (isBorrowMode() ? tr("借りた力", "Borrowed") : tr("ストック", "Stock")) + "・" + D.chara[g.stockId].name, name: abilName(g.stockId) || D.chara[g.stockId].name, text: D.chara[g.stockId].ability,
         left: g.abilLeft(0, g.stockId), ok: this.stockReady(m) && !this.stockBusy });
     }
     return out;
@@ -2286,7 +2438,7 @@
       var c = h("div", "use-card" + (o.ok ? "" : " off"));
       var art = h("div", "art");
       art.appendChild(h("div", "rays"));
-      art.appendChild(portrait(o.id === "mahoru" ? "mahoru" : o.id));
+      art.appendChild(portrait(ownerOf(o.id)));
       art.appendChild(h("span", "tag", o.tag));
       c.appendChild(art);
       var gems = "";
@@ -2482,6 +2634,13 @@
         // スキル発動のセリフ。声を鳴らしつつ、文章はカットインにも出す
         var line = ui.sayVoice(g, seat, "ability");
         var lineHTML = line ? '<div class="ln">「' + line + '」</div>' : "";
+        // どの能力のカットインか（効果の文から引く）。見出しに能力名を出す
+        var skId = id;
+        [id, g.subId && g.subId[seat], seat === 0 ? g.stockId : null, g.borrowId, "hand_swap", "free_doubt", "arther_deck", "mary_deal", "eruku_deal", "jushika_sight"]
+          .forEach(function (k) { if (k && D.chara[k] && text && text.indexOf(D.chara[k].ability) >= 0 && skId === id) skId = k; });
+        if (g.borrowId && text && text.indexOf(D.chara[g.borrowId].name) === 0 && seat === g.awakeSeat) skId = "mahoru_awake_borrow";
+        var skName = abilName(skId) || "";
+        var skHTML = skName ? '<div class="skn">' + skName + "</div>" : "";
         var repeat = !!ui.cutinShown[id];
         ui.cutinShown[id] = true;
 
@@ -2497,7 +2656,7 @@
             mini.appendChild(mart);
             mini.classList.add("has-art");
           }
-          var mtxt = h("div", "txt", '<div class="nm">' + ch.name + '</div><div class="ef">' + text + "</div>" + lineHTML);
+          var mtxt = h("div", "txt", skHTML + '<div class="nm">' + ch.name + '</div><div class="ef">' + text + "</div>" + lineHTML);
           mtxt.style.borderColor = ch.color;
           mini.appendChild(mtxt);
           return ui.overlayWait(mini, 1100);
@@ -2526,7 +2685,7 @@
         band.appendChild(h("div", "lines"));
         ov.appendChild(band);
 
-        var txt = h("div", "txt", '<div class="nm">' + ch.name + '</div><div class="ef">' + text + "</div>" + lineHTML);
+        var txt = h("div", "txt", skHTML + '<div class="nm">' + ch.name + '</div><div class="ef">' + text + "</div>" + lineHTML);
         txt.style.borderColor = ch.color;
         ov.appendChild(txt);
         return ui.overlayWait(ov, 2000);

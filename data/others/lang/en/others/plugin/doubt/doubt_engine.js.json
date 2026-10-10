@@ -158,133 +158,133 @@
     ],
     [
       1445,
-      "        await this.io.notice(this, \"危ない取引\", this.name(seat) + \"の伏せ札は、三巡のあいだダウトできない\");",
-      "        await this.io.notice(this, \"Risky Deal\", this.name(seat) + \"\\'s face-down cards cannot be challenged for three turns.\");"
+      "        await this.io.notice(this, this.data.skillName.eruku_deal, this.name(seat) + \"の伏せ札は、三巡のあいだダウトできない\");",
+      "        await this.io.notice(this, this.data.skillName.eruku_deal, this.name(seat) + \"\\'s face-down cards cannot be challenged for three turns.\");"
     ],
     [
-      1489,
-      "    await this.io.notice(this, \"取引\",",
-      "    await this.io.notice(this, \"Trade\","
-    ],
-    [
-      1490,
+      1558,
       "      \"〈\" + RANK[give[0].r] + \"〉を\" + n + \"枚渡す。代わりに好きな札を\" + n + \"枚もらいたい\");",
       "      \"Offers \" + n + \" × 〈\" + RANK[give[0].r] + \"〉. Choose \" + n + \" cards to give in return.\");"
     ],
     [
-      1505,
+      1573,
       "    this.io.log(this, this.name(seat) + \"との取引：〈\" + RANK[give[0].r] + \"〉\" + n + \"枚と\" + back.length + \"枚を交換\");",
       "    this.io.log(this, this.name(seat) + \" trades: 〈\" + RANK[give[0].r] + \"〉\" + n + \" × \" + back.length + (back.length === 1 ? \" card\" : \" cards\") + \" exchanged\");"
     ],
     [
-      1543,
+      1611,
       "    this.io.log(this, this.name(seat) + \"のもう一組の札：\" +",
       "    this.io.log(this, this.name(seat) + \"\\'s second deck: \" +"
     ],
     [
-      1544,
+      1612,
       "      this.name(others[0]) + \"と\" + this.name(others[1]) + \"に\" + each + \"枚ずつ配られた\");",
       "      this.name(others[0]) + \" and \" + this.name(others[1]) + \" receive \" + each + (each === 1 ? \" card\" : \" cards\") + \" each\");"
     ],
     [
-      1545,
+      1613,
       "    await this.io.notice(this, \"もう一組の札\",",
       "    await this.io.notice(this, \"Second Deck\","
     ],
     [
-      1546,
+      1614,
       "      \"新しい札が\" + take.length + \"枚入り、自分以外の二人に\" + each + \"枚ずつ配られた\");",
       "      \"Adds \" + take.length + \" new cards; the other two players receive \" + each + \" each.\");"
     ],
     [
-      1569,
+      1557,
+      "    await this.io.notice(this, this.data.skillName.arther,",
+      "    await this.io.notice(this, this.data.skillName.arther,"
+    ],
+    [
+      1637,
       "      \"全員の特殊能力を、二巡のあいだ封じる\",",
       "      \"Seal everyone's abilities for two rounds\","
     ],
     [
-      1570,
+      1638,
       "      \"全員が、手札の枚数分だけ場の伏せ札と入れ替え\",",
       "      \"Everyone swaps cards with the face-down pile equal to their hand size\","
     ],
     [
-      1571,
+      1639,
       "      \"二巡のあいだ、\" + keepText + \"以外の柄はダウトの対象になる\",",
       "      \"For two rounds, any suit other than \" + keepText + \" can be called out by Doubt\","
     ],
     [
-      1572,
+      1640,
       "      \"山札からジョーカーを出して、\" + this.name(target) + \"に渡す\",",
       "      \"Draw a Joker from the deck and give it to \" + this.name(target) + \"\","
     ],
     [
-      1579,
+      1647,
       "      this.io.log(this, \"邦夢のもてなし：二巡のあいだ、全員の特殊能力が封じられた\");",
       "      this.io.log(this, \"Houmu's Hospitality: everyone's abilities are sealed for two rounds\");"
     ],
     [
-      1580,
+      1648,
       "      await this.io.notice(this, \"能力封印\", \"二巡のあいだ、誰も特殊能力を使えない\");",
       "      await this.io.notice(this, \"Abilities Sealed\", \"No one can use abilities for two rounds.\");"
     ],
     [
-      1583,
+      1651,
       "      this.io.log(this, \"邦夢のもてなし：二巡のあいだ、\" + keepText + \"以外の柄はダウトの対象\");",
       "      this.io.log(this, \"Houmu's Hospitality: for two rounds, suits other than \" + keepText + \" count as lies\");"
     ],
     [
-      1584,
+      1652,
       "      await this.io.notice(this, \"柄の縛り\", keepText + \"以外の柄は、数字が合っていても嘘になる\");",
       "      await this.io.notice(this, \"Suit Restriction\", \"Cards of suits other than \" + keepText + \" are lies even if the rank matches.\");"
     ],
     [
-      1606,
+      1674,
       "      this.io.log(this, \"邦夢のもてなし：手札と場の札が入れ替わった\");",
       "      this.io.log(this, \"Houmu\\'s Hospitality: hands and pile cards are swapped\");"
     ],
     [
-      1612,
+      1680,
       "      this.io.log(this, \"邦夢のもてなし：ジョーカーが\" + this.name(target) + \"の手札に\");",
       "      this.io.log(this, \"Houmu\\'s Hospitality: Joker added to \" + this.name(target) + \"\\'s hand\");"
     ],
     [
-      1613,
+      1681,
       "      if (target === 0) await this.io.notice(this, \"ジョーカー\", \"どの数字でもない札。出す時は必ず嘘になる\");",
       "      if (target === 0) await this.io.notice(this, \"Joker\", \"A card with no rank. Playing it is always a lie.\");"
     ],
     [
-      1645,
+      1713,
       "    this.io.log(this, this.name(loser) + \"が引き取った札のうち\" + n + \"枚を\" + this.name(other) + \"に押しつけた\");",
       "    this.io.log(this, \"Fragrant Invitation: \" + n + (n === 1 ? \" picked-up card\" : \" picked-up cards\") + \" pushed from \" + this.name(loser) + \" to \" + this.name(other));"
     ],
     [
-      1646,
+      1714,
       "    await this.io.notice(this, \"香りの招待\", this.name(other) + \"が\" + n + \"枚を引き取らされた\");",
       "    await this.io.notice(this, \"Fragrant Invitation\", n + (n === 1 ? \" card is\" : \" cards are\") + \" forced onto \" + this.name(other) + \".\");"
     ],
     [
-      1664,
+      1732,
       "    this.io.log(this, this.name(seat) + \"は二巡のあいだ、相手全員の手札を見通す\");",
       "    this.io.log(this, this.name(seat) + \" can see every opponent's hand for two rounds\");"
     ],
     [
-      1665,
+      1733,
       "    await this.io.notice(this, \"見透かし\", this.name(seat) + \"は二巡のあいだ、相手全員の手札を見通す\");",
       "    await this.io.notice(this, \"Piercing Gaze\", this.name(seat) + \" can see every opponent's hand for two rounds\");"
     ],
     [
-      1718,
+      1786,
       "    this.io.log(this, this.name(0) + \"が\" + this.name(target) + \"と手札を丸ごと入れ替えた\");",
       "    this.io.log(this, \"You swap entire hands with \" + this.name(target));"
     ],
     [
-      1735,
+      1803,
       "    this.io.log(this, this.name(0) + \"が場の札\" + half + \"枚を引き取り、三巡のあいだ疑われない\");",
       "    this.io.log(this, \"You take \" + half + (half === 1 ? \" card\" : \" cards\") + \" from the pile and cannot be challenged for three turns\");"
     ],
     [
-      1736,
-      "    await this.io.notice(this, \"危ない取引\", this.name(0) + \"の伏せ札は、三巡のあいだダウトできない\");",
-      "    await this.io.notice(this, \"Risky Deal\", \"Your face-down cards cannot be challenged for three turns.\");"
+      1804,
+      "    await this.io.notice(this, this.data.skillName.eruku_deal, this.name(0) + \"の伏せ札は、三巡のあいだダウトできない\");",
+      "    await this.io.notice(this, this.data.skillName.eruku_deal, \"Your face-down cards cannot be challenged for three turns.\");"
     ]
   ]
 }
