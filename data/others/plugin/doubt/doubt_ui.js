@@ -115,18 +115,34 @@
     return a.href;
   }
 
-  function portrait(id, cls) {
+  // 表情を探す順番。指定の表情 → faceFallback の代わり → normal.png
+  function faceChain(face) {
+    var list = [];
+    if (face) {
+      list.push(face);
+      Array.prototype.push.apply(list, (D.faceFallback && D.faceFallback[face]) || []);
+    }
+    list.push(null);
+    return list;
+  }
+
+  // 立ち絵。face を渡すとその表情で出す（無ければ代わりの表情か normal.png）
+  function portrait(id, cls, face) {
     var p = h("div", "dbt-portrait dbt-p-" + id + " " + (cls || ""));
     var ph = h("div", "ph", D.chara[id] ? D.chara[id].name : "");
     var img = new Image();
-    var src = D.img.chara(id);
-    img.onload = function () { ph.style.display = "none"; };
+    var chain = faceChain(face).map(function (f) { return D.img.chara(id, f); })
+      .filter(function (src) { return !missing[absUrl(src)]; });
+    function next() {
+      if (!chain.length) { img.style.display = "none"; return; }
+      img.src = chain.shift();
+    }
+    img.onload = function () { ph.style.display = "none"; img.style.display = ""; };
     img.onerror = function () {
-      missing[absUrl(src)] = true;
-      img.style.display = "none";
+      missing[absUrl(img.src)] = true;
+      next();
     };
-    if (missing[absUrl(src)]) img.style.display = "none";
-    else img.src = src;
+    next();
     p.appendChild(img);
     p.appendChild(ph);
     p._img = img;
@@ -134,16 +150,28 @@
     return p;
   }
 
-  // 表情差分：{id}_{face}.png が無ければ通常の立ち絵のまま
-  function setFace(p, face) {
+  /*
+   * 表情を変える（shaken / doubt / frustrated、null で normal に戻す）。
+   * 画像が無ければ代わりの表情を探す。holdMs を渡すと、その時間のあと normal に戻す。
+   */
+  function setFace(p, face, holdMs) {
     if (!p || !p._img || p._img.style.display === "none") return;
     var img = p._img;
-    var want = face ? D.img.chara(p._id, face) : D.img.chara(p._id);
-    if (img.src === absUrl(want) || missing[absUrl(want)]) return;
-    var probe = new Image();
-    probe.onload = function () { img.src = want; };
-    probe.onerror = function () { missing[absUrl(want)] = true; };
-    probe.src = want;
+    clearTimeout(p._faceT);
+    if (holdMs) p._faceT = setTimeout(function () { setFace(p, null); }, holdMs);
+    var chain = faceChain(face).map(function (f) { return D.img.chara(p._id, f); });
+    p._faceWant = chain[0];
+    var token = p._faceWant;
+    (function tryNext() {
+      var want = chain.shift();
+      if (!want || p._faceWant !== token) return;
+      if (missing[absUrl(want)]) { tryNext(); return; }
+      if (img.src === absUrl(want)) return;
+      var probe = new Image();
+      probe.onload = function () { if (p._faceWant === token) img.src = want; };
+      probe.onerror = function () { missing[absUrl(want)] = true; tryNext(); };
+      probe.src = want;
+    })();
   }
 
   function btn(text, cls, onClick) {
@@ -1383,10 +1411,25 @@
     });
   }
 
+  // 対戦に出る3人の表情（ダウト・悔しい・動揺）を先に読んでおき、出す瞬間に遅れないようにする
+  function preloadCharaFaces(ids) {
+    ids.forEach(function (id) {
+      // 真歩流は対戦中に立ち絵を出さないので、ダウトのカットインの顔だけでよい
+      (id === "mahoru" ? ["doubt"] : ["doubt", "frustrated", "shaken"]).forEach(function (f) {
+        var src = D.img.chara(id, f);
+        if (missing[absUrl(src)]) return;
+        var im = new Image();
+        im.onerror = function () { missing[absUrl(src)] = true; };
+        im.src = src;
+      });
+    });
+  }
+
   function BattleUI(pairIndex) {
     var self = this;
     preloadFaces();
     this.pair = D.pairs[pairIndex];
+    preloadCharaFaces(["mahoru", this.pair.a, this.pair.b]);
     this.root = openRoot("dbt-battle");
     bg(this.root, D.img.bgTable);
     this.root.appendChild(h("div", "dbt-shade shade"));
@@ -2167,10 +2210,12 @@
     var bub = this.bubble[item.seat];
     if (!bub) return;
     bub.textContent = item.text;
-    var shaken = item.cat === "place_shaken" || item.cat === "caught" || item.cat === "doubt_miss";
+    // 嘘を見抜かれた・ダウトを外した時は悔しい顔、伏せる時の動揺は動揺の顔
+    var lost = item.cat === "caught" || item.cat === "doubt_miss";
+    var shaken = item.cat === "place_shaken" || lost;
     bub.classList.toggle("shaken", shaken);
     bub.classList.add("show");
-    setFace(this.portraits[item.seat], shaken ? "shaken" : null);
+    setFace(this.portraits[item.seat], lost ? "frustrated" : (shaken ? "shaken" : null));
     clearTimeout(bub._t);
     var self = this;
     bub._t = setTimeout(function () {
@@ -2550,7 +2595,7 @@
     if (this.historyOverlay) { closeRoot(this.historyOverlay); this.historyOverlay = null; }
     if (this.infoOverlay) { closeRoot(this.infoOverlay); this.infoOverlay = null; }
     var band = h("div", "dbt-doubt-cut");
-    band.appendChild(portrait(g.ids[seat], "doubt-face"));
+    band.appendChild(portrait(g.ids[seat], "doubt-face", "doubt"));
     var label = h("div", "doubt-shout", battleText("ダウト！", "DOUBT!"));
     band.appendChild(label);
     var name = h("div", "doubt-name"); name.textContent = g.name(seat); band.appendChild(name);
@@ -2940,6 +2985,8 @@
 
         // 4 ペナルティ：引き取る側へ札が飛ぶ
         var loser = info.isLie ? info.placer : info.doubter;
+        // 嘘を見抜かれた側・ダウトを外した側は、しばらく悔しい顔になる
+        if (ui.portraits[loser]) setFace(ui.portraits[loser], "frustrated", 3200);
         if (info.noTake) {
           res.textContent = g.name(info.doubter) + battleText("は札を引き取らない", " takes no cards");
           res.className = "res show";

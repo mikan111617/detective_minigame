@@ -4,8 +4,8 @@
  */
 (function (root) {
   var IMG = "./data/image/doubt/";
-  // 立ち絵の場所。本編の立ち絵をそのまま使う場合は "./data/fgimage/standing/"
-  var STAND = "./data/fgimage/standing/";
+  // 立ち絵の場所。本編と同じ data/fgimage/chara/{キャラid}/{表情}.png を使う
+  var STAND = "./data/fgimage/chara/";
   // スキル発動カットインの一枚絵の場所（1672×941 / 16:9）
   var CUTIN = "./data/image/cutin/";
   // ボイスの場所（キャラidごとのフォルダに分ける）
@@ -31,10 +31,13 @@
       // 札の表の絵柄（数字ごとに1枚）。元画像は data/image/trump/{数字}.png、
       // ゲームではそれを縮小した card/face/{数字}.webp を使う
       cardFace: function (r) { return IMG + "card/face/" + r + ".webp"; },
-      // 立ち絵：chara/{id}.png　表情差分：chara/{id}_shaken.png（無ければ通常立ち絵）
+      // 立ち絵：fgimage/chara/{id}/normal.png
+      // 表情：同じフォルダの shaken.png（動揺）／doubt.png（ダウトのカットイン）／frustrated.png（悔しい）
+      // 表情の画像が無い時は、faceFallback の順に代わりを探し、最後は normal.png にする
       chara: function (id, face) {
         var base = DATA.charaFile[id] || id;
-        return STAND + base + (face ? "_" + face : "") + ".png";
+        var file = (DATA.faceFile[id] && DATA.faceFile[id][face]) || face || "normal";
+        return STAND + base + "/" + file + ".png";
       },
       // カットイン：data/image/cutin/{id}.png（無ければ文字だけのカットイン）
       cutin: function (id) {
@@ -67,8 +70,18 @@
       },
     },
 
-    // 立ち絵のファイル名が id と違う場合の対応表（今は全員 id と同名）
+    // 立ち絵のフォルダ名が id と違う場合の対応表（今は全員 id と同名）
     charaFile: {},
+
+    // 表情のファイル名が shaken / doubt / frustrated と違うキャラの対応表
+    faceFile: {
+      mahoru_awake: { shaken: "awake_shaken" },
+    },
+
+    // 表情の画像が無い時に代わりに使う表情（無ければ normal.png）
+    faceFallback: {
+      frustrated: ["shaken"],
+    },
 
     // カットイン画像のファイル名が id と違う場合の対応表
     cutinFile: {},
