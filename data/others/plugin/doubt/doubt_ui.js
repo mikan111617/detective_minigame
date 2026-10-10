@@ -1399,11 +1399,32 @@
     this.setButtons();
   };
 
+  B.recordPlacedFrom = function () {
+    var root = this.root;
+    var rr = root.getBoundingClientRect();
+    var k = rr.width / 1920 || 1;
+    var list = [];
+    this.handEl.querySelectorAll(".dbt-card.sel").forEach(function (el) {
+      var r = el.getBoundingClientRect();
+      var m = /rotate\((-?[\d.]+)deg\)/.exec(el.style.transform || "");
+      list.push({
+        id: el.dataset.id,
+        x: (r.left - rr.left) / k, y: (r.top - rr.top) / k, w: el.offsetWidth, h: el.offsetHeight,
+        rot: m ? parseFloat(m[1]) : 0,
+        html: el.innerHTML,
+        red: el.classList.contains("red")
+      });
+    });
+    this.placedFrom = list;
+  };
+
   B.onMain = function () {
     var r = this.resolver;
     if (!r) return;
     if (this.mode === "place" || this.mode === "give") {
       var ids = Object.keys(this.selected);
+      // 伏せる札の、いまの位置と表の絵柄を覚えておく（場へ滑らせる演出に使う）
+      if (this.mode === "place") this.recordPlacedFrom();
       this.selected = {};
       this.finishInput(ids);
     } else if (this.mode === "window") {
@@ -1635,26 +1656,110 @@
     }, 2200);
   };
 
+  /*
+   * 札を伏せて、場の山へ滑らせる。
+   *   自分の札：伏せるボタンを押した時の手札の位置から、表→裏に返しながら滑らせる
+   *   相手の札：立ち絵の位置から裏向きのまま滑らせる
+   * 山の上で少し減速して止まり、山がわずかに沈む。
+   * 戻り値は飛ばした札の配列。場を描き直してから消すと、ちらつかない。
+   */
   B.flyCards = async function (seat, n) {
-    var from = seat === 0 ? { x: 900, y: 760 } : (seat === 1 ? { x: 150, y: 120 } : { x: 1680, y: 120 });
-    var to = this.pileEl.getBoundingClientRect ? { x: 930, y: 190 } : { x: 930, y: 190 };
-    var flies = [];
-    for (var i = 0; i < Math.min(n, 4); i++) {
-      var e = h("div", "dbt-fly");
-      e.style.backgroundImage = "url('" + D.img.cardBack + "')";
-      e.style.left = from.x + i * 12 + "px";
-      e.style.top = from.y + "px";
-      this.root.appendChild(e);
-      flies.push(e);
+    var root = this.root;
+    var cnt = Math.max(1, Math.min(n, 4));
+    var W = 128, H = 180;   // 場の山の札と同じ大きさ
+    var rr = root.getBoundingClientRect();
+    var k = rr.width / 1920 || 1;
+    function rel(r) { return { x: (r.left - rr.left) / k, y: (r.top - rr.top) / k, w: r.width / k, h: r.height / k }; }
+    function tf(x, y, r, s, ry) {
+      return "perspective(1400px) translate(" + x + "px," + y + "px) rotate(" + r + "deg) rotateY(" + ry + "deg) scale(" + s + ")";
     }
-    await sleep(20);
-    flies.forEach(function (e, i) {
-      e.style.left = to.x + i * 6 + "px";
-      e.style.top = to.y + "px";
-      e.style.transform = "rotate(" + (i * 5 - 5) + "deg)";
+
+    var pr = rel(this.pileEl.getBoundingClientRect());
+    var tx = pr.x + pr.w / 2 - W / 2;
+    var ty = pr.y + pr.h / 2 - H / 2;
+
+    // 自分の札は、伏せるボタンを押した瞬間の位置（onMain で記録）
+    var from = seat === 0 && this.placedFrom ? this.placedFrom.slice(0, cnt) : [];
+    this.placedFrom = null;
+    var handEl = this.handEl;
+    from.forEach(function (s) {
+      var el = s.id && handEl.querySelector('.dbt-card[data-id="' + s.id + '"]');
+      if (el) el.style.visibility = "hidden";
     });
-    await sleep(300);
-    flies.forEach(function (e) { closeRoot(e); });
+
+    var reduce = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    var flies = [], waits = [];
+    for (var i = 0; i < cnt; i++) {
+      var s = from[i];
+      if (!s) {
+        if (seat !== 0 && this.portraits[seat]) {
+          var p = rel(this.portraits[seat].getBoundingClientRect());
+          s = { x: p.x + p.w / 2 - W / 2 + i * 10, y: p.y + p.h * 0.45 - H / 2, w: W * 0.8, h: H * 0.8, rot: 0 };
+        } else {
+          s = { x: 860 + i * 14, y: 700, w: 148, h: 212, rot: 0 };
+        }
+      }
+      var e = h("div", "dbt-fly");
+      var back = h("div", "b");
+      back.style.backgroundImage = "url('" + D.img.cardBack + "')";
+      e.appendChild(back);
+      var showFront = !!(s.html);
+      if (showFront) {
+        var front = h("div", "f dbt-card" + (s.red ? " red" : ""));
+        front.innerHTML = s.html;
+        e.appendChild(front);
+      }
+      e.style.left = tx + "px";
+      e.style.top = ty + "px";
+      root.appendChild(e);
+      flies.push(e);
+
+      var sx = s.x + s.w / 2 - (tx + W / 2);
+      var sy = s.y + s.h / 2 - (ty + H / 2);
+      var sc = Math.max(0.6, Math.min(1.6, s.w / W));
+      var endRot = (i - (cnt - 1) / 2) * 5 + (Math.random() * 4 - 2);
+      var startRot = seat === 1 ? -12 : (seat === 2 ? 12 : (s.rot || 0));
+      var lean = seat === 2 ? -4 : 4;   // 滑ってきた向きに少し傾けてから戻す
+
+      if (reduce || !e.animate) {
+        e.style.transform = tf(0, 0, endRot, 1, 0);
+        continue;
+      }
+      var frames = showFront ? [
+        { transform: tf(sx, sy, startRot, sc, 180), offset: 0 },
+        { transform: tf(sx * 0.82, sy * 0.82 - 26, startRot * 0.5 + lean, sc * 1.04, 0), offset: 0.24 },
+        { transform: tf(sx * 0.05, sy * 0.05, endRot + lean * 0.6, 1.02, 0), offset: 0.84 },
+        { transform: tf(0, 0, endRot, 1, 0), offset: 1 }
+      ] : [
+        { transform: tf(sx, sy, startRot, sc * 0.85, 0), opacity: 0, offset: 0 },
+        { transform: tf(sx * 0.86, sy * 0.86, startRot * 0.6, sc, 0), opacity: 1, offset: 0.14 },
+        { transform: tf(sx * 0.05, sy * 0.05, endRot + lean * 0.6, 1.02, 0), opacity: 1, offset: 0.84 },
+        { transform: tf(0, 0, endRot, 1, 0), opacity: 1, offset: 1 }
+      ];
+      var anim = e.animate(frames, { duration: 480, delay: i * 70, easing: "cubic-bezier(.22,.8,.3,1)", fill: "both" });
+      waits.push(anim.finished ? anim.finished.catch(function () {}) : sleep(480 + i * 70));
+    }
+    if (waits.length) await Promise.all(waits);
+
+    // 山がわずかに沈む
+    if (!reduce && this.pileEl.animate) {
+      this.pileEl.animate(
+        [{ transform: "none" }, { transform: "translateY(4px) scale(1.015)" }, { transform: "none" }],
+        { duration: 200, easing: "ease-out" });
+    }
+    return flies;
+  };
+
+  // 場を描き直した後に、滑らせた札をそっと消す
+  B.clearFlies = function (flies) {
+    (flies || []).forEach(function (e) {
+      if (e.animate && !(window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches)) {
+        var an = e.animate([{ opacity: 1 }, { opacity: 0 }], { duration: 140, easing: "ease-out", fill: "forwards" });
+        an.onfinish = function () { closeRoot(e); };
+      } else {
+        closeRoot(e);
+      }
+    });
   };
 
   B.overlayWait = function (ov, ms) {
@@ -1737,6 +1842,12 @@
     var label = h("div", "doubt-shout", battleText("ダウト！", "DOUBT!"));
     band.appendChild(label);
     var name = h("div", "doubt-name"); name.textContent = g.name(seat); band.appendChild(name);
+    // 帯の色は、ダウトした人ごとに変える（doubt_data.js の doubtBand）
+    var col = D.doubtBand && D.doubtBand[g.ids[seat]];
+    if (col) {
+      band.style.background = "linear-gradient(100deg, #100e1bea, " + col[0] + "f5 48%, #180e1bf0)";
+      band.style.setProperty("--band-dark", col[1]);
+    }
     this.root.appendChild(band);
     var root = this.root;
     root.classList.add("doubt-cutting");
@@ -1762,8 +1873,9 @@
       placed: async function (g, seat, n) {
         ui.historyPlayCount++;
         ui.pushHistory({ type: "play", no: ui.historyPlayCount, seat: seat, name: g.name(seat), rank: RANK[g.last.rank], count: g.shownPlay(g.last.cards.length, seat) });
-        await ui.flyCards(seat, n);
+        var flies = await ui.flyCards(seat, n);
         ui.render(g);
+        ui.clearFlies(flies);
       },
       playerPlace: function (g) {
         ui.game = g;
@@ -1954,37 +2066,208 @@
         ov.appendChild(h("div", "box", '<div class="t">' + title + '</div><div class="s">' + (sub || "") + "</div>"));
         return ui.overlayWait(ov, 1400);
       },
+      /*
+       * ダウト判定の演出（4段階）
+       *   1 ダウト宣言：（直前にカットイン）画面を暗くし、伏せ札を中央に並べる …… 約0.3秒
+       *   2 カード公開：伏せ札を左から順にめくる …… 1枚0.15秒
+       *   3 判定成立  ：判定の根拠（数字・絵柄・違う札）を光らせ、「ダウト成功！／失敗！」 …… 約0.5秒
+       *   4 ペナルティ：「〇〇が場の札を引き取る」→ 札がまとまって引き取る側へ飛ぶ
+       * 画面を押すと、そこから先は早送りで閉じる。
+       */
       reveal: async function (g, info) {
         if (ui.historyOverlay) { closeRoot(ui.historyOverlay); ui.historyOverlay = null; }
-        var ov = h("div", "dbt-overlay dbt-reveal");
+        var reduce = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+        var skip = false;
+        function wait(ms) {
+          if (skip || reduce) return Promise.resolve();
+          return new Promise(function (r) {
+            var t = setTimeout(r, ms);
+            waiters.push(function () { clearTimeout(t); r(); });
+          });
+        }
+        var waiters = [];
+        function anim(el, frames, opt) {
+          if (skip || reduce || !el.animate) {
+            var last = frames[frames.length - 1];
+            Object.keys(last).forEach(function (k) { if (k !== "offset" && k !== "easing") el.style[k] = last[k]; });
+            return Promise.resolve();
+          }
+          var an = el.animate(frames, Object.assign({ fill: "both" }, opt));
+          running.push(an);
+          return an.finished ? an.finished.catch(function () {}) : wait(opt.duration || 0);
+        }
+        var running = [];
+
+        var rr = ui.root.getBoundingClientRect();
+        var k = rr.width / 1920 || 1;
+        function rel(el) {
+          var r = el.getBoundingClientRect();
+          return { x: (r.left - rr.left) / k, y: (r.top - rr.top) / k, w: r.width / k, h: r.height / k };
+        }
+
+        var ov = h("div", "dbt-overlay dbt-reveal2");
         ov.appendChild(h("div", "who",
           g.name(info.doubter) + "のダウト　―　" + g.name(info.placer) + "の〈" + RANK[info.rank] + "〉"));
         var row = h("div", "cards");
-        info.cards.forEach(function (c, i) {
-          var e = cardEl(c);
-          e.style.animationDelay = i * 0.12 + "s";
-          if (c.r !== info.rank) e.classList.add("bad");
-          row.appendChild(e);
-        });
         ov.appendChild(row);
+        var basis = h("div", "basis", "");
+        ov.appendChild(basis);
         var v = h("div", "verdict", "");
         ov.appendChild(v);
         var res = h("div", "res", "");
         ov.appendChild(res);
         ui.root.appendChild(ov);
-        await sleep(450 + info.cards.length * 120);
-        v.textContent = info.isLie ? battleText("ダウト成功", "Doubt Successful") : battleText("ダウト失敗", "Doubt Failed");
-        v.className = "verdict " + (info.isLie ? "lie" : "true");
-        var loser = info.isLie ? info.placer : info.doubter;
-        res.textContent = info.noTake ? g.name(info.doubter) + "は札を引き取らない" :
-          (info.suitPass ? "絵柄が揃っているので〈" + RANK[info.rank] + "〉として通る。" : "") +
-          g.name(loser) + "が場の札を引き取る";
-        await new Promise(function (resolve) {
-          var done = false;
-          function end() { if (!done) { done = true; resolve(); } }
-          ov.addEventListener("click", end);
-          setTimeout(end, 1200);
+        ov.addEventListener("click", function () {
+          if (skip) return;
+          skip = true;
+          running.forEach(function (an) { try { an.finish(); } catch (e) {} });
+          waiters.forEach(function (fn) { fn(); });
         });
+
+        // 1 ダウト宣言：伏せ札を場の山から中央へ並べる
+        var n = info.cards.length;
+        var CW = 148, CH = 212, GAP = 26;
+        var rowW = n * CW + (n - 1) * GAP;
+        var x0 = (1920 - rowW) / 2, y0 = 400;
+        var pile = rel(ui.pileEl);
+        var slots = info.cards.map(function (c, i) {
+          var slot = h("div", "rv");
+          slot.style.left = (x0 + i * (CW + GAP)) + "px";
+          slot.style.top = y0 + "px";
+          var inner = h("div", "rv-in");
+          var back = h("div", "b");
+          back.style.backgroundImage = "url('" + D.img.cardBack + "')";
+          inner.appendChild(back);
+          var face = cardEl(c);
+          face.classList.add("f");
+          inner.appendChild(face);
+          slot.appendChild(inner);
+          row.appendChild(slot);
+          return { el: slot, inner: inner, face: face, card: c };
+        });
+        ov.style.background = "rgba(6,10,20,0)";
+        anim(ov, [{ backgroundColor: "rgba(6,10,20,0)" }, { backgroundColor: "rgba(6,10,20,.72)" }], { duration: 260, easing: "ease-out" });
+        await Promise.all(slots.map(function (s, i) {
+          var dx = pile.x + pile.w / 2 - (x0 + i * (CW + GAP) + CW / 2);
+          var dy = pile.y + pile.h / 2 - (y0 + CH / 2);
+          return anim(s.el, [
+            { transform: "translate(" + dx + "px," + dy + "px) scale(.86) rotate(" + (i * 3 - 4) + "deg)", opacity: 0 },
+            { transform: "none", opacity: 1 }
+          ], { duration: 300, delay: i * 30, easing: "cubic-bezier(.22,.8,.3,1)" });
+        }));
+
+        // 2 カード公開：左から順にめくる
+        for (var i = 0; i < slots.length; i++) {
+          anim(slots[i].inner, [{ transform: "rotateY(0deg)" }, { transform: "rotateY(180deg)" }], { duration: 150, easing: "ease-out" });
+          await wait(150);
+        }
+        await wait(120);
+
+        // 3 判定成立：根拠を光らせる
+        var rankHit = info.cards.filter(function (c) { return c.r === info.rank; }).length;
+        var red = function (s) { return s === 1 || s === 2; };
+        var bad = info.cards.filter(function (c) { return c.r !== info.rank; });
+        var bhtml, bcls;
+        if (info.isLie) {
+          slots.forEach(function (s) {
+            if (s.card.r !== info.rank) {
+              s.el.classList.add("bad");
+              anim(s.el, [{ transform: "translateX(0)" }, { transform: "translateX(-8px)" }, { transform: "translateX(7px)" }, { transform: "translateX(-4px)" }, { transform: "translateX(0)" }], { duration: 300, easing: "ease-out" });
+            } else {
+              s.el.classList.add("dim");
+            }
+          });
+          bhtml = "〈" + RANK[info.rank] + "〉以外の札 <b>×" + bad.length + "</b>";
+          bcls = "lie";
+        } else if (info.suitPass) {
+          var suit = info.cards[0].s;
+          slots.forEach(function (s) { s.el.classList.add("hit-suit"); });
+          bhtml = '<span class="sym' + (red(suit) ? " red" : "") + '">' + SUIT[suit] + "</span> <b>×" + n + "</b>　絵柄が揃っている";
+          bcls = "ok";
+        } else {
+          slots.forEach(function (s) { s.el.classList.add("hit-rank"); });
+          bhtml = "〈" + RANK[info.rank] + "〉 <b>×" + rankHit + "</b>　宣言どおり";
+          bcls = "ok";
+        }
+        basis.innerHTML = bhtml;
+        basis.className = "basis show " + bcls;
+        anim(basis, [{ transform: "scale(.7)", opacity: 0 }, { transform: "scale(1.08)", opacity: 1, offset: .6 }, { transform: "scale(1)", opacity: 1 }], { duration: 260, easing: "ease-out" });
+        await wait(300);
+        v.textContent = info.isLie ? battleText("ダウト成功！", "Doubt Successful!") : battleText("ダウト失敗！", "Doubt Failed!");
+        v.className = "verdict show " + (info.isLie ? "lie" : "true");
+        anim(v, [{ transform: "scale(1.5)", opacity: 0, letterSpacing: ".4em" }, { transform: "scale(1)", opacity: 1, letterSpacing: ".12em" }], { duration: 260, easing: "cubic-bezier(.2,.9,.3,1.2)" });
+        await wait(520);
+
+        // 4 ペナルティ：引き取る側へ札が飛ぶ
+        var loser = info.isLie ? info.placer : info.doubter;
+        if (info.noTake) {
+          res.textContent = g.name(info.doubter) + battleText("は札を引き取らない", " takes no cards");
+          res.className = "res show";
+          anim(res, [{ opacity: 0, transform: "translateY(10px)" }, { opacity: 1, transform: "none" }], { duration: 200, easing: "ease-out" });
+          await wait(700);
+          await Promise.all(slots.map(function (s) {
+            return anim(s.el, [{ opacity: 1 }, { opacity: 0 }], { duration: 200, easing: "ease-in" });
+          }));
+        } else {
+          res.innerHTML = '<span class="nm">' + g.name(loser) + "</span>" + battleText("が場の札を引き取る", " takes the pile");
+          res.className = "res show";
+          anim(res, [{ opacity: 0, transform: "translateY(10px)" }, { opacity: 1, transform: "none" }], { duration: 200, easing: "ease-out" });
+          await wait(380);
+
+          // 札をまとめる
+          var cx = 960 - CW / 2, cy = y0;
+          slots.forEach(function (s) { s.el.classList.remove("dim", "bad", "hit-suit", "hit-rank"); });
+          await Promise.all(slots.map(function (s, i) {
+            var sx = x0 + i * (CW + GAP);
+            return anim(s.el, [
+              { transform: "none" },
+              { transform: "translate(" + (cx - sx + (i - (n - 1) / 2) * 6) + "px," + (-i * 2) + "px) rotate(" + ((i - (n - 1) / 2) * 3) + "deg)" }
+            ], { duration: 200, easing: "ease-in-out" });
+          }));
+
+          // 引き取る側へ飛ばす（場の山もいっしょに消える）
+          var target;
+          if (loser === 0) {
+            var hr = rel(ui.handEl);
+            target = { x: hr.x + hr.w / 2, y: hr.y + hr.h - 120 };
+          } else if (ui.portraits[loser]) {
+            var pr = rel(ui.portraits[loser]);
+            target = { x: pr.x + pr.w / 2, y: pr.y + pr.h / 2 };
+          } else {
+            target = { x: 960, y: 900 };
+          }
+          Array.prototype.forEach.call(ui.pileEl.children, function (pc) { pc.style.visibility = "hidden"; });
+          anim(row.parentNode.querySelector(".who"), [{ opacity: 1 }, { opacity: 0 }], { duration: 200 });
+          anim(basis, [{ opacity: 1 }, { opacity: 0 }], { duration: 200 });
+          anim(v, [{ opacity: 1 }, { opacity: 0 }], { duration: 200 });
+          var tdx = target.x - 960, tdy = target.y - (cy + CH / 2);
+          await Promise.all(slots.map(function (s, i) {
+            var sx = x0 + i * (CW + GAP);
+            var bx = cx - sx + (i - (n - 1) / 2) * 6, by = -i * 2, br = (i - (n - 1) / 2) * 3;
+            return anim(s.el, [
+              { transform: "translate(" + bx + "px," + by + "px) rotate(" + br + "deg) scale(1)", opacity: 1 },
+              { transform: "translate(" + (bx + tdx * 0.35) + "px," + (by + tdy * 0.35 - 40) + "px) rotate(" + (br + 6) + "deg) scale(.82)", opacity: 1, offset: .4 },
+              { transform: "translate(" + (bx + tdx) + "px," + (by + tdy) + "px) rotate(" + (br + 12) + "deg) scale(.45)", opacity: 0 }
+            ], { duration: 460, delay: i * 25, easing: "cubic-bezier(.45,.05,.55,.95)" });
+          }));
+
+          // 手札が増えた合図
+          var gain = g.pile ? g.pile.length : n;
+          var halfTake = g.hasAbil && g.hasAbil(loser, "kazuto");
+          if (!halfTake && gain > 0) {
+            var pop = h("div", "dbt-gain", "＋" + gain);
+            pop.style.left = target.x + "px";
+            pop.style.top = target.y + "px";
+            ui.root.appendChild(pop);
+            if (reduce || !pop.animate) setTimeout(function () { closeRoot(pop); }, 600);
+            else pop.animate([
+              { transform: "translate(-50%,-50%) scale(.6)", opacity: 0 },
+              { transform: "translate(-50%,-90%) scale(1.1)", opacity: 1, offset: .3 },
+              { transform: "translate(-50%,-130%) scale(1)", opacity: 0 }
+            ], { duration: 900, easing: "ease-out", fill: "both" }).onfinish = function () { closeRoot(pop); };
+          }
+          await anim(ov, [{ backgroundColor: "rgba(6,10,20,.72)" }, { backgroundColor: "rgba(6,10,20,0)" }], { duration: 200, easing: "ease-out" });
+        }
         closeRoot(ov);
       },
     };

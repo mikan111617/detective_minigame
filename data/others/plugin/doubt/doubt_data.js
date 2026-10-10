@@ -22,7 +22,7 @@
         : "./data/bgimage/caution.png",
       bgTitle: IMG + "bg/bg-title.png",
       bgSelect: IMG + "bg/bg-select.png",
-      bgTable: IMG + "bg/bg-table.png",
+      bgTable: IMG + "bg/bg-table-dot.png",
       bgWin: IMG + "bg/win-01.png",
       bgLose: IMG + "bg/lose.png",
       bgContinue: IMG + "bg/continue.png",
@@ -103,7 +103,7 @@
       demoMode: false,
       demoLastStage: 0, // 体験版は第一戦（stage0）クリアまで
       // タイトルに「デバッグ」ボタンを出す。配布する時は false にする
-      debugMenu: false,
+      debugMenu: true,
       hiddenScore: 40000, // この点に届いていれば、コンティニューしていても隠し戦に進める
       extraDealEach: 3,  // 英国の青年が、自分以外の各プレイヤーに配る新規札の枚数
       maryFadeEach: 1,   // メアリーの手番ごとに、各相手の「まだ見えている手札」から見えなくなる枚数
@@ -261,6 +261,23 @@
       { a: "yuduki", b: "arther", label: "隠し戦", tagline: "招かれざる二人" },
     ],
     playerTagline: "嘘を全て打ち砕く",
+
+    // ダウト演出の帯の色（キャラid: [帯の色, 文字の影の色]）
+    doubtBand: {
+      mahoru:       ["#c8262b", "#5e0d12"],   // 赤
+      airi:         ["#e3b21f", "#6b4f05"],   // 黄色
+      kazuto:       ["#2f6fd6", "#0e2a5c"],   // 青
+      mary:         ["#e8669a", "#6a1c3e"],   // ピンク
+      reido:        ["#22377a", "#0a1230"],   // 紺色
+      juri:         ["#a9b3bf", "#3c434d"],   // シルバー
+      eruku:        ["#c9a03f", "#5c4413"],   // ゴールド
+      jushika:      ["#e8742a", "#6b2c06"],   // オレンジ
+      koderia:      ["#c46fc0", "#4e1d4e"],   // ピンクに近い紫
+      mahoru_awake: ["#7e1420", "#300509"],   // ダークレッド
+      maicro:       ["#8fc23a", "#34500d"],   // 黄緑
+      yuduki:       ["#d8352a", "#5e0d12"],   // 赤
+      arther:       ["#e8c23a", "#6b5005"]    // 黄色
+    },
 
     /*
      * 掛け合いセリフ（仮）

@@ -381,10 +381,43 @@
   text-shadow: 0 2px 6px #000;
 }
 
-.dbt-fly { position: absolute; width: 96px; height: 136px; background-size: cover; background-color: #4b2a6e; box-shadow: 0 0 0 2px #c08a1e; z-index: 20; transition: left .38s ease-in, top .38s ease-in, transform .38s; pointer-events: none; }
+/* 場へ滑らせる札（表と裏の2面。自分の札は表→裏に返りながら滑る） */
+.dbt-fly { position: absolute; width: 128px; height: 180px; z-index: 20; pointer-events: none; transform-style: preserve-3d; will-change: transform; }
+.dbt-fly .b, .dbt-fly .f { position: absolute; left: 0; top: 0; width: 100%; height: 100%; backface-visibility: hidden; -webkit-backface-visibility: hidden; }
+.dbt-fly .b { background-size: cover; background-position: center; background-color: #4b2a6e; box-shadow: 0 0 0 2px #c08a1e, 4px 12px 20px rgba(0,0,0,.5); }
+.dbt-fly .f.dbt-card { bottom: auto; transform: rotateY(180deg); transform-origin: 50% 50%; transition: none; box-shadow: 0 0 0 2px #c08a1e, 4px 12px 20px rgba(0,0,0,.5); }
 
 /* オーバーレイ（公開・カットイン・告知・数字パッド） */
 .dbt-overlay { position: absolute; inset: 0; z-index: 40; display: flex; align-items: center; justify-content: center; }
+/* ダウト判定（4段階の演出） */
+.dbt-reveal2 { display: block; }
+.dbt-reveal2 .who { position: absolute; left: 0; right: 0; top: 270px; text-align: center; font-family: "Kiwi Maru", serif; font-size: 40px; letter-spacing: .1em; text-shadow: 0 3px 8px #000; }
+.dbt-reveal2 .cards { position: absolute; inset: 0; pointer-events: none; }
+.dbt-reveal2 .rv { position: absolute; width: 148px; height: 212px; perspective: 1000px; }
+.dbt-reveal2 .rv-in { position: absolute; inset: 0; transform-style: preserve-3d; }
+.dbt-reveal2 .rv .b, .dbt-reveal2 .rv .f { position: absolute; left: 0; top: 0; width: 100%; height: 100%; backface-visibility: hidden; -webkit-backface-visibility: hidden; }
+.dbt-reveal2 .rv .b { background-size: cover; background-position: center; background-color: #4b2a6e; box-shadow: 0 0 0 2px #c08a1e, 4px 10px 18px rgba(0,0,0,.5); }
+.dbt-reveal2 .rv .f.dbt-card { bottom: auto; transform: rotateY(180deg); transform-origin: 50% 50%; transition: box-shadow .2s, filter .2s; }
+.dbt-reveal2 .rv.dim .f { filter: brightness(.55) saturate(.6); }
+.dbt-reveal2 .rv.bad .f { box-shadow: 0 0 0 6px #d8352a, 0 0 36px rgba(216,53,42,.9); }
+.dbt-reveal2 .rv.hit-rank .f { box-shadow: 0 0 0 4px #e8b54a, 0 0 30px rgba(232,181,74,.75); }
+.dbt-reveal2 .rv.hit-rank .f .ix { animation: dbtHit .5s ease-out both; }
+.dbt-reveal2 .rv.hit-suit .f { box-shadow: 0 0 0 4px #e8b54a, 0 0 30px rgba(232,181,74,.75); }
+.dbt-reveal2 .rv.hit-suit .f .ix i { display: inline-block; animation: dbtHitSuit .5s ease-out both; }
+@keyframes dbtHit { 0% { box-shadow: 0 0 0 0 rgba(255,214,120,0); } 40% { box-shadow: 0 0 0 4px #ffd678, 0 0 22px 6px rgba(255,214,120,.9); } 100% { box-shadow: 0 0 0 2px #e8b54a, 0 0 12px 2px rgba(255,214,120,.5); } }
+@keyframes dbtHitSuit { 0% { transform: scale(1); text-shadow: none; } 40% { transform: scale(1.6); text-shadow: 0 0 12px #ffd678, 0 0 4px #fff; } 100% { transform: scale(1.15); text-shadow: 0 0 8px rgba(255,214,120,.8); } }
+.dbt-reveal2 .basis { position: absolute; left: 0; right: 0; margin: 0 auto; width: max-content; top: 652px; padding: 8px 28px; opacity: 0; white-space: nowrap; font-size: 34px; letter-spacing: .08em; background: rgba(11,17,34,.9); box-shadow: 0 0 0 2px #e8b54a; }
+.dbt-reveal2 .basis b { font-family: "Bellefair", serif; font-weight: normal; font-size: 44px; color: #ffe2a7; }
+.dbt-reveal2 .basis .sym { font-family: serif; font-size: 44px; color: #1b2a4a; background: #f6efe0; padding: 0 10px; border-radius: 4px; }
+.dbt-reveal2 .basis .sym.red { color: #d8352a; }
+.dbt-reveal2 .basis.lie { box-shadow: 0 0 0 2px #d8352a; }
+.dbt-reveal2 .verdict { position: absolute; left: 0; right: 0; top: 730px; text-align: center; opacity: 0; font-family: "Kiwi Maru", serif; font-size: 100px; line-height: 1.2; letter-spacing: .12em; }
+.dbt-reveal2 .verdict.lie { color: #f0533f; text-shadow: 6px 6px 0 #3a0a06; }
+.dbt-reveal2 .verdict.true { color: #e8b54a; text-shadow: 6px 6px 0 #3a2a06; }
+.dbt-reveal2 .res { position: absolute; left: 0; right: 0; top: 880px; text-align: center; opacity: 0; font-size: 36px; letter-spacing: .1em; text-shadow: 0 2px 6px #000; }
+.dbt-reveal2 .res .nm { color: #ffe2a7; font-family: "Kiwi Maru", serif; font-size: 42px; margin-right: 4px; }
+.dbt-gain { position: absolute; z-index: 45; pointer-events: none; font-family: "Bellefair", serif; font-size: 64px; color: #ffe2a7; text-shadow: 0 0 12px rgba(232,181,74,.8), 3px 3px 0 #3a2a06; }
+.dbt-en .dbt-reveal2 .verdict { font-size: 76px; letter-spacing: .03em; }
 .dbt-reveal { background: rgba(6,10,20,.72); flex-direction: column; gap: 30px; }
 .dbt-reveal .who { font-family: "Kiwi Maru", serif; font-size: 44px; letter-spacing: .1em; }
 .dbt-reveal .cards { position: relative; display: flex; gap: 20px; height: 230px; }
@@ -907,8 +940,8 @@
 .dbt-history .dbt-btn { width:260px; margin:auto; padding:14px; font-size:30px; }
 .dbt-doubt-cut { position:absolute; left:0; right:0; top:370px; height:320px; z-index:4; overflow:hidden; cursor:pointer; background:linear-gradient(100deg,#100e1bea,#9f1e24f5 48%,#180e1bf0); border-block:5px solid #e8b54a; box-shadow:0 14px 40px #0009; animation:dbt-doubt-enter .22s ease-out both; }
 .dbt-doubt-cut .doubt-face { position:absolute; left:280px; top:0; width:400px; height:560px; transform:rotate(-5deg); background:none; }
-.dbt-doubt-cut .doubt-shout { position:absolute; left:720px; right:130px; top:45px; text-align:center; font-size:126px; font-weight:900; line-height:1.2; letter-spacing:.02em; color:#fff7db; text-shadow:6px 6px #651019,0 0 20px #ffcb6e; animation:dbt-doubt-word .28s ease-out both; }
-.dbt-doubt-cut .doubt-name { position:absolute; left:720px; right:130px; bottom:24px; text-align:center; font-size:34px; color:#ffe2a7; }
+.dbt-doubt-cut .doubt-shout { position:absolute; left:720px; right:130px; top:45px; text-align:center; font-size:126px; font-weight:900; line-height:1.2; letter-spacing:.02em; color:#fff7db; text-shadow:6px 6px var(--band-dark,#651019),0 0 3px var(--band-dark,#651019),0 0 20px #ffcb6e; animation:dbt-doubt-word .28s ease-out both; }
+.dbt-doubt-cut .doubt-name { position:absolute; left:720px; right:130px; bottom:24px; text-align:center; font-size:34px; color:#ffe2a7; text-shadow:0 2px 0 var(--band-dark,#651019),0 0 8px var(--band-dark,#651019); }
 .dbt-reveal .verdict { font-size:86px; letter-spacing:.03em; }
 .dbt-en .dbt-reveal .verdict { font-size:76px; }
 @keyframes dbt-doubt-enter { from { transform:translateX(-100%); } to { transform:translateX(0); } }
