@@ -73,6 +73,12 @@
     // 立ち絵のフォルダ名が id と違う場合の対応表（今は全員 id と同名）
     charaFile: {},
 
+    // スキル発動のセリフを能力ごとに分けるキャラ。{ 能力id: [lines.ability の番号] }
+    //   真歩流：名指し推理は 0・1、手札の交換は 2
+    abilityLines: {
+      mahoru: { mahoru: [0, 1], hand_swap: [2] },
+    },
+
     // 表情のファイル名が shaken / doubt / frustrated と違うキャラの対応表
     faceFile: {
       mahoru_awake: { shaken: "awake_shaken" },
