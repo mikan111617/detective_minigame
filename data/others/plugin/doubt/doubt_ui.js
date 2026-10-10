@@ -199,9 +199,9 @@
     if (!V || !V.on || !id || index == null) return;
     var src = V.path(id, cat, index);
     var url = absUrl(src);
-    if (voiceNG[url]) return;
+    if (voiceNG[url]) return null;
     var vol = seVolume() * (V.volume != null ? V.volume : 1);
-    if (!(vol > 0)) return;
+    if (!(vol > 0)) return null;
 
     var a = new Audio();
     a.volume = Math.max(0, Math.min(1, vol));
@@ -225,6 +225,27 @@
     } catch (e) {
       if (voiceNow[id] === a) delete voiceNow[id];
     }
+    return a;
+  }
+
+  /*
+   * 鳴らした声が終わるまで待つ（掛け合いで声を重ねないため）。
+   * ファイルが無い・鳴らせない時は、吹き出しを読める程度に待つ。長すぎる声は上限で打ち切る。
+   */
+  function waitVoice(a, minMs, maxMs) {
+    return new Promise(function (resolve) {
+      var t0 = Date.now();
+      var done = false;
+      function finish() {
+        if (done) return;
+        done = true;
+        setTimeout(resolve, Math.max(0, minMs - (Date.now() - t0)));
+      }
+      if (!a) { finish(); return; }
+      a.addEventListener("ended", finish);
+      a.addEventListener("error", finish);
+      setTimeout(finish, maxMs);
+    });
   }
 
   // セリフをランダムに1つ選ぶ（文章と、ボイスを引くための番号を返す）
@@ -1630,6 +1651,16 @@
     this.showSay({ seat: seat, cat: cat, text: ln.text });
   };
 
+  // セリフを言わせて、声が終わるまで待つ（声のファイルが無ければ読める程度に待つ）
+  B.sayAndWait = function (g, seat, cat) {
+    var id = g.ids[seat];
+    var ln = pickLine(id, cat);
+    if (!ln) return Promise.resolve();
+    var a = playVoice(id, cat, ln.index);
+    this.showSay({ seat: seat, cat: cat, text: ln.text });
+    return waitVoice(a, 1100, 6000);
+  };
+
   // 吹き出しは出さず、声だけ鳴らす（カットインの最中など）。
   // 鳴らしたセリフの文章を返すので、呼んだ側が画面にも出せる。
   B.sayVoice = function (g, seat, cat) {
@@ -1963,14 +1994,11 @@
         });
       },
       // 挑発の反応。真歩流が煽り、相手2人がそれぞれ乗るか身構える
+      // 挑発の掛け合い。真歩流が言い終えてから、相手の二人のうち一人だけが返す（声を重ねない）
       taunt: async function (g, res) {
-        ui.showSay({ seat: 0, cat: "taunt", text: "ほら、疑ってみたら？" });
-        await sleep(500);
-        for (var s = 1; s <= 2; s++) {
-          ui.showSay({ seat: s, cat: "taunt",
-            text: res[s] === "up" ? "上等じゃない……！" : "……その手には乗らない。" });
-        }
-        await sleep(900);
+        await ui.sayAndWait(g, 0, "taunt");
+        var who = Math.random() < 0.5 ? 1 : 2;
+        await ui.sayAndWait(g, who, "taunt");
       },
       notice: function (g, title, sub) {
         var ov = h("div", "dbt-overlay dbt-notice");
