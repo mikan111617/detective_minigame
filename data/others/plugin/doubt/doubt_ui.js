@@ -1411,10 +1411,24 @@
     });
   }
 
+  // 対戦に出る3人の表情（ダウト・悔しい・動揺）を先に読んでおき、出す瞬間に遅れないようにする
+  function preloadCharaFaces(ids) {
+    ids.forEach(function (id) {
+      ["doubt", "frustrated", "shaken"].forEach(function (f) {
+        var src = D.img.chara(id, f);
+        if (missing[absUrl(src)]) return;
+        var im = new Image();
+        im.onerror = function () { missing[absUrl(src)] = true; };
+        im.src = src;
+      });
+    });
+  }
+
   function BattleUI(pairIndex) {
     var self = this;
     preloadFaces();
     this.pair = D.pairs[pairIndex];
+    preloadCharaFaces(["mahoru", this.pair.a, this.pair.b]);
     this.root = openRoot("dbt-battle");
     bg(this.root, D.img.bgTable);
     this.root.appendChild(h("div", "dbt-shade shade"));

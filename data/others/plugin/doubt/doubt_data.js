@@ -36,7 +36,8 @@
       // 表情の画像が無い時は、faceFallback の順に代わりを探し、最後は normal.png にする
       chara: function (id, face) {
         var base = DATA.charaFile[id] || id;
-        return STAND + base + "/" + (face || "normal") + ".png";
+        var file = (DATA.faceFile[id] && DATA.faceFile[id][face]) || face || "normal";
+        return STAND + base + "/" + file + ".png";
       },
       // カットイン：data/image/cutin/{id}.png（無ければ文字だけのカットイン）
       cutin: function (id) {
@@ -71,6 +72,11 @@
 
     // 立ち絵のフォルダ名が id と違う場合の対応表（今は全員 id と同名）
     charaFile: {},
+
+    // 表情のファイル名が shaken / doubt / frustrated と違うキャラの対応表
+    faceFile: {
+      mahoru_awake: { shaken: "awake_shaken" },
+    },
 
     // 表情の画像が無い時に代わりに使う表情（無ければ normal.png）
     faceFallback: {
