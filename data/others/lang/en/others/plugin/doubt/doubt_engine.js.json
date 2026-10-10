@@ -162,6 +162,11 @@
       "        await this.io.notice(this, this.data.skillName.eruku_deal, this.name(seat) + \"\\'s face-down cards cannot be challenged for three turns.\");"
     ],
     [
+      1557,
+      "    await this.io.notice(this, this.data.skillName.arther,",
+      "    await this.io.notice(this, this.data.skillName.arther,"
+    ],
+    [
       1558,
       "      \"〈\" + RANK[give[0].r] + \"〉を\" + n + \"枚渡す。代わりに好きな札を\" + n + \"枚もらいたい\");",
       "      \"Offers \" + n + \" × 〈\" + RANK[give[0].r] + \"〉. Choose \" + n + \" cards to give in return.\");"
@@ -190,11 +195,6 @@
       1614,
       "      \"新しい札が\" + take.length + \"枚入り、自分以外の二人に\" + each + \"枚ずつ配られた\");",
       "      \"Adds \" + take.length + \" new cards; the other two players receive \" + each + \" each.\");"
-    ],
-    [
-      1557,
-      "    await this.io.notice(this, this.data.skillName.arther,",
-      "    await this.io.notice(this, this.data.skillName.arther,"
     ],
     [
       1637,
