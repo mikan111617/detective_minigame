@@ -103,7 +103,7 @@
       demoMode: false,
       demoLastStage: 0, // 体験版は第一戦（stage0）クリアまで
       // タイトルに「デバッグ」ボタンを出す。配布する時は false にする
-      debugMenu: true,
+      debugMenu: false,
       hiddenScore: 40000, // この点に届いていれば、コンティニューしていても隠し戦に進める
       extraDealEach: 3,  // 英国の青年が、自分以外の各プレイヤーに配る新規札の枚数
       maryFadeEach: 1,   // メアリーの手番ごとに、各相手の「まだ見えている手札」から見えなくなる枚数

@@ -5,7 +5,7 @@
 ;--------------------------------------------------
 *setup
 [bg storage="doubt/bg-salon.png" time="400"]
-[deffont size="38" color="0xf6efe0" face="Zen Maru Gothic"]
+[deffont size="40" color="0x1f2a4d" face="Zen Kaku Gothic New"]
 [resetfont]
 [layopt layer="message0" visible="true"]
 ; 物語を飛ばすボタンを出す（押すとスキップに入り、*finish の [skipstop] で止まる）

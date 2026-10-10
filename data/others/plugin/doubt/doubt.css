@@ -4,20 +4,20 @@
 .dbt-root {
   position: absolute; left: 0; top: 0; width: 1920px; height: 1080px;
   z-index: 50000; overflow: hidden; background: #0b1122;
-  font-family: "Zen Maru Gothic", "Hiragino Maru Gothic ProN", "Yu Gothic", sans-serif;
+  font-family: "Zen Kaku Gothic New", "Hiragino Kaku Gothic ProN", "Yu Gothic", sans-serif;
   color: #f6efe0; user-select: none; -webkit-user-select: none;
 }
 .dbt-root * { box-sizing: border-box; }
 .dbt-bg { position: absolute; inset: 0; background-size: cover; background-position: 50% 50%; }
 .dbt-shade { position: absolute; inset: 0; pointer-events: none; }
-.dbt-kiwi { font-family: "Kiwi Maru", "Hiragino Mincho ProN", "Yu Mincho", serif; }
-.dbt-num { font-family: "Bellefair", "Times New Roman", serif; }
+.dbt-kiwi { font-family: "D Bar", "Kaisei Decol", serif; }
+.dbt-num { font-family: "Limelight", serif; }
 .dbt-fadein { animation: dbtFade .35s ease-out both; }
 @keyframes dbtFade { from { opacity: 0; } to { opacity: 1; } }
 
 .dbt-btn {
   position: relative; cursor: pointer; text-align: center; white-space: nowrap;
-  font-family: "Kiwi Maru", serif; color: #f6efe0; letter-spacing: .16em;
+  font-family: "D Bar", "Kaisei Decol", serif; color: #f6efe0; letter-spacing: .16em;
   transition: transform .08s, background .15s, opacity .15s, filter .15s;
 }
 .dbt-btn:active { transform: translate(3px, 3px); }
@@ -33,7 +33,7 @@
 .dbt-btn.purple { background: #4b2a6e; box-shadow: 0 0 0 3px #e8b54a, 8px 8px 0 0 #1f0f33; }
 .dbt-btn.purple:hover { background: #5e3a86; }
 .dbt-btn.off { opacity: .32; filter: grayscale(.7); pointer-events: none; }
-.dbt-btn small { display: block; font-family: "Zen Maru Gothic", sans-serif; letter-spacing: .1em; }
+.dbt-btn small { display: block; font-family: "Zen Kaku Gothic New", sans-serif; letter-spacing: .1em; }
 
 /* 立ち絵（画像が無い時は斜線の仮枠） */
 .dbt-portrait {
@@ -64,7 +64,7 @@
 .dbt-title .head, .dbt-opening .op-head { position: absolute; left: 0; right: 0; top: 64px; text-align: center; }
 .dbt-title .kicker, .dbt-opening .op-head .kicker { font-size: 26px; letter-spacing: .4em; color: #ffdca8; }
 .dbt-title h1, .dbt-opening .op-head h1 {
-  margin: 12px 0 0; font-family: "Kiwi Maru", serif; font-weight: 500; font-size: 150px; letter-spacing: .08em;
+  margin: 12px 0 0; font-family: "D Bar", "Kaisei Decol", serif; font-weight: 500; font-size: 150px; letter-spacing: .08em;
   color: #f6efe0; text-shadow: 6px 6px 0 #4b2a6e, 0 0 40px rgba(232,181,74,.35);
 }
 /* 「惨劇」だけ赤く見せる。まわりにクリーム色の縁をつけて、暗い背景に沈まないようにする */
@@ -76,7 +76,7 @@
      9px  9px 0 #4b2a6e,
        0    0 46px rgba(216,53,42,.55);
 }
-.dbt-title .sub, .dbt-opening .op-head .sub { margin-top: 6px; font-family: "Kiwi Maru", serif; font-size: 40px; color: #e8b54a; letter-spacing: .12em; }
+.dbt-title .sub, .dbt-opening .op-head .sub { margin-top: 6px; font-family: "D Bar", "Kaisei Decol", serif; font-size: 40px; color: #e8b54a; letter-spacing: .12em; }
 .dbt-title .modes { position: absolute; left: 0; right: 0; bottom: 195px; display: flex; justify-content: center; gap: 60px; }
 .dbt-title .modes .dbt-btn { width: 540px; padding: 34px 0 26px; font-size: 52px; }
 .dbt-title .modes .dbt-btn small { font-size: 22px; margin-top: 10px; }
@@ -95,7 +95,7 @@
 .dbt-help .helpbody { position: absolute; inset: 0; }
 .dbt-help .hd {
   position: absolute; left: 0; right: 0; top: 38px; text-align: center;
-  font-family: "Kiwi Maru", serif; font-size: 74px; letter-spacing: .28em;
+  font-family: "D Bar", "Kaisei Decol", serif; font-size: 74px; letter-spacing: .28em;
   color: #e8b54a; text-shadow: 5px 5px 0 #7f1810;
 }
 .dbt-help .lead {
@@ -131,11 +131,11 @@
 .dbt-help .rule .no {
   position: absolute; left: 24px; top: 24px; width: 58px; height: 58px;
   display: flex; align-items: center; justify-content: center;
-  font-family: "Bellefair", serif; font-size: 48px; line-height: 1;
+  font-family: "Limelight", serif; font-size: 48px; line-height: 1;
   color: #0b1122; background: #e8b54a; box-shadow: 5px 5px 0 #7f1810;
 }
 .dbt-help .rule .rt {
-  font-family: "Kiwi Maru", serif; font-size: 32px; letter-spacing: .08em; color: #ffdca8;
+  font-family: "D Bar", "Kaisei Decol", serif; font-size: 32px; letter-spacing: .08em; color: #ffdca8;
 }
 .dbt-help .rule .rd {
   margin-top: 12px; font-size: 21px; line-height: 1.65; color: #f6efe0;
@@ -148,7 +148,7 @@
   box-sizing: border-box;
 }
 .dbt-help .tip .tk {
-  font-family: "Kiwi Maru", serif; font-size: 26px; line-height: 1.2; letter-spacing: .12em; color: #ffdca8;
+  font-family: "D Bar", "Kaisei Decol", serif; font-size: 26px; line-height: 1.2; letter-spacing: .12em; color: #ffdca8;
 }
 .dbt-help .tip .td { margin-top: 5px; font-size: 19px; line-height: 1.38; }
 .dbt-help .tip small { display: block; margin-top: 4px; font-size: 14px; line-height: 1.3; color: #d8b26a; }
@@ -159,7 +159,7 @@
   box-sizing: border-box;
 }
 .dbt-help .skillnote .sk {
-  flex: none; font-family: "Kiwi Maru", serif; font-size: 24px; letter-spacing: .12em; color: #e8b54a;
+  flex: none; font-family: "D Bar", "Kaisei Decol", serif; font-size: 24px; letter-spacing: .12em; color: #e8b54a;
 }
 .dbt-help .skillnote .sd { font-size: 19px; line-height: 1.35; }
 .dbt-help .skillnote b { color: #f5a3b8; font-weight: 500; }
@@ -167,7 +167,7 @@
 /* キャラクター紹介 */
 .dbt-help .charpage .hd { top: 28px; font-size: 62px; }
 .dbt-help .pagecount {
-  position: absolute; right: 145px; top: 92px; font-family: "Bellefair", serif;
+  position: absolute; right: 145px; top: 92px; font-family: "Limelight", serif;
   font-size: 30px; color: #d8b26a; letter-spacing: .12em;
 }
 .dbt-help .chargrid {
@@ -189,7 +189,7 @@
   min-height: 48px; display: flex; align-items: baseline; flex-wrap: wrap; gap: 5px;
 }
 .dbt-help .charname .name {
-  font-family: "Kiwi Maru", serif; font-size: 29px; letter-spacing: .05em;
+  font-family: "D Bar", "Kaisei Decol", serif; font-size: 29px; letter-spacing: .05em;
 }
 .dbt-help .charname .reading { font-size: 17px; color: #d8b26a; letter-spacing: .04em; }
 .dbt-help .abiltitle {
@@ -224,7 +224,7 @@
 .dbt-select .myskill .sk { text-align: left; }
 .dbt-select .me .plate { margin-top: 14px; background: #f6efe0; color: #1b2a4a; box-shadow: 0 0 0 3px #d8352a; text-align: center; padding: 8px 0 10px; }
 .dbt-select .me .plate small { display: block; color: #d8352a; font-size: 20px; letter-spacing: .3em; }
-.dbt-select .me .plate b { font-family: "Kiwi Maru", serif; font-weight: 500; font-size: 44px; letter-spacing: .12em; }
+.dbt-select .me .plate b { font-family: "D Bar", "Kaisei Decol", serif; font-weight: 500; font-size: 44px; letter-spacing: .12em; }
 .dbt-select .grid { position: absolute; left: 490px; top: 300px; display: flex; gap: 12px; padding: 14px; background: rgba(11,17,34,.72); box-shadow: 0 0 0 2px #c08a1e; }
 .dbt-select .col { width: 180px; cursor: pointer; padding: 6px; }
 .dbt-select .col .dbt-portrait { width: 168px; height: 200px; margin-bottom: 8px; }
@@ -244,13 +244,13 @@
 .dbt-select .preview .p2 { right: 0; box-shadow: 0 0 0 3px #e8b54a; }
 .dbt-select .pairplate { position: absolute; right: 50px; top: 432px; width: 560px; background: #1b2a4a; box-shadow: 0 0 0 3px #e8b54a; text-align: center; padding: 10px 0 14px; }
 .dbt-select .pairplate small { display: block; color: #e8b54a; font-size: 21px; letter-spacing: .3em; }
-.dbt-select .pairplate b { font-family: "Kiwi Maru", serif; font-weight: 500; font-size: 38px; letter-spacing: .1em; }
+.dbt-select .pairplate b { font-family: "D Bar", "Kaisei Decol", serif; font-weight: 500; font-size: 38px; letter-spacing: .1em; }
 /* 選んだ相手のスキル（能力）の内容 */
 .dbt-select .skills { margin-top: 10px; padding: 0 20px; text-align: left; }
 .dbt-select .sklbl { border-top: 1px solid rgba(232,181,74,.45); padding-top: 8px; font-size: 18px; letter-spacing: .3em; color: #e8b54a; text-align: center; }
 .dbt-select .sk { margin-top: 7px; background: rgba(11,17,34,.55); box-shadow: 0 0 0 2px rgba(232,181,74,.3); padding: 6px 9px 7px; }
 .dbt-select .sk .skhd { display: flex; align-items: baseline; justify-content: space-between; }
-.dbt-select .sk .who { font-family: "Kiwi Maru", serif; font-size: 21px; letter-spacing: .04em; }
+.dbt-select .sk .who { font-family: "D Bar", "Kaisei Decol", serif; font-size: 21px; letter-spacing: .04em; }
 .dbt-select .sk .use { font-size: 16px; letter-spacing: .08em; color: #e8b54a; white-space: nowrap; }
 .dbt-select .sk .ab { margin-top: 3px; font-size: 17px; line-height: 1.35; color: #f6efe0; }
 .dbt-select .cmds { position: absolute; left: 560px; top: 830px; display: flex; gap: 40px; }
@@ -267,11 +267,11 @@
 .dbt-vs .right .dbt-portrait { position: absolute; top: 0; height: 1080px; width: 480px; background: none; }
 .dbt-vs .right .dbt-portrait:nth-child(1) { left: 0; }
 .dbt-vs .right .dbt-portrait:nth-child(2) { left: 480px; border-left: 3px solid #c08a1e; }
-.dbt-vs .copy { position: absolute; top: 70px; font-family: "Kiwi Maru", serif; font-size: 76px; letter-spacing: .08em; white-space: nowrap; text-shadow: 5px 5px 0 #7f1810; }
+.dbt-vs .copy { position: absolute; top: 70px; font-family: "D Bar", "Kaisei Decol", serif; font-size: 76px; letter-spacing: .08em; white-space: nowrap; text-shadow: 5px 5px 0 #7f1810; }
 .dbt-vs .copy.l { left: 60px; }
 .dbt-vs .copy.r { right: 40px; text-shadow: 5px 5px 0 #3a1f52; }
 .dbt-vs .band { position: absolute; left: 0; right: 0; top: 840px; height: 118px; background: rgba(11,17,34,.9); border-top: 3px solid #c08a1e; border-bottom: 3px solid #c08a1e; }
-.dbt-vs .band .n { position: absolute; top: 18px; font-family: "Kiwi Maru", serif; font-size: 68px; letter-spacing: .1em; }
+.dbt-vs .band .n { position: absolute; top: 18px; font-family: "D Bar", "Kaisei Decol", serif; font-size: 68px; letter-spacing: .1em; }
 .dbt-vs .band .n.l { left: 200px; }
 .dbt-vs .band .n.r { right: 200px; }
 .dbt-vs .tagbox { position: absolute; top: 44px; padding: 4px 16px; font-size: 26px; letter-spacing: .2em; }
@@ -282,7 +282,7 @@
   clip-path: polygon(50% 0, 100% 25%, 100% 75%, 50% 100%, 0 75%, 0 25%);
   display: flex; align-items: center; justify-content: center; animation: dbtPop .5s cubic-bezier(.2,1.6,.4,1) both;
 }
-.dbt-vs .mark span { font-family: "Bellefair", serif; font-size: 190px; color: #d8352a; line-height: 1; }
+.dbt-vs .mark span { font-family: "Limelight", serif; font-size: 190px; color: #d8352a; line-height: 1; }
 @keyframes dbtPop { from { transform: scale(0); } to { transform: scale(1); } }
 .dbt-vs .left .dbt-portrait, .dbt-vs .right .dbt-portrait { cursor: pointer; }
 .dbt-vs .left .dbt-portrait.on, .dbt-vs .right .dbt-portrait.on { box-shadow: inset 0 0 0 5px #e8b54a; }
@@ -295,7 +295,7 @@
 .dbt-vs .skillpanel.show { opacity: 1; transform: none; }
 .dbt-vs .skillpanel.l { left: 40px; right: auto; }
 .dbt-vs .skillpanel .skhd { display: flex; align-items: baseline; justify-content: space-between; }
-.dbt-vs .skillpanel .who { font-family: "Kiwi Maru", serif; font-size: 38px; letter-spacing: .06em; }
+.dbt-vs .skillpanel .who { font-family: "D Bar", "Kaisei Decol", serif; font-size: 38px; letter-spacing: .06em; }
 .dbt-vs .skillpanel .use { font-size: 22px; letter-spacing: .1em; color: #e8b54a; white-space: nowrap; }
 .dbt-vs .skillpanel .ab { margin-top: 8px; font-size: 26px; line-height: 1.4; }
 .dbt-vs .skhint { position: absolute; right: 44px; bottom: 30px; padding: 7px 20px; background: rgba(11,17,34,.82); box-shadow: 0 0 0 2px rgba(232,181,74,.45); font-size: 24px; letter-spacing: .12em; color: #f6efe0; }
@@ -312,14 +312,14 @@
 .dbt-opp.turn .dbt-portrait { box-shadow: 0 0 0 5px #f5a3b8, 0 0 36px rgba(245,163,184,.7); }
 .dbt-opp .info { display: flex; flex-direction: column; gap: 10px; padding-top: 6px; }
 .dbt-opp.s2 .info { align-items: flex-end; }
-.dbt-opp .nm { font-family: "Kiwi Maru", serif; font-size: 44px; letter-spacing: .08em; text-shadow: 0 2px 8px #000; }
+.dbt-opp .nm { font-family: "D Bar", "Kaisei Decol", serif; font-size: 44px; letter-spacing: .08em; text-shadow: 0 2px 8px #000; }
 .dbt-opp .cnt { display: flex; align-items: baseline; gap: 12px; }
 .dbt-opp .cnt .k { color: #e8b54a; font-size: 22px; letter-spacing: .18em; }
-.dbt-opp .cnt .v { font-family: "Bellefair", serif; font-size: 58px; color: #f5a3b8; line-height: 1; }
+.dbt-opp .cnt .v { font-family: "Limelight", serif; font-size: 58px; color: #f5a3b8; line-height: 1; }
 .dbt-opp .use { font-size: 20px; color: #cbb6f0; letter-spacing: .1em; }
 .dbt-bubble {
   position: absolute; top: 250px; max-width: 520px; padding: 14px 22px; background: #f6efe0; color: #1b2a4a;
-  font-family: "Kiwi Maru", serif; font-size: 30px; line-height: 1.4; box-shadow: 0 0 0 3px #1b2a4a, 6px 6px 0 rgba(0,0,0,.4);
+  font-family: "D Bar", "Kaisei Decol", serif; font-size: 30px; line-height: 1.4; box-shadow: 0 0 0 3px #1b2a4a, 6px 6px 0 rgba(0,0,0,.4);
   opacity: 0; transform: translateY(-8px); transition: opacity .18s, transform .18s; pointer-events: none; z-index: 5;
 }
 .dbt-bubble.s1 { left: 60px; }
@@ -334,12 +334,12 @@
 .dbt-field .lbl { color: #ffdca8; font-size: 26px; letter-spacing: .3em; text-shadow: 0 2px 6px #000; }
 .dbt-field .row { display: flex; align-items: center; gap: 64px; }
 .dbt-rank { width: 200px; height: 200px; background: #d8352a; box-shadow: 0 0 0 5px #e8b54a, 0 0 60px rgba(216,53,42,.6); display: flex; align-items: center; justify-content: center; }
-.dbt-rank span { font-family: "Bellefair", serif; font-size: 140px; line-height: 1; }
+.dbt-rank span { font-family: "Limelight", serif; font-size: 140px; line-height: 1; }
 .dbt-pile { position: relative; width: 170px; height: 200px; }
 .dbt-pile .pc { position: absolute; width: 128px; height: 180px; background-size: cover; background-position: center; background-color: #4b2a6e; box-shadow: 0 0 0 2px #c08a1e, 2px 4px 10px rgba(0,0,0,.5); }
 .dbt-pileinfo { display: flex; flex-direction: column; gap: 8px; }
 .dbt-pileinfo .k { color: #e8b54a; font-size: 24px; letter-spacing: .2em; }
-.dbt-pileinfo .v { font-family: "Bellefair", serif; font-size: 64px; line-height: 1; }
+.dbt-pileinfo .v { font-family: "Limelight", serif; font-size: 64px; line-height: 1; }
 .dbt-pileinfo .d { font-size: 20px; color: #9fb0d4; }
 
 .dbt-hand { position: absolute; left: 110px; width: 1700px; bottom: 170px; height: 300px; z-index: 10; }
@@ -352,13 +352,13 @@
 .dbt-card.red { color: #d8352a; }
 /* 札の表：白い面に絵柄を額装し、左上と右下に数字と柄を重ねる */
 .dbt-card .art { position: absolute; left: 8px; right: 8px; top: 8px; bottom: 8px; background-size: cover; background-position: center; background-color: #f6efe0; box-shadow: inset 0 0 0 1px rgba(192,138,30,.75); }
-.dbt-card .ix { position: absolute; z-index: 1; display: flex; flex-direction: column; align-items: center; min-width: 34px; padding: 3px 3px 4px; background: #f6efe0; border-radius: 0 0 8px 0; font-family: "Bellefair", serif; font-size: 34px; line-height: .95; }
+.dbt-card .ix { position: absolute; z-index: 1; display: flex; flex-direction: column; align-items: center; min-width: 34px; padding: 3px 3px 4px; background: #f6efe0; border-radius: 0 0 8px 0; font-family: "Limelight", serif; font-size: 34px; line-height: .95; }
 .dbt-card .ix i { font-style: normal; font-family: serif; font-size: 22px; line-height: 1; margin-top: 1px; }
 .dbt-card .ix.tl { left: 4px; top: 4px; }
 .dbt-card .ix.br { right: 4px; bottom: 4px; transform: rotate(180deg); }
 .dbt-card .mid { position: absolute; left: 0; right: 0; top: 70px; text-align: center; font-size: 70px; line-height: 1; }
 .dbt-card.joker { background: #2a1846; color: #e8b54a; }
-.dbt-card.joker .jk { position: absolute; left: 0; right: 0; top: 14px; text-align: center; font-family: "Bellefair", serif; font-size: 34px; letter-spacing: .12em; }
+.dbt-card.joker .jk { position: absolute; left: 0; right: 0; top: 14px; text-align: center; font-family: "Limelight", serif; font-size: 34px; letter-spacing: .12em; }
 .dbt-card.joker .mid { top: 72px; font-size: 90px; }
 .dbt-card.pickable { cursor: pointer; }
 .dbt-card.pickable:hover { bottom: 16px; }
@@ -391,7 +391,7 @@
 .dbt-overlay { position: absolute; inset: 0; z-index: 40; display: flex; align-items: center; justify-content: center; }
 /* ダウト判定（4段階の演出） */
 .dbt-reveal2 { display: block; }
-.dbt-reveal2 .who { position: absolute; left: 0; right: 0; top: 270px; text-align: center; font-family: "Kiwi Maru", serif; font-size: 40px; letter-spacing: .1em; text-shadow: 0 3px 8px #000; }
+.dbt-reveal2 .who { position: absolute; left: 0; right: 0; top: 270px; text-align: center; font-family: "D Bar", "Kaisei Decol", serif; font-size: 40px; letter-spacing: .1em; text-shadow: 0 3px 8px #000; }
 .dbt-reveal2 .cards { position: absolute; inset: 0; pointer-events: none; }
 .dbt-reveal2 .rv { position: absolute; width: 148px; height: 212px; perspective: 1000px; }
 .dbt-reveal2 .rv-in { position: absolute; inset: 0; transform-style: preserve-3d; }
@@ -407,24 +407,24 @@
 @keyframes dbtHit { 0% { box-shadow: 0 0 0 0 rgba(255,214,120,0); } 40% { box-shadow: 0 0 0 4px #ffd678, 0 0 22px 6px rgba(255,214,120,.9); } 100% { box-shadow: 0 0 0 2px #e8b54a, 0 0 12px 2px rgba(255,214,120,.5); } }
 @keyframes dbtHitSuit { 0% { transform: scale(1); text-shadow: none; } 40% { transform: scale(1.6); text-shadow: 0 0 12px #ffd678, 0 0 4px #fff; } 100% { transform: scale(1.15); text-shadow: 0 0 8px rgba(255,214,120,.8); } }
 .dbt-reveal2 .basis { position: absolute; left: 0; right: 0; margin: 0 auto; width: max-content; top: 652px; padding: 8px 28px; opacity: 0; white-space: nowrap; font-size: 34px; letter-spacing: .08em; background: rgba(11,17,34,.9); box-shadow: 0 0 0 2px #e8b54a; }
-.dbt-reveal2 .basis b { font-family: "Bellefair", serif; font-weight: normal; font-size: 44px; color: #ffe2a7; }
+.dbt-reveal2 .basis b { font-family: "Limelight", serif; font-weight: normal; font-size: 44px; color: #ffe2a7; }
 .dbt-reveal2 .basis .sym { font-family: serif; font-size: 44px; color: #1b2a4a; background: #f6efe0; padding: 0 10px; border-radius: 4px; }
 .dbt-reveal2 .basis .sym.red { color: #d8352a; }
 .dbt-reveal2 .basis.lie { box-shadow: 0 0 0 2px #d8352a; }
-.dbt-reveal2 .verdict { position: absolute; left: 0; right: 0; top: 730px; text-align: center; opacity: 0; font-family: "Kiwi Maru", serif; font-size: 100px; line-height: 1.2; letter-spacing: .12em; }
+.dbt-reveal2 .verdict { position: absolute; left: 0; right: 0; top: 730px; text-align: center; opacity: 0; font-family: "D Bar", "Kaisei Decol", serif; font-size: 100px; line-height: 1.2; letter-spacing: .12em; }
 .dbt-reveal2 .verdict.lie { color: #f0533f; text-shadow: 6px 6px 0 #3a0a06; }
 .dbt-reveal2 .verdict.true { color: #e8b54a; text-shadow: 6px 6px 0 #3a2a06; }
 .dbt-reveal2 .res { position: absolute; left: 0; right: 0; top: 880px; text-align: center; opacity: 0; font-size: 36px; letter-spacing: .1em; text-shadow: 0 2px 6px #000; }
-.dbt-reveal2 .res .nm { color: #ffe2a7; font-family: "Kiwi Maru", serif; font-size: 42px; margin-right: 4px; }
-.dbt-gain { position: absolute; z-index: 45; pointer-events: none; font-family: "Bellefair", serif; font-size: 64px; color: #ffe2a7; text-shadow: 0 0 12px rgba(232,181,74,.8), 3px 3px 0 #3a2a06; }
+.dbt-reveal2 .res .nm { color: #ffe2a7; font-family: "D Bar", "Kaisei Decol", serif; font-size: 42px; margin-right: 4px; }
+.dbt-gain { position: absolute; z-index: 45; pointer-events: none; font-family: "Limelight", serif; font-size: 64px; color: #ffe2a7; text-shadow: 0 0 12px rgba(232,181,74,.8), 3px 3px 0 #3a2a06; }
 .dbt-en .dbt-reveal2 .verdict { font-size: 76px; letter-spacing: .03em; }
 .dbt-reveal { background: rgba(6,10,20,.72); flex-direction: column; gap: 30px; }
-.dbt-reveal .who { font-family: "Kiwi Maru", serif; font-size: 44px; letter-spacing: .1em; }
+.dbt-reveal .who { font-family: "D Bar", "Kaisei Decol", serif; font-size: 44px; letter-spacing: .1em; }
 .dbt-reveal .cards { position: relative; display: flex; gap: 20px; height: 230px; }
 .dbt-reveal .cards .dbt-card { position: relative; animation: dbtFlip .35s ease-out both; }
 .dbt-reveal .cards .dbt-card.bad { box-shadow: 0 0 0 6px #d8352a, 0 0 40px rgba(216,53,42,.9); }
 @keyframes dbtFlip { from { transform: rotateY(90deg); } to { transform: none; } }
-.dbt-reveal .verdict { font-family: "Kiwi Maru", serif; font-size: 120px; letter-spacing: .2em; height: 140px; line-height: 140px; }
+.dbt-reveal .verdict { font-family: "D Bar", "Kaisei Decol", serif; font-size: 120px; letter-spacing: .2em; height: 140px; line-height: 140px; }
 .dbt-reveal .verdict.lie { color: #f0533f; text-shadow: 6px 6px 0 #3a0a06; }
 .dbt-reveal .verdict.true { color: #e8b54a; text-shadow: 6px 6px 0 #3a2a06; }
 .dbt-reveal .res { font-size: 34px; letter-spacing: .1em; min-height: 44px; }
@@ -439,11 +439,11 @@
 @keyframes dbtSpeed { from { background-position: 0 0; } to { background-position: -120px 0; } }
 .dbt-cutin .band img { position: absolute; right: 120px; top: -80px; height: 760px; transform: skewY(6deg); }
 .dbt-cutin .txt { position: absolute; left: 140px; top: 390px; width: 1100px; transform: skewY(-6deg); animation: dbtFade .35s .15s both; }
-.dbt-cutin .txt .nm { font-family: "Kiwi Maru", serif; font-size: 96px; letter-spacing: .1em; text-shadow: 6px 6px 0 rgba(0,0,0,.45); }
+.dbt-cutin .txt .nm { font-family: "D Bar", "Kaisei Decol", serif; font-size: 96px; letter-spacing: .1em; text-shadow: 6px 6px 0 rgba(0,0,0,.45); }
 .dbt-cutin .txt .ef { margin-top: 20px; display: inline-block; background: rgba(11,17,34,.88); padding: 14px 28px; font-size: 40px; line-height: 1.45; box-shadow: 0 0 0 3px #e8b54a; }
 /* スキル発動のセリフ。効果の説明の下に、しゃべった言葉として出す */
 .dbt-cutin .txt .ln {
-  margin-top: 16px; font-family: "Kiwi Maru", serif; font-size: 44px; line-height: 1.4;
+  margin-top: 16px; font-family: "D Bar", "Kaisei Decol", serif; font-size: 44px; line-height: 1.4;
   color: #ffdca8; text-shadow: 0 0 20px rgba(0,0,0,.9), 4px 4px 0 rgba(0,0,0,.5);
 }
 .dbt-cutin.has-art .txt .ln { margin-top: 14px; font-size: 42px; }
@@ -494,14 +494,14 @@
 
 .dbt-notice { pointer-events: auto; }
 .dbt-notice .box { background: rgba(11,17,34,.94); box-shadow: 0 0 0 4px #e8b54a; padding: 36px 90px; text-align: center; animation: dbtPop .3s ease-out both; }
-.dbt-notice .t { font-family: "Kiwi Maru", serif; font-size: 80px; letter-spacing: .15em; color: #e8b54a; }
+.dbt-notice .t { font-family: "D Bar", "Kaisei Decol", serif; font-size: 80px; letter-spacing: .15em; color: #e8b54a; }
 .dbt-notice .s { margin-top: 10px; font-size: 32px; }
 
 .dbt-pad { background: rgba(6,10,20,.6); }
 .dbt-pad .box { background: #16233f; box-shadow: 0 0 0 4px #e8b54a; padding: 40px 50px; text-align: center; }
-.dbt-pad .q { font-family: "Kiwi Maru", serif; font-size: 40px; margin-bottom: 30px; letter-spacing: .1em; }
+.dbt-pad .q { font-family: "D Bar", "Kaisei Decol", serif; font-size: 40px; margin-bottom: 30px; letter-spacing: .1em; }
 .dbt-pad .keys { display: grid; grid-template-columns: repeat(7, 110px); gap: 16px; }
-.dbt-pad .key { height: 110px; font-family: "Bellefair", serif; font-size: 64px; display: flex; align-items: center; justify-content: center; letter-spacing: 0; }
+.dbt-pad .key { height: 110px; font-family: "Limelight", serif; font-size: 64px; display: flex; align-items: center; justify-content: center; letter-spacing: 0; }
 .dbt-pad .cancel { margin-top: 36px; display: inline-block; padding: 14px 60px; font-size: 32px; }
 
 /* ===== 結果 ===== */
@@ -509,13 +509,13 @@
 .dbt-result .shade.lose { background: linear-gradient(90deg, rgba(4,8,20,.72), rgba(4,8,20,.2) 45%, rgba(4,8,20,.2) 60%, rgba(4,8,20,.72)); }
 .dbt-result.lose { background: radial-gradient(ellipse at 50% 40%, #24396b, #0b1122 70%); }
 .dbt-result .stage { position: absolute; left: 0; right: 0; top: 50px; text-align: center; color: #e8b54a; font-size: 30px; letter-spacing: .36em; }
-.dbt-result .big { position: absolute; left: 120px; top: 142px; font-family: "Kiwi Maru", serif; font-size: 205px; letter-spacing: .15em; line-height: 1; color: #f4e3b4; text-shadow: 0 0 40px rgba(232,181,74,.35); }
+.dbt-result .big { position: absolute; left: 120px; top: 142px; font-family: "D Bar", "Kaisei Decol", serif; font-size: 205px; letter-spacing: .15em; line-height: 1; color: #f4e3b4; text-shadow: 0 0 40px rgba(232,181,74,.35); }
 .dbt-result.lose .big { color: #9fb0d4; text-shadow: none; }
 .dbt-result .catch { position: absolute; left: 126px; top: 365px; font-size: 30px; letter-spacing: .28em; color: #e8b54a; }
 .dbt-result .panel { position: absolute; background: rgba(0,0,0,.64); box-shadow: 0 0 0 2px #c08a1e; padding: 22px 30px; }
 .dbt-result .panel .k { font-size: 24px; letter-spacing: .2em; color: #e8b54a; }
-.dbt-result .panel .v { font-family: "Bellefair", serif; font-size: 84px; line-height: 1.05; }
-.dbt-result .panel .v small { font-family: "Zen Maru Gothic", sans-serif; font-size: 26px; color: #e8b54a; margin-left: 10px; }
+.dbt-result .panel .v { font-family: "Limelight", serif; font-size: 84px; line-height: 1.05; }
+.dbt-result .panel .v small { font-family: "Zen Kaku Gothic New", sans-serif; font-size: 26px; color: #e8b54a; margin-left: 10px; }
 .dbt-result .panel .d { font-size: 21px; line-height: 1.5; color: #d8b26a; }
 .dbt-result .panel .bonus { color: #ffdca8; font-weight: normal; }
 .dbt-result .p1 { left: 120px; top: 470px; width: 500px; }
@@ -528,18 +528,18 @@
 .dbt-result .stats { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin-top: 14px; }
 .dbt-result .stat { text-align: center; padding: 10px 6px; background: rgba(27,42,74,.7); box-shadow: inset 0 0 0 1px rgba(232,181,74,.28); }
 .dbt-result .stat span { display: block; min-height: 48px; font-size: 18px; line-height: 1.35; color: #d8b26a; }
-.dbt-result .stat b { display: block; margin-top: 4px; font-family: "Bellefair", serif; font-size: 48px; line-height: 1; font-weight: normal; color: #f6efe0; }
+.dbt-result .stat b { display: block; margin-top: 4px; font-family: "Limelight", serif; font-size: 48px; line-height: 1; font-weight: normal; color: #f6efe0; }
 .dbt-result .stat small { display: block; margin-top: 5px; font-size: 17px; color: #e8b54a; }
 .dbt-result .next { position: absolute; right: 120px; top: 900px; width: 540px; padding: 20px 0; font-size: 42px; background: rgba(0,0,0,.5); box-shadow: 0 0 0 3px #e8b54a; }
 .dbt-result .next:hover { background: rgba(232,181,74,.25); }
 
 /* ===== コンティニュー ===== */
 .dbt-continue .shade { background: linear-gradient(180deg, rgba(11,17,34,.3), rgba(11,17,34,.1) 60%, rgba(11,17,34,.6)); }
-.dbt-continue .q { position: absolute; left: 0; right: 0; top: 80px; text-align: center; font-family: "Kiwi Maru", serif; font-size: 110px; letter-spacing: .12em; text-shadow: 6px 6px 0 #0b1122; }
+.dbt-continue .q { position: absolute; left: 0; right: 0; top: 80px; text-align: center; font-family: "D Bar", "Kaisei Decol", serif; font-size: 110px; letter-spacing: .12em; text-shadow: 6px 6px 0 #0b1122; }
 .dbt-continue .rest { position: absolute; left: 50%; top: 240px; transform: translateX(-50%); display: flex; align-items: center; gap: 18px; padding: 14px 40px; background: rgba(11,17,34,.85); box-shadow: 0 0 0 3px #e8b54a; }
 .dbt-continue .rest i { width: 44px; height: 60px; background: #d8352a; display: block; }
 .dbt-continue .rest span { color: #e8b54a; font-size: 30px; }
-.dbt-continue .rest b { font-family: "Bellefair", serif; font-size: 90px; font-weight: normal; line-height: 1; }
+.dbt-continue .rest b { font-family: "Limelight", serif; font-size: 90px; font-weight: normal; line-height: 1; }
 .dbt-continue .yes { position: absolute; left: 70px; top: 770px; width: 560px; padding: 32px 0 26px; font-size: 80px; }
 .dbt-continue .no { position: absolute; right: 70px; top: 770px; width: 560px; padding: 32px 0 26px; font-size: 80px; color: #9fb0d4; box-shadow: 0 0 0 3px #4a5677; background: rgba(11,17,34,.85); }
 .dbt-continue .no:hover { background: #16233f; }
@@ -548,31 +548,31 @@
 /* ===== ゲームオーバー ===== */
 .dbt-gameover .flood { position: absolute; inset: 0; background: #7f1810; opacity: 0; animation: dbtFlood 1.4s .9s ease-out forwards; mix-blend-mode: multiply; }
 @keyframes dbtFlood { to { opacity: .55; } }
-.dbt-gameover .go { position: absolute; left: 0; right: 0; top: 190px; text-align: center; font-family: "Bellefair", serif; font-size: 230px; letter-spacing: .08em; color: #d8352a; text-shadow: 8px 8px 0 #3a0a06; animation: dbtDrop .9s cubic-bezier(.3,1.5,.5,1) both; }
+.dbt-gameover .go { position: absolute; left: 0; right: 0; top: 190px; text-align: center; font-family: "Limelight", serif; font-size: 230px; letter-spacing: .08em; color: #d8352a; text-shadow: 8px 8px 0 #3a0a06; animation: dbtDrop .9s cubic-bezier(.3,1.5,.5,1) both; }
 @keyframes dbtDrop { from { transform: translateY(-600px) rotate(-8deg); } to { transform: none; } }
-.dbt-gameover .t { position: absolute; left: 0; right: 0; top: 590px; text-align: center; font-family: "Kiwi Maru", serif; font-size: 96px; letter-spacing: .12em; text-shadow: 5px 5px 0 #3a0a06; }
+.dbt-gameover .t { position: absolute; left: 0; right: 0; top: 590px; text-align: center; font-family: "D Bar", "Kaisei Decol", serif; font-size: 96px; letter-spacing: .12em; text-shadow: 5px 5px 0 #3a0a06; }
 .dbt-gameover .q { position: absolute; left: 0; right: 0; top: 740px; text-align: center; font-size: 36px; line-height: 1.8; color: #ffdca8; }
 .dbt-gameover .back { position: absolute; left: 760px; top: 910px; width: 400px; padding: 22px 0; font-size: 42px; }
 
 /* ===== 全戦突破 ===== */
 .dbt-clear { background: radial-gradient(ellipse at 50% 40%, #4b2a6e, #0b1122 70%); }
-.dbt-clear .t { position: absolute; left: 0; right: 0; top: 260px; text-align: center; font-family: "Kiwi Maru", serif; font-size: 170px; letter-spacing: .15em; color: #f4e3b4; }
+.dbt-clear .t { position: absolute; left: 0; right: 0; top: 260px; text-align: center; font-family: "D Bar", "Kaisei Decol", serif; font-size: 170px; letter-spacing: .15em; color: #f4e3b4; }
 .dbt-clear .s { position: absolute; left: 0; right: 0; top: 520px; text-align: center; font-size: 36px; letter-spacing: .3em; color: #e8b54a; }
-.dbt-clear .v { position: absolute; left: 0; right: 0; top: 580px; text-align: center; font-family: "Bellefair", serif; font-size: 150px; }
+.dbt-clear .v { position: absolute; left: 0; right: 0; top: 580px; text-align: center; font-family: "Limelight", serif; font-size: 150px; }
 .dbt-clear .back { position: absolute; left: 760px; top: 880px; width: 400px; padding: 22px 0; font-size: 42px; }
 
 
 /* ===== 名前入力（ランキング登録） ===== */
 .dbt-nameentry .shade { background: linear-gradient(180deg, rgba(11,17,34,.9) 0%, rgba(11,17,34,.72) 50%, rgba(11,17,34,.94) 100%); }
-.dbt-nameentry .hd { position: absolute; left: 0; right: 0; top: 46px; text-align: center; font-family: "Bellefair", serif; font-size: 96px; letter-spacing: .2em; color: #e8b54a; text-shadow: 5px 5px 0 #7f1810; }
+.dbt-nameentry .hd { position: absolute; left: 0; right: 0; top: 46px; text-align: center; font-family: "Limelight", serif; font-size: 96px; letter-spacing: .2em; color: #e8b54a; text-shadow: 5px 5px 0 #7f1810; }
 .dbt-nameentry .sub { position: absolute; left: 0; right: 0; top: 160px; text-align: center; font-size: 30px; letter-spacing: .2em; }
 .dbt-nameentry .sc { position: absolute; left: 0; right: 0; top: 210px; text-align: center; }
 .dbt-nameentry .sc .k { font-size: 26px; letter-spacing: .3em; color: #e8b54a; margin-right: 20px; }
-.dbt-nameentry .sc .v { font-family: "Bellefair", serif; font-size: 62px; letter-spacing: .06em; }
+.dbt-nameentry .sc .v { font-family: "Limelight", serif; font-size: 62px; letter-spacing: .06em; }
 .dbt-nameentry .slots { position: absolute; left: 0; right: 0; top: 292px; display: flex; justify-content: center; gap: 16px; }
 .dbt-nameentry .cell {
   width: 106px; height: 126px; line-height: 126px; text-align: center;
-  font-family: "Kiwi Maru", serif; font-size: 76px;
+  font-family: "D Bar", "Kaisei Decol", serif; font-size: 76px;
   background: rgba(11,17,34,.8); box-shadow: 0 0 0 3px #e8b54a;
 }
 .dbt-nameentry .cell.cur { background: rgba(216,53,42,.4); box-shadow: 0 0 0 4px #d8352a, 0 0 0 7px #e8b54a; }
@@ -589,7 +589,7 @@
 
 /* ===== ランキング ===== */
 .dbt-ranking .shade { background: linear-gradient(180deg, rgba(11,17,34,.92) 0%, rgba(11,17,34,.74) 50%, rgba(11,17,34,.94) 100%); }
-.dbt-ranking .hd { position: absolute; left: 0; right: 0; top: 70px; text-align: center; font-family: "Bellefair", serif; font-size: 112px; letter-spacing: .2em; color: #e8b54a; text-shadow: 6px 6px 0 #7f1810; }
+.dbt-ranking .hd { position: absolute; left: 0; right: 0; top: 70px; text-align: center; font-family: "Limelight", serif; font-size: 112px; letter-spacing: .2em; color: #e8b54a; text-shadow: 6px 6px 0 #7f1810; }
 .dbt-ranking .sub { position: absolute; left: 0; right: 0; top: 206px; text-align: center; font-size: 30px; letter-spacing: .3em; }
 .dbt-ranking .rows { position: absolute; left: 360px; width: 1200px; top: 284px; }
 .dbt-ranking .row {
@@ -598,9 +598,9 @@
 }
 .dbt-ranking .row.empty { opacity: .45; }
 .dbt-ranking .row.new { background: rgba(216,53,42,.35); box-shadow: 0 0 0 4px #d8352a, 0 0 0 7px #e8b54a; }
-.dbt-ranking .no { width: 110px; font-family: "Bellefair", serif; font-size: 72px; color: #e8b54a; }
-.dbt-ranking .nm { flex: 1; font-family: "Kiwi Maru", serif; font-size: 62px; letter-spacing: .18em; }
-.dbt-ranking .pt { font-family: "Bellefair", serif; font-size: 66px; letter-spacing: .06em; }
+.dbt-ranking .no { width: 110px; font-family: "Limelight", serif; font-size: 72px; color: #e8b54a; }
+.dbt-ranking .nm { flex: 1; font-family: "D Bar", "Kaisei Decol", serif; font-size: 62px; letter-spacing: .18em; }
+.dbt-ranking .pt { font-family: "Limelight", serif; font-size: 66px; letter-spacing: .06em; }
 .dbt-ranking .back { position: absolute; left: 0; right: 0; margin: 0 auto; bottom: 46px; width: 380px; padding: 18px 0 14px; font-size: 40px; }
 
 /* ===== スキル一覧（対戦中） ===== */
@@ -612,7 +612,7 @@
 .dbt-skills .sk { margin-bottom: 12px; background: rgba(11,17,34,.6); box-shadow: 0 0 0 2px rgba(232,181,74,.45); padding: 10px 18px 12px; }
 .dbt-skills .sk.me { box-shadow: 0 0 0 3px #d8352a; }
 .dbt-skills .skhd { display: flex; align-items: baseline; justify-content: space-between; gap: 20px; }
-.dbt-skills .who { font-family: "Kiwi Maru", serif; font-size: 30px; letter-spacing: .06em; }
+.dbt-skills .who { font-family: "D Bar", "Kaisei Decol", serif; font-size: 30px; letter-spacing: .06em; }
 .dbt-skills .use { font-size: 19px; letter-spacing: .08em; color: #e8b54a; white-space: nowrap; }
 .dbt-skills .ab { margin-top: 5px; font-size: 22px; line-height: 1.4; }
 .dbt-skills .cancel { display: block; width: 280px; margin: 10px auto 0; padding: 10px 0; font-size: 30px; }
@@ -628,18 +628,18 @@
 
 /* ===== 設定 ===== */
 .dbt-settings .shade { background: linear-gradient(180deg, rgba(11,17,34,.9) 0%, rgba(11,17,34,.74) 50%, rgba(11,17,34,.94) 100%); }
-.dbt-settings .hd { position: absolute; left: 0; right: 0; top: 16px; text-align: center; font-family: "Kiwi Maru", serif; font-size: 58px; letter-spacing: .3em; color: #e8b54a; text-shadow: 5px 5px 0 #7f1810; }
+.dbt-settings .hd { position: absolute; left: 0; right: 0; top: 16px; text-align: center; font-family: "D Bar", "Kaisei Decol", serif; font-size: 58px; letter-spacing: .3em; color: #e8b54a; text-shadow: 5px 5px 0 #7f1810; }
 .dbt-settings .item { position: absolute; left: 240px; width: 1440px; background: rgba(11,17,34,.84); box-shadow: 0 0 0 3px #e8b54a; padding: 10px 42px 12px; }
 .dbt-settings .item.level { top: 98px; }
 .dbt-settings .item.rounds { top: 305px; }
 .dbt-settings .item.maxplay { top: 472px; }
 .dbt-settings .item.decksize { top: 639px; }
-.dbt-settings .item .k { font-family: "Kiwi Maru", serif; font-size: 27px; letter-spacing: .12em; color: #f6efe0; }
+.dbt-settings .item .k { font-family: "D Bar", "Kaisei Decol", serif; font-size: 27px; letter-spacing: .12em; color: #f6efe0; }
 .dbt-settings .item .d { margin-top: 4px; font-size: 17px; line-height: 1.28; color: #d8b26a; }
 .dbt-settings .opts { display: flex; justify-content: center; gap: 20px; margin-top: 8px; }
-.dbt-settings .cell { width: 250px; padding: 7px 0 6px; font-family: "Bellefair", serif; font-size: 42px; line-height: 1; }
-.dbt-settings .cell small { font-family: "Zen Maru Gothic", sans-serif; font-size: 15px; margin-top: 4px; line-height: 1.18; }
-.dbt-settings .cell.wide { width: 350px; font-family: "Kiwi Maru", serif; font-size: 30px; letter-spacing: .04em; }
+.dbt-settings .cell { width: 250px; padding: 7px 0 6px; font-family: "Limelight", serif; font-size: 42px; line-height: 1; }
+.dbt-settings .cell small { font-family: "Zen Kaku Gothic New", sans-serif; font-size: 15px; margin-top: 4px; line-height: 1.18; }
+.dbt-settings .cell.wide { width: 350px; font-family: "D Bar", "Kaisei Decol", serif; font-size: 30px; letter-spacing: .04em; }
 .dbt-settings .cell.wide small { font-size: 14px; }
 .dbt-settings .cell.compact { width: 205px; font-size: 42px; }
 .dbt-settings .cell.on { background: #d8352a; box-shadow: 0 0 0 3px #e8b54a, 7px 7px 0 0 #7f1810; }
@@ -647,11 +647,11 @@
 
 /* ===== 余興：ハイアンドロー ===== */
 .dbt-highlow .shade { background: linear-gradient(180deg, rgba(11,17,34,.88) 0%, rgba(11,17,34,.6) 45%, rgba(11,17,34,.92) 100%); }
-.dbt-highlow .hd { position: absolute; left: 0; right: 0; top: 56px; text-align: center; font-family: "Kiwi Maru", serif; font-size: 52px; letter-spacing: .4em; color: #e8b54a; }
-.dbt-highlow .sub { position: absolute; left: 0; right: 0; top: 122px; text-align: center; font-family: "Bellefair", serif; font-size: 96px; letter-spacing: .14em; text-shadow: 5px 5px 0 #7f1810; }
+.dbt-highlow .hd { position: absolute; left: 0; right: 0; top: 56px; text-align: center; font-family: "D Bar", "Kaisei Decol", serif; font-size: 52px; letter-spacing: .4em; color: #e8b54a; }
+.dbt-highlow .sub { position: absolute; left: 0; right: 0; top: 122px; text-align: center; font-family: "Limelight", serif; font-size: 96px; letter-spacing: .14em; text-shadow: 5px 5px 0 #7f1810; }
 .dbt-highlow .bet { position: absolute; left: 0; right: 0; top: 248px; display: flex; align-items: baseline; justify-content: center; gap: 22px; }
 .dbt-highlow .bet .k { font-size: 26px; letter-spacing: .3em; color: #e8b54a; }
-.dbt-highlow .bet .v { font-family: "Bellefair", serif; font-size: 74px; line-height: 1; }
+.dbt-highlow .bet .v { font-family: "Limelight", serif; font-size: 74px; line-height: 1; }
 .dbt-highlow .bet .d { font-size: 24px; color: #d8b26a; }
 .dbt-highlow .table { position: absolute; left: 0; right: 0; top: 380px; height: 300px; display: flex; align-items: center; justify-content: center; gap: 70px; }
 .dbt-highlow .table .dbt-card { position: relative; bottom: auto; width: 222px; height: 318px; transform: none; }
@@ -662,8 +662,8 @@
 .dbt-highlow .table .dbt-card .ix.br { right: 6px; bottom: 6px; }
 .dbt-highlow .table .dbt-card.back { background-size: cover; background-position: center; background-color: #4b2a6e; }
 .dbt-highlow .table .slot { width: 222px; height: 318px; }
-.dbt-highlow .table .vs { font-family: "Bellefair", serif; font-size: 72px; color: #e8b54a; }
-.dbt-highlow .msg { position: absolute; left: 0; right: 0; top: 716px; text-align: center; font-family: "Kiwi Maru", serif; font-size: 36px; letter-spacing: .1em; }
+.dbt-highlow .table .vs { font-family: "Limelight", serif; font-size: 72px; color: #e8b54a; }
+.dbt-highlow .msg { position: absolute; left: 0; right: 0; top: 716px; text-align: center; font-family: "D Bar", "Kaisei Decol", serif; font-size: 36px; letter-spacing: .1em; }
 .dbt-highlow .msg b { font-size: 60px; letter-spacing: .12em; }
 .dbt-highlow .msg b.hit { color: #ffdca8; text-shadow: 0 0 30px rgba(232,181,74,.8); }
 .dbt-highlow .msg b.miss { color: #9fb0d4; }
@@ -672,20 +672,20 @@
 .dbt-highlow .cmds .dbt-btn small { font-size: 24px; margin-top: 10px; }
 .dbt-highlow .cmds .total { display: flex; align-items: baseline; gap: 20px; }
 .dbt-highlow .cmds .total .k { font-size: 26px; letter-spacing: .3em; color: #e8b54a; }
-.dbt-highlow .cmds .total .v { font-family: "Bellefair", serif; font-size: 84px; line-height: 1; }
+.dbt-highlow .cmds .total .v { font-family: "Limelight", serif; font-size: 84px; line-height: 1; }
 .dbt-highlow.hit { background: radial-gradient(ellipse at 50% 45%, #4b2a6e, #0b1122 70%); }
 .dbt-highlow.miss { background: radial-gradient(ellipse at 50% 45%, #24396b, #0b1122 70%); }
 
 /* ===== 残機ボーナス ===== */
 .dbt-bonus { background: radial-gradient(ellipse at 50% 40%, #4b2a6e, #0b1122 70%); }
-.dbt-bonus .hd { position: absolute; left: 0; right: 0; top: 150px; text-align: center; font-family: "Kiwi Maru", serif; font-size: 96px; letter-spacing: .3em; color: #e8b54a; text-shadow: 5px 5px 0 #7f1810; }
+.dbt-bonus .hd { position: absolute; left: 0; right: 0; top: 150px; text-align: center; font-family: "D Bar", "Kaisei Decol", serif; font-size: 96px; letter-spacing: .3em; color: #e8b54a; text-shadow: 5px 5px 0 #7f1810; }
 .dbt-bonus .lives { position: absolute; left: 0; right: 0; top: 320px; display: flex; justify-content: center; gap: 18px; }
 .dbt-bonus .lives i { width: 44px; height: 60px; background: #e8b54a; display: block; box-shadow: 0 0 22px rgba(232,181,74,.6); }
 .dbt-bonus .calc { position: absolute; left: 0; right: 0; top: 420px; text-align: center; font-size: 34px; letter-spacing: .2em; color: #d8b26a; }
-.dbt-bonus .plus { position: absolute; left: 0; right: 0; top: 480px; text-align: center; font-family: "Bellefair", serif; font-size: 150px; color: #f4e3b4; }
+.dbt-bonus .plus { position: absolute; left: 0; right: 0; top: 480px; text-align: center; font-family: "Limelight", serif; font-size: 150px; color: #f4e3b4; }
 .dbt-bonus .total { position: absolute; left: 0; right: 0; top: 690px; display: flex; align-items: baseline; justify-content: center; gap: 26px; }
 .dbt-bonus .total .k { font-size: 30px; letter-spacing: .3em; color: #e8b54a; }
-.dbt-bonus .total .v { font-family: "Bellefair", serif; font-size: 110px; line-height: 1; }
+.dbt-bonus .total .v { font-family: "Limelight", serif; font-size: 110px; line-height: 1; }
 .dbt-bonus .back { position: absolute; left: 0; right: 0; margin: 0 auto; bottom: 110px; width: 400px; padding: 20px 0 16px; font-size: 42px; }
 
 /* 隠し戦まで並ぶ時は、卓の札をもう一段小さくする */
@@ -697,10 +697,10 @@
 
 /* ===== 隠しの二人の解放 ===== */
 .dbt-unlock { background: radial-gradient(ellipse at 50% 42%, #3a2154, #0b1122 72%); }
-.dbt-unlock .hd { position: absolute; left: 0; right: 0; top: 96px; text-align: center; font-family: "Kiwi Maru", serif; font-size: 92px; letter-spacing: .4em; color: #e8b54a; text-shadow: 5px 5px 0 #7f1810; }
+.dbt-unlock .hd { position: absolute; left: 0; right: 0; top: 96px; text-align: center; font-family: "D Bar", "Kaisei Decol", serif; font-size: 92px; letter-spacing: .4em; color: #e8b54a; text-shadow: 5px 5px 0 #7f1810; }
 .dbt-unlock .ports { position: absolute; left: 0; right: 0; top: 250px; display: flex; justify-content: center; gap: 60px; }
 .dbt-unlock .ports .dbt-portrait { width: 300px; height: 380px; box-shadow: 0 0 0 3px #e8b54a; }
-.dbt-unlock .t { position: absolute; left: 0; right: 0; top: 680px; text-align: center; font-family: "Kiwi Maru", serif; font-size: 62px; letter-spacing: .12em; }
+.dbt-unlock .t { position: absolute; left: 0; right: 0; top: 680px; text-align: center; font-family: "D Bar", "Kaisei Decol", serif; font-size: 62px; letter-spacing: .12em; }
 .dbt-unlock .s { position: absolute; left: 120px; right: 120px; top: 780px; text-align: center; font-size: 32px; letter-spacing: .12em; line-height: 1.45; color: #d8b26a; }
 .dbt-unlock .back { position: absolute; left: 0; right: 0; margin: 0 auto; bottom: 100px; width: 400px; padding: 20px 0 16px; font-size: 42px; }
 
@@ -721,15 +721,15 @@
 
 /* ===== デバッグ：好きな卓から始める ===== */
 .dbt-debug .shade { background: linear-gradient(180deg, rgba(11,17,34,.92) 0%, rgba(11,17,34,.8) 50%, rgba(11,17,34,.95) 100%); }
-.dbt-debug .hd { position: absolute; left: 0; right: 0; top: 34px; text-align: center; font-family: "Kiwi Maru", serif; font-size: 62px; letter-spacing: .3em; color: #e8b54a; text-shadow: 4px 4px 0 #7f1810; }
+.dbt-debug .hd { position: absolute; left: 0; right: 0; top: 34px; text-align: center; font-family: "D Bar", "Kaisei Decol", serif; font-size: 62px; letter-spacing: .3em; color: #e8b54a; text-shadow: 4px 4px 0 #7f1810; }
 .dbt-debug .sub { position: absolute; left: 0; right: 0; top: 116px; text-align: center; font-size: 24px; letter-spacing: .2em; color: #d8b26a; }
 .dbt-debug .row { position: relative; margin: 0 auto; width: 1680px; display: flex; align-items: center; gap: 24px; padding: 10px 0; }
 .dbt-debug .row:first-of-type { margin-top: 170px; }
-.dbt-debug .row .k { width: 260px; flex: none; text-align: right; font-family: "Kiwi Maru", serif; font-size: 34px; letter-spacing: .1em; }
-.dbt-debug .row .k small { display: block; font-family: "Zen Maru Gothic", sans-serif; font-size: 19px; color: #d8b26a; letter-spacing: .04em; }
+.dbt-debug .row .k { width: 260px; flex: none; text-align: right; font-family: "D Bar", "Kaisei Decol", serif; font-size: 34px; letter-spacing: .1em; }
+.dbt-debug .row .k small { display: block; font-family: "Zen Kaku Gothic New", sans-serif; font-size: 19px; color: #d8b26a; letter-spacing: .04em; }
 .dbt-debug .opts { display: flex; gap: 14px; flex-wrap: wrap; }
-.dbt-debug .cell { padding: 10px 18px 8px; font-family: "Kiwi Maru", serif; font-size: 28px; letter-spacing: .06em; line-height: 1.15; }
-.dbt-debug .cell small { font-family: "Zen Maru Gothic", sans-serif; font-size: 17px; margin-top: 4px; letter-spacing: 0; }
+.dbt-debug .cell { padding: 10px 18px 8px; font-family: "D Bar", "Kaisei Decol", serif; font-size: 28px; letter-spacing: .06em; line-height: 1.15; }
+.dbt-debug .cell small { font-family: "Zen Kaku Gothic New", sans-serif; font-size: 17px; margin-top: 4px; letter-spacing: 0; }
 .dbt-debug .cell.on { background: #d8352a; box-shadow: 0 0 0 3px #e8b54a, 6px 6px 0 0 #7f1810; }
 .dbt-debug .cmds { position: absolute; left: 0; right: 0; bottom: 46px; display: flex; justify-content: center; gap: 50px; }
 .dbt-debug .cmds .dbt-btn { width: 420px; padding: 18px 0 14px; font-size: 40px; }
@@ -739,12 +739,12 @@
 .dbt-skipbtn {
   position: absolute; right: 28px; top: 22px; z-index: 50001;
   width: 200px; padding: 10px 0 8px; font-size: 30px; line-height: 1.1;
-  font-family: "Kiwi Maru", serif; color: #f6efe0; letter-spacing: .12em;
+  font-family: "D Bar", "Kaisei Decol", serif; color: #f6efe0; letter-spacing: .12em;
   background: #1b2a4a; box-shadow: 0 0 0 3px #e8b54a, 6px 6px 0 0 #0b1122;
   text-align: center; cursor: pointer; opacity: .88;
 }
 .dbt-skipbtn:hover { background: #24396b; opacity: 1; }
-.dbt-skipbtn small { display: block; font-family: "Zen Maru Gothic", sans-serif; font-size: 17px; letter-spacing: .06em; margin-top: 3px; }
+.dbt-skipbtn small { display: block; font-family: "Zen Kaku Gothic New", sans-serif; font-size: 17px; letter-spacing: .06em; margin-top: 3px; }
 
 /* ===== 降参の確認（フリー対戦だけ） ===== */
 .dbt-resign .box { width: 820px; }
@@ -759,7 +759,7 @@
   width: 1560px; max-height: 980px; overflow: auto; box-sizing: border-box;
   background: #16233f; box-shadow: 0 0 0 4px #e8b54a; padding: 28px 38px 34px; text-align: center;
 }
-.dbt-exchange .q { font-family: "Kiwi Maru", serif; font-size: 42px; letter-spacing: .1em; color: #f6efe0; }
+.dbt-exchange .q { font-family: "D Bar", "Kaisei Decol", serif; font-size: 42px; letter-spacing: .1em; color: #f6efe0; }
 .dbt-exchange .sub { margin: 8px 0 20px; font-size: 24px; color: #ffdca8; }
 .dbt-exchange .handsec { margin: 18px 0 22px; padding: 14px 18px 18px; background: rgba(11,17,34,.68); box-shadow: inset 0 0 0 2px rgba(232,181,74,.3); }
 .dbt-exchange .handsec .label { margin-bottom: 12px; font-size: 24px; color: #e8b54a; letter-spacing: .12em; }
@@ -767,7 +767,7 @@
 .dbt-mini-card {
   width: 72px; height: 100px; box-sizing: border-box; padding-top: 18px;
   background: #f6efe0; color: #182033; border-radius: 7px; box-shadow: 0 0 0 2px #c08a1e, 2px 4px 8px rgba(0,0,0,.45);
-  font-family: "Bellefair", serif; font-size: 38px; line-height: 1; cursor: default; user-select: none;
+  font-family: "Limelight", serif; font-size: 38px; line-height: 1; cursor: default; user-select: none;
 }
 .dbt-mini-card span { display: block; margin-top: 7px; font-size: 28px; }
 .dbt-mini-card.red { color: #b3262e; }
@@ -776,7 +776,7 @@
 .dbt-mini-card.sel { box-shadow: 0 0 0 5px #d8352a, 0 0 0 8px #e8b54a; transform: translateY(-7px); }
 .dbt-mini-card.demand { box-shadow: 0 0 0 5px #d8352a, 0 0 18px rgba(216,53,42,.75); }
 .dbt-exchange .countrow { display: flex; align-items: center; justify-content: center; gap: 24px; margin: 18px 0; }
-.dbt-exchange .countrow .num { min-width: 110px; font-family: "Bellefair", serif; font-size: 72px; color: #e8b54a; }
+.dbt-exchange .countrow .num { min-width: 110px; font-family: "Limelight", serif; font-size: 72px; color: #e8b54a; }
 .dbt-exchange .countrow .small { min-width: 100px; padding: 10px 0; font-size: 42px; }
 .dbt-exchange .confirm { display: inline-block; min-width: 520px; margin-top: 12px; padding: 16px 28px; font-size: 34px; }
 .dbt-exchange .back { display: inline-block; margin: 14px 0 0 24px; padding: 12px 28px; font-size: 26px; }
@@ -790,7 +790,7 @@
   position: absolute; top: 34px; left: -58px; z-index: 20;
   width: 240px; padding: 12px 0 10px; text-align: center;
   transform: rotate(-45deg); transform-origin: center;
-  font-family: "Kiwi Maru", serif; font-size: 28px; letter-spacing: .18em;
+  font-family: "D Bar", "Kaisei Decol", serif; font-size: 28px; letter-spacing: .18em;
   color: #f6efe0; background: rgba(127,24,16,.95);
   box-shadow: 0 0 0 2px #e8b54a, 0 8px 18px rgba(0,0,0,.35);
   pointer-events: none;
@@ -799,7 +799,7 @@
 .dbt-demoend .shade { background: rgba(11,17,34,.72); }
 .dbt-demoend .t {
   position: absolute; left: 0; right: 0; top: 230px; text-align: center;
-  font-family: "Kiwi Maru", serif; font-size: 112px; letter-spacing: .12em;
+  font-family: "D Bar", "Kaisei Decol", serif; font-size: 112px; letter-spacing: .12em;
   color: #f4e3b4; text-shadow: 6px 6px 0 #4b2a6e, 0 0 35px rgba(232,181,74,.35);
 }
 .dbt-demoend .msg {
@@ -847,7 +847,7 @@
   background-size: 300% 100%; mix-blend-mode: screen;
 }
 .dbt-opening .op-presents {
-  margin-top: 26px; font-family: "Bellefair", "Times New Roman", serif; font-size: 54px;
+  margin-top: 26px; font-family: "Limelight", serif; font-size: 54px;
   color: #f3dfb0; letter-spacing: .62em; padding-left: .62em; opacity: 0;
   text-shadow: 0 3px 0 #2a120a, 0 0 18px rgba(255,190,110,.45);
 }
@@ -963,7 +963,7 @@
 .dbt-opp .peek .pk { font-size: 17px; letter-spacing: .18em; color: #f5a3b8; margin-bottom: 4px; }
 .dbt-opp .peek .chips { display: flex; flex-wrap: wrap; gap: 4px; }
 .dbt-opp.s2 .peek .chips { justify-content: flex-end; }
-.dbt-opp .peek .chip { min-width: 30px; padding: 1px 4px; background: #f6efe0; color: #1b2a4a; font-family: "Bellefair", serif; font-size: 21px; line-height: 1.2; text-align: center; letter-spacing: 0; }
+.dbt-opp .peek .chip { min-width: 30px; padding: 1px 4px; background: #f6efe0; color: #1b2a4a; font-family: "Limelight", serif; font-size: 21px; line-height: 1.2; text-align: center; letter-spacing: 0; }
 .dbt-opp .peek .chip.red { color: #c0392b; }
 
 /* 使うかどうかの確認 */
@@ -971,7 +971,7 @@
 .dbt-ask .sub { font-size: 30px; line-height: 1.5; margin: -6px 0 34px; color: #f6efe0; }
 
 /* 持ち帰る能力を選ぶ画面 */
-.dbt-stock .hd { position: absolute; left: 0; right: 0; top: 70px; text-align: center; font-family: "Kiwi Maru", serif; font-size: 80px; letter-spacing: .3em; color: #e8b54a; text-shadow: 5px 5px 0 #7f1810; }
+.dbt-stock .hd { position: absolute; left: 0; right: 0; top: 70px; text-align: center; font-family: "D Bar", "Kaisei Decol", serif; font-size: 80px; letter-spacing: .3em; color: #e8b54a; text-shadow: 5px 5px 0 #7f1810; }
 .dbt-stock .sub { position: absolute; left: 0; right: 0; top: 196px; text-align: center; font-size: 30px; letter-spacing: .08em; color: #f6efe0; text-shadow: 0 2px 6px #000; }
 .dbt-stock .cur { position: absolute; left: 0; right: 0; top: 250px; text-align: center; font-size: 26px; letter-spacing: .12em; color: #f5a3b8; }
 .dbt-stock .opts { position: absolute; left: 60px; right: 60px; top: 320px; display: flex; justify-content: center; gap: 36px; }
@@ -980,7 +980,7 @@
 .dbt-stock .opt .txt { align-self: stretch; text-align: left; min-height: 230px; }
 .dbt-stock .opt .own { font-size: 20px; letter-spacing: .2em; color: #e8b54a; margin-bottom: 4px; }
 .dbt-stock .opt .skhd { display: flex; align-items: baseline; justify-content: space-between; gap: 14px; }
-.dbt-stock .opt .who { font-family: "Kiwi Maru", serif; font-size: 34px; }
+.dbt-stock .opt .who { font-family: "D Bar", "Kaisei Decol", serif; font-size: 34px; }
 .dbt-stock .opt .use { font-size: 22px; color: #e8b54a; white-space: nowrap; }
 .dbt-stock .opt .ab { margin-top: 8px; font-size: 24px; line-height: 1.5; color: #f6efe0; }
 .dbt-stock .opt .take { padding: 14px 60px; font-size: 32px; }
@@ -996,7 +996,7 @@
 .dbt-gone { max-width: 760px; padding: 6px 10px 8px; background: rgba(11,17,34,.78); box-shadow: 0 0 0 2px #4f7fd8; text-align: center; }
 .dbt-gone .pk { font-size: 17px; letter-spacing: .18em; color: #9fb0d4; margin-bottom: 4px; }
 .dbt-gone .chips { display: flex; flex-wrap: wrap; justify-content: center; gap: 4px; }
-.dbt-gone .chip { min-width: 30px; padding: 1px 4px; background: #f6efe0; color: #1b2a4a; font-family: "Bellefair", serif; font-size: 21px; line-height: 1.2; letter-spacing: 0; }
+.dbt-gone .chip { min-width: 30px; padding: 1px 4px; background: #f6efe0; color: #1b2a4a; font-family: "Limelight", serif; font-size: 21px; line-height: 1.2; letter-spacing: 0; }
 .dbt-gone .chip.red { color: #c0392b; }
 .dbt-stock .opt .stocknote, .subsk .stocknote, .dbt-skills .stocknote { color: #f5a3b8; }
 
@@ -1009,12 +1009,12 @@
 .dbt-exchange .nextrow { display: flex; justify-content: center; align-items: center; gap: 14px; margin: 0 0 6px; }
 .dbt-exchange .nextrow .k { font-size: 22px; letter-spacing: .12em; color: #9fb0d4; margin-right: 6px; }
 .dbt-exchange .nextrow .rk { display: flex; flex-direction: column; align-items: center; min-width: 74px; padding: 4px 8px 6px; background: rgba(11,17,34,.8); box-shadow: 0 0 0 2px rgba(232,181,74,.55); color: #f6efe0; }
-.dbt-exchange .nextrow .rk b { font-family: "Bellefair", serif; font-weight: normal; font-size: 40px; line-height: 1; }
+.dbt-exchange .nextrow .rk b { font-family: "Limelight", serif; font-weight: normal; font-size: 40px; line-height: 1; }
 .dbt-exchange .nextrow .rk small { font-size: 16px; color: #e8b54a; letter-spacing: .08em; }
 .dbt-exchange .nextrow .rk.n0 { background: #d8352a; box-shadow: 0 0 0 2px #ffdca8; }
 .dbt-exchange .nextrow .rk.n0 small { color: #ffdca8; }
 .dbt-mini-card { position: relative; }
-.dbt-mini-card em { position: absolute; left: 50%; bottom: -12px; transform: translateX(-50%); padding: 1px 6px; font-style: normal; font-family: "Kiwi Maru", serif; font-size: 14px; line-height: 1.3; white-space: nowrap; background: #1b2a4a; color: #ffdca8; box-shadow: 0 0 0 1px #e8b54a; }
+.dbt-mini-card em { position: absolute; left: 50%; bottom: -12px; transform: translateX(-50%); padding: 1px 6px; font-style: normal; font-family: "D Bar", "Kaisei Decol", serif; font-size: 14px; line-height: 1.3; white-space: nowrap; background: #1b2a4a; color: #ffdca8; box-shadow: 0 0 0 1px #e8b54a; }
 .dbt-mini-card.soon.n0 em { background: #d8352a; color: #fff; }
 .dbt-exchange .cardgrid { row-gap: 18px; }
 
