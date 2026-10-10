@@ -1207,142 +1207,142 @@
       "        var note = v === 26 ? \"26 cards · Quick\" : \"52 cards · Standard\";"
     ],
     [
-      3510,
+      3536,
       "      root.appendChild(btn(\"とじる\", \"navy back\", function () {",
       "      root.appendChild(btn(\"Close\", \"navy back\", function () {"
     ],
     [
-      3549,
+      3575,
       "      root.appendChild(h(\"div\", \"q\", \"まだ遊ぶかい\"));",
       "      root.appendChild(h(\"div\", \"q\", \"Care to keep playing?\"));"
     ],
     [
-      3552,
+      3578,
       "      root.appendChild(h(\"div\", \"rest\", marks + \"<span>残り</span><b>\" + fv.doubt_lives + \"</b><span>回</span>\"));",
       "      root.appendChild(h(\"div\", \"rest\", marks + \"<span>Remaining </span><b>\" + fv.doubt_lives + \"</b><span></span>\"));"
     ],
     [
-      3553,
+      3579,
       "      root.appendChild(btn(\"つづける<small>同じ相手に、もう一度</small>\", \"red yes\", function () {",
       "      root.appendChild(btn(\"Continue<small>Face the same opponents again</small>\", \"red yes\", function () {"
     ],
     [
-      3561,
+      3587,
       "      root.appendChild(btn(\"あきらめる<small>今日の勝負は、ここでお開き</small>\", \"no\", function () {",
       "      root.appendChild(btn(\"Give Up<small>End today's games here</small>\", \"no\", function () {"
     ],
     [
-      3577,
+      3603,
       "      root.appendChild(h(\"div\", \"t\", \"今日はお開き\"));",
       "      root.appendChild(h(\"div\", \"t\", \"That's All for Today\"));"
     ],
     [
-      3578,
+      3604,
       "      root.appendChild(h(\"div\", \"q\", \"「今日はここまで。<br>また今度おいで、お客人」\"));",
       "      root.appendChild(h(\"div\", \"q\", \"“That's enough for today.<br>Come again, honored guest.”\"));"
     ],
     [
-      3579,
+      3605,
       "      root.appendChild(btn(\"タイトルへ\", \"navy back\", function () {",
       "      root.appendChild(btn(\"Back to Title\", \"navy back\", function () {"
     ],
     [
-      3620,
+      3646,
       "    catch (e) { console.error(\"[doubt] ランキングの保存に失敗しました\", e); }",
       "    catch (e) { console.error(\"[doubt] Rankingの保存に失敗しました\", e); }"
     ],
     [
-      3646,
+      3672,
       "      root.appendChild(h(\"div\", \"sub\", \"名前を入れてください（\" + max + \"文字まで）\"));",
       "      root.appendChild(h(\"div\", \"sub\", \"Enter a name (up to \" + max + \" characters)\"));"
     ],
     [
-      3647,
+      3673,
       "      root.appendChild(h(\"div\", \"sc\", '<span class=\"k\">通算スコア</span><span class=\"v\">' + score.toLocaleString() + \"</span>\"));",
       "      root.appendChild(h(\"div\", \"sc\", '<span class=\"k\">Total Score</span><span class=\"v\">' + score.toLocaleString() + \"</span>\"));"
     ],
     [
-      3688,
+      3714,
       "              else if (c === \"\\u309b\") { label = \"だく\"; cls += \" mark\"; }",
       "              else if (c === \"\\u309b\") { label = \"Voiced\"; cls += \" mark\"; }"
     ],
     [
-      3689,
+      3715,
       "              else if (c === \"\\u309c\") { label = \"はんだく\"; cls += \" mark\"; }",
       "              else if (c === \"\\u309c\") { label = \"Semi-voiced\"; cls += \" mark\"; }"
     ],
     [
-      3698,
+      3724,
       "      var tKana = btn(\"かな\", \"navy tab on\", function () { setTab(0); });",
       "      var tKana = btn(\"Kana\", \"navy tab on\", function () { setTab(0); });"
     ],
     [
-      3713,
+      3739,
       "        resolve(name.replace(/\\u3000+$/, \"\") || \"ななし\");",
       "        resolve(name.replace(/\\u3000+$/, \"\") || \"ANON\");"
     ],
     [
-      3717,
+      3743,
       "      var bDel = btn(\"けす\", \"navy\", function () {",
       "      var bDel = btn(\"Delete\", \"navy\", function () {"
     ],
     [
-      3722,
+      3748,
       "      var bOk = btn(\"きめる\", \"red\", function () { if (name.length) finish(); });",
       "      var bOk = btn(\"Confirm\", \"red\", function () { if (name.length) finish(); });"
     ],
     [
-      3726,
+      3752,
       "      root.appendChild(h(\"div\", \"hint\", \"キーボードでも入力できます（Backspace＝けす／Enter＝きめる）\"));",
       "      root.appendChild(h(\"div\", \"hint\", \"Keyboard input supported (Backspace = delete / Enter = confirm)\"));"
     ],
     [
-      3759,
+      3785,
       "      root.appendChild(h(\"div\", \"sub\", \"アーケードプレイ　通算スコア\"));",
       "      root.appendChild(h(\"div\", \"sub\", \"Arcade · Total Score\"));"
     ],
     [
-      3767,
+      3793,
       "          '<span class=\"nm\">' + (r ? r.n : \"ーーーーー\") + \"</span>\" +",
       "          '<span class=\"nm\">' + (r ? r.n : \"-----\") + \"</span>\" +"
     ],
     [
-      3772,
+      3798,
       "      root.appendChild(btn(\"タイトルへ\", \"navy back\", function () {",
       "      root.appendChild(btn(\"Back to Title\", \"navy back\", function () {"
     ],
     [
-      3823,
+      3849,
       "      root.appendChild(h(\"div\", \"t\", \"体験版はここまで\"));",
       "      root.appendChild(h(\"div\", \"t\", \"End of Demo\"));"
     ],
     [
-      3825,
+      3851,
       "        \"愛理と和人との第一戦を遊んでいただき、ありがとうございます。<br>\" +",
       "        \"Thank you for playing the first match against Airi and Kazuto.<br>\" +"
     ],
     [
-      3826,
+      3852,
       "        \"舞黒館では、まだ別の参加者たちが待っています。\"));",
       "        \"More challengers are waiting for you at Maicro House.\"));"
     ],
     [
-      3827,
+      3853,
       "      root.appendChild(btn(\"タイトルへ\", \"navy back\", function () {",
       "      root.appendChild(btn(\"Back to Title\", \"navy back\", function () {"
     ],
     [
-      3848,
+      3874,
       "      root.appendChild(h(\"div\", \"t\", \"全戦突破\"));",
       "      root.appendChild(h(\"div\", \"t\", \"ALL MATCHES CLEARED\"));"
     ],
     [
-      3849,
+      3875,
       "      root.appendChild(h(\"div\", \"s\", \"通算スコア\"));",
       "      root.appendChild(h(\"div\", \"s\", \"Total Score\"));"
     ],
     [
-      3851,
+      3877,
       "      root.appendChild(btn(\"つぎへ\", \"navy back\", function () {",
       "      root.appendChild(btn(\"Next\", \"navy back\", function () {"
     ]

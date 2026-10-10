@@ -1033,3 +1033,14 @@ body .message0_fore .tyrano_chara::after, body .message0_back .tyrano_chara::aft
 /* VS：全面に広げた右の枠が、左の立ち絵のクリックを奪わないように */
 .dbt-vs .right { pointer-events: none; }
 .dbt-vs .right .dbt-portrait { pointer-events: auto; }
+
+/* 設定：BGMの項目を足したので、5項目が一画面に収まるよう詰める */
+.dbt-settings .hd-wrap { top: 26px; }
+.dbt-settings .item.level, .dbt-settings.dbt-en .item.level { top: 118px; height: 172px; }
+.dbt-settings .item.rounds, .dbt-settings.dbt-en .item.rounds { top: 304px; height: 130px; }
+.dbt-settings .item.maxplay, .dbt-settings.dbt-en .item.maxplay { top: 448px; height: 130px; }
+.dbt-settings .item.decksize, .dbt-settings.dbt-en .item.decksize { top: 592px; height: 130px; }
+.dbt-settings .item.bgm, .dbt-settings.dbt-en .item.bgm { top: 736px; height: 130px; }
+.dbt-settings .item .d { margin-top: 6px; line-height: 1.65; }
+.dbt-settings .cell, .dbt-settings .dbt-btn.cell, .dbt-settings.dbt-en .dbt-btn.cell { height: 88px; }
+.dbt-settings .item.level .cell.wide, .dbt-settings.dbt-en .item.level .dbt-btn.cell.wide { height: 124px; }

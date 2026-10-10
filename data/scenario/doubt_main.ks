@@ -35,9 +35,11 @@
 [doubt_round_init]
 
 *arcade_battle
-; 最終戦と隠し戦は専用のBGM
-@playbgm storage="boss_battle.mp3" cond="f.doubt_stage>=4"
-@playbgm storage="card.mp3" cond="f.doubt_stage<4"
+; 最終戦と隠し戦は専用のBGM。設定の「対戦中のBGM」がパターン2（sf.doubt_bgm==2）なら別アレンジ
+@playbgm storage="boss_battle.mp3" cond="f.doubt_stage>=4 && sf.doubt_bgm!=2"
+@playbgm storage="boss_battle_ver2.mp3" cond="f.doubt_stage>=4 && sf.doubt_bgm==2"
+@playbgm storage="card.mp3" cond="f.doubt_stage<4 && sf.doubt_bgm!=2"
+@playbgm storage="card_ver2.mp3" cond="f.doubt_stage<4 && sf.doubt_bgm==2"
 [doubt_vs pair="&f.doubt_stage"]
 [doubt_battle pair="&f.doubt_stage"]
 ; 対戦中に「中断」した。中断データは [doubt_battle] が保存済みなので、タイトルへ戻る
@@ -163,9 +165,11 @@
 [jump target="*simple_select" cond="f.doubt_borrow_back"]
 
 *simple_battle
-; 最終戦のペアを選んだ時だけ専用のBGM
-@playbgm storage="boss_battle.mp3" cond="f.doubt_pair==4"
-@playbgm storage="card.mp3" cond="f.doubt_pair!=4"
+; 最終戦のペアを選んだ時だけ専用のBGM。パターン2なら別アレンジ
+@playbgm storage="boss_battle.mp3" cond="f.doubt_pair==4 && sf.doubt_bgm!=2"
+@playbgm storage="boss_battle_ver2.mp3" cond="f.doubt_pair==4 && sf.doubt_bgm==2"
+@playbgm storage="card.mp3" cond="f.doubt_pair!=4 && sf.doubt_bgm!=2"
+@playbgm storage="card_ver2.mp3" cond="f.doubt_pair!=4 && sf.doubt_bgm==2"
 [doubt_vs pair="&f.doubt_pair"]
 [doubt_battle pair="&f.doubt_pair"]
 ; フリー対戦は結果画面を出さず、決着の表示だけで相手選びに戻る
@@ -174,7 +178,8 @@
 
 *simple_demo
 [eval exp="f.doubt_pair = 0"]
-@playbgm storage="card.mp3"
+@playbgm storage="card.mp3" cond="sf.doubt_bgm!=2"
+@playbgm storage="card_ver2.mp3" cond="sf.doubt_bgm==2"
 [doubt_vs pair="0"]
 [doubt_battle pair="0"]
 @playbgm storage="title.mp3"

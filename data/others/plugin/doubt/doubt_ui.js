@@ -3507,6 +3507,32 @@
       root.appendChild(deckBox);
       chooseDeckSize(deckNow);
 
+      // ---- 対戦中のBGM（パターン1：card / boss_battle、パターン2：card_ver2 / boss_battle_ver2）----
+      //   sf.doubt_bgm に 1 か 2 を残す。doubt_main.ks の [playbgm] がこの値で曲を選ぶ
+      var bgmNow = 1;
+      try { bgmNow = parseInt(sysVar().doubt_bgm, 10) === 2 ? 2 : 1; } catch (e) {}
+      var bgmBox = h("div", "item bgm");
+      bgmBox.appendChild(h("div", "k", tr("対戦中のBGM", "Battle Music")));
+      bgmBox.appendChild(h("div", "d", tr("ダウト中に流れる曲を選べます。パターン2は別アレンジの曲になります。",
+        "Choose the music played during matches. Pattern 2 uses alternate arrangements.")));
+      var bgmOpts = h("div", "opts");
+      var bgmCells = [];
+      function chooseBgm(v) {
+        bgmNow = v;
+        try { TYRANO.kag.variable.sf.doubt_bgm = v; TYRANO.kag.saveSystemVariable(); }
+        catch (e) { console.error("[doubt] BGM setting could not be saved", e); }
+        bgmCells.forEach(function (c) { c.classList.toggle("on", c._v === v); });
+      }
+      [[1, tr("パターン1", "Pattern 1"), tr("いつもの曲", "Original")], [2, tr("パターン2", "Pattern 2"), tr("別アレンジ", "Alternate")]].forEach(function (o) {
+        var c = btn(o[1] + "<small>" + o[2] + "</small>", "navy cell wide", function () { chooseBgm(o[0]); });
+        c._v = o[0];
+        bgmCells.push(c);
+        bgmOpts.appendChild(c);
+      });
+      bgmBox.appendChild(bgmOpts);
+      root.appendChild(bgmBox);
+      chooseBgm(bgmNow);
+
       root.appendChild(btn("とじる", "navy back", function () {
         handoffRoot(root);
         resolve();
