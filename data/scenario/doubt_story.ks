@@ -8,13 +8,13 @@
 [deffont size="40" color="0x1f2a4d" face="Zen Kaku Gothic New"]
 [resetfont]
 [layopt layer="message0" visible="true"]
-; 物語を飛ばすボタンを出す（押すとスキップに入り、*finish の [skipstop] で止まる）
+; 物語を飛ばすボタンを出す（押すとスキップに入り、*finish の [skipstop] で止まる。プロローグから第1卓の会話へはスキップを続ける）
 [doubt_skip show="true"]
 [return]
 
 *finish
 [doubt_skip show="false"]
-[skipstop]
+[skipstop cond="!tf.doubt_keep_skip"][eval exp="tf.doubt_keep_skip=false"]
 [cm]
 [layopt layer="message0" visible="false"]
 [freeimage layer="base" time="300"]
@@ -188,7 +188,7 @@
 @chara_hide_all
 @reset_message_chara
 
-[call target="*finish"]
+[eval exp="tf.doubt_keep_skip=true"][call target="*finish"]
 [return]
 
 ;--------------------------------------------------

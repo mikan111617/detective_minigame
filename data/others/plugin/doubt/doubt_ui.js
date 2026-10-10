@@ -3101,19 +3101,55 @@
     document.querySelectorAll(".dbt-root").forEach(closeRoot);
 
     var base = document.querySelector(".tyrano_base") || document.body;
-    var b = h("div", "dbt-skipbtn dbt-btn navy", "スキップ<small>物語を飛ばす</small>");
-    b.insertBefore(h("span", "ff", "▶▶"), b.querySelector("small"));
+    var b = h("div", "dbt-skipbtn dbt-btn navy", "");
+    // ボタンは押した後も残す。スキップ中は「押すと止まる」表示になり、
+    // 画面クリックなどでスキップが解除されたら、また「スキップ」に戻る。
+    // mousedown を本体まで届けると、押した瞬間に本体側がスキップを解除してしまうので止める。
+    b.addEventListener("mousedown", function (ev) { ev.stopPropagation(); });
+    b.addEventListener("touchstart", function (ev) { ev.stopPropagation(); });
     b.addEventListener("click", function (ev) {
       ev.stopPropagation();
-      if (b.parentNode) b.parentNode.removeChild(b);
+      var kag = TYRANO.kag;
       try {
-        // 文字を出している最中は skipstart が弾かれるので、本体と同じ手順で入る
-        if (TYRANO.kag.stat.is_adding_text) TYRANO.kag.setSkip(true, {});
-        else TYRANO.kag.ftag.startTag("skipstart", {});
-      } catch (e) { console.error("[doubt] スキップに入れませんでした", e); }
+        if (kag.stat.is_skip === true) {
+          kag.setSkip(false);
+        } else {
+          // 文字を出している最中は skipstart が弾かれるので、本体と同じ手順で入る
+          if (kag.stat.is_adding_text) kag.setSkip(true, {});
+          else kag.ftag.startTag("skipstart", {});
+        }
+      } catch (e) { console.error("[doubt] スキップを切り替えられませんでした", e); }
+      syncSkipBtn();
     });
     base.appendChild(b);
+    syncSkipBtn();
+    bindSkipSync();
   });
+
+  function syncSkipBtn() {
+    var b = document.querySelector(".dbt-skipbtn");
+    if (!b) return;
+    var on = !!(window.TYRANO && TYRANO.kag && TYRANO.kag.stat.is_skip === true);
+    if (b.getAttribute("data-on") === (on ? "1" : "0")) return;
+    b.setAttribute("data-on", on ? "1" : "0");
+    b.classList.toggle("on", on);
+    b.innerHTML = "";
+    b.appendChild(document.createTextNode(on ? tr("スキップ中", "Skipping") : tr("スキップ", "Skip")));
+    b.appendChild(h("span", "ff", on ? "■" : "▶▶"));
+    b.appendChild(h("small", "", on ? tr("押すと止まる", "Press to stop") : tr("物語を飛ばす", "Skip story scenes")));
+  }
+
+  // スキップの開始・解除を本体のイベントで拾ってボタン表示を合わせる（登録は一度だけ）
+  var skipSyncBound = false;
+  function bindSkipSync() {
+    if (skipSyncBound) return;
+    try {
+      if (TYRANO.kag && typeof TYRANO.kag.on === "function") {
+        TYRANO.kag.on("skip-start skip-stop", function () { setTimeout(syncSkipBtn, 0); });
+        skipSyncBound = true;
+      }
+    } catch (e) { console.error("[doubt] スキップ表示の同期を登録できませんでした", e); }
+  }
 
   // ---------------------------------------------------------------- デバッグ
   //   アーケードの好きな卓から始める。通算スコアと残機も決められるので、
