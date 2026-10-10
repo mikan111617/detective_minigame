@@ -111,13 +111,6 @@
 [chara_face name="reido" face="regrettable"  storage="chara/reido/regrettable.png"]
 [chara_face name="reido" face="apologize"  storage="chara/reido/apologize.png"]
 
-;クロエ
-[chara_new name="chroe" jname="クロエ" storage="chara/chroe/normal.png" width="600"]
-[chara_face name="chroe" face="normal"  storage="chara/chroe/normal.png"]
-; chara/chroe/smile.png が未作成のため一旦コメントアウト（台本での使用も無し）。
-; 画像を追加したら復帰させること。
-;[chara_face name="chroe" face="smile"  storage="chara/chroe/smile.png"]
-
 ;隠しの二人（名前は出さず、呼び名だけで通す）
 @chara_new name="arther" jname="英国の青年" storage="chara/arther/normal.png"
 [chara_face name="arther" face="normal"  storage="chara/arther/normal.png"]
